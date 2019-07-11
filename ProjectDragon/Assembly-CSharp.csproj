@@ -83,6 +83,8 @@
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\ReliableChannel.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SequencedChannel.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SimpleChannel.cs" />
+    <Compile Include="Assets\JoyPad.cs" />
+    <Compile Include="Assets\NGUI\RobotsNGUI\UIJoystick.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\EnvelopContent.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\LanguageSelection.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\TypewriterEffect.cs" />
@@ -195,7 +197,11 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
-    <Compile Include="Assets\Scripts\PlayerCharacter.cs" />
+    <Compile Include="Assets\Scripts\Character\PlayerCharacter.cs" />
+    <Compile Include="Assets\Scripts\Character\PlayerSkill.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
+    <Compile Include="Assets\Scripts\JoyStickController\JoyStick.cs" />
+    <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
     <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
@@ -216,6 +222,7 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+    <None Include="Assets\NGUI\RobotsNGUI\joysticktest\joyatlas.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
