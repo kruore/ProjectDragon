@@ -3,6 +3,7 @@ using System.Collections;
 /// <summary>
 /// Allows dragging of the specified target object by mouse or touch, optionally limiting it to be within the UIPanel's clipped rectangle.
 /// </summary>
+#pragma warning disable 0168
 
 [AddComponentMenu("NGUI/Interaction/Drag Object")]
 public class UIJoystick : MonoBehaviour {
@@ -84,8 +85,9 @@ public class UIJoystick : MonoBehaviour {
 				}
 				lastTapTime = Time.time;
 				//set Joystick to fingertouchposition
-				Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
-				float dist = 0f;
+				//Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
+                Ray ray = UICamera.currentCamera.ScreenPointToRay(Input.mousePosition);
+                float dist = 0f;
 				
 				Vector3 currentPos = ray.GetPoint(dist);
 				currentPos.z = 0;
@@ -114,8 +116,9 @@ public class UIJoystick : MonoBehaviour {
 
 	void OnDrag (Vector2 delta)
 	{
-		//Debug.Log("delta " +  delta + " delta.magnitude = " + delta.magnitude);
-		Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
+        //Debug.Log("delta " +  delta + " delta.magnitude = " + delta.magnitude);
+        //Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
+        Ray ray = UICamera.currentCamera.ScreenPointToRay(Input.mousePosition);
 		float dist = 0f;
 		
 		Vector3 currentPos = ray.GetPoint(dist);

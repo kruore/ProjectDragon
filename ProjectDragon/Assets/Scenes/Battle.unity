@@ -1418,7 +1418,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_bDebugMode: 1
-  m_horizontalViewAngle: 0
+  m_horizontalViewAngle: 182
   m_viewRadius: 1
   m_viewRotateZ: 0
   m_viewTargetMask:
