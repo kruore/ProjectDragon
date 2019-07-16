@@ -1,0 +1,148 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 125b9f6e6906d6e4897a443b3c12729c, type: 3}
+  m_Name: UI
+  m_EditorClassIdentifier: 
+  material: {fileID: 2100000, guid: 06e21a362efd0b74a971f59b3f3f89b2, type: 2}
+  mSprites:
+  - name: "\uB9C8\uB098\uBC14"
+    x: 0
+    y: 782
+    width: 478
+    height: 242
+    borderLeft: 30
+    borderRight: 30
+    borderTop: 30
+    borderBottom: 30
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: "\uBC30\uD2C0"
+    x: 0
+    y: 376
+    width: 190
+    height: 196
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 38
+    paddingRight: 28
+    paddingTop: 28
+    paddingBottom: 32
+  - name: "\uC2A4\uD0AC"
+    x: 213
+    y: 402
+    width: 206
+    height: 185
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 28
+    paddingRight: 22
+    paddingTop: 40
+    paddingBottom: 31
+  - name: "\uC5F4\uB9B0\uCC45"
+    x: 699
+    y: 798
+    width: 253
+    height: 226
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 3
+    paddingRight: 0
+    paddingTop: 22
+    paddingBottom: 8
+  - name: "\uC635\uC158"
+    x: 729
+    y: 569
+    width: 245
+    height: 228
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 8
+    paddingRight: 3
+    paddingTop: 8
+    paddingBottom: 20
+  - name: "\uC81C\uC791"
+    x: 213
+    y: 588
+    width: 210
+    height: 193
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 18
+    paddingRight: 28
+    paddingTop: 31
+    paddingBottom: 32
+  - name: "\uC81C\uC791_\uD074\uB9AD"
+    x: 479
+    y: 819
+    width: 219
+    height: 205
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 34
+    paddingRight: 3
+    paddingTop: 19
+    paddingBottom: 32
+  - name: "\uCC44\uC9D1"
+    x: 0
+    y: 573
+    width: 212
+    height: 208
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 24
+    paddingRight: 20
+    paddingTop: 23
+    paddingBottom: 25
+  - name: "\uCC44\uC9D1\uBC00\uAE30"
+    x: 479
+    y: 587
+    width: 249
+    height: 210
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 4
+    paddingRight: 3
+    paddingTop: 22
+    paddingBottom: 24
+  - name: "\uD06C\uB9AC\uC2A4\uD0C8"
+    x: 420
+    y: 382
+    width: 164
+    height: 204
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 48
+    paddingRight: 44
+    paddingTop: 28
+    paddingBottom: 24
+  mPixelSize: 1
+  mReplacement: {fileID: 0}
