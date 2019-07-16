@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 4746271711286800879}
   - component: {fileID: 4746271711286800876}
   - component: {fileID: 4746271711286800881}
-  - component: {fileID: 4746271711286800880}
   - component: {fileID: 4746271711286800883}
   m_Layer: 0
   m_Name: MaleCharacter
@@ -80,7 +79,7 @@ SpriteRenderer:
   m_Size: {x: 1.6, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &4746271711286800876
@@ -93,7 +92,7 @@ Animator:
   m_GameObject: {fileID: 4746271711286800877}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d160182c8e4c0d84184d156dee0a7325, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -128,26 +127,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.6032613, y: 0.77271247}
   m_EdgeRadius: 0
---- !u!114 &4746271711286800880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4746271711286800877}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d267675abe146d429fa579ca54df40c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerAnimationStateChanger: {fileID: 0}
-  horizontalSpeed: 5
-  verticalSpeed: 5
-  playerControllerVec: {x: 0, y: 0}
-  rigidbody2d: {fileID: 0}
-  joypadinput: {fileID: 0}
-  joystickPos: {x: 0, y: 0, z: 0}
-  normalVec: {x: 1, y: 0, z: 0}
 --- !u!50 &4746271711286800883
 Rigidbody2D:
   serializedVersion: 4

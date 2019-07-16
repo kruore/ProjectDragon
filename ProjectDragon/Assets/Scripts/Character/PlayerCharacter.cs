@@ -22,6 +22,9 @@ public class PlayerCharacter : MonoBehaviour
     public Vector3 joystickPos;
     public Vector3 normalVec = new Vector3(-765, -355, 0);
 
+    //EnemyDistance Check
+    public Transform other;
+
 
     //PlayerHP
     public int PLAYERHP = 100;
@@ -29,7 +32,8 @@ public class PlayerCharacter : MonoBehaviour
     public int ATKSPEED = 1;
     public bool isAttacking = false;
 
-
+    public float attackRange;
+    public Vector3 enemyPosition;
 
     void Start()
     {
@@ -55,8 +59,8 @@ public class PlayerCharacter : MonoBehaviour
 
         //Angle of joystick and normalVec
         float Angle = GetAngle(joystickPos, normalVec);
-        Debug.Log(Angle);
         MoveAnimationChanger(Angle);
+        DistanceCheck();
     }
 
     public void MaleCharacterMove(string animationtype)
@@ -108,11 +112,12 @@ public class PlayerCharacter : MonoBehaviour
         {
             MaleCharacterMove(PlayerMoveAnimation.MaleCharacterMoveRight.ToString());
         }
-        
+
     }
 
     #region HPControll
-    public int HP {
+    public int HP
+    {
         get
         {
             return PLAYERHP;
@@ -147,12 +152,12 @@ public class PlayerCharacter : MonoBehaviour
         set
         {
 
-             ATK = value;
+            ATK = value;
         }
     }
     public int ATKChanger(int attackDamage)
     {
-        ATK=ATK+ attackDamage;
+        ATK = ATK + attackDamage;
         return ATK;
     }
     #endregion
@@ -182,8 +187,24 @@ public class PlayerCharacter : MonoBehaviour
     {
         isAttacking = true;
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(ATTACKSPEED);
+        isAttacking = false;
+    }
+    public void DistanceCheck()
+    {
+    float closeDistance = 1.0f;
+
+        if (other)
+        {
+            Vector3 offset = other.position - transform.position;
+            float sqrLen = offset.sqrMagnitude;
+
+            if(sqrLen < closeDistance * closeDistance)
+            {
+                StartCoroutine("Attack");
+            }
+        }
     }
     #endregion
-}
 
+}
