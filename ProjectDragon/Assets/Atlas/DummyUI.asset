@@ -32,10 +32,10 @@ MonoBehaviour:
     y: 391
     width: 42
     height: 34
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
+    borderLeft: 5
+    borderRight: 5
+    borderTop: 5
+    borderBottom: 5
     paddingLeft: 2
     paddingRight: 2
     paddingTop: 2

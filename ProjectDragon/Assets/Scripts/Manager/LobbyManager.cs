@@ -9,10 +9,13 @@ public class LobbyManager : MonoBehaviour
     public GameObject[] Equipobject= new GameObject[2];
     GameObject particle;
     public GameObject ObjectPool,Fireobject;
+    public GameObject Filterobject, Arrangementobject;
     public AudioClip fire;
+    public UISpriteAnimation anim;
     private void Awake()
     {
         inst = this;
+        
     }
     // Start is called before the first frame update
     void Start()
@@ -24,7 +27,6 @@ public class LobbyManager : MonoBehaviour
         }
         else
         {
-
         }
     }
 
