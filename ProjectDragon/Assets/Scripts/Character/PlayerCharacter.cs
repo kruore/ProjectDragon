@@ -21,6 +21,7 @@ public class PlayerCharacter : MonoBehaviour
     public GameObject joypadinput;
     public Vector3 joystickPos;
     public Vector3 normalVec = new Vector3(-765, -355, 0);
+    public float closeDistance;
 
     //EnemyDistance Check
     public Transform other;
@@ -192,7 +193,7 @@ public class PlayerCharacter : MonoBehaviour
     }
     public void DistanceCheck()
     {
-    float closeDistance = 1.0f;
+    closeDistance = 1.0f;
 
         if (other)
         {

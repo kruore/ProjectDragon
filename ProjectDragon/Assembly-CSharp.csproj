@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\BattleManager.cs" />
     <Compile Include="Assets\ConsolePro\ConsoleProDebug.cs" />
     <Compile Include="Assets\ConsolePro\Remote\ConsoleProRemoteServer.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\FastBitConverter.cs" />
@@ -201,6 +202,8 @@
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerSkill.cs" />
+    <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
+    <Compile Include="Assets\Scripts\Enemy\TestMonster.cs" />
     <Compile Include="Assets\Scripts\Interface.cs" />
     <Compile Include="Assets\Scripts\JoyStickController\JoyStick.cs" />
     <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />

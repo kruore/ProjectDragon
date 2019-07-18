@@ -15,3 +15,7 @@ public interface PersonalSpecificational
     float MoveSpeed { get; set; }
     int HP { get; set; }
 }
+public interface GameSkill
+{
+
+}
