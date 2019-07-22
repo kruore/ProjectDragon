@@ -68,7 +68,7 @@ public class Player : Character
         //Angle of joystick and normalVec
         float Angle = GetAngle(joystickPos, normalVec);
         AnimationChanger(Angle);
-        Debug.Log(Angle);
+        //Debug.Log(Angle);
     }
     IEnumerator DeadFade()
     {
@@ -250,6 +250,7 @@ public class Player : Character
 
                 case State.ATTACK:
                     weaponSelection.SetActive(true);
+                  //  CharacterAnimator("MaleArcherManAttack" + AngleCalculate(angle));
                     if (angle == 0)
                     {
 

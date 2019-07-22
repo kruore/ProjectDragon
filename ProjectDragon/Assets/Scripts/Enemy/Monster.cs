@@ -10,10 +10,17 @@ public class Monster : Character
     public string monsterName;
     public Animator objectAnimator;
     protected EnemyPos enemyPos;
+    public float moveDistance;
+ 
+
+    //플레이어와 적과의 거리 캐스팅
+    public float distanceOfPlayer;
+    public float angleOfPlayer;
     // Start is called before the first frame update
     void Start()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
+        
     }
 
     // Update is called once per frame
@@ -29,29 +36,5 @@ public class Monster : Character
             yield return new WaitForSeconds(skillCoolDown);
         }
         yield return new WaitForSeconds(0);
-    }
-    public void MonsterAnimaionSetting(string monsterName)
-    {
-        switch(enemyPos)
-        {
-            case EnemyPos.Front :
-                objectAnimator.Play(monsterName + "Front");
-                break;
-            case EnemyPos.Right:
-                objectAnimator.Play(monsterName + "Right");
-                break;
-            case EnemyPos.RightSide:
-                objectAnimator.Play(monsterName + "RightSide");
-                break;
-            case EnemyPos.Left:
-                objectAnimator.Play(monsterName + "Left");
-                break;
-            case EnemyPos.LeftSide:
-                objectAnimator.Play(monsterName + "LeftSide");
-                break;
-            case EnemyPos.Up:
-                objectAnimator.Play(monsterName + "Up");
-                break;
-        }
     }
 }

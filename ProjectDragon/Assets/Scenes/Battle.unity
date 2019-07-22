@@ -2036,6 +2036,9 @@ MonoBehaviour:
   IsSkillActive: 0
   monsterName: 
   objectAnimator: {fileID: 0}
+  moveDistance: 0
+  distanceOfPlayer: 0
+  angleOfPlayer: 0
 --- !u!114 &1007819779
 MonoBehaviour:
   m_ObjectHideFlags: 0

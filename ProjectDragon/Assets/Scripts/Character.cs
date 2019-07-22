@@ -19,6 +19,13 @@ public class Character : MonoBehaviour,PersonalSpecificational
     public Vector3 myPos;
     public Vector3 myRotat;
 
+
+    public enum AnglePos
+    {
+        None = 0, Front, Right, RightSide, Up, LeftSide, Left
+    }
+
+
     // TODO : 이건 적이나 플레이어에게만 규정할 것 (스킬이 존재하고 있는)
     //[SerializeField] private float skillCoolDown;
     //[SerializeField] private float skillRange;
@@ -151,4 +158,43 @@ public class Character : MonoBehaviour,PersonalSpecificational
         return atkRange;
     }
     #endregion
+    public string AngleCalculate(float angle)
+    {
+        if (angle == 0)
+        {
+
+        }
+        if (angle < 22.5)
+        {
+            return "Front";
+        }
+        else if (angle < 112.5)
+        {
+            return "Right";
+        }
+        else if (angle < 112.5 + 45)
+        {
+            return "RightSide";
+        }
+        else if (angle < 112.5 + 90)
+        {
+            return "Up";
+        }
+        else if (angle < 112.5 + 135)
+        {
+            return "LeftSide";
+        }
+        else if (angle < 112.5 + 180)
+        {
+            return "Left";
+        }
+        else
+        {
+            return "Front";
+        }
+    }
+    public void AnimatorCast(string animationtype)
+    {
+        gameObject.GetComponent<Animator>().Play(animationtype);
+    }
 }
