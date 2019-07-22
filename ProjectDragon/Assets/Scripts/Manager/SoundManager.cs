@@ -24,9 +24,9 @@ public class SoundManager : Singleton<SoundManager> {
     /// 배경음 재생 SoundManager.Inst.Ds_BgmPlayer(Audio ***);
     /// </summary>
     /// <param name="clip"></param>
-    public void Ds_BgmPlayer(AudioClip clip)
+    public void Ds_BgmPlayer(AudioClip _clip)
     {
-        Ds_musicSource.clip = clip;
+        Ds_musicSource.clip = _clip;
         Ds_musicSource.Play();
         Ds_musicSource.volume = Ds_volumeRange;
     }
@@ -34,9 +34,9 @@ public class SoundManager : Singleton<SoundManager> {
     /// 하나의 효과음재생 SoundManager.Inst.PlaySingle(Audio ***);
     /// </summary>
     /// <param name="clip"></param>
-    public void Ds_PlaySingle(AudioClip clip)
+    public void Ds_PlaySingle(AudioClip _clip)
     {
-        Ds_efxSource.clip = clip;
+        Ds_efxSource.clip = _clip;
         Ds_efxSource.Play();
         Ds_efxSource.volume = Ds_volumeRange;
     }
@@ -44,10 +44,10 @@ public class SoundManager : Singleton<SoundManager> {
     /// 여러개의 효과음중 하나만 재생하고 싶을때 SoundManager.Inst.RandomizeSfx(Audio***,*** ...);
     /// </summary>
     /// <param name="clips">랜덤하게 재생할 오디오클립의 배열</param>
-    public void Ds_RandomizeSfx(params AudioClip[]clips)
+    public void Ds_RandomizeSfx(params AudioClip[] _clips)
     {
-        int randomIndex = Random.Range(0, clips.Length);
-        Ds_efxSource.clip = clips[randomIndex];
+        int randomIndex = Random.Range(0, _clips.Length);
+        Ds_efxSource.clip = _clips[randomIndex];
         Ds_efxSource.Play();
         Ds_efxSource.volume = Ds_volumeRange;
 

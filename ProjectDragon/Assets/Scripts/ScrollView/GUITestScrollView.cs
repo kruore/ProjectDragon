@@ -29,7 +29,14 @@ public class GUITestScrollView : MonoBehaviour
             EuipmentcellData cell = new EuipmentcellData();
 			cell.Index = i;
 			cell.ImgName = string.Format( "name:{0}", i );
-
+            cell.name = string.Format("name:{0}", i);
+            cell.m_power=0;
+            cell.equip = false;
+            cell.enchantlevel = 0;
+            if(i==1||i==3)
+            {
+                cell.equip = true;
+            }
 			grid.AddItem( cell, false );
         }
 		grid.UpdateAllCellData();
@@ -38,10 +45,10 @@ public class GUITestScrollView : MonoBehaviour
 	#region Event
 	public void EV_Add()
 	{
-		//ItemCellData cell = new ItemCellData();
-		//cell.Index = grid.MaxCellData;
-		//cell.ImgName = string.Format( "name:{0}", cell.Index );
-		//grid.AddItem( cell, true );
+        EuipmentcellData cell = new EuipmentcellData();
+		cell.Index = grid.MaxCellData;
+		cell.ImgName = string.Format( "name:{0}", cell.Index );
+		grid.AddItem( cell, true );
 	}
 
 	public void EV_Remove()
