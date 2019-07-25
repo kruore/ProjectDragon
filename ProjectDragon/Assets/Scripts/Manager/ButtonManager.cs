@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public static class ButtonManager
 {
+    #region public
     /// <summary>
-    /// 핸드폰에서의 취소버튼을 한번 눌렀을시 동작하게 할 함수 "이전동작으로 돌아가기"
+    /// 핸드폰에서의 취소버튼을 한번 눌렀을시 동작하게 할 함수 "이전동작으로 돌아가기",닫기버튼에서도 동일동작할것.
     /// </summary>
     public static void TouchBackButton()
     {
@@ -51,6 +52,64 @@ public static class ButtonManager
             SceneManager.LoadScene("Main");
         }
     }
+    /// <summary>
+    /// SetActiveObject에있는 activeobject모두켜기,deactiveobject모두끄기
+    /// </summary>
+    public static void ObjectlistControl()
+    {
+        if (UIButton.current.gameObject.GetComponent<SetActiveObject>() != null)
+        {
+            SetActiveObject objectlistscirpt = UIButton.current.gameObject.GetComponent<SetActiveObject>();
+            
+            foreach (GameObject obj in objectlistscirpt.activeObject)
+            {
+                obj.SetActive(true);
+            }
+            foreach (GameObject obj in objectlistscirpt.deactiveObject)
+            {
+                obj.SetActive(false);
+            }
+            objectlistscirpt.objectset = !objectlistscirpt.objectset;
+        }
+        else
+        {
+            Debug.LogError("SetActiveObject가 없어요.");
+        }
+    }
+    /// <summary>
+    /// SetActiveObject안의 값을 이용하여 특정 오브젝트를 끄고 켜기
+    /// </summary>
+    /// <param name="setting">true값이라면 항상activeobject켜고 deactiveobject끄기 false라면 activeobject만 끄기 </param>
+    public static void ObjectlistControl(bool setting)
+    {
+        if (UIButton.current.gameObject.GetComponent<SetActiveObject>() != null)
+        {
+            SetActiveObject objectlistscirpt = UIButton.current.gameObject.GetComponent<SetActiveObject>();
+            if (setting)
+            {
+                foreach (GameObject obj in objectlistscirpt.activeObject)
+                {
+                    obj.SetActive(true);
+                }
+                foreach (GameObject obj in objectlistscirpt.deactiveObject)
+                {
+                    obj.SetActive(false);
+                }
+            }
+            else
+            {
+                foreach (GameObject obj in objectlistscirpt.activeObject)
+                {
+                    obj.SetActive(false);
+                }
+            }
+        }
+        else
+        {
+            Debug.Log("SetActiveObject가 없어요.");
+        }
+    }
+    #endregion
     /// <summary>
     /// 로비씬전환
     /// </summary>

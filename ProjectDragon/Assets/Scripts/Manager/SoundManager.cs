@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundManager : Singleton<SoundManager> {
+public class SoundManager : MonoSingleton<SoundManager> {
     public AudioSource Ds_efxSource;//효과음
     public AudioSource Ds_musicSource;//배경음악
     public Slider Ds_soundslider;//옵션.사운드조절바

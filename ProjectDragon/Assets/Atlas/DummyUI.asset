@@ -1080,7 +1080,7 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
-  - name: "\uC804\uD22C"
+  - name: test
     x: 537
     y: 83
     width: 55

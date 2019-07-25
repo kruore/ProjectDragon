@@ -5,8 +5,7 @@ using UnityEngine;
 public class LobbyManager : MonoBehaviour
 {
     public static LobbyManager inst;
-    bool isnight;
-    public GameObject[] Equipobject= new GameObject[2];
+    bool isnight=true;
     GameObject particle;
     public GameObject ObjectPool,Fireobject;
     public GameObject Filterobject, Arrangementobject;
@@ -29,12 +28,11 @@ public class LobbyManager : MonoBehaviour
         {
         }
     }
-
     // Update is called once per frame
     void Update()
     {
         //터치시 파티클생성
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonUp(0))
         {
             if(particle!=null)
             {
@@ -47,5 +45,9 @@ public class LobbyManager : MonoBehaviour
             particle.transform.position = wp;
             Destroy(particle, 0.5f);
         }
+    }
+    public void ObjectControl()
+    {
+        ButtonManager.ObjectlistControl();
     }
 }

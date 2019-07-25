@@ -195,11 +195,14 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\Scripts\Database.cs" />
+    <Compile Include="Assets\Scripts\DataTransaction.cs" />
     <Compile Include="Assets\Scripts\Manager\ButtonManager.cs" />
     <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\TitleManager.cs" />
+    <Compile Include="Assets\Scripts\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\ScrollView\Equipmentcell.cs" />
     <Compile Include="Assets\Scripts\ScrollView\EuipmentcellData.cs" />
@@ -209,7 +212,7 @@
     <Compile Include="Assets\Scripts\ScrollView\UIReuseGrid.cs" />
     <Compile Include="Assets\Scripts\ScrollView\UIReuseScrollView.cs" />
     <Compile Include="Assets\Scripts\ScrollView\UIReuseScrollViewCell.cs" />
-    <Compile Include="Assets\Scripts\Singleton.cs" />
+    <Compile Include="Assets\Scripts\SetActiveObject.cs" />
     <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
@@ -456,6 +459,12 @@
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
       <HintPath>D:/TabTabCreate/ProjectDragon/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>D:/TabTabCreate/ProjectDragon/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.SqliteClient">
+      <HintPath>D:/TabTabCreate/ProjectDragon/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

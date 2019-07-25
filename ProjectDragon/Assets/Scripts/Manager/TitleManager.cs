@@ -9,6 +9,7 @@ public class TitleManager : MonoBehaviour
     {
         Screen.SetResolution(Screen.width * 16 / 9,Screen.width, true);
         GameManager.Inst.singletonF();
+        DataTransaction.Inst.ToString();
     }
     public void GotoLobby()
     {

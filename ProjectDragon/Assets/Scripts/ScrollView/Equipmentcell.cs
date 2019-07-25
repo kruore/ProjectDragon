@@ -4,60 +4,56 @@ using UnityEngine;
 
 public class Equipmentcell : UIReuseScrollViewCell
 {
-    public UISprite equipIcon;
+    public UISprite equipIcon, itemIcon;
     public UISprite enchantlevel;
+    public EuipmentcellData cell;
     public override void UpdateData(IReuseCellData _CellData)
     {
-        Debug.Log(string.Format("Index={0}, Name={1},Power={2},Equip={3},enchantlevel={4}",_CellData.Index.ToString(), _CellData.name.ToString(), _CellData.power.ToString(), _CellData.equip.ToString(), _CellData.enchantlevel.ToString()));
         EuipmentcellData item = _CellData as EuipmentcellData;
-        if(enchantlevel!=null)
+        cell = item;
+        enchantlevel.spriteName = string.Format("강화수치_{0}", item.upgrade_Level.ToString());
+        if (item.isEquipment)
         {
-            enchantlevel.gameObject.transform.parent = LobbyManager.inst.ObjectPool.transform;
-            enchantlevel.transform.localPosition = Vector3.zero;
-            enchantlevel = null;
-        }
-        if(item.enchantlevel>0)
-        {
-            foreach(UISprite uISprite in LobbyManager.inst.ObjectPool.transform.GetComponentsInChildren<UISprite>())
+            if (equipIcon == null)
             {
-                if(uISprite.spriteName.Equals(string.Format("enchantlevel{0}",item.enchantlevel.ToString())))
+                foreach (UISprite uISprite in LobbyManager.inst.ObjectPool.transform.GetComponentsInChildren<UISprite>())
                 {
-                    enchantlevel = uISprite;
-                    enchantlevel.transform.parent = gameObject.transform;
-                    enchantlevel.transform.position = gameObject.transform.position;
+                    if (uISprite.spriteName.Equals(string.Format("장착표시")))
+                    {
+                        equipIcon = uISprite;
+                        equipIcon.transform.parent = gameObject.transform;
+                        equipIcon.transform.localPosition = new Vector3(100, -100);
+                        break;
+                    }
                 }
             }
-        }
-        if(item.m_equip)
-        {
 
-            foreach (UISprite uISprite in LobbyManager.inst.ObjectPool.transform.GetComponentsInChildren<UISprite>())
-            {
-                if (uISprite.spriteName.Equals(string.Format("Btn_Icon_Check")))
-                { 
-                    equipIcon = uISprite;
-                    equipIcon.transform.parent = gameObject.transform;
-                    equipIcon.transform.localPosition = new Vector3(-100, -60);
-                    break;
-                }
-            }
-            
         }
-        if(_CellData.name==null)
-        equipIcon.spriteName = "Box6";
+        else
+        {
+            if (equipIcon != null)
+            {
+                equipIcon.gameObject.transform.parent = LobbyManager.inst.ObjectPool.transform;
+                equipIcon.transform.localPosition = Vector3.zero;
+                equipIcon = null;
+            }
+        }
+        if(item.name.Equals(""))
+        {
+            itemIcon.spriteName = "None";
+        }
+        else
+        {
+            itemIcon.spriteName = item.name;
+        }
+        
         if (item == null)
-            
+
             return;
     }
     private void OnDisable()
     {
-        if(enchantlevel!=null)
-        {
-            enchantlevel.gameObject.SetActive(true);
-            enchantlevel.gameObject.transform.parent = LobbyManager.inst.ObjectPool.transform;
-            enchantlevel.transform.localPosition = Vector3.zero;
-            enchantlevel = null;
-        }
+
     }
 
 }

@@ -282,3 +282,5 @@ D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSh
 D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.dll
 D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.pdb
+D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\Temp\bin\Debug\Mono.Data.Sqlite.dll
+D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon\Temp\bin\Debug\Mono.Data.SqliteClient.dll
