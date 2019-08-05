@@ -1,7 +1,7 @@
 ﻿
 public interface IReuseCellData
 {
-    int Index
+    int inventoryNum
     {
         get;
         set;
@@ -51,10 +51,20 @@ public interface IReuseCellData
         get;
         set;
     } // 갯수
-    bool isEquipment
+    bool isLock
     {
         get;
         set;
-    } // 장착중인가?
+    }
+    int skill_index
+    {
+        get;
+        set;
+    }
+    float stat
+    {
+        get;
+        set;
+    }
 
 }

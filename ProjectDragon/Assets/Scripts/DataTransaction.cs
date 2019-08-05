@@ -15,18 +15,18 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     // Start is called before the first frame update
     void Start()
     {
+        gameObject.AddComponent<Database>();
         database = GetComponent<Database>();
-        if(database==null)
-        {
-            gameObject.AddComponent<Database>();
-            database = GetComponent<Database>();
-        }
         DataPhasing();
         DataBaseConnecting();
         LoadAllTableData();
     }
 
+   
     #region Database Connecting
+    /// <summary>
+    /// DB에서 접속하고 연결합니다.
+    /// </summary>
 
     void DataPhasing()
     {
@@ -63,15 +63,16 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
     #endregion
 
+    //모든 테이블의 정보를 로드 합니다.
     void LoadAllTableData()
     {
+        LoadPlayerData();
         Load_Weapon_Table();
-        Load_Armor_Table();
-        Load_Item_Table();
+        //Load_Armor_Table();
+        //Load_Item_Table();
         Load_ActiveSkill_Table();
-        Load_Passive_Table();
-        Load_Monster_Table();
-        Load_Inventory_Table();
+        //Load_Passive_Table();
+        //Load_Monster_Table();
     }
 
     //구글 연결 함수
@@ -94,6 +95,29 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
     #endregion
 
+    //인벤토리에 아이템 넣기 - 나중에
+    public void Insert_Inventory(int _item_Index, Item_CLASS _item_Class)
+    { 
+        // 아이템 중복되는 것 있으면 amount 컨트롤 해야함
+        switch (_item_Class)
+        {
+            case Item_CLASS.Armor:
+                Database.Armor armor = database.armors[_item_Index];
+                database.playData.inventory.Add(new Database.Inventory(database.playData.itemCount, armor.num, armor.name, armor.hp, false, armor.item_Value, armor.rarity, Item_CLASS.Armor, 1, 0, armor.imageName, 1, -1));
+                break;
+            case Item_CLASS.item:
+                //atabase.Item item = database.items[_item_Index];
+                break;
+            default:
+                //무기
+                Database.Weapon weapon = database.weapons[_item_Index];   
+                break;
+        }
+        database.playData.itemCount++;
+    }
+
+
+    //플레이어 데이터를 로드합니다.
     public void LoadPlayerData()
     {
         //플레이어 테이블 데이터 로드
@@ -120,17 +144,23 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     { 
         if (PlayerPrefs.HasKey("save"))
         {
+            database.playData.itemCount = PlayerPrefs.GetInt("itemCount");
             database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
             database.playData.clearStage = PlayerPrefs.GetInt("clearStage");
             database.playData.mp = PlayerPrefs.GetInt("mp");
             database.playData.sex = (SEX)PlayerPrefs.GetInt("sex");
+            database.playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
+            database.playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
         }
         else
         {
+            database.playData.itemCount = 0;
             database.playData.currentHp = 0.0f;
             database.playData.clearStage = 0;
             database.playData.mp = 0;
             database.playData.sex = 0;
+            database.playData.equiWeapon_InventoryNum = 0;
+            database.playData.equiArmor_InventoryNum = 0;
         }
     }
 
@@ -144,16 +174,18 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             int Num = reader.GetInt32(0);
             int DB_Num = reader.GetInt32(1);
             string Name = reader.GetString(2);
-            int ItemValue = reader.GetInt32(3);
-            RARITY Rarity = (RARITY)(reader.GetInt32(4));
-            Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(5));
-            int Upgrade_Level = reader.GetInt32(6);
-            int Upgrade_Count = reader.GetInt32(7);
-            string ImageName = reader.GetString(8);
-            int Amount = reader.GetInt32(9);
-            bool IsEquipment = (reader.GetInt32(10) == 1) ? true : false;
+            float Stat = reader.GetFloat(3);
+            bool IsLock = (reader.GetInt32(4) == 1) ? true : false;
+            int ItemValue = reader.GetInt32(5);
+            RARITY Rarity = (RARITY)(reader.GetInt32(6));
+            Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(7));
+            int Upgrade_Level = reader.GetInt32(8);
+            int Upgrade_Count = reader.GetInt32(9);
+            string ImageName = reader.GetString(10);
+            int Amount = reader.GetInt32(11);
+            int skill_Index = reader.GetInt32(12);
 
-            database.playData.inventory.Add(new Database.Inventory(Num, DB_Num, Name, ItemValue, Rarity, item_Class, Upgrade_Level, Upgrade_Count, ImageName, Amount, IsEquipment));
+            database.playData.inventory.Add(new Database.Inventory(Num, DB_Num, Name, Stat, IsLock, ItemValue, Rarity, item_Class, Upgrade_Level, Upgrade_Count, ImageName, Amount, skill_Index));
         }
         reader.Close();
         reader = null;
@@ -164,13 +196,16 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
     #region Database_Save_Player_Data
 
-    void Save_PlayerPrefs_Data()
+    public void Save_PlayerPrefs_Data()
     {
         PlayerPrefs.SetInt("save", 1);
+        PlayerPrefs.SetInt("itemCount", database.playData.itemCount);
         PlayerPrefs.SetFloat("currentHp", database.playData.currentHp);
         PlayerPrefs.SetInt("clearStage", database.playData.clearStage);
         PlayerPrefs.SetInt("mp", database.playData.mp);
         PlayerPrefs.SetInt("sex", (int)database.playData.sex);
+        PlayerPrefs.SetInt("equiWeapon_InventoryNum", database.playData.equiWeapon_InventoryNum);
+        PlayerPrefs.SetInt("equiArmor_InventoryNum", database.playData.equiArmor_InventoryNum);
         PlayerPrefs.Save();
     }
 
@@ -187,6 +222,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             int Num = database.playData.inventory[i].num;
             int DB_Num = database.playData.inventory[i].DB_Num;
             string Name = database.playData.inventory[i].name;
+            float Stat = database.playData.inventory[i].stat;
+            int IsLock = (database.playData.inventory[i].isLock == true) ? 1 : 0;
             int ItemValue = database.playData.inventory[i].itemValue;
             int Rarity = (int)database.playData.inventory[i].rarity;
             int item_Class = (int)database.playData.inventory[i].item_Class;
@@ -194,10 +231,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             int Upgrade_Count = database.playData.inventory[i].upgrade_Count;
             string ImageName = database.playData.inventory[i].imageName;
             int Amount = database.playData.inventory[i].amount;
-            int IsEquipment = (database.playData.inventory[i].isEquipment == true) ? 1 : 0;
+            int Skill_Index = database.playData.inventory[i].skill_Index;
 
-            sqlQuery = "INSERT INTO Inventory(Num, DB_Num, Name, ItemValue, Rarity, item_Class, Upgrade_Level, Upgrade_Count, ImageName, Amount, IsEquipment) " +
-                        "values(" + Num + "," + DB_Num + ",'" + Name + "'," + ItemValue + "," + Rarity + "," + item_Class + "," + Upgrade_Level + "," + Upgrade_Count + ",'" + ImageName + "'," + Amount + "," + IsEquipment + ")";
+            sqlQuery = "INSERT INTO Inventory(Num, DB_Num, Name, Stat, IsLock, ItemValue, Rarity, item_Class, Upgrade_Level, Upgrade_Count, ImageName, Amount, Skill_Index) " +
+                        "values(" + Num + "," + DB_Num + ",'" + Name + "'," + Stat + "," + IsLock + "," + ItemValue + "," + Rarity + "," + item_Class + "," + Upgrade_Level + "," + Upgrade_Count + ",'" + ImageName + "'," + Amount + "," + Skill_Index + ")";
             DEB_dbcmd.CommandText = sqlQuery;
             DEB_dbcmd.ExecuteNonQuery();
         }
@@ -224,13 +261,14 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             float Attack_Range = reader.GetFloat(4);
             string Attack_Type = reader.GetString(5);
             float Attack_Speed = reader.GetFloat(6);
-            float Chase_Range = reader.GetFloat(7);
+            int Item_Value = reader.GetInt32(7);
             string Description = reader.GetString(8);
-            string Skill = reader.GetString(9);
+            int Skill_Index = reader.GetInt32(9);
             RARITY Rarity = (RARITY)(reader.GetInt32(10));
             Item_CLASS Item_Class = (Item_CLASS)(reader.GetInt32(11));
+            string ImageName = reader.GetString(12);
 
-            database.weapons.Add(new Database.Weapon(Num, Name, Damage, Attack_Count, Attack_Range, Attack_Type, Attack_Speed, Chase_Range, Description, Skill, Rarity, Item_Class));
+            database.weapons.Add(new Database.Weapon(Num, Name, Damage, Attack_Count, Attack_Range, Attack_Type, Attack_Speed, Item_Value, Description, Skill_Index, Rarity, Item_Class, ImageName));
         }
         reader.Close();
         reader = null;
@@ -246,35 +284,37 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             int Num = reader.GetInt32(0);
             string Name = reader.GetString(1);
             float Hp = reader.GetFloat(2);
-            string Description = reader.GetString(3);
-            RARITY Rarity = (RARITY)(reader.GetInt32(4));
-            Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(5));
+            int Item_Value = reader.GetInt32(3);
+            string Description = reader.GetString(4);
+            RARITY Rarity = (RARITY)(reader.GetInt32(5));
+            Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(6));
+            string ImageName = reader.GetString(7);
 
-            database.armors.Add(new Database.Armor(Num, Name, Hp, Description, Rarity, item_Class));
+            database.armors.Add(new Database.Armor(Num, Name, Hp, Item_Value, Description, Rarity, item_Class, ImageName));
         }
         reader.Close();
         reader = null;
     }
 
-    void Load_Item_Table()
-    {
-        string sqlQuery = "SELECT * FROM ItemTable";
-        DEB_dbcmd.CommandText = sqlQuery;
-        IDataReader reader = DEB_dbcmd.ExecuteReader();
-        while (reader.Read())
-        {
-            int Num = reader.GetInt32(0);
-            string Name = reader.GetString(1);
-            int Item_Value = reader.GetInt32(2);
-            RARITY Rarity = (RARITY)(reader.GetInt32(3));
-            Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(4));
-            string Description = reader.GetString(5);
+    //void Load_Item_Table()
+    //{
+    //    string sqlQuery = "SELECT * FROM ItemTable";
+    //    DEB_dbcmd.CommandText = sqlQuery;
+    //    IDataReader reader = DEB_dbcmd.ExecuteReader();
+    //    while (reader.Read())
+    //    {
+    //        int Num = reader.GetInt32(0);
+    //        string Name = reader.GetString(1);
+    //        int Item_Value = reader.GetInt32(2);
+    //        RARITY Rarity = (RARITY)(reader.GetInt32(3));
+    //        Item_CLASS item_Class = (Item_CLASS)(reader.GetInt32(4));
+    //        string Description = reader.GetString(5);
 
-            database.items.Add(new Database.Item(Num, Name, Item_Value, Rarity, item_Class, Description));
-        }
-        reader.Close();
-        reader = null;
-    }
+    //        database.items.Add(new Database.Item(Num, Name, Item_Value, Rarity, item_Class, Description));
+    //    }
+    //    reader.Close();
+    //    reader = null;
+    //}
 
     void Load_ActiveSkill_Table()
     {
@@ -292,8 +332,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             float Attack_Range = reader.GetFloat(6);
             string Attack_Type = reader.GetString(7);
             float Attack_Power = reader.GetFloat(8);
+            string ImageName = reader.GetString(9);
 
-            database.skill.Add(new Database.Skill(Num, Name, Description, Attack_Count, Active_Time, CoolDown, Attack_Range, Attack_Type, Attack_Power));
+            database.skill.Add(new Database.Skill(Num, Name, Description, Attack_Count, Active_Time, CoolDown, Attack_Range, Attack_Type, Attack_Power, ImageName));
         }
         reader.Close();
         reader = null;
@@ -310,12 +351,13 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             string Name = reader.GetString(1);
             int World = reader.GetInt32(2);
             string Description = reader.GetString(3);
-            float Damage = reader.GetFloat(4);
-            float Hp = reader.GetFloat(5);
-            float Attack_Speed = reader.GetFloat(6);
-            float Move_Speed = reader.GetFloat(7);
+            string ImageName = reader.GetString(4);
+            float Damage = reader.GetFloat(5);
+            float Hp = reader.GetFloat(6);
+            float Attack_Speed = reader.GetFloat(7);
+            float Move_Speed = reader.GetFloat(8);
 
-            database.passive.Add(new Database.Passive(Num, World, Name, Description, Damage, Hp, Attack_Speed, Move_Speed));
+            database.passive.Add(new Database.Passive(Num, World, Name, Description, ImageName, Damage, Hp, Attack_Speed, Move_Speed));
         }
         reader.Close();
         reader = null;
@@ -341,8 +383,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             float Move_Speed = reader.GetFloat(10);
             bool IsPossibleMove = (reader.GetInt32(11) == 1) ? true : false;
             string Description = reader.GetString(12);
+            string ImageName = reader.GetString(13);
 
-            database.monsters.Add(new Database.Monster(Num, Location, Name, Damage, Hp, monster_Rarity, Attack_Range, Attack_Type, Attack_Speed, Chase_Range, Move_Speed, IsPossibleMove, Description));
+            database.monsters.Add(new Database.Monster(Num, Location, Name, Damage, Hp, monster_Rarity, Attack_Range, Attack_Type, Attack_Speed, Chase_Range, Move_Speed, IsPossibleMove, Description, ImageName));
         }
         reader.Close();
         reader = null;
