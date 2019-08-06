@@ -335,10 +335,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 39
-    paddingRight: 36
-    paddingTop: 129
-    paddingBottom: 49
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uC7A5\uBE44\uBC30\uACBD"
     x: 758
     y: 179

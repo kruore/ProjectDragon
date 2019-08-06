@@ -4,26 +4,26 @@ using UnityEngine;
 
 public enum RARITY
 {
-    Normal,
-    Rare,
-    Unique,
-    Legend
+    노말,
+    레어,
+    유니크,
+    레전드
 }
 
 public enum Item_CLASS
 {
-    Sword,
-    Bow,
-    Wand,
-    Armor,
-    item
+    검,
+    활,
+    지팡이,
+    갑옷,
+    아이템
 }
 
 public enum Monster_Rarity
 {
-    Common,
-    Named,
-    Boss
+    일반,
+    네임드,
+    보스
 }
 
 public enum SEX

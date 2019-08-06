@@ -13,9 +13,12 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     private IDbCommand DEB_dbcmd;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        gameObject.AddComponent<Database>();
+        if (gameObject.GetComponent<Database>() == null)
+        {
+            gameObject.AddComponent<Database>();
+        }
         database = GetComponent<Database>();
         DataPhasing();
         DataBaseConnecting();
@@ -101,11 +104,11 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         // 아이템 중복되는 것 있으면 amount 컨트롤 해야함
         switch (_item_Class)
         {
-            case Item_CLASS.Armor:
+            case Item_CLASS.갑옷:
                 Database.Armor armor = database.armors[_item_Index];
-                database.playData.inventory.Add(new Database.Inventory(database.playData.itemCount, armor.num, armor.name, armor.hp, false, armor.item_Value, armor.rarity, Item_CLASS.Armor, 1, 0, armor.imageName, 1, -1));
+                database.playData.inventory.Add(new Database.Inventory(database.playData.itemCount, armor.num, armor.name, armor.hp, false, armor.item_Value, armor.rarity, Item_CLASS.갑옷, 1, 0, armor.imageName, 1, -1));
                 break;
-            case Item_CLASS.item:
+            case Item_CLASS.아이템:
                 //atabase.Item item = database.items[_item_Index];
                 break;
             default:

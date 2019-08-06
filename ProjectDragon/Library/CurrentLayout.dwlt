@@ -114,7 +114,7 @@ MonoBehaviour:
   m_MinSize: {x: 583, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 89
+  controlID: 45
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -139,7 +139,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 90
+  controlID: 46
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -160,11 +160,11 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 1530
-    height: 673
+    height: 668
   m_MinSize: {x: 306, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 91
+  controlID: 47
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -183,9 +183,9 @@ MonoBehaviour:
     x: 0
     y: 0
     width: 279
-    height: 673
-  m_MinSize: {x: 202, y: 224}
-  m_MaxSize: {x: 4002, y: 4024}
+    height: 668
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -209,15 +209,15 @@ MonoBehaviour:
     x: 279
     y: 0
     width: 1251
-    height: 673
+    height: 668
   m_MinSize: {x: 104, y: 124}
   m_MaxSize: {x: 4004, y: 4024}
-  m_ActualView: {fileID: 13}
+  m_ActualView: {fileID: 12}
   m_Panes:
   - {fileID: 18}
   - {fileID: 16}
   - {fileID: 15}
-  - {fileID: 13}
+  - {fileID: 12}
   m_Selected: 3
   m_LastSelected: 1
 --- !u!114 &10
@@ -236,16 +236,16 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 673
+    y: 668
     width: 1530
-    height: 274
+    height: 279
   m_MinSize: {x: 232, y: 274}
   m_MaxSize: {x: 10002, y: 10024}
   m_ActualView: {fileID: 19}
   m_Panes:
   - {fileID: 19}
   - {fileID: 21}
-  - {fileID: 12}
+  - {fileID: 13}
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &11
@@ -284,6 +284,86 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
+  m_Script: {fileID: 12013, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Scene
+    m_Image: {fileID: 2318424515335265636, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_Pos:
+    serializedVersion: 2
+    x: 279
+    y: 73
+    width: 1247
+    height: 648
+  m_PersistentViewDataDictionary: {fileID: 0}
+  m_WindowGUID: b17fc8b6ccfb47b409ee2b58ed067ae4
+  m_SceneLighting: 1
+  m_2DMode: 1
+  m_isRotationLocked: 0
+  m_AudioPlay: 0
+  m_Position:
+    m_Target: {x: -11.989518, y: 0.10834934, z: -6.769984}
+    speed: 2
+    m_Value: {x: -11.989518, y: 0.10834934, z: -6.769984}
+  m_RenderMode: 0
+  m_CameraMode:
+    drawMode: 0
+    name: Shaded
+    section: Shading Mode
+  m_ValidateTrueMetals: 0
+  m_SceneViewState:
+    showFog: 1
+    showMaterialUpdate: 0
+    showSkybox: 1
+    showFlares: 1
+    showImageEffects: 1
+    showParticleSystems: 1
+  grid:
+    xGrid:
+      m_Target: 0
+      speed: 2
+      m_Value: 0
+    yGrid:
+      m_Target: 0
+      speed: 2
+      m_Value: 0
+    zGrid:
+      m_Target: 1
+      speed: 2
+      m_Value: 1
+  m_Rotation:
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
+    speed: 2
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
+  m_Size:
+    m_Target: 1.9656713
+    speed: 2
+    m_Value: 1.9656713
+  m_Ortho:
+    m_Target: 1
+    speed: 2
+    m_Value: 1
+  m_ShowGlobalGrid: 1
+  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+  m_LastSceneViewOrtho: 0
+  m_ReplacementShader: {fileID: 0}
+  m_ReplacementString: 
+  m_LastLockedObject: {fileID: 0}
+  m_ViewIsLockedToObject: 0
+--- !u!114 &13
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
   m_Script: {fileID: 1586788657, guid: a2284c517ee274c19a6ba4c1a8c96fb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -300,16 +380,16 @@ MonoBehaviour:
     width: 1528
     height: 254
   m_PersistentViewDataDictionary: {fileID: 0}
-  logPanelScroll: {x: 0, y: 161}
+  logPanelScroll: {x: 0, y: 107}
   logPanelSelectedIndex: -1
   logPanelAutoScroll: 1
-  currentFrame: 66839
+  currentFrame: 104585
   logs:
-    lastGrabbedIndex: 14
-    lastGrabbedCount: 15
+    lastGrabbedIndex: 8
+    lastGrabbedCount: 9
     proEntries: []
     newEntries:
-    - logType: 2
+    - logType: 1
       ignore: 0
       processed: 1
       tempFilterProcessed: 1
@@ -320,23 +400,27 @@ MonoBehaviour:
       listIndex: 0
       nativeIndex: 0
       nativeIdentifier: 0
-      originalLog: No instance of GameManager, a temporary one is created.
-      originalStackTrace: 'No instance of GameManager, a temporary one is created.
+      originalLog: 0
+      originalStackTrace: '0
 
-        UnityEngine.Debug:LogWarning(Object)
+        UnityEngine.Debug:Log(Object)
 
-        MonoSingleton`1:get_Instance() (at Assets/Scripts/MonoSingleton.cs:33)
+        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:17)
 
-        MonoSingleton`1:get_Inst() (at Assets/Scripts/MonoSingleton.cs:54)
+        UIReuseGrid:UpdateListVer(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:623)
 
-        TitleManager:Start() (at Assets/Scripts/Manager/TitleManager.cs:11)
+        UIReuseGrid:Validate(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)
+
+        UIReuseGrid:UpdateAllCellData() (at Assets/Scripts/ScrollView/UIReuseGrid.cs:362)
+
+        GUITestScrollView:Start() (at Assets/Scripts/ScrollView/GUITestScrollView.cs:47)
 
 '
-      nativeFileName: Assets/Scripts/MonoSingleton.cs
-      nativeLineNumber: 33
+      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
+      nativeLineNumber: 17
       watchName: 
-      logText: No instance of GameManager, a temporary one is created.
-      logTruncatedText: No instance of GameManager, a temporary one is created.
+      logText: 0
+      logTruncatedText: 0
       logColumnText: 
       fileName: 
       className: 
@@ -346,23 +430,23 @@ MonoBehaviour:
       timeStamp: 0.019999999552965164
       timeFrame: 2
       instanceID: 0
-      collapsedCount: 1
+      collapsedCount: 6
       cachedHeight: -1
       cachedHeightLogWidth: 0
       stackEntries:
-      - fileName: Assets/Scripts/MonoSingleton.cs
-        fileNameWithoutAssets: Scripts/MonoSingleton.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/MonoSingleton.cs:33
-        fileNameWithoutPath: MonoSingleton.cs
-        fileNameWithoutPathPlusLineNumber: MonoSingleton.cs:33
+      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
+        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:17
+        fileNameWithoutPath: Equipmentcell.cs
+        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:17
         instanceID: -1
-        className: MonoSingleton`1
-        methodName: get_Instance
+        className: Equipmentcell
+        methodName: UpdateData
         namespaceName: None
-        lineNumber: 33
+        lineNumber: 17
         charNumber: 0
-        stackLabel: MonoSingleton`1.get_Instance()
-        stackLabel2: '    Assets/Scripts/MonoSingleton.cs:33'
+        stackLabel: Equipmentcell.UpdateData()
+        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:17'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -373,19 +457,19 @@ MonoBehaviour:
         sourceCode: []
         sourceCodeUpdated: 0
         showSource: 1
-      - fileName: Assets/Scripts/MonoSingleton.cs
-        fileNameWithoutAssets: Scripts/MonoSingleton.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/MonoSingleton.cs:54
-        fileNameWithoutPath: MonoSingleton.cs
-        fileNameWithoutPathPlusLineNumber: MonoSingleton.cs:54
+      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:623
+        fileNameWithoutPath: UIReuseGrid.cs
+        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:623
         instanceID: -1
-        className: MonoSingleton`1
-        methodName: get_Inst
+        className: UIReuseGrid
+        methodName: UpdateListVer
         namespaceName: None
-        lineNumber: 54
+        lineNumber: 623
         charNumber: 0
-        stackLabel: MonoSingleton`1.get_Inst()
-        stackLabel2: '    Assets/Scripts/MonoSingleton.cs:54'
+        stackLabel: UIReuseGrid.UpdateListVer()
+        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:623'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -396,19 +480,65 @@ MonoBehaviour:
         sourceCode: []
         sourceCodeUpdated: 0
         showSource: 1
-      - fileName: Assets/Scripts/Manager/TitleManager.cs
-        fileNameWithoutAssets: Scripts/Manager/TitleManager.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/Manager/TitleManager.cs:11
-        fileNameWithoutPath: TitleManager.cs
-        fileNameWithoutPathPlusLineNumber: TitleManager.cs:11
+      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
+        fileNameWithoutPath: UIReuseGrid.cs
+        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
         instanceID: -1
-        className: TitleManager
+        className: UIReuseGrid
+        methodName: Validate
+        namespaceName: None
+        lineNumber: 551
+        charNumber: 0
+        stackLabel: UIReuseGrid.Validate()
+        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
+        stackLabelContent:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        stackLabelWidth: 0
+        stackLabelHeight: 0
+        stackSourceLineHeight: 0
+        sourceCode: []
+        sourceCodeUpdated: 0
+        showSource: 1
+      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:362
+        fileNameWithoutPath: UIReuseGrid.cs
+        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:362
+        instanceID: -1
+        className: UIReuseGrid
+        methodName: UpdateAllCellData
+        namespaceName: None
+        lineNumber: 362
+        charNumber: 0
+        stackLabel: UIReuseGrid.UpdateAllCellData()
+        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:362'
+        stackLabelContent:
+          m_Text: 
+          m_Image: {fileID: 0}
+          m_Tooltip: 
+        stackLabelWidth: 0
+        stackLabelHeight: 0
+        stackSourceLineHeight: 0
+        sourceCode: []
+        sourceCodeUpdated: 0
+        showSource: 1
+      - fileName: Assets/Scripts/ScrollView/GUITestScrollView.cs
+        fileNameWithoutAssets: Scripts/ScrollView/GUITestScrollView.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/GUITestScrollView.cs:47
+        fileNameWithoutPath: GUITestScrollView.cs
+        fileNameWithoutPathPlusLineNumber: GUITestScrollView.cs:47
+        instanceID: -1
+        className: GUITestScrollView
         methodName: Start
         namespaceName: None
-        lineNumber: 11
+        lineNumber: 47
         charNumber: 0
-        stackLabel: TitleManager.Start()
-        stackLabel2: '    Assets/Scripts/Manager/TitleManager.cs:11'
+        stackLabel: GUITestScrollView.Start()
+        stackLabel2: '    Assets/Scripts/ScrollView/GUITestScrollView.cs:47'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -537,1015 +667,6 @@ MonoBehaviour:
       listIndex: 0
       nativeIndex: 1
       nativeIdentifier: 0
-      originalLog: No instance of DataTransaction, a temporary one is created.
-      originalStackTrace: 'No instance of DataTransaction, a temporary one is created.
-
-        UnityEngine.Debug:LogWarning(Object)
-
-        MonoSingleton`1:get_Instance() (at Assets/Scripts/MonoSingleton.cs:33)
-
-        MonoSingleton`1:get_Inst() (at Assets/Scripts/MonoSingleton.cs:54)
-
-        TitleManager:Start() (at Assets/Scripts/Manager/TitleManager.cs:12)
-
-'
-      nativeFileName: Assets/Scripts/MonoSingleton.cs
-      nativeLineNumber: 33
-      watchName: 
-      logText: No instance of DataTransaction, a temporary one is created.
-      logTruncatedText: No instance of DataTransaction, a temporary one is created.
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: 0.019999999552965164
-      timeFrame: 2
-      instanceID: 0
-      collapsedCount: 1
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/MonoSingleton.cs
-        fileNameWithoutAssets: Scripts/MonoSingleton.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/MonoSingleton.cs:33
-        fileNameWithoutPath: MonoSingleton.cs
-        fileNameWithoutPathPlusLineNumber: MonoSingleton.cs:33
-        instanceID: -1
-        className: MonoSingleton`1
-        methodName: get_Instance
-        namespaceName: None
-        lineNumber: 33
-        charNumber: 0
-        stackLabel: MonoSingleton`1.get_Instance()
-        stackLabel2: '    Assets/Scripts/MonoSingleton.cs:33'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/MonoSingleton.cs
-        fileNameWithoutAssets: Scripts/MonoSingleton.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/MonoSingleton.cs:54
-        fileNameWithoutPath: MonoSingleton.cs
-        fileNameWithoutPathPlusLineNumber: MonoSingleton.cs:54
-        instanceID: -1
-        className: MonoSingleton`1
-        methodName: get_Inst
-        namespaceName: None
-        lineNumber: 54
-        charNumber: 0
-        stackLabel: MonoSingleton`1.get_Inst()
-        stackLabel2: '    Assets/Scripts/MonoSingleton.cs:54'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/Manager/TitleManager.cs
-        fileNameWithoutAssets: Scripts/Manager/TitleManager.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/Manager/TitleManager.cs:12
-        fileNameWithoutPath: TitleManager.cs
-        fileNameWithoutPathPlusLineNumber: TitleManager.cs:12
-        instanceID: -1
-        className: TitleManager
-        methodName: Start
-        namespaceName: None
-        lineNumber: 12
-        charNumber: 0
-        stackLabel: TitleManager.Start()
-        stackLabel2: '    Assets/Scripts/Manager/TitleManager.cs:12'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
-    - logType: 1
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 2
-      nativeIdentifier: 0
-      originalLog: 1
-      originalStackTrace: '1
-
-        UnityEngine.Debug:Log(Object)
-
-        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:48)
-
-        UIReuseGrid:UpdateListVer(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:623)
-
-        UIReuseGrid:Validate(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)
-
-        UIReuseGrid:UpdateAllCellData() (at Assets/Scripts/ScrollView/UIReuseGrid.cs:362)
-
-        GUITestScrollView:Start() (at Assets/Scripts/ScrollView/GUITestScrollView.cs:47)
-
-'
-      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 48
-      watchName: 
-      logText: 1
-      logTruncatedText: 1
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
-      instanceID: 0
-      collapsedCount: 5
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:48
-        fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:48
-        instanceID: -1
-        className: Equipmentcell
-        methodName: UpdateData
-        namespaceName: None
-        lineNumber: 48
-        charNumber: 0
-        stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:48'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:623
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:623
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateListVer
-        namespaceName: None
-        lineNumber: 623
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateListVer()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:623'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Validate
-        namespaceName: None
-        lineNumber: 551
-        charNumber: 0
-        stackLabel: UIReuseGrid.Validate()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:362
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:362
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateAllCellData
-        namespaceName: None
-        lineNumber: 362
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateAllCellData()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:362'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssets: Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/GUITestScrollView.cs:47
-        fileNameWithoutPath: GUITestScrollView.cs
-        fileNameWithoutPathPlusLineNumber: GUITestScrollView.cs:47
-        instanceID: -1
-        className: GUITestScrollView
-        methodName: Start
-        namespaceName: None
-        lineNumber: 47
-        charNumber: 0
-        stackLabel: GUITestScrollView.Start()
-        stackLabel2: '    Assets/Scripts/ScrollView/GUITestScrollView.cs:47'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
-    - logType: 1
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 3
-      nativeIdentifier: 0
-      originalLog: 0
-      originalStackTrace: '0
-
-        UnityEngine.Debug:Log(Object)
-
-        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:49)
-
-        UIReuseGrid:UpdateListVer(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:623)
-
-        UIReuseGrid:Validate(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)
-
-        UIReuseGrid:UpdateAllCellData() (at Assets/Scripts/ScrollView/UIReuseGrid.cs:362)
-
-        GUITestScrollView:Start() (at Assets/Scripts/ScrollView/GUITestScrollView.cs:47)
-
-'
-      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 49
-      watchName: 
-      logText: 0
-      logTruncatedText: 0
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
-      instanceID: 0
-      collapsedCount: 5
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:49
-        fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:49
-        instanceID: -1
-        className: Equipmentcell
-        methodName: UpdateData
-        namespaceName: None
-        lineNumber: 49
-        charNumber: 0
-        stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:49'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:623
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:623
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateListVer
-        namespaceName: None
-        lineNumber: 623
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateListVer()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:623'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Validate
-        namespaceName: None
-        lineNumber: 551
-        charNumber: 0
-        stackLabel: UIReuseGrid.Validate()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:362
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:362
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateAllCellData
-        namespaceName: None
-        lineNumber: 362
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateAllCellData()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:362'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssets: Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/GUITestScrollView.cs:47
-        fileNameWithoutPath: GUITestScrollView.cs
-        fileNameWithoutPathPlusLineNumber: GUITestScrollView.cs:47
-        instanceID: -1
-        className: GUITestScrollView
-        methodName: Start
-        namespaceName: None
-        lineNumber: 47
-        charNumber: 0
-        stackLabel: GUITestScrollView.Start()
-        stackLabel2: '    Assets/Scripts/ScrollView/GUITestScrollView.cs:47'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
-    - logType: 1
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 4
-      nativeIdentifier: 0
-      originalLog: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      originalStackTrace: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0\nUnityEngine.Debug:Log(Object)\nEquipmentcell:UpdateData(IReuseCellData)
-        (at Assets/Scripts/ScrollView/Equipmentcell.cs:51)\nUIReuseGrid:UpdateListVer(Boolean,
-        Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:623)\nUIReuseGrid:Validate(Boolean,
-        Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)\nUIReuseGrid:UpdateAllCellData()
-        (at Assets/Scripts/ScrollView/UIReuseGrid.cs:362)\nGUITestScrollView:Start()
-        (at Assets/Scripts/ScrollView/GUITestScrollView.cs:47)\n"
-      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 51
-      watchName: 
-      logText: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      logTruncatedText: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
-      instanceID: 0
-      collapsedCount: 5
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:51
-        fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:51
-        instanceID: -1
-        className: Equipmentcell
-        methodName: UpdateData
-        namespaceName: None
-        lineNumber: 51
-        charNumber: 0
-        stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:51'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:623
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:623
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateListVer
-        namespaceName: None
-        lineNumber: 623
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateListVer()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:623'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Validate
-        namespaceName: None
-        lineNumber: 551
-        charNumber: 0
-        stackLabel: UIReuseGrid.Validate()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:362
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:362
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateAllCellData
-        namespaceName: None
-        lineNumber: 362
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateAllCellData()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:362'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssets: Scripts/ScrollView/GUITestScrollView.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/GUITestScrollView.cs:47
-        fileNameWithoutPath: GUITestScrollView.cs
-        fileNameWithoutPathPlusLineNumber: GUITestScrollView.cs:47
-        instanceID: -1
-        className: GUITestScrollView
-        methodName: Start
-        namespaceName: None
-        lineNumber: 47
-        charNumber: 0
-        stackLabel: GUITestScrollView.Start()
-        stackLabel2: '    Assets/Scripts/ScrollView/GUITestScrollView.cs:47'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
-    - logType: 2
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 5
-      nativeIdentifier: 0
       originalLog: No instance of SoundManager, a temporary one is created.
       originalStackTrace: 'No instance of SoundManager, a temporary one is created.
 
@@ -1569,8 +690,8 @@ MonoBehaviour:
       namespaceName: 
       lineCount: 1
       hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
+      timeStamp: 0.019999999552965164
+      timeFrame: 2
       instanceID: 0
       collapsedCount: 1
       cachedHeight: -1
@@ -1761,10 +882,10 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 6
+      nativeIndex: 2
       nativeIdentifier: 0
-      originalLog: 5
-      originalStackTrace: '5
+      originalLog: 6
+      originalStackTrace: '6
 
         UnityEngine.Debug:Log(Object)
 
@@ -1774,16 +895,16 @@ MonoBehaviour:
       nativeFileName: Assets/Scripts/Manager/LobbyManager.cs
       nativeLineNumber: 37
       watchName: 
-      logText: 5
-      logTruncatedText: 5
+      logText: 6
+      logTruncatedText: 6
       logColumnText: 
       fileName: 
       className: 
       namespaceName: 
       lineCount: 1
       hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
+      timeStamp: 0.019999999552965164
+      timeFrame: 2
       instanceID: 0
       collapsedCount: 1
       cachedHeight: -1
@@ -1928,18 +1049,18 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 7
+      nativeIndex: 3
       nativeIdentifier: 0
       originalLog: PlayerCharactor/Female_Worrior
       originalStackTrace: 'PlayerCharactor/Female_Worrior
 
         UnityEngine.Debug:Log(Object)
 
-        LobbyManager:Start() (at Assets/Scripts/Manager/LobbyManager.cs:54)
+        LobbyManager:Start() (at Assets/Scripts/Manager/LobbyManager.cs:64)
 
 '
       nativeFileName: Assets/Scripts/Manager/LobbyManager.cs
-      nativeLineNumber: 54
+      nativeLineNumber: 64
       watchName: 
       logText: PlayerCharactor/Female_Worrior
       logTruncatedText: PlayerCharactor/Female_Worrior
@@ -1949,8 +1070,8 @@ MonoBehaviour:
       namespaceName: 
       lineCount: 1
       hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
+      timeStamp: 0.019999999552965164
+      timeFrame: 2
       instanceID: 0
       collapsedCount: 1
       cachedHeight: -1
@@ -1958,17 +1079,17 @@ MonoBehaviour:
       stackEntries:
       - fileName: Assets/Scripts/Manager/LobbyManager.cs
         fileNameWithoutAssets: Scripts/Manager/LobbyManager.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/Manager/LobbyManager.cs:54
+        fileNameWithoutAssetsPlusLineNumber: Scripts/Manager/LobbyManager.cs:64
         fileNameWithoutPath: LobbyManager.cs
-        fileNameWithoutPathPlusLineNumber: LobbyManager.cs:54
+        fileNameWithoutPathPlusLineNumber: LobbyManager.cs:64
         instanceID: -1
         className: LobbyManager
         methodName: Start
         namespaceName: None
-        lineNumber: 54
+        lineNumber: 64
         charNumber: 0
         stackLabel: LobbyManager.Start()
-        stackLabel2: '    Assets/Scripts/Manager/LobbyManager.cs:54'
+        stackLabel2: '    Assets/Scripts/Manager/LobbyManager.cs:64'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -2095,122 +1216,47 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 8
+      nativeIndex: 4
       nativeIdentifier: 0
-      originalLog: 1
-      originalStackTrace: '1
+      originalLog: PlayerCharactor/Female_Worrior_Weapone
+      originalStackTrace: 'PlayerCharactor/Female_Worrior_Weapone
 
         UnityEngine.Debug:Log(Object)
 
-        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:48)
-
-        UIReuseGrid:UpdateListVer(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:638)
-
-        UIReuseGrid:Validate(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)
-
-        UIReuseGrid:Update() (at Assets/Scripts/ScrollView/UIReuseGrid.cs:94)
+        LobbyManager:Start() (at Assets/Scripts/Manager/LobbyManager.cs:71)
 
 '
-      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 48
+      nativeFileName: Assets/Scripts/Manager/LobbyManager.cs
+      nativeLineNumber: 71
       watchName: 
-      logText: 1
-      logTruncatedText: 1
+      logText: PlayerCharactor/Female_Worrior_Weapone
+      logTruncatedText: PlayerCharactor/Female_Worrior_Weapone
       logColumnText: 
       fileName: 
       className: 
       namespaceName: 
       lineCount: 1
       hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
+      timeStamp: 0.019999999552965164
+      timeFrame: 2
       instanceID: 0
       collapsedCount: 1
       cachedHeight: -1
       cachedHeightLogWidth: 0
       stackEntries:
-      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:48
-        fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:48
+      - fileName: Assets/Scripts/Manager/LobbyManager.cs
+        fileNameWithoutAssets: Scripts/Manager/LobbyManager.cs
+        fileNameWithoutAssetsPlusLineNumber: Scripts/Manager/LobbyManager.cs:71
+        fileNameWithoutPath: LobbyManager.cs
+        fileNameWithoutPathPlusLineNumber: LobbyManager.cs:71
         instanceID: -1
-        className: Equipmentcell
-        methodName: UpdateData
+        className: LobbyManager
+        methodName: Start
         namespaceName: None
-        lineNumber: 48
+        lineNumber: 71
         charNumber: 0
-        stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:48'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:638
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:638
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateListVer
-        namespaceName: None
-        lineNumber: 638
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateListVer()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:638'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Validate
-        namespaceName: None
-        lineNumber: 551
-        charNumber: 0
-        stackLabel: UIReuseGrid.Validate()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:94
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:94
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Update
-        namespaceName: None
-        lineNumber: 94
-        charNumber: 0
-        stackLabel: UIReuseGrid.Update()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:94'
+        stackLabel: LobbyManager.Start()
+        stackLabel2: '    Assets/Scripts/Manager/LobbyManager.cs:71'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -2337,14 +1383,14 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 9
+      nativeIndex: 5
       nativeIdentifier: 0
       originalLog: 0
       originalStackTrace: '0
 
         UnityEngine.Debug:Log(Object)
 
-        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:49)
+        Equipmentcell:UpdateData(IReuseCellData) (at Assets/Scripts/ScrollView/Equipmentcell.cs:17)
 
         UIReuseGrid:UpdateListVer(Boolean, Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:638)
 
@@ -2354,7 +1400,7 @@ MonoBehaviour:
 
 '
       nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 49
+      nativeLineNumber: 17
       watchName: 
       logText: 0
       logTruncatedText: 0
@@ -2364,8 +1410,8 @@ MonoBehaviour:
       namespaceName: 
       lineCount: 1
       hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
+      timeStamp: 0.019999999552965164
+      timeFrame: 2
       instanceID: 0
       collapsedCount: 1
       cachedHeight: -1
@@ -2373,251 +1419,17 @@ MonoBehaviour:
       stackEntries:
       - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
         fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:49
+        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:17
         fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:49
+        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:17
         instanceID: -1
         className: Equipmentcell
         methodName: UpdateData
         namespaceName: None
-        lineNumber: 49
+        lineNumber: 17
         charNumber: 0
         stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:49'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:638
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:638
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: UpdateListVer
-        namespaceName: None
-        lineNumber: 638
-        charNumber: 0
-        stackLabel: UIReuseGrid.UpdateListVer()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:638'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:551
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:551
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Validate
-        namespaceName: None
-        lineNumber: 551
-        charNumber: 0
-        stackLabel: UIReuseGrid.Validate()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:551'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      - fileName: Assets/Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssets: Scripts/ScrollView/UIReuseGrid.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/UIReuseGrid.cs:94
-        fileNameWithoutPath: UIReuseGrid.cs
-        fileNameWithoutPathPlusLineNumber: UIReuseGrid.cs:94
-        instanceID: -1
-        className: UIReuseGrid
-        methodName: Update
-        namespaceName: None
-        lineNumber: 94
-        charNumber: 0
-        stackLabel: UIReuseGrid.Update()
-        stackLabel2: '    Assets/Scripts/ScrollView/UIReuseGrid.cs:94'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
-    - logType: 1
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 10
-      nativeIdentifier: 0
-      originalLog: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      originalStackTrace: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0\nUnityEngine.Debug:Log(Object)\nEquipmentcell:UpdateData(IReuseCellData)
-        (at Assets/Scripts/ScrollView/Equipmentcell.cs:51)\nUIReuseGrid:UpdateListVer(Boolean,
-        Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:638)\nUIReuseGrid:Validate(Boolean,
-        Boolean) (at Assets/Scripts/ScrollView/UIReuseGrid.cs:551)\nUIReuseGrid:Update()
-        (at Assets/Scripts/ScrollView/UIReuseGrid.cs:94)\n"
-      nativeFileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-      nativeLineNumber: 51
-      watchName: 
-      logText: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      logTruncatedText: "\uC18C\uBAA8\uB9C8\uB098\uB7C9:\t0"
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: 0.4045239984989166
-      timeFrame: 16
-      instanceID: 0
-      collapsedCount: 1
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssets: Scripts/ScrollView/Equipmentcell.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/ScrollView/Equipmentcell.cs:51
-        fileNameWithoutPath: Equipmentcell.cs
-        fileNameWithoutPathPlusLineNumber: Equipmentcell.cs:51
-        instanceID: -1
-        className: Equipmentcell
-        methodName: UpdateData
-        namespaceName: None
-        lineNumber: 51
-        charNumber: 0
-        stackLabel: Equipmentcell.UpdateData()
-        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:51'
+        stackLabel2: '    Assets/Scripts/ScrollView/Equipmentcell.cs:17'
         stackLabelContent:
           m_Text: 
           m_Image: {fileID: 0}
@@ -2813,7 +1625,7 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 11
+      nativeIndex: 6
       nativeIdentifier: 0
       originalLog: Destory instance of DataTransaction.
       originalStackTrace: 'Destory instance of DataTransaction.
@@ -2837,7 +1649,7 @@ MonoBehaviour:
       timeStamp: -1
       timeFrame: -1
       instanceID: 0
-      collapsedCount: 2
+      collapsedCount: 1
       cachedHeight: -1
       cachedHeightLogWidth: 0
       stackEntries:
@@ -2980,7 +1792,7 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 12
+      nativeIndex: 7
       nativeIdentifier: 0
       originalLog: Destory instance of Database.
       originalStackTrace: 'Destory instance of Database.
@@ -3004,7 +1816,7 @@ MonoBehaviour:
       timeStamp: -1
       timeFrame: -1
       instanceID: 0
-      collapsedCount: 3
+      collapsedCount: 1
       cachedHeight: -1
       cachedHeightLogWidth: 0
       stackEntries:
@@ -3147,7 +1959,7 @@ MonoBehaviour:
       logPanelIndex: 0
       logOutputHeight: -1
       listIndex: 0
-      nativeIndex: 13
+      nativeIndex: 8
       nativeIdentifier: 0
       originalLog: Destory instance of SoundManager.
       originalStackTrace: 'Destory instance of SoundManager.
@@ -3305,257 +2117,10 @@ MonoBehaviour:
         showInToolbar: 1
         hideLabelInToolbar: 0
         hideWhenNoMatches: 0
-    - logType: 2
-      ignore: 0
-      processed: 1
-      tempFilterProcessed: 1
-      remoteEndPoint: Local
-      logPanelVisible: 1
-      logPanelIndex: 0
-      logOutputHeight: -1
-      listIndex: 0
-      nativeIndex: 14
-      nativeIdentifier: 0
-      originalLog: Destory instance of GameManager.
-      originalStackTrace: 'Destory instance of GameManager.
-
-        UnityEngine.Debug:LogWarning(Object)
-
-        MonoSingleton`1:OnDestroy() (at Assets/Scripts/MonoSingleton.cs:71)
-
-'
-      nativeFileName: Assets/Scripts/MonoSingleton.cs
-      nativeLineNumber: 71
-      watchName: 
-      logText: Destory instance of GameManager.
-      logTruncatedText: Destory instance of GameManager.
-      logColumnText: 
-      fileName: 
-      className: 
-      namespaceName: 
-      lineCount: 1
-      hasSourceCode: 0
-      timeStamp: -1
-      timeFrame: -1
-      instanceID: 0
-      collapsedCount: 1
-      cachedHeight: -1
-      cachedHeightLogWidth: 0
-      stackEntries:
-      - fileName: Assets/Scripts/MonoSingleton.cs
-        fileNameWithoutAssets: Scripts/MonoSingleton.cs
-        fileNameWithoutAssetsPlusLineNumber: Scripts/MonoSingleton.cs:71
-        fileNameWithoutPath: MonoSingleton.cs
-        fileNameWithoutPathPlusLineNumber: MonoSingleton.cs:71
-        instanceID: -1
-        className: MonoSingleton`1
-        methodName: OnDestroy
-        namespaceName: None
-        lineNumber: 71
-        charNumber: 0
-        stackLabel: MonoSingleton`1.OnDestroy()
-        stackLabel2: '    Assets/Scripts/MonoSingleton.cs:71'
-        stackLabelContent:
-          m_Text: 
-          m_Image: {fileID: 0}
-          m_Tooltip: 
-        stackLabelWidth: 0
-        stackLabelHeight: 0
-        stackSourceLineHeight: 0
-        sourceCode: []
-        sourceCodeUpdated: 0
-        showSource: 1
-      ignoredStackEntries: []
-      lastMatchedCount: 0
-      belongsToFilters: []
-      belongsToStandardFilters: []
-      assignedTempFilter:
-        name: 
-        isEnabled: 1
-        collapsed: 0
-        itemGUID: 
-        filterName: 
-        mainColor: {r: 1, g: 1, b: 1, a: 1}
-        isStandardFilter: 0
-        isTempFilter: 0
-        useAdvancedColors: 0
-        customTextColor: {r: 1, g: 1, b: 1, a: 1}
-        customBackgroundColor: {r: 1, g: 1, b: 1, a: 1}
-        swallowStandard: 1
-        standardCanSwallow: 0
-        overrideStandardColors: 1
-        overrideStandardIcon: 1
-        collapseIconBackground: 0
-        collapseIconSymbol: 0
-        collapseIconLetter: 0
-        collapseIconTexture: 0
-        useIconBackground: 1
-        useIconSymbol: 0
-        useIconLetter: 0
-        useIconTexture: 0
-        filterFormatVersion: -1
-        iconColorize: 0
-        useAndOpForSearchList: 0
-        searchList:
-          list: []
-          selectionList: 0
-          collapsable: 1
-          collapsed: 0
-        iconLetter:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconSymbol:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconBackground:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        iconTexture:
-          name: 
-          isEnabled: 1
-          collapsed: 0
-          itemGUID: 
-          iconType: 1
-          iconType2: 1
-          iconText: A
-          useIconTextFirstLetter: 1
-          useIconLogColor: 1
-          iconColor: {r: 1, g: 1, b: 1, a: 1}
-          iconBuiltInID: BACKGROUNDS_ECPBGROUNDEDSQUARE
-          iconTextureGUID: 
-          useIconShadow: 1
-          iconOffset: {x: 0, y: 0}
-          iconShadowOffset: {x: 0.5, y: 0.5}
-          iconSize: 13
-        showInToolbar: 1
-        hideLabelInToolbar: 0
-        hideWhenNoMatches: 0
     resetCompilerErrorEntries: 1
     compilerErrorEntries: []
     timeFrames: 
     _filteredEntries: []
---- !u!114 &13
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 12013, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Scene
-    m_Image: {fileID: 2318424515335265636, guid: 0000000000000000d000000000000000,
-      type: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 279
-    y: 73
-    width: 1247
-    height: 653
-  m_PersistentViewDataDictionary: {fileID: 0}
-  m_WindowGUID: 572b494abf67c0e468f6194e35123e1b
-  m_SceneLighting: 1
-  m_2DMode: 1
-  m_isRotationLocked: 0
-  m_AudioPlay: 0
-  m_Position:
-    m_Target: {x: -11.56633, y: 0.19046187, z: 0.05078125}
-    speed: 2
-    m_Value: {x: -11.56633, y: 0.19046187, z: 0.05078125}
-  m_RenderMode: 0
-  m_CameraMode:
-    drawMode: 0
-    name: Shaded
-    section: Shading Mode
-  m_ValidateTrueMetals: 0
-  m_SceneViewState:
-    showFog: 1
-    showMaterialUpdate: 0
-    showSkybox: 1
-    showFlares: 1
-    showImageEffects: 1
-    showParticleSystems: 1
-  grid:
-    xGrid:
-      m_Target: 0
-      speed: 2
-      m_Value: 0
-    yGrid:
-      m_Target: 0
-      speed: 2
-      m_Value: 0
-    zGrid:
-      m_Target: 1
-      speed: 2
-      m_Value: 1
-  m_Rotation:
-    m_Target: {x: 0, y: 0, z: 0, w: 1}
-    speed: 2
-    m_Value: {x: 0, y: 0, z: 0, w: 1}
-  m_Size:
-    m_Target: 2.279988
-    speed: 2
-    m_Value: 2.279988
-  m_Ortho:
-    m_Target: 1
-    speed: 2
-    m_Value: 1
-  m_ShowGlobalGrid: 1
-  m_LastSceneViewRotation: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
-  m_LastSceneViewOrtho: 0
-  m_ReplacementShader: {fileID: 0}
-  m_ReplacementString: 
-  m_LastLockedObject: {fileID: 0}
-  m_ViewIsLockedToObject: 0
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -3726,7 +2291,7 @@ MonoBehaviour:
     x: 279
     y: 73
     width: 1247
-    height: 653
+    height: 648
   m_PersistentViewDataDictionary: {fileID: 0}
   m_MaximizeOnPlay: 0
   m_Gizmos: 0
@@ -3738,10 +2303,10 @@ MonoBehaviour:
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -565.5
-    m_HBaseRangeMax: 565.5
-    m_VBaseRangeMin: -318
-    m_VBaseRangeMax: 318
+    m_HBaseRangeMin: -561
+    m_HBaseRangeMax: 561
+    m_VBaseRangeMin: -315.5
+    m_VBaseRangeMax: 315.5
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -3760,9 +2325,9 @@ MonoBehaviour:
       x: 0
       y: 17
       width: 1247
-      height: 636
+      height: 631
     m_Scale: {x: 1, y: 1}
-    m_Translation: {x: 623.5, y: 318}
+    m_Translation: {x: 623.5, y: 315.5}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
@@ -3770,14 +2335,14 @@ MonoBehaviour:
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
       x: -623.5
-      y: -318
+      y: -315.5
       width: 1247
-      height: 636
+      height: 631
     m_MinimalGUI: 1
-  m_defaultScale: 0.5888889
+  m_defaultScale: 0.5842593
   m_TargetTexture: {fileID: 0}
   m_CurrentColorSpace: 0
-  m_LastWindowPixelSize: {x: 1247, y: 653}
+  m_LastWindowPixelSize: {x: 1247, y: 648}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000001000000000000
@@ -3806,14 +2371,14 @@ MonoBehaviour:
     x: 0
     y: 73
     width: 277
-    height: 653
+    height: 648
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 36610100
-      m_LastClickedID: 90422
-      m_ExpandedIDs: c839ffff163effffca49ffff9e6effff3472ffff2a7effffe289fffffe89ffffb88affffd48efffff08effffa88fffffc293ffff629cffffe4a8ffff5eaeffff1aafffff8ab4ffff38b8ffff8ebcffffcac6ffff88e5ffffc0e8ffffd2f3ffff0cf8ffff44fbffffc4fbfffff4ffffff7e310000f29b0000169c0000869c0000a49c0000aa9d0000c29d00001e9e00004a9e0000b09f0000bc9f000098a000009ab1000014d10000a2d10000fcd100001ce10000aae1000004e20000cceb00005aec0000b4ec000000f1000024f1000094f10000b2f100000cf20000b8f500005af600007ef60000eef600000cf7000066f7000012fb000086060100140701006e070100ea4b0100784c01007e4d01001e4e01003a4f0100d6600100646101006e6101006a62010020640100
+      m_SelectedIDs: ee360000
+      m_LastClickedID: 14062
+      m_ExpandedIDs: 0afbffff18fbffff2afbffffd6fbffff12330000a0330000fa3300003e360000ee3600001e370000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -3885,9 +2450,9 @@ MonoBehaviour:
   m_Pos:
     serializedVersion: 2
     x: 0
-    y: 746
+    y: 741
     width: 1528
-    height: 254
+    height: 259
   m_PersistentViewDataDictionary: {fileID: 0}
   m_SearchFilter:
     m_NameFilter: 
@@ -3901,20 +2466,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets/Scripts/Manager
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets/Scripts/Manager
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\TabTabCreate\ProjectDragon\ProjectDragon\ProjectDragon
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 247}
-    m_SelectedIDs: 122a0000
-    m_LastClickedID: 10770
-    m_ExpandedIDs: 000000003e280000fe280000c2290000c4290000f0290000102a00001c2a0000422b00005c2b00006e2b0000a62b00002c2c0000782f0000842f0000443000005a3100005c31000000ca9a3b
+    scrollPos: {x: 0, y: 163}
+    m_SelectedIDs: 8e2b0000
+    m_LastClickedID: 11150
+    m_ExpandedIDs: 000000003a280000fa280000be290000c0290000ec2900000c2a0000182a00003e2b0000582b00006a2b0000a22b0000282c0000742f0000802f0000403000003c3200003e32000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3942,7 +2507,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000003e280000fe280000c2290000c4290000102a00001c2a0000422b00005c2b00006e2b0000a62b00002c2c00005c2e0000782f0000842f0000443000005a3100005c310000
+    m_ExpandedIDs: 000000003a280000fa280000be290000c0290000ec2900000c2a0000182a00003e2b0000582b00006a2b0000a22b0000282c0000742f0000802f0000403000003c3200003e320000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -3973,18 +2538,18 @@ MonoBehaviour:
     m_ExpandedInstanceIDs: c6230000ec07000000000000a8a000002c2500002e250000e02300005c3a0000883c0000763b0000523b0000c84b0000b22d000012980000902b0000b83c0000d8290000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: DS_Database
-      m_OriginalName: DS_Database
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 11438
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
       m_ClientGUIView: {fileID: 10}
     m_CreateAssetUtility:
