@@ -10,22 +10,19 @@ public class BattleManager : MonoBehaviour
     public int EnemyCount;
     public GameObject other;
     public float[] EnemyDistance;
-
+    public string skillname;
     private float angle;
 
 
     public void Start()
     {
-       
+        EnemyFinder();
     }
     public void FixedUpdate()
     {
-        EnemyFinder();
         CalculateDistanceWithPlayer();
         CalCulateAngleWithPlayer();
     }
-
-
     public void EnemyFinder()
     {
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
@@ -44,9 +41,9 @@ public class BattleManager : MonoBehaviour
         {
             Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
         }
-        for(int a= 1; a< EnemyDistance.Length; a++)
+        for (int a = 1; a < EnemyDistance.Length; a++)
         {
-            if(Enemy[a].GetComponent<Monster>().distanceOfPlayer > Enemy[a-1].GetComponent<Monster>().distanceOfPlayer)
+            if (Enemy[a].GetComponent<Monster>().distanceOfPlayer > Enemy[a - 1].GetComponent<Monster>().distanceOfPlayer)
             {
                 other = Enemy[a];
             }
@@ -55,6 +52,12 @@ public class BattleManager : MonoBehaviour
                 other = Enemy[a - 1];
             }
         }
+    }
+    public void Shoot()
+    {
+        GameObject skill = ObjectPool.Instance.PopFromPool(skillname);
+        skill.transform.position = transform.position + transform.up;
+        skill.SetActive(true);
     }
     public void CalCulateAngleWithPlayer()
     {
@@ -81,6 +84,6 @@ public class BattleManager : MonoBehaviour
     {
         return Quaternion.FromToRotation(Vector3.up, Enemy - Player).eulerAngles.z;
     }
-
+   
     #endregion
 }

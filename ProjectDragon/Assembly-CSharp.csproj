@@ -85,6 +85,7 @@
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SequencedChannel.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SimpleChannel.cs" />
     <Compile Include="Assets\JoyPad.cs" />
+    <Compile Include="Assets\monsterAi.cs" />
     <Compile Include="Assets\NGUI\RobotsNGUI\UIJoystick.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\EnvelopContent.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\LanguageSelection.cs" />
@@ -198,15 +199,29 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\ObjectPool.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerCharacter.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerSkill.cs" />
+    <Compile Include="Assets\Scripts\DataBase\Database.cs" />
+    <Compile Include="Assets\Scripts\DataBase\DataTransaction.cs" />
+    <Compile Include="Assets\Scripts\DataBase\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
     <Compile Include="Assets\Scripts\Enemy\TestMonster.cs" />
     <Compile Include="Assets\Scripts\Interface.cs" />
     <Compile Include="Assets\Scripts\JoyStickController\JoyStick.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\EnemyFollow.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Grid.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Heap.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Node.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\PathRequestManager.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Tile.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\Unit.cs" />
     <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
+    <Compile Include="Assets\Skill.cs" />
+    <Compile Include="Assets\SkillObjectPool.cs" />
     <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 2.shader" />
@@ -451,6 +466,21 @@
     </Reference>
     <Reference Include="UnityEngine.SpatialTracking">
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.Sqlite">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Data.SqliteClient">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="System.EnterpriseServices">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Security">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Security.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
       <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>

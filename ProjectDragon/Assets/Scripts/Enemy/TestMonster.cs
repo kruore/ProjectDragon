@@ -11,7 +11,7 @@ public class TestMonster : Monster
     {
         monsterName = "TestMonster";
         enemyPos = EnemyPos.Front;
-        AtkRange = 3;
+        AtkRange = 5;
         myState = State.WALK;
         myAttackType = AttackType.SHORTRANGE;
         moveDistance = 5;
@@ -21,11 +21,11 @@ public class TestMonster : Monster
     void Update()
     {
     }
+    //몬스터의 애니메이션 제어 angle 값에 따라 스테이트 case 종속 모습 변경
     public void MonsterAnimation(float angle)
     {
         if (myAttackType.Equals(AttackType.SHORTRANGE))
         {
-            Debug.Log("check");
             switch (myState)
             {
                 case State.WALK:
@@ -45,4 +45,5 @@ public class TestMonster : Monster
            myPos=gameObject.GetComponent<Transform>().position;
         }
     }
+    
 }
