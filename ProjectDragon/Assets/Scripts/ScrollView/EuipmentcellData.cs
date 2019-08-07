@@ -12,7 +12,7 @@ public class EuipmentcellData : IReuseCellData
     public string m_name;
     public string name { get { return m_name; } set { m_name = value; } }
     public float m_stat;
-    public float stat{ get { return m_stat; } set { m_stat = value; } }
+    public float stat{ get { return m_stat; } set {Debug.Log(value.ToString()); m_stat = value; } }
     public bool m_isLock;
     public bool isLock { get { return m_isLock; }set { m_isLock = value; } }
     public int m_itemValue;

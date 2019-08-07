@@ -8,7 +8,7 @@ public static class ButtonManager
     /// <summary>
     /// 핸드폰에서의 취소버튼을 한번 눌렀을시 동작하게 할 함수 "이전동작으로 돌아가기",닫기버튼에서도 동일동작할것.
     /// </summary>
-    public static void TouchBackButton()
+    public static string TouchBackButton()
     {
         if (GameManager.Inst.Scenestack.Count > 0)
         {
@@ -17,10 +17,13 @@ public static class ButtonManager
                 case "Main":
                     //StopAllCoroutines();
                     GameManager.Inst.Scenestack.Push("Main");
+                    return "Main";
                     break;
-                case "mapscene":
+                case "ChangeEquip":
                     //StopAllCoroutines();
-                    SceneManager.LoadScene("Main");
+                    LobbyManager.inst.changeEquip.SetActive(false);
+                    LobbyManager.inst.BGID.SetActive(false);
+                    return "ChangeEquip";
                     break;
                 case "InventoryLobby":
                     //StopAllCoroutines();
@@ -46,11 +49,13 @@ public static class ButtonManager
                     //DeactiveToolboxpanel();
                     break;
             }
+            
         }
         else
         {
             SceneManager.LoadScene("Main");
         }
+        return null;
     }
     /// <summary>
     /// SetActiveObject에있는 activeobject모두켜기,deactiveobject모두끄기

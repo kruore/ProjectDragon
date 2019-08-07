@@ -11,7 +11,6 @@ public class LobbyManager : MonoBehaviour
     public GameObject filterobject, arrangementobject;
     public AudioClip fire;
     public UISpriteAnimation anim;
-
     #region equipobject
     public GameObject useJameConfirm, useJam, changeEquip, BGID, BGI;
     public GameObject CurrentWeapone, CurrentArmor, CurrentActive,equipCharactor;
@@ -25,6 +24,7 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         Database.Inst.playData.equiWeapon_InventoryNum = 0;
+        Database.Inst.playData.equiArmor_InventoryNum = 5;
         if (isnight)
         {
             SoundManager.Inst.Ds_BgmPlayer(fire);
@@ -93,8 +93,16 @@ public class LobbyManager : MonoBehaviour
             Destroy(particle, 0.5f);
         }
     }
+    public void TouchBackButton()
+    {
+        ButtonManager.TouchBackButton();
+    }
     public void ObjectControl()
     {
         ButtonManager.ObjectlistControl();
+    }
+    public void ChangeEquip()
+    {
+        //Database.Inst.playData.
     }
 }
