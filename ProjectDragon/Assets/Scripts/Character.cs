@@ -5,9 +5,9 @@ using UnityEngine;
 public class Character : MonoBehaviour,PersonalSpecificational
 {
     //state of animation
-    public enum State { None = 0,WALK,ATTACK,DEAD,SKILL};
+    public enum State { None = 0,Walk,Attack,Dead,Skill};
     //state of Attack type for range
-    public enum AttackType { None = 0,LONGRANGE,SHORTRANGE,MIDDLERANGE}
+    public enum AttackType { None = 0,LongRange, MiddleRange, ShortRange};
 
     //personal Specification
     [SerializeField] private int hp;
@@ -33,9 +33,9 @@ public class Character : MonoBehaviour,PersonalSpecificational
     public State myState;
     public AttackType myAttackType;
 
-    [SerializeField] private bool isAttacking;
-    [SerializeField] private bool isDead;
-    [SerializeField] private bool isHit;
+    [SerializeField] protected bool isAttacking;
+    [SerializeField] protected bool isDead;
+    [SerializeField] protected bool isHit;
     public Transform other;
     //Check Range
 
@@ -108,7 +108,7 @@ public class Character : MonoBehaviour,PersonalSpecificational
             if (value <= 0)
             {
                 Debug.Log("죽었습니다.");
-                myState = State.DEAD;
+                myState = State.Dead;
             }
             else
             {

@@ -17,10 +17,10 @@ public class Monster : Character
     public float distanceOfPlayer;
     public float angleOfPlayer;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
-        
+        other = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
@@ -36,5 +36,21 @@ public class Monster : Character
             yield return new WaitForSeconds(skillCoolDown);
         }
         yield return new WaitForSeconds(0);
+    }
+    public void MonsterAnimation(float angle)
+    {
+        if (myAttackType.Equals(AttackType.ShortRange))
+        {
+            switch (myState)
+            {
+                case State.Walk:
+                    AnimatorCast(monsterName + AngleCalculate(angle));
+                    break;
+            }
+        }
+    }
+    IEnumerator AttackTime()
+    {
+        yield return new WaitForSeconds(ATTACKSPEED);
     }
 }

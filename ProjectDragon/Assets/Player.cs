@@ -6,13 +6,12 @@ public class Player : Character
 {
 
     public GameObject weaponSelection;
-
+    public string Charactermotion = "motion01";
     //대각 속도
     public float horizontalSpeed = 5.0f;
     public float verticalSpeed = 5.0f;
     public GameObject DeadPanel;
-
-
+    public SEX playerSex;
     //JoyStick
     protected JoyPad joyPad;
     public Animator playerAnimationStateChanger;
@@ -21,42 +20,40 @@ public class Player : Character
     public Rigidbody2D rigidbody2d;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    private Vector3 normalVec = new Vector3(0,0,0);
+    private Vector3 normalVec = new Vector3(0, 0, 0);
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+       //playerSex = Database.Inst.playData.sex;
+        playerSex = SEX.Male;
+        //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         HP = 100;
         ATKChanger(10);
         ATKSpeedChanger(1.0f);
         MoveSpeed = 1;
-        myState = State.None;
-        myAttackType = AttackType.None;
+        myState = State.Walk;
         AtkRangeChanger(3);
-        myState = State.ATTACK;
-        myAttackType = AttackType.SHORTRANGE;
-     
-        //myRotat = new Vector3(0, 0, 0);
-
+        myAttackType = AttackType.ShortRange;
+        weaponSelection.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("SwordAnimation") as RuntimeAnimatorController;
+    }
+    void Start()
+    {
+        //내가 끼고 있는 칼에 대한 정의
+        //Database.Inventory myWeapon = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
     // Update is called once per frame
     void Update()
     {
-        ////Battlemanager have
-
-        //if(other ==null)
-        //{
-        //    other = 
-        //}
-      
-
         myPos = gameObject.transform.position;
-        DistanceCheck(3.0f);
+       // DistanceCheck(3.0f);
         joystickPos = joypadinput.GetComponent<UIJoystick>().position;
         //키보드 세팅
         //float h = horizontalSpeed * Input.GetAxis("Horizontal");
         //float v = verticalSpeed * Input.GetAxis("Vertical");
+
+        //joystick
         float h = horizontalSpeed * joystickPos.x;
         float v = verticalSpeed * joystickPos.y;
 
@@ -66,9 +63,17 @@ public class Player : Character
         transform.Translate(Vector2.up * Time.deltaTime * v, Space.World);
 
         //Angle of joystick and normalVec
-        float Angle = GetAngle(joystickPos, normalVec);
-        AnimationChanger(Angle);
-        //Debug.Log(Angle);
+        if (isAttacking.Equals(false))
+        {
+            float Angle = GetAngle(joystickPos, normalVec);
+            AnimationChanger(Angle);
+        }
+        if (isAttacking.Equals(true))
+        {
+          //  float Angle = GetAngle(EnemyPos.transform.position, normalVec);
+          //  AnimationChanger(Angle);
+        }
+     
     }
     IEnumerator DeadFade()
     {
@@ -84,226 +89,47 @@ public class Player : Character
     }
 
     #region Animation Changer
-    public void CharacterAnimator(string animationtype)
-    {
-        //Animator[] childAnimator;
-        //childAnimator = GetComponentsInChildren<Animator>();
-        //foreach (Animator anim in childAnimator)
-        //{
-        gameObject.GetComponent<Animator>().Play(animationtype);
-        //}
-    }
     public void AnimationChanger(float angle)
     {
-        #region SwordMan
-        if (myAttackType.Equals(AttackType.SHORTRANGE))
+        AngleCalculate(angle);
+        Debug.Log("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+        if (playerSex == SEX.Male)
         {
-            switch (myState)
+            if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(false))
             {
-                case State.WALK:
-                    weaponSelection.SetActive(true);
-                    if (angle == 0)
-                    {
 
-                    }
-                    if (angle < 22.5)
-                    {
-                        CharacterAnimator("MaleSwordManWalkFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkFront");
-                    }
-                    else if (angle < 112.5)
-                    {
-                        CharacterAnimator("MaleSwordManWalkRight");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkRight");
-                    }
-                    else if (angle < 112.5 + 45)
-                    {
-                        CharacterAnimator("MaleSwordManWalkRightSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkRightSide");
-                    }
-                    else if (angle < 112.5 + 90)
-                    {
-                        CharacterAnimator("MaleSwordManWalkUp");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkUp");
-                    }
-                    else if (angle < 112.5 + 135)
-                    {
-                        CharacterAnimator("MaleSwordManWalkLeft");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkLeft");
-                    }
-                    else if (angle < 112.5 + 180)
-                    {
-                        CharacterAnimator("MaleSwordManWalkLeftSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkLeftSide");
-                    }
-                    else
-                    {
-                        CharacterAnimator("MaleSwordManWalkFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkFront");
-                    }
-                
-                    break;
-
-                case State.ATTACK:
-                    weaponSelection.SetActive(true);
-                    if (angle == 0)
-                    {
-
-                    }
-                    if (angle < 22.5)
-                    {
-                        CharacterAnimator("MaleSwordManAttackFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordFront");
-                    }
-                    else if(angle < 112.5)
-                    {
-                        CharacterAnimator("MaleSwordManAttackRight");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordRight");
-                    }
-                    else if(angle < 112.5+45)
-                    {
-                        CharacterAnimator("MaleSwordManAttackRightSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordRightSide");
-                    }
-                    else if(angle < 112.5+90)
-                    {
-                        CharacterAnimator("MaleSwordManAttackUp");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordUp");
-                    }
-                    else if (angle < 112.5 + 135)
-                    {
-                        CharacterAnimator("MaleSwordManAttackLeftSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordLeftSide");
-                    }
-                    else if (angle < 112.5 + 180)
-                    {
-                        CharacterAnimator("MaleSwordManAttackLeft");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordLeft");
-                    }
-                    else
-                    {
-                        CharacterAnimator("MaleSwordManAttackFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordFront");
-                    }
-                    break;
-                case State.DEAD:
-                    CharacterAnimator("Dead");
-                    joypadinput.SetActive(false);
-                    weaponSelection.SetActive(false);
-                    StartCoroutine("DeadFade");
-                    break;
-                case State.SKILL:
-                    break;
-
-            } 
-        }
-        #endregion
-        #region Archer
-        if (myAttackType.Equals(AttackType.MIDDLERANGE))
-        {
-            switch (myState)
+                switch (myState)
+                {
+                    case State.Walk:
+                        weaponSelection.SetActive(true);
+                        AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+                        weaponSelection.GetComponent<Animator>().Play("TestSword"+AngleCalculate(angle));
+                        break;
+                    case State.Skill:
+                        AnimatorCast("MaleIs" + myState.ToString() + Charactermotion + myAttackType.ToString() + AngleCalculate(angle));
+                        break;
+                    case State.Dead:
+                        weaponSelection.SetActive(false);
+                        AnimatorCast("MaleIsDead");
+                        break;
+                }
+            }
+            if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(true))
             {
-                case State.WALK:
-                    weaponSelection.SetActive(true);
-                    if (angle == 0)
-                    {
-
-                    }
-                    if (angle < 22.5)
-                    {
-                        CharacterAnimator("MaleArcherManWalkFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkFront");
-                    }
-                    else if (angle < 112.5)
-                    {
-                        CharacterAnimator("MaleArcherManWalkRight");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkRight");
-                        Debug.Log("Right");
-                    }
-                    else if (angle < 112.5 + 45)
-                    {
-                        CharacterAnimator("MaleArcherManWalkRightSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkRightSide");
-                    }
-                    else if (angle < 112.5 + 90)
-                    {
-                        CharacterAnimator("MaleArcherManWalkUp");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkUp");
-                    }
-                    else if (angle < 112.5 + 135)
-                    {
-                        CharacterAnimator("MaleArcherManWalkLeftSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkLeft");
-                    }
-                    else if (angle < 112.5 + 180)
-                    {
-                        CharacterAnimator("MaleArcherManWalkLeft");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkLeftSide");
-                    }
-                    else
-                    {
-                        CharacterAnimator("MaleArcherManWalkFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordWalkFront");
-                    }
-
-                    break;
-
-                case State.ATTACK:
-                    weaponSelection.SetActive(true);
-                  //  CharacterAnimator("MaleArcherManAttack" + AngleCalculate(angle));
-                    if (angle == 0)
-                    {
-
-                    }
-                    if (angle < 22.5)
-                    {
-                        CharacterAnimator("MaleArcherManAttackFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordFront");
-                    }
-                    else if (angle < 112.5)
-                    {
-                        CharacterAnimator("MaleArcherManAttackRight");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordRight");
-                    }
-                    else if (angle < 112.5 + 45)
-                    {
-                        CharacterAnimator("MaleArcherManAttackRightSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordRightSide");
-                    }
-                    else if (angle < 112.5 + 90)
-                    {
-                        CharacterAnimator("MaleArcherManAttackUp");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordUp");
-                    }
-                    else if (angle < 112.5 + 135)
-                    {
-                        CharacterAnimator("MaleArcherManAttackLeftSide");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordLeftSide");
-                    }
-                    else if (angle < 112.5 + 180)
-                    {
-                        CharacterAnimator("MaleArcherManAttackLeft");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordLeft");
-                    }
-                    else
-                    {
-                        CharacterAnimator("MaleArcherManAttackFront");
-                        weaponSelection.GetComponent<Animator>().Play("NormalSwordFront");
-                    }
-                    break;
-                case State.DEAD:
-                    CharacterAnimator("Dead");
-                    joypadinput.SetActive(false);
-                    weaponSelection.SetActive(false);
-                    StartCoroutine("DeadFade");
-                    break;
-                case State.SKILL:
-                    break;
-
+                switch (myState)
+                {
+                    case State.Attack:
+                        AngleCalculate(angle);
+                        AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+                        weaponSelection.GetComponent<Animator>().Play("TestSwordAttack" + AngleCalculate(angle));
+                        break;
+                }
             }
         }
-        #endregion
     }
-    #endregion
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+       
+    }
 }
-
+#endregion
