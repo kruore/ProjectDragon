@@ -13,7 +13,8 @@ public class LobbyManager : MonoBehaviour
     public UISpriteAnimation anim;
     #region equipobject
     public GameObject useJameConfirm, useJam, changeEquip, BGID, BGI;
-    public GameObject CurrentWeapone, CurrentArmor, CurrentActive,equipCharactor;
+    public GameObject Currentweapon, CurrentArmor, CurrentActive,equipCharactor,scrollview;
+    public int changeequipdata;
     #endregion
     private void Awake()
     {
@@ -34,20 +35,19 @@ public class LobbyManager : MonoBehaviour
         {
         }
         string classname = "null";
-        Debug.Log(Database.Inst.playData.inventory.Count);
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         if (item.item_Class.Equals(Item_CLASS.검))
         {
             classname = "Worrior";
             if(Database.Inst.playData.sex.Equals(SEX.Male))
             {
-                playerimg.transform.Find("Weapone").transform.localPosition = new Vector3(1, -0.7f, 0);
-                equipCharactor.transform.Find("Weapone").transform.localPosition = new Vector3(1, -0.7f, 0);
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
             }
             else
             {
-                playerimg.transform.Find("Weapone").transform.localPosition = new Vector3(1, -0.7f, 0);
-                equipCharactor.transform.Find("Weapone").transform.localPosition = new Vector3(1, -0.7f, 0);
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
             }
         }
         else if (item.item_Class.Equals(Item_CLASS.활))
@@ -61,19 +61,17 @@ public class LobbyManager : MonoBehaviour
 
 
         string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
-        Debug.Log(playerclass);
 
         playerimg.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         equipCharactor.GetComponent<UITexture>().mainTexture= Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
-        CurrentWeapone.transform.Find("SwordIcon").GetComponent<UISprite>().spriteName=item.imageName;
-        CurrentWeapone.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
-        Debug.Log(playerclass + "_Weapone");
-        playerimg.transform.Find("Weapone").GetComponent<UISprite>().atlas = Resources.Load(playerclass+"_Weapone", typeof(NGUIAtlas)) as NGUIAtlas;
-        playerimg.transform.Find("Weapone").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
-        equipCharactor.transform.Find("Weapone").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapone", typeof(NGUIAtlas)) as NGUIAtlas;
-        equipCharactor.transform.Find("Weapone").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
-        
+        ChangeItemIcon(Currentweapon, item);
+        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
+        playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass+"_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
+        playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
+        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
     }
     // Update is called once per frame
     void Update()
@@ -103,6 +101,63 @@ public class LobbyManager : MonoBehaviour
     }
     public void ChangeEquip()
     {
-        //Database.Inst.playData.
+        TouchBackButton();
+        if (Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.갑옷))
+        {
+            Database.Inst.playData.equiArmor_InventoryNum=changeequipdata;
+        }
+        else if (!Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.아이템))
+        {
+            Database.Inst.playData.equiWeapon_InventoryNum = changeequipdata;
+        }
+        string classname = "null";
+        Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+        if (item.item_Class.Equals(Item_CLASS.검))
+        {
+            classname = "Worrior";
+            if (Database.Inst.playData.sex.Equals(SEX.Male))
+            {
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+            }
+            else
+            {
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+            }
+        }
+        else if (item.item_Class.Equals(Item_CLASS.활))
+        {
+            classname = "Archer";
+        }
+        else if (item.item_Class.Equals(Item_CLASS.지팡이))
+        {
+            classname = "Wizard";
+        }
+        string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
+        playerimg.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
+        equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
+        playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
+        ChangeItemIcon(Currentweapon, item);
+        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
+        playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
+        playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
+        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+        scrollview.GetComponent<GUITestScrollView>().EV_UpdateAll();
+    }
+    public void ChangeItemIcon(GameObject Icon,Database.Inventory data)
+    {
+        Icon.transform.Find("EquipIcon").GetComponent<UISprite>().spriteName = data.name;
+        Icon.transform.Find("EnchantLevel").GetComponent<UISprite>().spriteName = string.Format("강화수치_{0}", data.upgrade_Level.ToString());
+        Icon.transform.Find("Rarity").gameObject.GetComponent<UISprite>().spriteName = string.Format("레어도_{0}", data.rarity.ToString());
+        if (data.isLock)
+        {
+            Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Lock";
+        }
+        else
+        {
+            Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Unlock";
+        }
     }
 }

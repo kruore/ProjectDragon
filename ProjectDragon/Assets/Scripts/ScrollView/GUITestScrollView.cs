@@ -42,11 +42,32 @@ public class GUITestScrollView : MonoBehaviour
             cell.upgrade_Count = inventories[i].upgrade_Count;
             cell.upgrade_Level = inventories[i].upgrade_Level;
             cell.isLock = inventories[i].isLock;
+            cell.stat = inventories[i].stat;
             grid.AddItem(cell, false);
         }
         grid.UpdateAllCellData();
     }
-
+    public void EV_UpdateAll()
+    {
+        grid.ClearItem(true);
+        for (int i = 0; i < count; ++i)
+        {
+            EuipmentcellData cell = new EuipmentcellData();
+            cell.amount = inventories[i].amount;
+            cell.DB_Num = inventories[i].DB_Num;
+            cell.imageName = inventories[i].imageName;
+            cell.itemValue = inventories[i].itemValue;
+            cell.item_Class = inventories[i].item_Class;
+            cell.name = inventories[i].name;
+            cell.inventoryNum = inventories[i].num;
+            cell.rarity = inventories[i].rarity;
+            cell.upgrade_Count = inventories[i].upgrade_Count;
+            cell.upgrade_Level = inventories[i].upgrade_Level;
+            cell.isLock = inventories[i].isLock;
+            grid.AddItem(cell, false);
+        }
+        grid.UpdateAllCellData();
+    }
     #region Event
     public void EV_Add()
     {
