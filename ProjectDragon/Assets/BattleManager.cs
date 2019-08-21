@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class BattleManager : MonoBehaviour
 {
-    public GameObject player;
+    public Player player;
     public GameObject[] Enemy;
     public GameObject other;
     public float[] EnemyDistance;
@@ -20,27 +19,28 @@ public class BattleManager : MonoBehaviour
     public void FixedUpdate()
     {
         CalculateDistanceWithPlayer();
-        CalCulateAngleWithPlayer();
+        
+        // CalCulateAngleWithPlayer();
     }
     public void EnemyFinder()
     {
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
-        player = GameObject.FindGameObjectWithTag("Player");
-        EnemyMapping();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+       // EnemyMapping();
     }
-    public void EnemyMapping()
-    {
-        for(int i =0; i<Enemy.Length;i++)
-        {
-            Enemy[i].GetComponent<EnemyFollow>().stopDistance = Enemy[i].GetComponent<Monster>().AtkRange;
-            Enemy[i].GetComponent<EnemyFollow>().speed = Enemy[i].GetComponent<Monster>().MoveSpeed;
-        }
-      
-    }
+    //public void EnemyMapping()
+    //{
+    //    for (int i = 0; i < Enemy.Length; i++)
+    //    {
+    //       // Enemy[i].GetComponent<EnemyFollow>().stopDistance = Enemy[i].GetComponent<Monster>().AtkRange;
+    //      //  Enemy[i].GetComponent<EnemyFollow>().speed = Enemy[i].GetComponent<Monster>().MoveSpeed;
+    //    }
+
+    //}
     IEnumerator CalculateDistanceWithPlayer()
     {
         bool isActive = true;
-        while(isActive)
+        while (isActive)
         {
             EnemyDistance = new float[Enemy.Length];
 
@@ -63,7 +63,29 @@ public class BattleManager : MonoBehaviour
                     other = Enemy[a];
                 }
             }
-            yield return new WaitForSeconds(0.2f);
+            player.GetComponent<Player>().EnemyPos = other.transform as Transform;
+            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
+            {
+                if (other == null)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+                player.StateChaner(State.Attack);
+                player.EnemyAngle = Quaternion.FromToRotation(Vector3.up, player.transform.position - other.transform.position).eulerAngles.z;
+                player.AngleCalculate = player.GetComponent<Player>().EnemyAngle;
+            }
+            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
+            {
+                if (other == null)
+                {
+                    yield return new WaitForSeconds(0.1f);
+                }
+                player.StateChaner(State.Walk);
+                player.EnemyAngle = Quaternion.FromToRotation(Vector3.up, player.transform.position - other.transform.position).eulerAngles.z;
+                player.AngleCalculate = player.GetComponent<Player>().EnemyAngle;
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
 
     }
@@ -76,7 +98,7 @@ public class BattleManager : MonoBehaviour
     }
     public void CalCulateAngleWithPlayer()
     {
-        foreach(GameObject a in Enemy)
+        foreach (GameObject a in Enemy)
         {
             if (a.GetComponent<Monster>().distanceOfPlayer <= a.GetComponent<Monster>().moveDistance)
             {
@@ -89,7 +111,7 @@ public class BattleManager : MonoBehaviour
             if (a.GetComponent<Monster>().distanceOfPlayer >= a.GetComponent<Monster>().moveDistance)
             {
                 a.GetComponent<Monster>().MonsterAnimation(0);
-                
+
             }
         }
     }
@@ -104,6 +126,6 @@ public class BattleManager : MonoBehaviour
     {
         return Quaternion.FromToRotation(Vector3.up, Enemy - Player).eulerAngles.z;
     }
-   
+
     #endregion
 }

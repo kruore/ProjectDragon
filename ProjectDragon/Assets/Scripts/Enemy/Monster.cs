@@ -44,7 +44,7 @@ public class Monster : Character
             switch (myState)
             {
                 case State.Walk:
-                    AnimatorCast(monsterName + AngleCalculate(angle));
+              //      AnimatorCast(monsterName + AngleCalculate(angle));
                     break;
             }
         }

@@ -22,7 +22,7 @@ public class Skill : MonoBehaviour
         {
             SetTimer();
             ObjectPool.Instance.PushToPool(skillName, gameObject);
-            gameObject.SetActive(false);
+          //  gameObject.SetActive(false);
         }
     }
 

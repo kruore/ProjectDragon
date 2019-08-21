@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Character : MonoBehaviour,PersonalSpecificational
+public enum State { None = 0, Walk, Attack, Dead, Skill, Hit };
+
+public class Character : MonoBehaviour, PersonalSpecificational
 {
     //state of animation
-    public enum State { None = 0,Walk,Attack,Dead,Skill};
     //state of Attack type for range
-    public enum AttackType { None = 0,LongRange, MiddleRange, ShortRange};
+    public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
 
     //personal Specification
     [SerializeField] private int hp;
@@ -15,7 +16,7 @@ public class Character : MonoBehaviour,PersonalSpecificational
     [SerializeField] private float atkSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float atkRange;
-
+    [SerializeField] private float angle;
     public Vector3 myPos;
     public Vector3 myRotat;
 
@@ -34,8 +35,10 @@ public class Character : MonoBehaviour,PersonalSpecificational
     public AttackType myAttackType;
 
     [SerializeField] protected bool isAttacking;
+    [SerializeField] protected bool isWalk;
     [SerializeField] protected bool isDead;
     [SerializeField] protected bool isHit;
+    [SerializeField] protected bool isSkillActive;
     public Transform other;
     //Check Range
 
@@ -47,12 +50,12 @@ public class Character : MonoBehaviour,PersonalSpecificational
     }
     public bool DistanceCheck(float closeDistance)
     {
-        if(other)
+        if (other)
         {
             Vector3 offset = other.position - transform.position;
             float sqrLen = offset.sqrMagnitude;
 
-            if(sqrLen < (closeDistance * closeDistance))
+            if (sqrLen < (closeDistance * closeDistance))
             {
                 return isAttacking = true;
             }
@@ -158,43 +161,84 @@ public class Character : MonoBehaviour,PersonalSpecificational
         return atkRange;
     }
     #endregion
-    public string AngleCalculate(float angle)
-    {
-        if (angle == 0)
-        {
+    public float AngleCalculate{get{return angle;}set{angle = value;}}
+    //    if (angle == 0)
+    //    {
 
-        }
-        if (angle < 22.5)
-        {
-            return "Front";
-        }
-        else if (angle < 112.5)
-        {
-            return "Right";
-        }
-        else if (angle < 112.5 + 45)
-        {
-            return "RightSide";
-        }
-        else if (angle < 112.5 + 90)
-        {
-            return "Up";
-        }
-        else if (angle < 112.5 + 135)
-        {
-            return "LeftSide";
-        }
-        else if (angle < 112.5 + 180)
-        {
-            return "Left";
-        }
-        else
-        {
-            return "Front";
-        }
-    }
+    //    }
+    //    if (angle < 22.5)
+    //    {
+    //        return "front";
+    //    }
+    //    else if (angle < 112.5)
+    //    {
+    //        return "Right";
+    //    }
+    //    else if (angle < 112.5 + 45)
+    //    {
+    //        return "RightSide";
+    //    }
+    //    else if (angle < 112.5 + 90)
+    //    {
+    //        return "Up";
+    //    }
+    //    else if (angle < 112.5 + 135)
+    //    {
+    //        return "LeftSide";
+    //    }
+    //    else if (angle < 112.5 + 180)
+    //    {
+    //        return "Left";
+    //    }
+    //    else
+    //    {
+    //        return "Front";
+    //    }
+    //}
     public void AnimatorCast(string animationtype)
     {
         gameObject.GetComponent<Animator>().Play(animationtype);
+    }
+    public State StateChaner(State state)
+    {
+        switch (state)
+        {
+            case State.Dead:
+                isAttacking = false;
+                isWalk = false;
+                isDead = true;
+                isHit = false;
+                isSkillActive = false;
+                return State.Dead;
+            case State.Walk:
+                isAttacking = false;
+                isWalk = true;
+                isDead = false;
+                isHit = false;
+                isSkillActive = false;
+                return State.Attack;
+            case State.Skill:
+                isAttacking = false;
+                isWalk = false;
+                isDead = false;
+                isHit = false;
+                isSkillActive = true;
+                return State.Skill;
+            case State.Attack:
+                isAttacking = true;
+                isWalk = false;
+                isDead = false;
+                isHit = false;
+                isSkillActive = false;
+                return State.Skill;
+            case State.Hit:
+                isAttacking = false;
+                isWalk = false;
+                isDead = false;
+                isHit = true;
+                isSkillActive = false;
+                return State.Hit;
+        }
+        return State.None;
     }
 }

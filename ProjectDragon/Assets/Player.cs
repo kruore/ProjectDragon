@@ -2,10 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+public enum IsWear { None, Defult, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
 
     public GameObject weaponSelection;
+    private Animator weaponAnimator;
+
+    public GameObject battlemanager;
+
     public string Charactermotion = "motion01";
     //대각 속도
     public float horizontalSpeed = 5.0f;
@@ -14,6 +20,8 @@ public class Player : Character
     public SEX playerSex;
     //JoyStick
     protected JoyPad joyPad;
+
+    //Animation Contorl
     public Animator playerAnimationStateChanger;
     // player controll vector
     public Vector2 playerControllerVec;
@@ -21,10 +29,23 @@ public class Player : Character
     public GameObject joypadinput;
     public Vector3 joystickPos;
     private Vector3 normalVec = new Vector3(0, 0, 0);
+    public IsWear isWear;
+    private Transform m_EnemyPos;
+    public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; Debug.Log(value); } }
+
+
+    //Check JoyStick
+    private float h;
+    private float v;
+
+    //Angle of Enemy
+    public float EnemyAngle;
+
     // Start is called before the first frame update
     void Awake()
     {
-       //playerSex = Database.Inst.playData.sex;
+        isWear = IsWear.Defult;
+        //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         HP = 100;
@@ -32,48 +53,57 @@ public class Player : Character
         ATKSpeedChanger(1.0f);
         MoveSpeed = 1;
         myState = State.Walk;
-        AtkRangeChanger(3);
+        AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
-        weaponSelection.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("SwordAnimation") as RuntimeAnimatorController;
+        weaponAnimator = weaponSelection.GetComponent<Animator>();
+        weaponAnimator.runtimeAnimatorController = Resources.Load("SwordAnimation") as RuntimeAnimatorController;
     }
     void Start()
     {
+        isWalk = true;
         //내가 끼고 있는 칼에 대한 정의
         //Database.Inventory myWeapon = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
+        playerAnimationStateChanger = GetComponent<Animator>();
+       // gameObject.GetComponent<CircleCollider2D>().radius = AtkRange;
+        //  playerAnimationStateChanger.SetInteger("myRange", myAttackType.GetHashCode());
+        //  playerAnimationStateChanger.SetInteger("isMale", playerSex.GetHashCode());
+        //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
     }
     // Update is called once per frame
     void Update()
     {
         myPos = gameObject.transform.position;
-       // DistanceCheck(3.0f);
         joystickPos = joypadinput.GetComponent<UIJoystick>().position;
         //키보드 세팅
         //float h = horizontalSpeed * Input.GetAxis("Horizontal");
         //float v = verticalSpeed * Input.GetAxis("Vertical");
 
         //joystick
-        float h = horizontalSpeed * joystickPos.x;
-        float v = verticalSpeed * joystickPos.y;
+        h = joystickPos.x;
+        v = joystickPos.y;
 
-        playerControllerVec = new Vector3(h, v, 0);
+        //Make Right direction by Set Animatoion bool setting
 
-        transform.Translate(Vector2.right * Time.deltaTime * h, Space.World);
-        transform.Translate(Vector2.up * Time.deltaTime * v, Space.World);
+        AnimationChanger();
 
-        //Angle of joystick and normalVec
-        if (isAttacking.Equals(false))
-        {
-            float Angle = GetAngle(joystickPos, normalVec);
-            AnimationChanger(Angle);
-        }
-        if (isAttacking.Equals(true))
-        {
-          //  float Angle = GetAngle(EnemyPos.transform.position, normalVec);
-          //  AnimationChanger(Angle);
-        }
-     
+        transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed, Space.World);
+        transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed, Space.World);
+        #region 구버젼 애니메이터
+        ////Angle of joystick and normalVec
+        //if (isAttacking.Equals(false))
+        //{
+        //  angle = GetAngle(joystickPos, normalVec);
+        // //   AnimationChanger(Angle);
+        //}
+        //if (isAttacking.Equals(true))
+        //{
+        //  //  float Angle = GetAngle(EnemyPos.transform.position, normalVec);
+        //  //  AnimationChanger(Angle);
+        //}
+        #endregion
+
     }
     IEnumerator DeadFade()
     {
@@ -84,52 +114,83 @@ public class Player : Character
     public static float GetAngle(Vector3 Start, Vector3 End)
     {
         Vector3 v = End - Start;
-
         return Quaternion.FromToRotation(Vector3.up, End - Start).eulerAngles.z;
     }
 
     #region Animation Changer
-    public void AnimationChanger(float angle)
+    public void AnimationChanger()
     {
-        AngleCalculate(angle);
-        Debug.Log("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
-        if (playerSex == SEX.Male)
-        {
-            if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(false))
-            {
-
-                switch (myState)
-                {
-                    case State.Walk:
-                        weaponSelection.SetActive(true);
-                        AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
-                        weaponSelection.GetComponent<Animator>().Play("TestSword"+AngleCalculate(angle));
-                        break;
-                    case State.Skill:
-                        AnimatorCast("MaleIs" + myState.ToString() + Charactermotion + myAttackType.ToString() + AngleCalculate(angle));
-                        break;
-                    case State.Dead:
-                        weaponSelection.SetActive(false);
-                        AnimatorCast("MaleIsDead");
-                        break;
-                }
-            }
-            if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(true))
-            {
-                switch (myState)
-                {
-                    case State.Attack:
-                        AngleCalculate(angle);
-                        AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
-                        weaponSelection.GetComponent<Animator>().Play("TestSwordAttack" + AngleCalculate(angle));
-                        break;
-                }
-            }
-        }
+        #region 구버젼 애니메이터
+        // AngleCalculate(angle);
+        // // Check Complete
+        //// Debug.Log("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+        // if (playerSex == SEX.Male)
+        // {
+        //     if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(false))
+        //     {
+        //         switch (myState)
+        //         {
+        //             case State.Walk:
+        //                 weaponSelection.SetActive(true);
+        //                 AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+        //                 weaponSelection.GetComponent<Animator>().Play("TestSword"+AngleCalculate(angle));
+        //                 break;
+        //             case State.Skill:
+        //                 AnimatorCast("MaleIs" + myState.ToString() + Charactermotion + myAttackType.ToString() + AngleCalculate(angle));
+        //                 break;
+        //             case State.Dead:
+        //                 weaponSelection.SetActive(false);
+        //                 AnimatorCast("MaleIsDead");
+        //                 break;
+        //         }
+        //     }
+        //     if (myAttackType.Equals(AttackType.ShortRange) && isAttacking.Equals(true))
+        //     {
+        //         switch (myState)
+        //         {
+        //             case State.Attack:
+        //                 AngleCalculate(angle);
+        //                 AnimatorCast("MaleIs" + myState.ToString() + myAttackType.ToString() + AngleCalculate(angle));
+        //                 weaponSelection.GetComponent<Animator>().Play("TestSwordAttack" + AngleCalculate(angle));
+        //                 break;
+        //         }
+        //     }
+        // }
+        #endregion
+        playerAnimationStateChanger.SetFloat("h", h);
+        playerAnimationStateChanger.SetFloat("v", v);
+        playerAnimationStateChanger.SetBool("isAttack", isAttacking);
+        playerAnimationStateChanger.SetBool("isWalk", isWalk);
+        playerAnimationStateChanger.SetBool("isDead", isDead);
+        // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
+        playerAnimationStateChanger.SetBool("isHit", isHit);
+        playerAnimationStateChanger.SetFloat("Angle", AngleCalculate);
+        weaponAnimator.SetFloat("h", h);
+        weaponAnimator.SetFloat("v", v);
+        weaponAnimator.SetBool("isAttack", isAttacking);
+        weaponAnimator.SetBool("isWalk", isWalk);
+        weaponAnimator.SetBool("isDead", isDead);
+        // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
+        //weaponAnimator.SetBool("isHit", isHit);
+        weaponAnimator.SetFloat("Angle", AngleCalculate);
     }
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void WeaponAnimatorChanger()
     {
-       
+    //    weaponAnimator.SetBool();
+    }
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+
+        if (collision.CompareTag("Enemy"))
+        {
+            if (EnemyPos == null)
+            {
+                return;
+            }
+            StateChaner(State.Attack);
+            EnemyAngle = GetAngle(EnemyPos.position, gameObject.transform.position);
+            AngleCalculate = EnemyAngle;
+        }
     }
 }
 #endregion
