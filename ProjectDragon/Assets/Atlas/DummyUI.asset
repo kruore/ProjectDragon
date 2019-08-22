@@ -49,10 +49,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 7
-    paddingRight: 8
-    paddingTop: 8
-    paddingBottom: 7
+    paddingLeft: 6
+    paddingRight: 6
+    paddingTop: 6
+    paddingBottom: 6
   - name: bar_0_ColorM
     x: 639
     y: 852
@@ -1037,10 +1037,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 269
-    paddingRight: 256
-    paddingTop: 622
-    paddingBottom: 523
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA54\uB274\uC544\uC774\uCF58"
     x: 876
     y: 573

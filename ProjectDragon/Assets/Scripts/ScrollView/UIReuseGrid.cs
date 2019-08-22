@@ -370,7 +370,7 @@ public class UIReuseGrid : UIWidgetContainer
     {
         for (int i = 0; i < m_listData.Count; ++i)
         {
-            if (m_listData[i].inventoryNum == idx)
+            if (m_listData[i].Index == idx)
             {
                 for (int k = 0; k < m_cellList.Length; ++k)
                 {
@@ -619,7 +619,7 @@ public class UIReuseGrid : UIWidgetContainer
 
 				if( RefreshAll )
 				{
-					m_listData[i].inventoryNum = i;
+					m_listData[i].Index = i;
 					cell.UpdateData( m_listData[i] );
 				}
 				else
@@ -629,12 +629,12 @@ public class UIReuseGrid : UIWidgetContainer
 #if LOG
 						Debug.Log( string.Format("Update Top... index:{0}", i ) );
 #endif
-						m_listData[i].inventoryNum = i;
+						m_listData[i].Index = i;
 						cell.UpdateData( m_listData[i] );
 					}
                     else if (i == startIndex && cell.transform.localPosition.y == Min1)
                     {
-                        m_listData[i].inventoryNum = i;
+                        m_listData[i].Index = i;
                         cell.UpdateData(m_listData[i]);
                     }
 					else if( i == endIndex-1 && cell.transform.localPosition.y == Min )
@@ -642,7 +642,7 @@ public class UIReuseGrid : UIWidgetContainer
 #if LOG
 						Debug.Log( string.Format("Update Down... index:{0}", i ) );
 #endif
-						m_listData[i].inventoryNum = i;
+						m_listData[i].Index = i;
 						cell.UpdateData( m_listData[i] );
 					}
 				}
@@ -736,7 +736,7 @@ public class UIReuseGrid : UIWidgetContainer
 					cell = m_cellList[index];
 					if (i < endIndex)
 					{
-						m_listData[DataIndex].inventoryNum = DataIndex;
+						m_listData[DataIndex].Index = DataIndex;
 
 						if( RefreshAll )
 						{
@@ -867,7 +867,7 @@ public class UIReuseGrid : UIWidgetContainer
                     cell.gameObject.SetActive(true);
 				if( RefreshAll )
 				{
-					m_listData[i].inventoryNum = i;
+					m_listData[i].Index = i;
 					cell.UpdateData( m_listData[i] );
 				}
 				else
@@ -881,7 +881,7 @@ public class UIReuseGrid : UIWidgetContainer
 #if LOG
 						//Debug.Log( string.Format("Update Left... index:{0}", i ) );
 #endif
-						m_listData[i].inventoryNum = i;
+						m_listData[i].Index = i;
 						cell.UpdateData( m_listData[i] );
 					}
 					else if( i == endIndex-1 && cell.transform.localPosition.x == Min )
@@ -889,7 +889,7 @@ public class UIReuseGrid : UIWidgetContainer
 #if LOG
 						//Debug.Log( string.Format("Update Right... index:{0}", i ) );
 #endif
-                        m_listData[i].inventoryNum = i;
+                        m_listData[i].Index = i;
                         cell.UpdateData(m_listData[i]);
 					}
 				}
@@ -970,7 +970,7 @@ public class UIReuseGrid : UIWidgetContainer
                     cell = m_cellList[index];
                     if (i < endIndex)
                     {
-                        m_listData[DataIndex].inventoryNum = DataIndex;
+                        m_listData[DataIndex].Index = DataIndex;
 
                         if (RefreshAll)
                         {

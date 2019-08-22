@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-enum LobbyState { }
+public enum LobbyState { Nomal, Enchant, Lock }
 public class LobbyManager : MonoBehaviour
 {
     public static LobbyManager inst;
@@ -13,8 +13,10 @@ public class LobbyManager : MonoBehaviour
     public UISpriteAnimation anim;
     #region equipobject
     public GameObject useJameConfirm, useJam, changeEquip, BGID, BGI;
-    public GameObject Currentweapon, CurrentArmor, CurrentActive,equipCharactor,scrollview;
-    public int changeequipdata;
+    public GameObject Inventoryback, Currentweapon, CurrentArmor, CurrentActive, equipCharactor, scrollview;
+    public int changeequipdata,currentEquipdata;
+    public LobbyState lobbystate = LobbyState.Nomal;
+    public List<int> Selecteditem;
     #endregion
     private void Awake()
     {
@@ -24,8 +26,9 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Database.Inst.playData.equiWeapon_InventoryNum = 0;
-        Database.Inst.playData.equiArmor_InventoryNum = 5;
+        Selecteditem = new List<int>();
+        Database.Inst.playData.equiWeapon_InventoryNum = 3;
+        Database.Inst.playData.equiArmor_InventoryNum = 10;
         if (isnight)
         {
             SoundManager.Inst.Ds_BgmPlayer(fire);
@@ -39,7 +42,7 @@ public class LobbyManager : MonoBehaviour
         if (item.item_Class.Equals(Item_CLASS.검))
         {
             classname = "Worrior";
-            if(Database.Inst.playData.sex.Equals(SEX.Male))
+            if (Database.Inst.playData.sex.Equals(SEX.Male))
             {
                 playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
                 equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
@@ -63,15 +66,21 @@ public class LobbyManager : MonoBehaviour
         string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
 
         playerimg.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
-        equipCharactor.GetComponent<UITexture>().mainTexture= Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
+        equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
         ChangeItemIcon(Currentweapon, item);
         Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
-        playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass+"_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
+        playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
         playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+
+
+        //테스트용 코드
+        GameManager.Inst.Scenestack.Push("Lock");
+        lobbystate = LobbyState.Lock;
+
     }
     // Update is called once per frame
     void Update()
@@ -93,7 +102,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void TouchBackButton()
     {
-        ButtonManager.TouchBackButton();
+        Debug.Log(ButtonManager.TouchBackButton());
     }
     public void ObjectControl()
     {
@@ -104,7 +113,7 @@ public class LobbyManager : MonoBehaviour
         TouchBackButton();
         if (Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.갑옷))
         {
-            Database.Inst.playData.equiArmor_InventoryNum=changeequipdata;
+            Database.Inst.playData.equiArmor_InventoryNum = changeequipdata;
         }
         else if (!Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.아이템))
         {
@@ -146,7 +155,7 @@ public class LobbyManager : MonoBehaviour
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
         scrollview.GetComponent<GUITestScrollView>().EV_UpdateAll();
     }
-    public void ChangeItemIcon(GameObject Icon,Database.Inventory data)
+    public void ChangeItemIcon(GameObject Icon, Database.Inventory data)
     {
         Icon.transform.Find("EquipIcon").GetComponent<UISprite>().spriteName = data.name;
         Icon.transform.Find("EnchantLevel").GetComponent<UISprite>().spriteName = string.Format("강화수치_{0}", data.upgrade_Level.ToString());
@@ -159,5 +168,9 @@ public class LobbyManager : MonoBehaviour
         {
             Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Unlock";
         }
+    }
+    public void CurrentEquipLock()
+    {
+        //Database.Inst.[currentEquipdata]
     }
 }

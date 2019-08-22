@@ -10,9 +10,10 @@ public static class ButtonManager
     /// </summary>
     public static string TouchBackButton()
     {
+        string debug;
         if (GameManager.Inst.Scenestack.Count > 0)
         {
-            switch (GameManager.Inst.Scenestack.Pop())
+            switch (debug=GameManager.Inst.Scenestack.Pop())
             {
                 case "Main":
                     //StopAllCoroutines();
@@ -25,15 +26,17 @@ public static class ButtonManager
                     LobbyManager.inst.BGID.SetActive(false);
                     return "ChangeEquip";
                     break;
-                case "InventoryLobby":
+                case "CurrentEquip":
                     //StopAllCoroutines();
-                    SceneManager.LoadScene("Main");
+                    LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(false);
+                    LobbyManager.inst.BGI.SetActive(false);
                     break;
-                case "Inventorypanel":
-                    //DeactiveInventorypanel();
+                case "Lock":
+                    LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(false);
+                    LobbyManager.inst.BGID.SetActive(false);
                     break;
-                case "CardList":
-                    //DeactiveCardListpanel();
+                case "EquipPanel":
+                    GameObject.Find("UI Root").transform.Find("EquipPanel").gameObject.SetActive(false);
                     break;
                 case "ARscene":
                     //StopAllCoroutines();
@@ -47,6 +50,9 @@ public static class ButtonManager
                     break;
                 case "ToolBox":
                     //DeactiveToolboxpanel();
+                    break;
+                default:
+                    Debug.Log(debug);
                     break;
             }
             

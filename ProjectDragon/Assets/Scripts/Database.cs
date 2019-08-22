@@ -21,9 +21,35 @@ public enum Item_CLASS
 
 public enum Monster_Rarity
 {
-    일반,
-    네임드,
-    보스
+    Common,
+    Named,
+    Boss
+}
+
+public enum Monster_Region
+{
+    None,
+    Jungle,
+    DeepSea,
+    HighMountain,
+    Prison,
+    Castle
+}
+
+public enum Monster_Category
+{
+    None,
+    Fly,
+    Move,
+    Hold,
+    HoldandFly
+}
+
+public enum Monster_Size
+{
+    S,
+    M,
+    L
 }
 
 public enum SEX
@@ -32,6 +58,23 @@ public enum SEX
     Male,
     Female
 }
+
+public enum PASSIVE_TYPE
+{
+    None,
+    AP,
+    RD,
+    HP,
+    AM,
+    Luck,
+    AD,
+    CT,
+    AS,
+    DR,
+    AH,
+    EM
+}
+
 //TODO: 먼저 얻은 순서용 인트 넣기, 이미지 이름, 아이템 설명
 
 public class Database : MonoSingleton<Database>
@@ -86,8 +129,6 @@ public class Database : MonoSingleton<Database>
         public float attack_Range; // 사정 거리
         public string attack_Type; //근거린지 원거린지 범윈지 등
         public float attack_Speed; // 공속
-        //public int upgrade_Level;
-        //public int upgrade_Gauge;
         public int item_Value;
         public string description;
         public int skill_Index; // 
@@ -107,8 +148,6 @@ public class Database : MonoSingleton<Database>
             attack_Type = _attack_Type;
             attack_Speed = _attack_Speed;
             item_Value = _item_Value;
-            //upgrade_Level = _upgrade_Level;
-            //upgrade_Gauge = _upgrade_Gauge;
             description = _description;
             skill_Index = _skill_Index;
             rarity = _rarity;
@@ -123,8 +162,6 @@ public class Database : MonoSingleton<Database>
         public int num;
         public string name;
         public float hp;
-        //public int upgrade_Level; //장비레벨
-        //public int upgrade_Gauge;//업그레이드 량
         public int item_Value;
         public string description;
         public RARITY rarity;
@@ -177,6 +214,7 @@ public class Database : MonoSingleton<Database>
         public int num;
         public string name;
         public string description;
+        public float mpCost;
         public int attack_Count; //공격횟수
         public float active_Time; // 실행 속도
         public float coolDown; // 쿨타임
@@ -186,11 +224,12 @@ public class Database : MonoSingleton<Database>
         public float attack_Power; //데미지
         public string imageName;
 
-        public Skill(int _num, string _name, string _description, int _attack_Count, float _active_Time, float _coolDown, float _attack_Range, string _attack_Type, float _attack_Power, string _imageName)
+        public Skill(int _num, string _name, string _description, float _mpCost, int _attack_Count, float _active_Time, float _coolDown, float _attack_Range, string _attack_Type, float _attack_Power, string _imageName)
         {
             num = _num;
             name = _name;
             description = _description;
+            mpCost = _mpCost;
             attack_Count = _attack_Count;
             active_Time = _active_Time;
             coolDown = _coolDown;
@@ -211,13 +250,11 @@ public class Database : MonoSingleton<Database>
         public string imageName;
 
         //효과 변수
-        public float damage;
-        public float hp;
-        public float attack_Speed;
-        public float move_Speed;
+        public PASSIVE_TYPE passiveType;
+        public int[] statPerLV;
 
         public Passive(int _num, int _world, string _name, string _description, string _imageName,
-                        float _damage, float _hp, float _attack_Speed, float _move_Speed)
+                        PASSIVE_TYPE _passiveType, int[] _statPerLV)
         {
             num = _num;
             world = _world;
@@ -226,10 +263,8 @@ public class Database : MonoSingleton<Database>
             imageName = _imageName;
 
             //효과
-            damage = _damage;
-            hp = _hp;
-            attack_Speed = _attack_Speed;
-            move_Speed = _move_Speed;
+            passiveType = _passiveType;
+            statPerLV = _statPerLV;
         }
     }
 
@@ -237,35 +272,38 @@ public class Database : MonoSingleton<Database>
     public class Monster
     {
         public int num;
-        public int location; // 1-1 스테이지면 101이런식의 데이터가 들어갈 것
+        public Monster_Region region; // 몬스터 출현 지역.. 맵마다 몬스터 나오는 것은 맵 정보에 넣기
         public string name;
         public float damage;
         public float hp;
         public Monster_Rarity monster_Rarity;
+        public Monster_Size size;
         public float attack_Range;
         public string attack_Type; //원거린지 근거린지 설명용
         public float attack_Speed;
         public float chase_Range; // 인식 거리
         public float move_Speed; // 이동 속도
-        public bool isPossibleMove; //0은 false로, 1은 true로 치환
+        public Monster_Category category;
         public string description;
         public string imageName;
+        public string dropItem; // 몬스터가 드랍하는 아이템 월드로 묶을지 함 생각해봐야함 아직 추가 안했음
 
-        public Monster(int _num, int _location, string _name, float _damage, float _hp, Monster_Rarity _monster_Rarity,
-                         float _attack_Range, string _attack_Type, float _attack_Speed, float _chase_Range, float _move_Speed, bool _isPossibleMove, string _description, string _imageName)
+        public Monster(int _num, Monster_Region _region, string _name, float _damage, float _hp, Monster_Rarity _monster_Rarity, Monster_Size _size,
+                         float _attack_Range, string _attack_Type, float _attack_Speed, float _chase_Range, float _move_Speed, Monster_Category _category, string _description, string _imageName)
         {
             num = _num;
-            location = _location;
+            region = _region;
             name = _name;
             damage = _damage;
             hp = _hp;
             monster_Rarity = _monster_Rarity;
+            size = _size;
             attack_Range = _attack_Range;
             attack_Type = _attack_Type;
             attack_Speed = _attack_Speed;
             chase_Range = _chase_Range;
             move_Speed = _move_Speed;
-            isPossibleMove = _isPossibleMove;
+            category = _category;
             description = _description;
             imageName = _imageName;
         }
@@ -275,7 +313,6 @@ public class Database : MonoSingleton<Database>
     [System.Serializable]
     public class PlayData
     {
-        public int itemCount = 0;
         public List<Inventory> inventory = new List<Inventory>();
         public List<Passive> passive = new List<Passive>();
         public float currentHp;
@@ -286,16 +323,16 @@ public class Database : MonoSingleton<Database>
         //장착중인 장비 데이터 따로 추가
         public int equiWeapon_InventoryNum;
         public int equiArmor_InventoryNum;
+
     }
 
     #endregion
-
 
     //변수 모음
     #region Data_Variable
 
     //Tables - Just Read
-    
+
     public List<Weapon> weapons = new List<Weapon>();
     public List<Armor> armors = new List<Armor>();
     //public List<Item> items = new List<Item>();

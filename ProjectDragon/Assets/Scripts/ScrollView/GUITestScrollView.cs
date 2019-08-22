@@ -22,13 +22,12 @@ public class GUITestScrollView : MonoBehaviour
 
     void Start()
     {
-
         inventories = Database.Inst.playData.inventory;
         // 임의의 데이터가 생성해서 gird에 추가시켜둔다.
         // ItemCellData 는 IReuseCellData 상속받아서 구현된 데이터 클래스다.
         count = inventories.Count;
 
-        for (int i = 0; i < count; ++i)
+        for (int i = 3; i < count; ++i)
         {
             EuipmentcellData cell = new EuipmentcellData();
             cell.amount = inventories[i].amount;
@@ -43,6 +42,7 @@ public class GUITestScrollView : MonoBehaviour
             cell.upgrade_Level = inventories[i].upgrade_Level;
             cell.isLock = inventories[i].isLock;
             cell.stat = inventories[i].stat;
+            Debug.Log(cell.inventoryNum);
             grid.AddItem(cell, false);
         }
         grid.UpdateAllCellData();
@@ -50,7 +50,8 @@ public class GUITestScrollView : MonoBehaviour
     public void EV_UpdateAll()
     {
         grid.ClearItem(true);
-        for (int i = 0; i < count; ++i)
+        count = inventories.Count;
+        for (int i = 3; i < count; ++i)
         {
             EuipmentcellData cell = new EuipmentcellData();
             cell.amount = inventories[i].amount;

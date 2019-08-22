@@ -1,6 +1,11 @@
 ﻿
 public interface IReuseCellData
 {
+    int Index
+    {
+        get;
+        set;
+    }
     int inventoryNum
     {
         get;
