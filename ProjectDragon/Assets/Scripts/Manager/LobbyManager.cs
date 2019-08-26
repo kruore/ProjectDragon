@@ -14,7 +14,7 @@ public class LobbyManager : MonoBehaviour
     #region equipobject
     public GameObject useJameConfirm, useJam, changeEquip, BGID, BGI;
     public GameObject Inventoryback, Currentweapon, CurrentArmor, CurrentActive, equipCharactor, scrollview;
-    public int changeequipdata,currentEquipdata;
+    public int changeequipdata,currentEquipdata,selectData;
     public LobbyState lobbystate = LobbyState.Nomal;
     public List<int> Selecteditem;
     #endregion
@@ -27,6 +27,7 @@ public class LobbyManager : MonoBehaviour
     void Start()
     {
         Selecteditem = new List<int>();
+        selectData = 0;
         Database.Inst.playData.equiWeapon_InventoryNum = 3;
         Database.Inst.playData.equiArmor_InventoryNum = 10;
         if (isnight)
@@ -78,8 +79,8 @@ public class LobbyManager : MonoBehaviour
 
 
         //테스트용 코드
-        GameManager.Inst.Scenestack.Push("Lock");
-        lobbystate = LobbyState.Lock;
+        GameManager.Inst.Scenestack.Push("Enchant");
+        lobbystate = LobbyState.Enchant;
 
     }
     // Update is called once per frame

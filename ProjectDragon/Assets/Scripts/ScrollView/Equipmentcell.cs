@@ -12,17 +12,34 @@ public class Equipmentcell : UIReuseScrollViewCell
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
         cell = item;
-        Debug.Log(_CellData.inventoryNum);
-        Debug.Log(item.inventoryNum);
-        Debug.Log(cell.inventoryNum);
         enchantlevel.spriteName = string.Format("강화수치_{0}", item.upgrade_Level.ToString());
         rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
-        if (LobbyManager.inst.Selecteditem.Count > 1)
+        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+        bool check = true;
+        if (LobbyManager.inst.Selecteditem.Count > 0)
         {
-            foreach (int select in LobbyManager.inst.Selecteditem)
+            foreach (int Select in LobbyManager.inst.Selecteditem)
             {
-
+                if (Select.Equals(cell.inventoryNum))
+                {
+                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.gray;
+                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.gray;
+                    check = false;
+                    Debug.Log(Select);
+                    break;
+                }
             }
+            if (check)
+            {
+                gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+                gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+            }
+        }
+        else
+        {
+            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
         }
         if (item.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum) || item.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum))
         {
@@ -43,7 +60,6 @@ public class Equipmentcell : UIReuseScrollViewCell
             {
                 equipIcon.gameObject.SetActive(true);
             }
-
         }
         else
         {
@@ -88,19 +104,7 @@ public class Equipmentcell : UIReuseScrollViewCell
             Activetarget.gameObject.SetActive(false);
             Activerange.gameObject.SetActive(false);
         }
-        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-        if (LobbyManager.inst.Selecteditem.Count < 1)
-        {
-            foreach (int Select in LobbyManager.inst.Selecteditem)
-            {
-                if (Select.Equals(cell.inventoryNum))
-                {
-                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
-                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
-                }
-            }
-        }
+
         if (item == null)
 
             return;
@@ -178,17 +182,53 @@ public class Equipmentcell : UIReuseScrollViewCell
                 }
                 break;
             case LobbyState.Enchant:
+                LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
+                GameObject EnchantEnter;
+                EnchantEnter=LobbyManager.inst.Inventoryback.transform.Find("EnchantEnter").gameObject;
+                EnchantEnter.SetActive(true);
+                EnchantEnter.
                 break;
             case LobbyState.Lock:
-                LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                LobbyManager.inst.scrollview.GetComponent<GUITestScrollView>().EV_UpdateAll();
 
+
+                bool check = true;
+                if (LobbyManager.inst.Selecteditem.Count > 0)
+                {
+                    foreach (int Select in LobbyManager.inst.Selecteditem)
+                    {
+                        if (Select.Equals(cell.inventoryNum))
+                        {
+                            LobbyManager.inst.Selecteditem.Remove(Select);
+                            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+                            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+                            LobbyManager.inst.selectData -= cell.itemValue;
+                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                            check = false;
+                            break;
+
+                        }
+                    }
+                    if (check)
+                    {
+                        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+                        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+                        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+                        LobbyManager.inst.selectData += cell.itemValue;
+                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                    }
+                }
+                else
+                {
+                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+                    LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+                    LobbyManager.inst.selectData += cell.itemValue;
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                }
                 break;
             default:
                 break;
         }
-        
-
     }
     public void ChangeEquip(GameObject panel, Database.Inventory data, float stat)
     {
@@ -200,7 +240,7 @@ public class Equipmentcell : UIReuseScrollViewCell
         panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().text = data.rarity.ToString();
         panel.transform.Find("EquipItemclass").GetComponent<UILabel>().text = string.Format("종류: {0}", data.item_Class.ToString());
         panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", data.stat);
-        if (data.item_Class.Equals(Item_CLASS.검)|| data.item_Class.Equals(Item_CLASS.활) || data.item_Class.Equals(Item_CLASS.지팡이))
+        if (data.item_Class.Equals(Item_CLASS.검) || data.item_Class.Equals(Item_CLASS.활) || data.item_Class.Equals(Item_CLASS.지팡이))
         {
             panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", data.stat);
             GameObject ActiveSkill;
