@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-public enum LobbyState { Nomal, Enchant, Lock }
+public enum LobbyState { Nomal, Enchant, Lock, Decomposition }
 public class LobbyManager : MonoBehaviour
 {
     public static LobbyManager inst;
@@ -80,7 +80,7 @@ public class LobbyManager : MonoBehaviour
 
         //테스트용 코드
         GameManager.Inst.Scenestack.Push("Enchant");
-        lobbystate = LobbyState.Enchant;
+        lobbystate = LobbyState.Decomposition;
 
     }
     // Update is called once per frame

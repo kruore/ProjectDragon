@@ -5739,7 +5739,7 @@ GameObject:
   - component: {fileID: 183746056}
   - component: {fileID: 183746057}
   m_Layer: 8
-  m_Name: EquipBGIchange
+  m_Name: EquipBGI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16235,7 +16235,7 @@ GameObject:
   - component: {fileID: 617047405}
   - component: {fileID: 617047406}
   m_Layer: 8
-  m_Name: Label (2)
+  m_Name: Jam3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19210,7 +19210,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &723227830
 Transform:
   m_ObjectHideFlags: 0
@@ -24329,7 +24329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &979146307
 Transform:
   m_ObjectHideFlags: 0
@@ -30915,7 +30915,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 60
   mHeight: 60
-  mDepth: 3
+  mDepth: 4
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -30989,7 +30989,7 @@ GameObject:
   - component: {fileID: 1272899724}
   - component: {fileID: 1272899725}
   m_Layer: 8
-  m_Name: Label
+  m_Name: Jam1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35176,7 +35176,7 @@ MonoBehaviour:
   mPivot: 4
   mWidth: 60
   mHeight: 60
-  mDepth: 3
+  mDepth: 4
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
@@ -39513,7 +39513,7 @@ GameObject:
   - component: {fileID: 1612699833}
   - component: {fileID: 1612699834}
   m_Layer: 8
-  m_Name: Label (1)
+  m_Name: Jam2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

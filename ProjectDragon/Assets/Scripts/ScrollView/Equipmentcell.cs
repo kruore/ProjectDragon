@@ -124,6 +124,7 @@ public class Equipmentcell : UIReuseScrollViewCell
     {
         GameObject Equipanel;
         Database.Inventory Equipdata;
+        bool check = true;
         switch (LobbyManager.inst.lobbystate)
         {
             case LobbyState.Nomal:
@@ -184,14 +185,12 @@ public class Equipmentcell : UIReuseScrollViewCell
             case LobbyState.Enchant:
                 LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
                 GameObject EnchantEnter;
-                EnchantEnter=LobbyManager.inst.Inventoryback.transform.Find("EnchantEnter").gameObject;
+                EnchantEnter = LobbyManager.inst.Inventoryback.transform.Find("EnchantEnter").gameObject;
                 EnchantEnter.SetActive(true);
-                EnchantEnter.
+                EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIcollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
+                EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIchangecollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
                 break;
             case LobbyState.Lock:
-
-
-                bool check = true;
                 if (LobbyManager.inst.Selecteditem.Count > 0)
                 {
                     foreach (int Select in LobbyManager.inst.Selecteditem)
@@ -201,7 +200,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                             LobbyManager.inst.Selecteditem.Remove(Select);
                             gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
                             gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-                            LobbyManager.inst.selectData -= cell.itemValue;
+                            LobbyManager.inst.selectData -= DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
                             LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
                             check = false;
                             break;
@@ -213,7 +212,8 @@ public class Equipmentcell : UIReuseScrollViewCell
                         gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
                         gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
                         LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                        LobbyManager.inst.selectData += cell.itemValue;
+                        LobbyManager.inst.selectData += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
                         LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
                     }
                 }
@@ -222,8 +222,48 @@ public class Equipmentcell : UIReuseScrollViewCell
                     gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
                     gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
                     LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                    LobbyManager.inst.selectData += cell.itemValue;
+                    LobbyManager.inst.selectData += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
                     LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                }
+                break;
+            case LobbyState.Decomposition:
+                
+                if (LobbyManager.inst.Selecteditem.Count > 0)
+                {
+                    foreach (int Select in LobbyManager.inst.Selecteditem)
+                    {
+                        if (Select.Equals(cell.inventoryNum))
+                        {
+                            LobbyManager.inst.Selecteditem.Remove(Select);
+                            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+                            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+                            Database.Inst.playData.inventory[0].amount-= DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
+                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
+                            check = false;
+                            break;
+
+                        }
+                    }
+                    if (check)
+                    {
+                        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+                        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+                        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+                        Database.Inst.playData.inventory[0].amount += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
+                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
+                    }
+                }
+                else
+                {
+                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+                    LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+                    Database.Inst.playData.inventory[0].amount += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
                 }
                 break;
             default:

@@ -1,11 +1,11 @@
 Android
 PlayerPath?
-D:/TabTabCreate/ProjectDragon/ProjectDragon/ProjectDragon/개발진행중20190809.apk
+D:/TabTabCreate/ProjectDragon/ProjectDragon/ProjectDragon/개발진행중20190826.apk
 SceneListBegin?
 Assets/Scenes/Title.unity
 Assets/Scenes/Lobby.unity
 SceneListEnd?
-be7e5efca576c1cfa0a2cd24669311cd Assembly-CSharp.dll:.Database
+7fdf2dc32595b3402fb5c9db8b288a44 Assembly-CSharp.dll:.Database
 984dcc0ba3707b7691fbdca8ff508d28 Unity.TextMeshPro.dll:TMPro.TMP_SelectionCaret
 5a7317f820417a8f01d66cbc3ea03ab7 Assembly-CSharp.dll:.UIButtonMessage
 01aa15e337e3a9c62f15153dfac6d589 Unity.TextMeshPro.dll:TMPro.TMP_Dropdown
@@ -173,7 +173,7 @@ a96b2e79cb442899c4474f7d72dce30f Assembly-CSharp.dll:.UIEventTrigger
 e2ff206140afa9fba550add28d8eab72 Assembly-CSharp.dll:.UIShowControlScheme
 4fd8bf02e3089425d3502e26c44ba31a Unity.TextMeshPro.dll:TMPro.TextContainer
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UIWidgetContainer
-e81a51cd44136d2bd41bd9924ea374ba Assembly-CSharp.dll:.Equipmentcell
+2e00ed83cbeec70e97c7ddfc2bf056dd Assembly-CSharp.dll:.Equipmentcell
 f8df8f9481b4b718d9d4c3cb4730a6e1 Assembly-CSharp.dll:.UITooltip
 077a655851f95717e3c15e754ebc0c57 Assembly-CSharp.dll:.UIInput
 e54d4cb054a59a60af9fb5e4c0dbf241 Assembly-CSharp.dll:.GUITestScrollView
@@ -223,7 +223,7 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
 6d578c4eecdc3a0eb8ceb2e5267020e1 Assembly-CSharp.dll:.UIGrid
-e602f760293d06ea0a77572e38d31be9 Assembly-CSharp.dll:.LobbyManager
+11570a639066ac74c2fcbd3adf874113 Assembly-CSharp.dll:.LobbyManager
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.NGUIDebug
 71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.UIDragDropRoot
 0d83d776e4eaeb07dfccdddb3745c1d7 Assembly-CSharp.dll:.UIAtlas
