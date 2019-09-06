@@ -19,24 +19,13 @@ public class BattleManager : MonoBehaviour
     public void FixedUpdate()
     {
         CalculateDistanceWithPlayer();
-        
-        // CalCulateAngleWithPlayer();
     }
     public void EnemyFinder()
     {
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-       // EnemyMapping();
     }
-    //public void EnemyMapping()
-    //{
-    //    for (int i = 0; i < Enemy.Length; i++)
-    //    {
-    //       // Enemy[i].GetComponent<EnemyFollow>().stopDistance = Enemy[i].GetComponent<Monster>().AtkRange;
-    //      //  Enemy[i].GetComponent<EnemyFollow>().speed = Enemy[i].GetComponent<Monster>().MoveSpeed;
-    //    }
 
-    //}
     IEnumerator CalculateDistanceWithPlayer()
     {
         bool isActive = true;
@@ -88,13 +77,6 @@ public class BattleManager : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-    }
-    public void Shoot()
-    {
-        //투사체 발사
-        GameObject skill = ObjectPool.Instance.PopFromPool(skillname);
-        skill.transform.position = transform.position + transform.up;
-        skill.SetActive(true);
     }
     public void CalCulateAngleWithPlayer()
     {

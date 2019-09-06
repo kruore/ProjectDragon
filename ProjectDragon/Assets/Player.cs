@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum IsWear { None, Defult, AnimalCloth, Suit, DefultName, DefaltName2 }
+public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
 
@@ -44,7 +44,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
-        isWear = IsWear.Defult;
+        isWear = IsWear.DefaultCloth;
         //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
@@ -56,7 +56,7 @@ public class Player : Character
         AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
         weaponAnimator = weaponSelection.GetComponent<Animator>();
-        weaponAnimator.runtimeAnimatorController = Resources.Load("SwordAnimation") as RuntimeAnimatorController;
+        weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
     }
     void Start()
     {
@@ -66,7 +66,7 @@ public class Player : Character
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
-       // gameObject.GetComponent<CircleCollider2D>().radius = AtkRange;
+        // gameObject.GetComponent<CircleCollider2D>().radius = AtkRange;
         //  playerAnimationStateChanger.SetInteger("myRange", myAttackType.GetHashCode());
         //  playerAnimationStateChanger.SetInteger("isMale", playerSex.GetHashCode());
         //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
@@ -156,27 +156,28 @@ public class Player : Character
         //         }
         //     }
         // }
-        #endregion
-        playerAnimationStateChanger.SetFloat("h", h);
-        playerAnimationStateChanger.SetFloat("v", v);
-        playerAnimationStateChanger.SetBool("isAttack", isAttacking);
-        playerAnimationStateChanger.SetBool("isWalk", isWalk);
-        playerAnimationStateChanger.SetBool("isDead", isDead);
-        // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
-        playerAnimationStateChanger.SetBool("isHit", isHit);
-        playerAnimationStateChanger.SetFloat("Angle", AngleCalculate);
-        weaponAnimator.SetFloat("h", h);
-        weaponAnimator.SetFloat("v", v);
-        weaponAnimator.SetBool("isAttack", isAttacking);
-        weaponAnimator.SetBool("isWalk", isWalk);
-        weaponAnimator.SetBool("isDead", isDead);
+        //#endregion
+        //playerAnimationStateChanger.SetFloat("h", h);
+        //playerAnimationStateChanger.SetFloat("v", v);
+        //playerAnimationStateChanger.SetBool("isAttack", isAttacking);
+        //playerAnimationStateChanger.SetBool("isWalk", isWalk);
+        //playerAnimationStateChanger.SetBool("isDead", isDead);
+        //// playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
+        //playerAnimationStateChanger.SetBool("isHit", isHit);
+        //playerAnimationStateChanger.SetFloat("Angle", AngleCalculate);
+        //weaponAnimator.SetFloat("h", h);
+        //weaponAnimator.SetFloat("v", v);
+        //weaponAnimator.SetBool("isAttack", isAttacking);
+        //weaponAnimator.SetBool("isWalk", isWalk);
+        //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
         weaponAnimator.SetFloat("Angle", AngleCalculate);
+        #endregion
     }
     public void WeaponAnimatorChanger()
     {
-    //    weaponAnimator.SetBool();
+        //    weaponAnimator.SetBool();
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -192,5 +193,6 @@ public class Player : Character
             AngleCalculate = EnemyAngle;
         }
     }
+
 }
 #endregion

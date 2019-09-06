@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum State { None = 0, Walk, Attack, Dead, Skill, Hit };
-
+public enum AnglePos
+{
+    None = 0, Front, Right, RightSide, Up, LeftSide, Left
+}
+public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
 public class Character : MonoBehaviour, PersonalSpecificational
 {
     //state of animation
     //state of Attack type for range
-    public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
+
 
     //personal Specification
     [SerializeField] private int hp;
@@ -16,15 +20,9 @@ public class Character : MonoBehaviour, PersonalSpecificational
     [SerializeField] private float atkSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float atkRange;
-    [SerializeField] private float angle;
+    [SerializeField] public float angle;
     public Vector3 myPos;
     public Vector3 myRotat;
-
-
-    public enum AnglePos
-    {
-        None = 0, Front, Right, RightSide, Up, LeftSide, Left
-    }
 
 
     // TODO : 이건 적이나 플레이어에게만 규정할 것 (스킬이 존재하고 있는)
@@ -42,12 +40,6 @@ public class Character : MonoBehaviour, PersonalSpecificational
     public Transform other;
     //Check Range
 
-    private IEnumerator Attack()
-    {
-        isAttacking = true;
-        yield return new WaitForSeconds(atkSpeed);
-        isAttacking = false;
-    }
     public bool DistanceCheck(float closeDistance)
     {
         if (other)
@@ -161,40 +153,43 @@ public class Character : MonoBehaviour, PersonalSpecificational
         return atkRange;
     }
     #endregion
-    public float AngleCalculate{get{return angle;}set{angle = value;}}
-    //    if (angle == 0)
-    //    {
+    public float AngleCalculate { get { return angle; } set { angle = value; } }
+    public string AngleCaseString(float angle)
+    {
+        if (angle == 0)
+        {
 
-    //    }
-    //    if (angle < 22.5)
-    //    {
-    //        return "front";
-    //    }
-    //    else if (angle < 112.5)
-    //    {
-    //        return "Right";
-    //    }
-    //    else if (angle < 112.5 + 45)
-    //    {
-    //        return "RightSide";
-    //    }
-    //    else if (angle < 112.5 + 90)
-    //    {
-    //        return "Up";
-    //    }
-    //    else if (angle < 112.5 + 135)
-    //    {
-    //        return "LeftSide";
-    //    }
-    //    else if (angle < 112.5 + 180)
-    //    {
-    //        return "Left";
-    //    }
-    //    else
-    //    {
-    //        return "Front";
-    //    }
-    //}
+        }
+        if (angle < 22.5)
+        {
+            return "front";
+        }
+        else if (angle < 112.5)
+        {
+            return "Right";
+        }
+        else if (angle < 112.5 + 45)
+        {
+            return "RightSide";
+        }
+        else if (angle < 112.5 + 90)
+        {
+            return "Up";
+        }
+        else if (angle < 112.5 + 135)
+        {
+            return "LeftSide";
+        }
+        else if (angle < 112.5 + 180)
+        {
+            return "Left";
+        }
+        else
+        {
+            return "Front";
+        }
+    }
+
     public void AnimatorCast(string animationtype)
     {
         gameObject.GetComponent<Animator>().Play(animationtype);
