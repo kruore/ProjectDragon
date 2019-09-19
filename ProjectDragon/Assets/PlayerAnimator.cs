@@ -5,21 +5,13 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    //JoyStick
-    // protected JoyPad joyPad;
-
-    //Check JoyStick
-    private float h;
-    private float v;
-
-    public float horizontalSpeed = 5.0f;
-    public float verticalSpeed = 5.0f;
-
     public Vector3 joystickPos;
     public GameObject joypadinput;
+    [Header("PlayerObject")]
+    public GameObject playerObject;
 
     [Header("PlayerScript")]
-    public Player collectPlayer;
+    public Player currentPlayer;
 
     [Header("SpriteRenderer")]
     public SpriteRenderer spriteRenderer;
@@ -28,12 +20,12 @@ public class PlayerAnimator : MonoBehaviour
     Sprite[] play_animtionSprite;
     string animationname { get { return m_animationName; } set { if (!value.Equals(m_animationName)) { m_animationName = value; AnimationNameChecker(); } } }
     string m_animationName;
-    int current_Animcount = 0;
 
     [Header("AttackTYPE")]
     public AttackType m_attacktype;
     public IsWear m_cloth;
     public State m_state;
+    public SEX m_sex;
     //AnimationControl
 
     [Header("AnimationCounter")]
@@ -46,65 +38,51 @@ public class PlayerAnimator : MonoBehaviour
     public Sprite[] PlayerDead;
     [Header("Walk")]
     public Sprite[] PlayerWalkLeft;
-    public Sprite[] PlayerWalkLeftSide;
     public Sprite[] PlayerWalkRight;
-    public Sprite[] PlayerWalkRightSide;
     public Sprite[] PlayerWalkFront;
-    public Sprite[] PlayerWalkUp;
+    public Sprite[] PlayerWalkBack;
     [Header("Attack")]
     public Sprite[] PlayerAttackLeft;
-    public Sprite[] PlayerAttackLeftSide;
     public Sprite[] PlayerAttackRight;
-    public Sprite[] PlayerAttackRightSide;
     public Sprite[] PlayerAttackFront;
-    public Sprite[] PlayerAttackUp;
+    public Sprite[] PlayerAttackBack;
     [Header("Hit")]
     public Sprite[] PlayerHitLeft;
-    public Sprite[] PlayerHitLeftSide;
     public Sprite[] PlayerHitRight;
-    public Sprite[] PlayerHitRightSide;
     public Sprite[] PlayerHitFront;
-    public Sprite[] PlayerHitUp;
+    public Sprite[] PlayerHitBack;
     [Header("Skill")]
     public Sprite[] PlayerSkillLeft;
-    public Sprite[] PlayerSkillLeftSide;
     public Sprite[] PlayerSkillRight;
-    public Sprite[] PlayerSkillRightSide;
     public Sprite[] PlayerSkillFront;
-    public Sprite[] PlayerSkillUp;
+    public Sprite[] PlayerSkillBack;
 
 
-    // Start is called before the first frame update
+    // Start is called before the first frame Backdate
     void Start()
     {
         spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
         m_attacktype = AttackType.LongRange;
         m_cloth = IsWear.DefaultCloth;
-        m_state = State.Dead;
-        DeadAnim();
+        m_state = State.Walk;
+        m_sex = SEX.Female;
+        
+        //   DeadAnim();
         AnimationRangeCheck();
-        //  Attack_AnimationMatching();
         Walk_AnimationMatching();
-        collectPlayer = gameObject.GetComponent<Player>();
+        Attack_AnimationMatching();
+        Hit_AnimationMatching();
+        Skill_AnimationMatching();
+        currentPlayer = gameObject.GetComponent<Player>();
         play_animtionSprite = PlayerWalkFront;
-        StartCoroutine("AnimationControllPlayer");
+        StartCoroutine(AnimationControllPlayer(currentPlayer));
+        animationname = "PlayerHit";
     }
 
-    // Update is called once per frame
+    // Backdate is called once per frame
     void Update()
     {
-        animationname = "PlayerWalkFront";
-        //"Player" + collectPlayer.AngleCaseString(collectPlayer.angle) + collectPlayer.myState.ToString();
-        // myPos = gameObject.transform.position;
-        //joystickPos = joypadinput.GetComponent<UIJoystick>().position;
-
-        ////조이스틱
-        //h = joystickPos.x;
-        //v = joystickPos.y;
-
-
-        //transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed, Space.World);
-        //transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed, Space.World);
+        animationname = AnimationName_Returner("Player", m_state, currentPlayer.p_AnglePos);
     }
 
     void AttackRangeAnimationSetting(AttackType m_attacktype)
@@ -122,7 +100,7 @@ public class PlayerAnimator : MonoBehaviour
     void DeadAnim()
     {
         PlayerDead = new Sprite[10];
-        string name = "PlayerAnimation/" + AttackType.ShortRange.ToString() + "/" + m_cloth.ToString() + "/" + m_state.ToString() + "/" + (m_cloth.ToString() + m_state.ToString());
+        string name = ("Animation/Player/" + m_sex.ToString() + "/" + m_cloth.ToString() + "/" + m_attacktype.ToString() + "/" + State.Dead.ToString() + "/");
         for (int i = 1; i < PlayerDead.Length + 1; i++)
         {
             PlayerDead[i - 1] = Resources.Load<Sprite>(name + (i - 1));
@@ -133,80 +111,91 @@ public class PlayerAnimator : MonoBehaviour
         switch (m_attacktype)
         {
             case AttackType.ShortRange:
-                AttackAniCount = 11;
+                AttackAniCount = 5;
                 WalkAniCount = 5;
-                HitAniCount = 4;
+                HitAniCount = 5;
                 break;
             case AttackType.MiddleRange:
-                AttackAniCount = 11;
+                AttackAniCount = 5;
                 WalkAniCount = 5;
-                HitAniCount = 4;
+                HitAniCount = 5;
                 break;
             case AttackType.LongRange:
-                AttackAniCount = 11;
+                AttackAniCount = 5;
                 WalkAniCount = 5;
-                HitAniCount = 4;
+                SkillAniCount = 5;
+                HitAniCount = 5;
                 break;
         }
     }
     void Attack_AnimationMatching()
     {
         PlayerAttackLeft = new Sprite[AttackAniCount];
-        PlayerAttackLeftSide = new Sprite[AttackAniCount];
         PlayerAttackRight = new Sprite[AttackAniCount];
-        PlayerAttackRightSide = new Sprite[AttackAniCount];
         PlayerAttackFront = new Sprite[AttackAniCount];
-        PlayerAttackUp = new Sprite[AttackAniCount];
-        string name = ("PlayerAnimation/" + m_attacktype.ToString() + "/" + m_cloth.ToString() + "/" + State.Attack.ToString() + "/");
-        for (int i = 1; i < AttackAniCount + 1; i++)
+        PlayerAttackBack = new Sprite[AttackAniCount];
+
+        string name = ("Animation/Player/" + m_sex.ToString() + "/" + m_cloth.ToString() + "/" + m_attacktype.ToString() + "/" + State.Attack.ToString() + "/");
+        for (int i = 0; i < AttackAniCount; i++)
         {
-            PlayerAttackLeft[i] = Resources.Load<Sprite>(name + AnglePos.Left.ToString() + i);
-            PlayerAttackLeftSide[i] = Resources.Load<Sprite>(name + AnglePos.LeftSide.ToString() + i);
-            PlayerAttackRight[i] = Resources.Load<Sprite>(name + AnglePos.Right.ToString() + i);
-            PlayerAttackRightSide[i] = Resources.Load<Sprite>(name + AnglePos.RightSide.ToString() + i);
-            PlayerAttackFront[i] = Resources.Load<Sprite>(name + AnglePos.Front.ToString() + i);
-            PlayerAttackUp[i] = Resources.Load<Sprite>(name + AnglePos.Up.ToString() + i);
+            PlayerAttackLeft[i] = Resources.Load<Sprite>(name + AnglePos.Left.ToString() + "/" + m_cloth.ToString() + State.Attack.ToString() + "Left" + i);
+            PlayerAttackRight[i] = Resources.Load<Sprite>(name + AnglePos.Right.ToString() + "/" + m_cloth.ToString() + State.Attack.ToString() + "Right" + i);
+            PlayerAttackFront[i] = Resources.Load<Sprite>(name + AnglePos.Front.ToString() + "/" + m_cloth.ToString() + State.Attack.ToString() + "Front" + i);
+            PlayerAttackBack[i] = Resources.Load<Sprite>(name + AnglePos.Back.ToString() + "/" + m_cloth.ToString() + State.Attack.ToString() + "Back" + i);
         }
     }
     void Walk_AnimationMatching()
     {
         PlayerWalkLeft = new Sprite[WalkAniCount];
-        PlayerWalkLeftSide = new Sprite[WalkAniCount];
         PlayerWalkRight = new Sprite[WalkAniCount];
-        PlayerWalkRightSide = new Sprite[WalkAniCount];
         PlayerWalkFront = new Sprite[WalkAniCount];
-        PlayerWalkUp = new Sprite[WalkAniCount];
-        string name = ("PlayerAnimation/" + m_attacktype.ToString() + "/" + m_cloth.ToString() + "/" + State.Walk.ToString() + "/");
+        PlayerWalkBack = new Sprite[WalkAniCount];
+        string name = ("Animation/Player/" + m_sex.ToString() + "/" + m_cloth.ToString() + "/" + m_attacktype.ToString() + "/" + State.Walk.ToString() + "/");
+        string sprite_name = m_sex.ToString() + "_" + m_cloth.ToString() + "_Walk_";
         for (int i = 0; i < WalkAniCount; i++)
         {
-            PlayerWalkLeft[i] = Resources.Load<Sprite>(name + AnglePos.Left.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.Left.ToString() + i);
-            PlayerWalkLeftSide[i] = Resources.Load<Sprite>(name + AnglePos.LeftSide.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.LeftSide.ToString() + i);
-            PlayerWalkRight[i] = Resources.Load<Sprite>(name + AnglePos.Right.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.Right.ToString() + i);
-            PlayerWalkRightSide[i] = Resources.Load<Sprite>(name + AnglePos.RightSide.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.RightSide.ToString() + i);
-            PlayerWalkFront[i] = Resources.Load<Sprite>(name + AnglePos.Front.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.Front.ToString() + i);
-            PlayerWalkUp[i] = Resources.Load<Sprite>(name + AnglePos.Up.ToString() + "/" + m_cloth.ToString() + "Walk" + AnglePos.Up.ToString() + i);
+            PlayerWalkLeft[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Left.ToString() + "_" + i);
+            PlayerWalkRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
+            PlayerWalkFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
+            PlayerWalkBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
+            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
         }
     }
     void Skill_AnimationMatching()
     {
         PlayerSkillLeft = new Sprite[SkillAniCount];
-        PlayerSkillLeftSide = new Sprite[SkillAniCount];
         PlayerSkillRight = new Sprite[SkillAniCount];
-        PlayerSkillRightSide = new Sprite[SkillAniCount];
         PlayerSkillFront = new Sprite[SkillAniCount];
-        PlayerSkillUp = new Sprite[SkillAniCount];
-        string name = "PlayerAnimation/" + m_attacktype.ToString() + "/" + m_cloth.ToString() + "/" + State.Skill.ToString() + "/" + (m_cloth.ToString() + State.Skill.ToString());
+        PlayerSkillBack = new Sprite[SkillAniCount];
+        string name = ("Animation/Player/" + m_sex.ToString() + "/" + m_cloth.ToString() + "/" + m_attacktype.ToString() + "/" + State.Skill.ToString() + "/");
+        string sprite_name = m_sex.ToString() + "_" + m_cloth.ToString() + "_Skill_";
         for (int i = 0; i < SkillAniCount; i++)
         {
-            PlayerSkillLeft[i] = Resources.Load<Sprite>(name + AnglePos.Left.ToString() + i);
-            PlayerSkillLeftSide[i] = Resources.Load<Sprite>(name + AnglePos.LeftSide.ToString() + i);
-            PlayerSkillRight[i] = Resources.Load<Sprite>(name + AnglePos.Right.ToString() + i);
-            PlayerSkillRightSide[i] = Resources.Load<Sprite>(name + AnglePos.RightSide.ToString() + i);
-            PlayerSkillFront[i] = Resources.Load<Sprite>(name + AnglePos.Front.ToString() + i);
-            PlayerSkillUp[i] = Resources.Load<Sprite>(name + AnglePos.Up.ToString() + i);
+            PlayerSkillLeft[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Left.ToString() + "_" + i);
+            PlayerSkillRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
+            PlayerSkillFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
+            PlayerSkillBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
+            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
         }
     }
-    IEnumerator AnimationControllPlayer()
+    void Hit_AnimationMatching()
+    {
+        PlayerHitLeft = new Sprite[HitAniCount];
+        PlayerHitRight = new Sprite[HitAniCount];
+        PlayerHitFront = new Sprite[HitAniCount];
+        PlayerHitBack = new Sprite[HitAniCount];
+        string name = ("Animation/Player/" + m_sex.ToString() + "/" + m_cloth.ToString() + "/" + m_attacktype.ToString() + "/" + State.Hit.ToString() + "/");
+        string sprite_name = m_sex.ToString() + "_" + m_cloth.ToString() + "_Hit_";
+        for (int i = 0; i < HitAniCount; i++)
+        {
+            PlayerHitLeft[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Left.ToString() + "_" + i);
+            PlayerHitRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
+            PlayerHitFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
+            PlayerHitBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
+            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
+        }
+    }
+    IEnumerator AnimationControllPlayer(Character c)
     {
         bool dead = false;
         float m_frameTime = 1;
@@ -215,11 +204,11 @@ public class PlayerAnimator : MonoBehaviour
         while (!dead)
         {
             collect_frameTime = AnimationFramePlay(play_animtionSprite, m_frameTime);
-            spriteRenderer.sprite = play_animtionSprite[current_Animcount];
-            current_Animcount++;
-            if(current_Animcount>=play_animtionSprite.Length)
+            spriteRenderer.sprite = play_animtionSprite[c.current_Anim_Frame];
+            c.current_Anim_Frame++;
+            if (c.current_Anim_Frame >= play_animtionSprite.Length)
             {
-                current_Animcount = 0;
+                c.current_Anim_Frame = 0;
             }
             yield return new WaitForSeconds(collect_frameTime);
         }
@@ -234,8 +223,25 @@ public class PlayerAnimator : MonoBehaviour
         {
             case "PlayerWalkFront":
                 play_animtionSprite = PlayerWalkFront;
+                Debug.Log("PlayerWalkFront");
+                break;
+            case "PlayerWalkLeft":
+                play_animtionSprite = PlayerWalkLeft;
+                Debug.Log("PlayerWalkLeft");
+                break;
+            case "PlayerWalkRight":
+                play_animtionSprite = PlayerWalkRight;
+                Debug.Log("PlayerWalkRight");
+                break;
+            case "PlayerWalkBack":
+                play_animtionSprite = PlayerWalkBack;
+                Debug.Log("PlayerWalkBack");
                 break;
         }
-        current_Animcount = 0;
+        currentPlayer.current_Anim_Frame = 0;
+    }
+    string AnimationName_Returner(string Player, State state, AnglePos angle)
+    {
+        return Player + state + angle;
     }
 }

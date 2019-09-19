@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { None = 0, Walk, Attack, Dead, Skill, Hit };
+public enum State { None = 0, Walk, Attack, Dead, Skill, Hit};
 public enum AnglePos
 {
-    None = 0, Front, Right, RightSide, Up, LeftSide, Left
+    None = 0, Front, Right, RightSide, Back, LeftSide, Left
 }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
 public class Character : MonoBehaviour, PersonalSpecificational
@@ -24,6 +24,10 @@ public class Character : MonoBehaviour, PersonalSpecificational
     public Vector3 myPos;
     public Vector3 myRotat;
 
+    public int current_Anim_Frame;
+
+    public float current_angle;
+    public float enemy_angle;
 
     // TODO : 이건 적이나 플레이어에게만 규정할 것 (스킬이 존재하고 있는)
     //[SerializeField] private float skillCoolDown;
@@ -154,33 +158,27 @@ public class Character : MonoBehaviour, PersonalSpecificational
     }
     #endregion
     public float AngleCalculate { get { return angle; } set { angle = value; } }
+
+    //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
     public string AngleCaseString(float angle)
     {
         if (angle == 0)
         {
 
         }
-        if (angle < 22.5)
+        if (angle < 45)
         {
-            return "front";
+            return "Front";
         }
-        else if (angle < 112.5)
+        else if (angle < 135)
         {
             return "Right";
         }
-        else if (angle < 112.5 + 45)
+        else if (angle < 225)
         {
-            return "RightSide";
+            return "Back";
         }
-        else if (angle < 112.5 + 90)
-        {
-            return "Up";
-        }
-        else if (angle < 112.5 + 135)
-        {
-            return "LeftSide";
-        }
-        else if (angle < 112.5 + 180)
+        else if (angle < 315)
         {
             return "Left";
         }
@@ -193,47 +191,5 @@ public class Character : MonoBehaviour, PersonalSpecificational
     public void AnimatorCast(string animationtype)
     {
         gameObject.GetComponent<Animator>().Play(animationtype);
-    }
-    public State StateChaner(State state)
-    {
-        switch (state)
-        {
-            case State.Dead:
-                isAttacking = false;
-                isWalk = false;
-                isDead = true;
-                isHit = false;
-                isSkillActive = false;
-                return State.Dead;
-            case State.Walk:
-                isAttacking = false;
-                isWalk = true;
-                isDead = false;
-                isHit = false;
-                isSkillActive = false;
-                return State.Attack;
-            case State.Skill:
-                isAttacking = false;
-                isWalk = false;
-                isDead = false;
-                isHit = false;
-                isSkillActive = true;
-                return State.Skill;
-            case State.Attack:
-                isAttacking = true;
-                isWalk = false;
-                isDead = false;
-                isHit = false;
-                isSkillActive = false;
-                return State.Skill;
-            case State.Hit:
-                isAttacking = false;
-                isWalk = false;
-                isDead = false;
-                isHit = true;
-                isSkillActive = false;
-                return State.Hit;
-        }
-        return State.None;
     }
 }

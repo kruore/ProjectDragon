@@ -487,7 +487,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 441508307}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -735.2922, y: -332.67163, z: 0}
+  m_LocalPosition: {x: -735, y: -332, z: 0}
   m_LocalScale: {x: 0.99907494, y: 0.99907494, z: 0.99907494}
   m_Children:
   - {fileID: 1004916507}
@@ -1803,6 +1803,9 @@ MonoBehaviour:
   angle: 0
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
+  current_Anim_Frame: 0
+  current_angle: 0
+  enemy_angle: 0
   myState: 0
   myAttackType: 0
   isAttacking: 0
@@ -1866,6 +1869,9 @@ MonoBehaviour:
   angle: 0
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
+  current_Anim_Frame: 0
+  current_angle: 0
+  enemy_angle: 0
   myState: 0
   myAttackType: 0
   isAttacking: 0
@@ -1881,13 +1887,13 @@ MonoBehaviour:
   verticalSpeed: 5
   DeadPanel: {fileID: 993684980}
   playerSex: 0
+  p_AnglePos: 0
   playerAnimationStateChanger: {fileID: 0}
   playerControllerVec: {x: 0, y: 0}
   rigidbody2d: {fileID: 0}
   joypadinput: {fileID: 441508307}
   joystickPos: {x: 0, y: 0, z: 0}
   isWear: 0
-  EnemyAngle: 0
 --- !u!4 &1397146586 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4746271711286800878, guid: b725bf5dd61e68e42832d35a86c8ecc7,
@@ -4593,7 +4599,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1555155638}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.57, y: 11.47, z: -1.0693458}
+  m_LocalPosition: {x: -5.07, y: -2.21, z: -1.0693458}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1651798491}
@@ -4612,44 +4618,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df777700977938643b92e69593f19b57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  horizontalSpeed: 5
-  verticalSpeed: 5
   joystickPos: {x: 0, y: 0, z: 0}
   joypadinput: {fileID: 0}
-  collectPlayer: {fileID: 0}
+  playerObject: {fileID: 0}
+  currentPlayer: {fileID: 0}
   spriteRenderer: {fileID: 0}
   m_attacktype: 0
   m_cloth: 0
   m_state: 0
+  m_sex: 0
   AttackAniCount: 0
   WalkAniCount: 0
   HitAniCount: 0
   SkillAniCount: 0
   PlayerDead: []
   PlayerWalkLeft: []
-  PlayerWalkLeftSide: []
   PlayerWalkRight: []
-  PlayerWalkRightSide: []
   PlayerWalkFront: []
-  PlayerWalkUp: []
+  PlayerWalkBack: []
   PlayerAttackLeft: []
-  PlayerAttackLeftSide: []
   PlayerAttackRight: []
-  PlayerAttackRightSide: []
   PlayerAttackFront: []
-  PlayerAttackUp: []
+  PlayerAttackBack: []
   PlayerHitLeft: []
-  PlayerHitLeftSide: []
   PlayerHitRight: []
-  PlayerHitRightSide: []
   PlayerHitFront: []
-  PlayerHitUp: []
+  PlayerHitBack: []
   PlayerSkillLeft: []
-  PlayerSkillLeftSide: []
   PlayerSkillRight: []
-  PlayerSkillRightSide: []
   PlayerSkillFront: []
-  PlayerSkillUp: []
+  PlayerSkillBack: []
 --- !u!114 &1555155641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4670,6 +4668,9 @@ MonoBehaviour:
   angle: 0
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
+  current_Anim_Frame: 0
+  current_angle: 0
+  enemy_angle: 0
   myState: 0
   myAttackType: 0
   isAttacking: 0
@@ -4685,13 +4686,13 @@ MonoBehaviour:
   verticalSpeed: 5
   DeadPanel: {fileID: 0}
   playerSex: 0
+  p_AnglePos: 0
   playerAnimationStateChanger: {fileID: 0}
   playerControllerVec: {x: 0, y: 0}
   rigidbody2d: {fileID: 0}
   joypadinput: {fileID: 441508307}
   joystickPos: {x: 0, y: 0, z: 0}
   isWear: 0
-  EnemyAngle: 0
 --- !u!212 &1555155642
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -5057,7 +5058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1651798487}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.52, y: -10.900001, z: 0.06934583}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1555155639}
@@ -5186,6 +5187,9 @@ MonoBehaviour:
   angle: 0
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
+  current_Anim_Frame: 0
+  current_angle: 0
+  enemy_angle: 0
   myState: 0
   myAttackType: 0
   isAttacking: 0

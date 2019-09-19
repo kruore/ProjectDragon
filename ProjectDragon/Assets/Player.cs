@@ -18,6 +18,7 @@ public class Player : Character
     public float verticalSpeed = 5.0f;
     public GameObject DeadPanel;
     public SEX playerSex;
+    public AnglePos p_AnglePos;
     //JoyStick
     protected JoyPad joyPad;
 
@@ -28,18 +29,15 @@ public class Player : Character
     public Rigidbody2D rigidbody2d;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    private Vector3 normalVec = new Vector3(0, 0, 0);
+    public Vector3 normalVec = new Vector3(-735.0f, -332, 0);
     public IsWear isWear;
     private Transform m_EnemyPos;
-    public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; Debug.Log(value); } }
+    public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
 
 
     //Check JoyStick
     private float h;
     private float v;
-
-    //Angle of Enemy
-    public float EnemyAngle;
 
     // Start is called before the first frame update
     void Awake()
@@ -189,9 +187,51 @@ public class Player : Character
                 return;
             }
             StateChaner(State.Attack);
-            EnemyAngle = GetAngle(EnemyPos.position, gameObject.transform.position);
-            AngleCalculate = EnemyAngle;
+          //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
+          //  AngleCalculate = enemy_angle;
         }
+    }
+    public State StateChaner(State state)
+    {
+        switch (state)
+        {
+            case State.Dead:
+                isAttacking = false;
+                isWalk = false;
+                isDead = true;
+                isHit = false;
+                isSkillActive = false;
+                return State.Dead;
+            case State.Walk:
+                isAttacking = false;
+                isWalk = true;
+                isDead = false;
+                isHit = false;
+                isSkillActive = false;
+                return State.Attack;
+            case State.Skill:
+                isAttacking = false;
+                isWalk = false;
+                isDead = false;
+                isHit = false;
+                isSkillActive = true;
+                return State.Skill;
+            case State.Attack:
+                isAttacking = true;
+                isWalk = false;
+                isDead = false;
+                isHit = false;
+                isSkillActive = false;
+                return State.Skill;
+            case State.Hit:
+                isAttacking = false;
+                isWalk = false;
+                isDead = false;
+                isHit = true;
+                isSkillActive = false;
+                return State.Hit;
+        }
+        return State.None;
     }
 
 }
