@@ -15,7 +15,7 @@ public enum Item_CLASS
     검,
     활,
     지팡이,
-    갑옷,
+    갑옷, 
     아이템
 }
 
@@ -117,24 +117,58 @@ public class Database : MonoSingleton<Database>
             amount = _amount;
             skill_Index = _skill_Index;
         }
+
+        public Inventory(Database.Weapon weapon)
+        {
+            num = Database.Inst.GetInventoryCount();
+            DB_Num = weapon.num;
+            name = weapon.name;
+            stat = weapon.damage;
+            isLock = false;
+            itemValue = weapon.item_Value;
+            rarity = weapon.rarity;
+            item_Class = weapon.item_Class;
+            upgrade_Level = 1;
+            upgrade_Count = 0;
+            imageName = weapon.imageName;
+            amount = 1;
+            skill_Index = weapon.skill_Index;
+        }
+
+        public Inventory(Database.Armor armor)
+        {
+            num = Database.Inst.GetInventoryCount();
+            DB_Num = armor.num;
+            name = armor.name;
+            stat = armor.hp;
+            isLock = false;
+            itemValue = armor.item_Value;
+            rarity = armor.rarity;
+            item_Class = armor.item_Class;
+            upgrade_Level = 1;
+            upgrade_Count = 0;
+            imageName = armor.imageName;
+            amount = 1;
+            skill_Index = -1;
+        }
     }
 
     [System.Serializable]
     public class Weapon
     {
-        public int num;
-        public string name;
-        public float damage;
-        public int attack_Count; // 공격 횟수
-        public float attack_Range; // 사정 거리
-        public string attack_Type; //근거린지 원거린지 범윈지 등
-        public float attack_Speed; // 공속
-        public int item_Value;
-        public string description;
-        public int skill_Index; // 
-        public RARITY rarity;
-        public Item_CLASS item_Class;
-        public string imageName; //이미지 이름
+        public readonly int num;
+        public readonly string name;
+        public readonly float damage;
+        public readonly int attack_Count; // 공격 횟수
+        public readonly float attack_Range; // 사정 거리
+        public readonly string attack_Type; //근거린지 원거린지 범윈지 등
+        public readonly float attack_Speed; // 공속
+        public readonly int item_Value;
+        public readonly string description;
+        public readonly int skill_Index; // 
+        public readonly RARITY rarity;
+        public readonly Item_CLASS item_Class;
+        public readonly string imageName; //이미지 이름
 
 
         public Weapon(int _num, string _name, float _damage, int _attack_Count, float _attack_Range, string _attack_Type,
@@ -159,14 +193,14 @@ public class Database : MonoSingleton<Database>
     [System.Serializable]
     public class Armor
     {
-        public int num;
-        public string name;
-        public float hp;
-        public int item_Value;
-        public string description;
-        public RARITY rarity;
-        public Item_CLASS item_Class;
-        public string imageName;
+        public readonly int num;
+        public readonly string name;
+        public readonly float hp;
+        public readonly int item_Value;
+        public readonly string description;
+        public readonly RARITY rarity;
+        public readonly Item_CLASS item_Class;
+        public readonly string imageName;
 
         public Armor(int _num, string _name, float _hp, int _item_Value,/* int _upgrade_Level, int _upgrade_Gauge,*/ string _description, RARITY _rarity, Item_CLASS _item_Class, string _imageName)
         {
@@ -183,46 +217,21 @@ public class Database : MonoSingleton<Database>
         }
     }
 
-    #region 이제 곧 죽을 것
-    //[System.Serializable]
-    //public class Item
-    //{ 
-    //    public int num;
-    //    public string name;
-    //    public int item_Value;// 강화시 게이지 수치 값, 공격력비슷, 아이템 가치
-    //    //public int amount; // 몇개 가지고 있을까요
-    //    public RARITY rarity;
-    //    public Item_CLASS item_CLASS;
-    //    public string description;
-
-    //    public Item(int _num, string _name, int _item_Value, /*int _amount,*/ RARITY _rarity, Item_CLASS _item_Class, string _description)
-    //    {
-    //        num = _num;
-    //        name = _name;
-    //        item_Value = _item_Value;
-    //        //amount = _amount;
-    //        rarity = _rarity;
-    //        item_CLASS = _item_Class;
-    //        description = _description;
-    //    }
-    //}
-    #endregion
-
     [System.Serializable]
     public class Skill
     {
-        public int num;
-        public string name;
-        public string description;
-        public float mpCost;
-        public int attack_Count; //공격횟수
-        public float active_Time; // 실행 속도
-        public float coolDown; // 쿨타임
+        public readonly int num;
+        public readonly string name;
+        public readonly string description;
+        public readonly float mpCost;
+        public readonly int attack_Count; //공격횟수
+        public readonly float active_Time; // 실행 속도
+        public readonly float coolDown; // 쿨타임
         //attack_Type에 따라 사거리는 어쩌죠?
-        public float attack_Range; //사정거리
-        public string attack_Type;
-        public float attack_Power; //데미지
-        public string imageName;
+        public readonly float attack_Range; //사정거리
+        public readonly string attack_Type;
+        public readonly float attack_Power; //데미지
+        public readonly string imageName;
 
         public Skill(int _num, string _name, string _description, float _mpCost, int _attack_Count, float _active_Time, float _coolDown, float _attack_Range, string _attack_Type, float _attack_Power, string _imageName)
         {
@@ -243,15 +252,15 @@ public class Database : MonoSingleton<Database>
     [System.Serializable]
     public class Passive
     {
-        public int num;
-        public int world;
-        public string name;
-        public string description;
-        public string imageName;
+        public readonly int num;
+        public readonly int world;
+        public readonly string name;
+        public readonly string description;
+        public readonly string imageName;
 
         //효과 변수
-        public PASSIVE_TYPE passiveType;
-        public int[] statPerLV;
+        public readonly PASSIVE_TYPE passiveType;
+        public readonly int[] statPerLV;
 
         public Passive(int _num, int _world, string _name, string _description, string _imageName,
                         PASSIVE_TYPE _passiveType, int[] _statPerLV)
@@ -266,27 +275,40 @@ public class Database : MonoSingleton<Database>
             passiveType = _passiveType;
             statPerLV = _statPerLV;
         }
+
+        public Passive(Database.Passive src)
+        {
+            num = src.num;
+            world = src.world;
+            name = src.name;
+            description = src.description;
+            imageName = src.imageName;
+
+            //효과
+            passiveType = src.passiveType;
+            statPerLV = src.statPerLV;
+        }
     }
 
     [System.Serializable]
     public class Monster
     {
-        public int num;
-        public Monster_Region region; // 몬스터 출현 지역.. 맵마다 몬스터 나오는 것은 맵 정보에 넣기
-        public string name;
-        public float damage;
-        public float hp;
-        public Monster_Rarity monster_Rarity;
-        public Monster_Size size;
-        public float attack_Range;
-        public string attack_Type; //원거린지 근거린지 설명용
-        public float attack_Speed;
-        public float chase_Range; // 인식 거리
-        public float move_Speed; // 이동 속도
-        public Monster_Category category;
-        public string description;
-        public string imageName;
-        public string dropItem; // 몬스터가 드랍하는 아이템 월드로 묶을지 함 생각해봐야함 아직 추가 안했음
+        public readonly int num;
+        public readonly Monster_Region region; // 몬스터 출현 지역.. 맵마다 몬스터 나오는 것은 맵 정보에 넣기
+        public readonly string name;
+        public readonly float damage;
+        public readonly float hp;
+        public readonly Monster_Rarity monster_Rarity;
+        public readonly Monster_Size size;
+        public readonly float attack_Range;
+        public readonly string attack_Type; //원거린지 근거린지 설명용
+        public readonly float attack_Speed;
+        public readonly float chase_Range; // 인식 거리
+        public readonly float move_Speed; // 이동 속도
+        public readonly Monster_Category category;
+        public readonly string description;
+        public readonly string imageName;
+        public readonly string dropItem; // 몬스터가 드랍하는 아이템 월드로 묶을지 함 생각해봐야함 아직 추가 안했음
 
         public Monster(int _num, Monster_Region _region, string _name, float _damage, float _hp, Monster_Rarity _monster_Rarity, Monster_Size _size,
                          float _attack_Range, string _attack_Type, float _attack_Speed, float _chase_Range, float _move_Speed, Monster_Category _category, string _description, string _imageName)
@@ -316,6 +338,8 @@ public class Database : MonoSingleton<Database>
         public List<Inventory> inventory = new List<Inventory>();
         public List<Passive> passive = new List<Passive>();
         public float currentHp;
+        public float damage;
+        public float moveSpeed;
         public int clearStage;
         public int mp; //money power, 돈의 힘
         public SEX sex;
@@ -339,9 +363,18 @@ public class Database : MonoSingleton<Database>
     public List<Monster> monsters = new List<Monster>();
     public List<Skill> skill = new List<Skill>();
     public List<Passive> passive = new List<Passive>();
+    public int[,] statPerLevel = new int[16, 9];
 
     //Player Game Data Instace
     public PlayData playData = new PlayData();
 
+    #endregion
+
+    #region Function
+    //인벤토리에 현재 몇개의 아이템을 가지고 있는지 반환합니다.
+    public int GetInventoryCount()
+    {
+        return playData.inventory.Count;
+    }
     #endregion
 }

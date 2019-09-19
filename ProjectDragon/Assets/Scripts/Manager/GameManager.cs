@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public string loadingnextscene, AsyncLoadSceneName;
+
     public Stack<string> Scenestack = new Stack<string>();
 
     public void singletonF()

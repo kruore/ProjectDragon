@@ -17,8 +17,8 @@ public static class ButtonManager
             {
                 case "Main":
                     //StopAllCoroutines();
-                    GameManager.Inst.Scenestack.Push("Main");
-                    return "Main";
+                    GameManager.Inst.Scenestack.Push("Lobby");
+                    return "Lobby";
                     break;
                 case "ChangeEquip":
                     //StopAllCoroutines();
@@ -30,23 +30,30 @@ public static class ButtonManager
                     //StopAllCoroutines();
                     LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(false);
                     LobbyManager.inst.BGI.SetActive(false);
+                    return "CurrentEquip";
                     break;
                 case "Lock":
                     LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(false);
                     LobbyManager.inst.BGID.SetActive(false);
+                    LobbyManager.inst.Selecteditem.Clear();
+                    return "Lock";
                     break;
                 case "EquipPanel":
                     GameObject.Find("UI Root").transform.Find("EquipPanel").gameObject.SetActive(false);
+                    return "EquipPanel";
                     break;
-                case "ARscene":
+                case "Enchant":
                     //StopAllCoroutines();
-                    SceneManager.LoadScene("mapscene");
+                    LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
+                    LobbyManager.inst.BGID.SetActive(false);
+                    LobbyManager.inst.Selecteditem.Clear();
                     break;
-                case "Loading":
-                    SceneManager.LoadScene("mapscene");
+                case "Decomposition":
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition").gameObject.SetActive(false);
+                    LobbyManager.inst.BGID.SetActive(false);
+                    LobbyManager.inst.Selecteditem.Clear();
                     break;
-                case "Battle2":
-                    SceneManager.LoadScene("Main");
+                case "Inventory":
                     break;
                 case "ToolBox":
                     //DeactiveToolboxpanel();

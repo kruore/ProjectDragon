@@ -1,13 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class Equipmentcell : UIReuseScrollViewCell
 {
     public UISprite equipIcon, itemIcon;
     public UISprite enchantlevel, rarity, Lock;
     public UILabel Itemname, Itemvalue, Attackpercent, Activemana, Activecooltime, Activetarget, Activerange;
     public EuipmentcellData cell;
+    float time,myYposition;
+    private void Start()
+    {
+        UIEventListener.Get(gameObject).onPress += Buttonpress;
+    }
     public override void UpdateData(IReuseCellData _CellData)
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
@@ -200,8 +205,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                             LobbyManager.inst.Selecteditem.Remove(Select);
                             gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
                             gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-                            LobbyManager.inst.selectData -= DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                            LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
                             check = false;
                             break;
 
@@ -212,9 +216,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                         gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
                         gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
                         LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                        LobbyManager.inst.selectData += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
-                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                        LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
                     }
                 }
                 else
@@ -222,9 +224,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                     gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
                     gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
                     LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                    LobbyManager.inst.selectData += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = Database.Inst.playData.inventory[0].amount.ToString();
-                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.selectData);
+                    LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
                 }
                 break;
             case LobbyState.Decomposition:
@@ -304,10 +304,14 @@ public class Equipmentcell : UIReuseScrollViewCell
         if (data.isLock)
         {
             panel.transform.Find("Lock").GetComponent<UISprite>().spriteName = "Lock";
+            panel.transform.Find("Lock").GetComponent<UIButton>().normalSprite = "Lock";
+            panel.transform.Find("Lock").GetComponent<UIButton>().hoverSprite = "Lock";
         }
         else
         {
             panel.transform.Find("Lock").GetComponent<UISprite>().spriteName = "Unlock";
+            panel.transform.Find("Lock").GetComponent<UIButton>().normalSprite = "Unlock";
+            panel.transform.Find("Lock").GetComponent<UIButton>().hoverSprite = "Unlock";
         }
         if (!stat.Equals(-1))
         {
@@ -354,5 +358,38 @@ public class Equipmentcell : UIReuseScrollViewCell
     public void EquipWeaponIcon(GameObject IconObject, Database.Inventory data)
     {
         LobbyManager.inst.ChangeItemIcon(IconObject, data);
+    }
+    public void Buttonpress(GameObject sender, bool state)
+    {
+        if(sender.Equals(gameObject)&& state)
+        {
+            Debug.Log("Press");
+            StartCoroutine("TimeRange");
+        }
+        else if(sender.Equals(gameObject) && !state)
+        {
+            if(time>1.5f&&(Mathf.Abs(myYposition-gameObject.transform.position.y)<0.05)&&LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
+            {
+                Debug.Log(Mathf.Abs(myYposition - gameObject.transform.position.y));
+                LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
+                LobbyManager.inst.BGID.SetActive(true);
+                GameManager.Inst.Scenestack.Push("Lock");
+                LobbyManager.inst.lobbystate = LobbyState.Lock;
+            }
+            StopCoroutine("TimeRange");
+            Debug.Log(time);
+            Debug.Log("Presscancle");
+        }
+    }
+    public IEnumerator TimeRange()
+    {
+        time = 0;
+        myYposition=transform.position.y;
+        while(true)
+        {
+            time += Time.deltaTime;
+            yield return new WaitForEndOfFrame();
+        }
+        
     }
 }

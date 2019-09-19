@@ -22,6 +22,8 @@ public class GUITestScrollView : MonoBehaviour
 
     void Start()
     {
+        LobbyManager.inst.gUITestScrollViews.Add(gameObject.GetComponent<GUITestScrollView>());
+
         inventories = Database.Inst.playData.inventory;
         // 임의의 데이터가 생성해서 gird에 추가시켜둔다.
         // ItemCellData 는 IReuseCellData 상속받아서 구현된 데이터 클래스다.
@@ -51,22 +53,26 @@ public class GUITestScrollView : MonoBehaviour
     {
         grid.ClearItem(true);
         count = inventories.Count;
-        for (int i = 3; i < count; ++i)
+        for (int i = 0; i < count; ++i)
         {
             EuipmentcellData cell = new EuipmentcellData();
-            cell.amount = inventories[i].amount;
-            cell.DB_Num = inventories[i].DB_Num;
-            cell.imageName = inventories[i].imageName;
-            cell.itemValue = inventories[i].itemValue;
-            cell.item_Class = inventories[i].item_Class;
-            cell.name = inventories[i].name;
-            cell.inventoryNum = inventories[i].num;
-            cell.rarity = inventories[i].rarity;
-            cell.upgrade_Count = inventories[i].upgrade_Count;
-            cell.upgrade_Level = inventories[i].upgrade_Level;
-            cell.isLock = inventories[i].isLock;
-            cell.stat = inventories[i].stat;
-            grid.AddItem(cell, false);
+
+            if ((LobbyManager.inst.itemclassselect.Equals(ItemState.기본) || ((int)LobbyManager.inst.itemclassselect).Equals((int)inventories[i].item_Class + 1)) && !inventories[i].item_Class.Equals(Item_CLASS.아이템) && (LobbyManager.inst.ItemRarityselect.Equals(ItemRarity.기본) || (((int)LobbyManager.inst.ItemRarityselect).Equals((int)inventories[i].rarity + 1))))
+            {
+                cell.amount = inventories[i].amount;
+                cell.DB_Num = inventories[i].DB_Num;
+                cell.imageName = inventories[i].imageName;
+                cell.itemValue = inventories[i].itemValue;
+                cell.item_Class = inventories[i].item_Class;
+                cell.name = inventories[i].name;
+                cell.inventoryNum = inventories[i].num;
+                cell.rarity = inventories[i].rarity;
+                cell.upgrade_Count = inventories[i].upgrade_Count;
+                cell.upgrade_Level = inventories[i].upgrade_Level;
+                cell.isLock = inventories[i].isLock;
+                cell.stat = inventories[i].stat;
+                grid.AddItem(cell, false);
+            }
         }
         grid.UpdateAllCellData();
     }
