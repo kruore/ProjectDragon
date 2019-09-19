@@ -11,7 +11,7 @@ using Random = UnityEngine.Random;
 
 public class DataTransaction : MonoSingleton<DataTransaction>
 {
-    public Text text;
+    //public Text text;
     //public T Temp_Inventory;
     private Database database;
     public IDbCommand DEB_dbcmd;
@@ -38,7 +38,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             {
                 WWW loadDB = new WWW("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
                 loadDB.bytesDownloaded.ToString();
-                while (!loadDB.isDone) { yield return null; }
+                while (!loadDB.isDone) { }
                 File.WriteAllBytes(conn, loadDB.bytes);
             }
         }
@@ -59,9 +59,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
-        text.text = "쓋";
+        //text.text = "쓋";
         dbconn.Open();
-        text.text = "open";
+        //text.text = "open";
         DEB_dbcmd = dbconn.CreateCommand();
     }
 
