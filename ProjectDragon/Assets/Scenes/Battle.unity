@@ -1893,6 +1893,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 0}
   joypadinput: {fileID: 441508307}
   joystickPos: {x: 0, y: 0, z: 0}
+  normalVec: {x: -735, y: -332, z: 0}
   isWear: 0
 --- !u!4 &1397146586 stripped
 Transform:
@@ -4692,6 +4693,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 0}
   joypadinput: {fileID: 441508307}
   joystickPos: {x: 0, y: 0, z: 0}
+  normalVec: {x: -735, y: -332, z: 0}
   isWear: 0
 --- !u!212 &1555155642
 SpriteRenderer:

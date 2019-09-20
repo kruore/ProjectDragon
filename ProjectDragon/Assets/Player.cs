@@ -68,6 +68,7 @@ public class Player : Character
         //  playerAnimationStateChanger.SetInteger("myRange", myAttackType.GetHashCode());
         //  playerAnimationStateChanger.SetInteger("isMale", playerSex.GetHashCode());
         //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
+
     }
     // Update is called once per frame
     void Update()
