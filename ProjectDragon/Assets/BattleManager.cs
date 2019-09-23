@@ -103,12 +103,12 @@ public class BattleManager : MonoBehaviour
                 a.GetComponent<EnemyFollow>().enabled = true;
                 a.GetComponent<Monster>().angleOfPlayer = GetSideOfEnemyAndPlayerAngle(player.transform.position, a.transform.position);
                 angle = a.GetComponent<Monster>().angleOfPlayer;
-                a.GetComponent<Monster>().MonsterAnimation(angle);
+                //a.GetComponent<Monster>().MonsterAnimation(angle);
                 a.GetComponent<Monster>().moveDistance = 256;
             }
             if (a.GetComponent<Monster>().distanceOfPlayer >= a.GetComponent<Monster>().moveDistance)
             {
-                a.GetComponent<Monster>().MonsterAnimation(0);
+                //a.GetComponent<Monster>().MonsterAnimation(0);
             }
         }
     }
