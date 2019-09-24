@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum EnemyState
-{
-    Idle, Walk, Attack, Hit, Dead
-}
+
 public enum EnemyPos
 {
     None = 0, Front, Right, Left, Back
@@ -13,33 +10,38 @@ public enum EnemyPos
 
 public class Monster : Character
 {
-    public float skillCoolDown = 10.0f;
-    public bool IsSkillActive = false;
-    public string monsterName;
+
     public Animator objectAnimator;
     protected EnemyPos enemyPos;
     public float moveDistance;
 
-    //add patrol
-    public Vector3 beginPos;    
-    public Vector3 patrolPoint; 
-    public bool Arrived = true;
+    BattleManager battleManager;
 
-    public float patrolRange;
-    public float findRange;
-    public float attackRange;
+    //add 
+    public string name;
+    public int skillDamage;
+    public float cooltime;
+    public float skillCooltime;
+    public float Attribute;
+    enum KnockBackResistance { 상,중,하};
 
-    public float speed=2.0f;
+    bool isSkillActive = false;
+
 
 
     //플레이어와 적과의 거리 캐스팅
     public float distanceOfPlayer;
     public float angleOfPlayer;
+
     // Start is called before the first frame update
     void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
-        other = GameObject.FindGameObjectWithTag("Player").transform;
+        //other = GameObject.FindGameObjectWithTag("Player").transform;
+
+        battleManager= GetComponent<BattleManager>();
+
+
     }
 
     // Update is called once per frame
@@ -47,73 +49,80 @@ public class Monster : Character
     {
         
     }
+    private void FixedUpdate()
+    {
+        
+        setState(myState);
+
+    }
 
     private void Start()
     {
-        beginPos = gameObject.transform.position;
-        myState = State.None;
-
-    }
-
-    IEnumerator Patrol()
-    {
-        myState = State.None;
-
-        while (true)
-        {
-            if (distanceOfPlayer <= findRange)
-            {
-                yield break;
-            }
-
-            if (Arrived)
-            {
-                //Idle Animation
-                //1초 대기 
-                yield return new WaitForSeconds(1.0f);
-
-                Arrived = false;
-
-                //random patrolPoint
-                patrolPoint = beginPos + new Vector3(Random.insideUnitCircle.x * patrolRange, Random.insideUnitCircle.y * patrolRange);
-
-            }
-            //move
-            transform.position = Vector2.MoveTowards(transform.position, patrolPoint, speed * Time.deltaTime);
-
-            //Arrived at point
-            if (myPos.Equals(patrolPoint))
-            {
-                Arrived = true;
-            }
-
-            yield return null;
-        }
-
-
-    }
-
-    void PlayerTracking()
-    {
+        
         myState = State.Walk;
 
-        if (distanceOfPlayer <= attackRange)
+    }
+
+    void setState(State newState)
+    {
+        myState = newState;
+        switch(myState)
         {
+            case State.None:
+
+                break;
+
+            case State.Walk:
+                Tracking();
+                break;
+
+            case State.Attack:
+                break;
+
+        }
+    }
+
+    void Tracking()
+    {
+        if (distanceOfPlayer <= AtkRange)
+        {
+            myState = State.Attack;
             //attack
+
         }
 
         //move
-        //transform.position=Vector2.MoveTowards(transform.position,)
+        transform.position = Vector2.MoveTowards(transform.position, battleManager.player.transform.position, MoveSpeed * Time.deltaTime);
 
     }
 
+    //애니메이션 프레임에 설정할 것
+    void Attack_On()
+    {
+        //Add Player Damage 
+        //
+
+        //StartCoroutine(AttackCooltime());
+    }
+    protected virtual IEnumerator AttackCooltime() { yield return null; }
+    //IEnumerator AttackCooltime()
+    //{
+
+
+    //    yield return new WaitForSeconds(cooltime);
+    //    myState = State.None;
+
+    //    yield return null;
+
+    //}
+    //protected virtual IEnumerator Skill() { yield return null; }
 
 
 
     ////Puppet_skill 01 is Move Back
     //IEnumerator Puppet_Skill01()
     //{
-    //    //  if(IsSkillActive.Equals(true)) ? yield return new WaitForSeconds(skillCoolDown) :  yield return new WaitForSeconds(skillCoolDown);
+    //     //if(isSkillActive.Equals(true)) ? yield return new WaitForSeconds(skillCoolDown) :  yield return new WaitForSeconds(skillCoolDown);
     //    {
     //        yield return new WaitForSeconds(skillCoolDown);
     //    }
@@ -126,7 +135,7 @@ public class Monster : Character
     //        switch (myState)
     //        {
     //            case State.Walk:
-    //          //      AnimatorCast(monsterName + AngleCalculate(angle));
+    //                //      AnimatorCast(monsterName + AngleCalculate(angle));
     //                break;
     //        }
     //    }
