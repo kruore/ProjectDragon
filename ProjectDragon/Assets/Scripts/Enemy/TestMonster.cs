@@ -7,7 +7,7 @@ public class TestMonster : Monster
     // Start is called before the first frame update
     void Start()
     {
-        monsterName = "TestMonster";
+        name = "TestMonster";
         enemyPos = EnemyPos.Front;
         AtkRange = 3;
         myState = State.Walk;

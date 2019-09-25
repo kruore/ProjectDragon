@@ -3,19 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public enum EnemyPos
-{
-    None = 0, Front, Right, Left, Back
-}
 
 public class Monster : Character
 {
+    public enum EnemyPos { None = 0, Front, Right, Left, Back };
 
     public Animator objectAnimator;
     protected EnemyPos enemyPos;
     public float moveDistance;
 
     BattleManager battleManager;
+
+   
 
     //add 
     public string name;
@@ -25,7 +24,6 @@ public class Monster : Character
     public float Attribute;
     enum KnockBackResistance { 상,중,하};
 
-    bool isSkillActive = false;
 
 
 
@@ -33,13 +31,13 @@ public class Monster : Character
     public float distanceOfPlayer;
     public float angleOfPlayer;
 
+
     // Start is called before the first frame update
-    void Awake()
+    protected virtual void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
-        //other = GameObject.FindGameObjectWithTag("Player").transform;
+        other = GameObject.FindGameObjectWithTag("Player").transform;
 
-        battleManager= GetComponent<BattleManager>();
 
 
     }
@@ -49,31 +47,33 @@ public class Monster : Character
     {
         
     }
-    private void FixedUpdate()
+
+    protected virtual void FixedUpdate()
     {
         
-        setState(myState);
 
     }
 
-    private void Start()
+    protected virtual void Start()
     {
-        
+
         myState = State.Walk;
-
+        setState(myState);
     }
 
-    void setState(State newState)
+    //개체의 상태가 바뀔때마다 실행
+    public void setState(State newState)
     {
         myState = newState;
         switch(myState)
         {
             case State.None:
-
+                StartCoroutine(Idle_On());
                 break;
 
             case State.Walk:
-                Tracking();
+                StartCoroutine(AttackRangeCheck());
+                StartCoroutine(Tracking());
                 break;
 
             case State.Attack:
@@ -82,43 +82,82 @@ public class Monster : Character
         }
     }
 
-    void Tracking()
-    {
-        if (distanceOfPlayer <= AtkRange)
-        {
-            myState = State.Attack;
-            //attack
 
+    protected IEnumerator Tracking()
+    {
+        while (myState == State.Walk)
+        {
+            //move
+            transform.position = Vector2.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+            objectAnimator.SetBool("Walk", true);
+
+            yield return null;
         }
 
-        //move
-        transform.position = Vector2.MoveTowards(transform.position, battleManager.player.transform.position, MoveSpeed * Time.deltaTime);
 
     }
 
     //애니메이션 프레임에 설정할 것
-    void Attack_On()
+    protected void Attack_On()
     {
         //Add Player Damage 
         //
-
-        //StartCoroutine(AttackCooltime());
+        Debug.Log("Attack!!!!!");
+       
     }
-    protected virtual IEnumerator AttackCooltime() { yield return null; }
-    //IEnumerator AttackCooltime()
-    //{
+
+    protected IEnumerator Idle_On()
+    {
+        StartCoroutine(AttackCooltime());
+
+        while (true)
+        {
+            //AtkRange에 플레이어가 없다면 추적
+            if (distanceOfPlayer > AtkRange)
+            {
+                myState = State.Walk;
+                setState(myState);
+                yield break;
+            }
+ 
+        yield return null;
+        }
+
+    }
 
 
-    //    yield return new WaitForSeconds(cooltime);
-    //    myState = State.None;
+    //walk->attack
+    protected IEnumerator AttackRangeCheck()
+    {
+        while (true)
+        {
+            if (distanceOfPlayer < AtkRange)
+            {
+                //attack Animation parameters
+                //
+                objectAnimator.SetBool("isAttackActive", false);
+                objectAnimator.SetBool("Walk", false);
+                objectAnimator.SetTrigger("Attack");
+                myState = State.Attack;
 
-    //    yield return null;
+                yield break;
+            }
 
-    //}
+            yield return null;
+        }
+
+    }
+
+    protected virtual IEnumerator AttackCooltime() {
+        Debug.Log("hi");
+        yield return null; }
+
+    //protected virtual IEnumerator Attack
+
     //protected virtual IEnumerator Skill() { yield return null; }
 
 
-
+    #region 전에 있던 코드
     ////Puppet_skill 01 is Move Back
     //IEnumerator Puppet_Skill01()
     //{
@@ -144,4 +183,5 @@ public class Monster : Character
     //{
     //    yield return new WaitForSeconds(ATTACKSPEED);
     //}
+    #endregion
 }
