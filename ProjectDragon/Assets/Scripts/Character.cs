@@ -5,7 +5,7 @@ using UnityEngine;
 public enum State { None = 0, Walk, Attack, Dead, Skill, Hit};
 public enum AnglePos
 {
-    None = 0, Front, Right, RightSide, Back, LeftSide, Left
+   None = 0, Front, Right, Back, Left
 }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
 public class Character : MonoBehaviour, PersonalSpecificational
@@ -20,12 +20,9 @@ public class Character : MonoBehaviour, PersonalSpecificational
     [SerializeField] private float atkSpeed;
     [SerializeField] private float moveSpeed;
     [SerializeField] private float atkRange;
-    [SerializeField] public float angle;
     public Vector3 myPos;
     public Vector3 myRotat;
-
     public int current_Anim_Frame;
-
     public float current_angle;
     public float enemy_angle;
 
@@ -35,6 +32,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     public State myState;
     public AttackType myAttackType;
+    public AnglePos myAnim_AnglePos;
 
     [SerializeField] protected bool isAttacking;
     [SerializeField] protected bool isWalk;
@@ -157,22 +155,41 @@ public class Character : MonoBehaviour, PersonalSpecificational
         return atkRange;
     }
     #endregion
-    public float AngleCalculate { get { return angle; } set { angle = value; } }
 
     //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
-    public string AngleCaseString(float angle)
+    public AnglePos Current_AngleCaseString(float angle)
     {
         if (angle == 0)
         {
-
+            return AnglePos.Front;
         }
+        if (angle < 45)
+        {
+            return AnglePos.Back;
+        }
+        else if (angle < 135)
+        {
+            return AnglePos.Right;
+        }
+        else if (angle < 225)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 315)
+        {
+            return AnglePos.Left;
+        }
+        return AnglePos.Back;
+    }
+    public string Enemy_AngleCaseString(float angle)
+    {
         if (angle < 45)
         {
             return "Front";
         }
         else if (angle < 135)
         {
-            return "Right";
+            return "Left";
         }
         else if (angle < 225)
         {
@@ -180,14 +197,10 @@ public class Character : MonoBehaviour, PersonalSpecificational
         }
         else if (angle < 315)
         {
-            return "Left";
+            return "Right";
         }
-        else
-        {
-            return "Front";
-        }
+        return "Front";
     }
-
     public void AnimatorCast(string animationtype)
     {
         gameObject.GetComponent<Animator>().Play(animationtype);

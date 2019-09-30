@@ -73,7 +73,6 @@ public class BattleManager : MonoBehaviour
                 }
                 player.StateChaner(State.Attack);
                 player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
-                player.current_angle = GetSideOfEnemyAndPlayerAngle(player.normalVec, player.joystickPos);
 
             }
             if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
@@ -86,7 +85,7 @@ public class BattleManager : MonoBehaviour
                 //적을 보는 각도(플레이어)
                 player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position,player.transform.position);
                 //플레이어 조이스틱
-                player.current_angle = GetSideOfEnemyAndPlayerAngle(player.normalVec, player.joystickPos);
+               // player.current_angle =
             }
 
             yield return new WaitForSeconds(0.1f);

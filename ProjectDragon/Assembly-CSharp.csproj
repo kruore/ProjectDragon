@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimatorControll.cs" />
     <Compile Include="Assets\BattleManager.cs" />
     <Compile Include="Assets\ConsolePro\ConsoleProDebug.cs" />
     <Compile Include="Assets\ConsolePro\Remote\ConsoleProRemoteServer.cs" />
@@ -199,6 +200,7 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
+    <Compile Include="Assets\NYAN_dots\Scripts\Animator_Test.cs" />
     <Compile Include="Assets\ObjectPool.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\PlayerAnimator.cs" />
@@ -242,8 +244,10 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored 1.shader" />
+    <None Include="Assets\NYAN_dots\Readme_jp.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Premultiplied Colored.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Colored.shader" />
+    <None Include="Assets\NYAN_dots\Readme.txt" />
     <None Include="Assets\NGUI\RobotsNGUI\joysticktest\joyatlas.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />

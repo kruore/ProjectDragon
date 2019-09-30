@@ -4,15 +4,10 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public string skillName = null;
+    public string poolItemName = "Bullet";
     public float moveSpeed = 10f;
     public float lifeTime = 3f;
     public float _elapsedTime = 0f;
-
-    private void Start()
-    {
-        skillName = Database.Inst.skill[0].name;
-    }
 
     void Update()
     {
@@ -21,8 +16,7 @@ public class Skill : MonoBehaviour
         if (GetTimer() > lifeTime)
         {
             SetTimer();
-            ObjectPool.Instance.PushToPool(skillName, gameObject);
-          //  gameObject.SetActive(false);
+            ObjectPool.Instance.PushToPool(poolItemName, gameObject);
         }
     }
 

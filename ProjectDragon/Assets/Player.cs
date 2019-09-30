@@ -6,7 +6,6 @@ using UnityEngine;
 public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
-
     public GameObject weaponSelection;
     private Animator weaponAnimator;
 
@@ -18,9 +17,9 @@ public class Player : Character
     public float verticalSpeed = 5.0f;
     public GameObject DeadPanel;
     public SEX playerSex;
-    public AnglePos p_AnglePos;
     //JoyStick
     protected JoyPad joyPad;
+   // public AnglePos my_AnglePos { get { return myAnim_AnglePos; } set { myAnim_AnglePos = value; GetComponent<Animator>().CrossFade(playerSex.ToString(), 0.3f); } }
 
     //Animation Contorl
     public Animator playerAnimationStateChanger;
@@ -29,7 +28,7 @@ public class Player : Character
     public Rigidbody2D rigidbody2d;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    public Vector3 normalVec = new Vector3(-735.0f, -332, 0);
+    public Vector3 normalVec = new Vector3(0.0f, 0.0f, 0.0f);
     public IsWear isWear;
     private Transform m_EnemyPos;
     public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
@@ -42,6 +41,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
+      
         isWear = IsWear.DefaultCloth;
         //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
@@ -53,8 +53,8 @@ public class Player : Character
         myState = State.Walk;
         AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
-        weaponAnimator = weaponSelection.GetComponent<Animator>();
-        weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
+        //weaponAnimator = weaponSelection.GetComponent<Animator>();
+        // weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
     }
     void Start()
     {
@@ -70,8 +70,9 @@ public class Player : Character
         //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        current_angle = joypadinput.GetComponent<UIJoystick>().angle;
         myPos = gameObject.transform.position;
         joystickPos = joypadinput.GetComponent<UIJoystick>().position;
         //키보드 세팅
@@ -170,7 +171,7 @@ public class Player : Character
         //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
-        weaponAnimator.SetFloat("Angle", AngleCalculate);
+       // weaponAnimator.SetFloat("Angle", AngleCalculate);
         #endregion
     }
     public void WeaponAnimatorChanger()
