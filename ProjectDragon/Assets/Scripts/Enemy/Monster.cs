@@ -9,12 +9,16 @@ public class Monster : Character
     public enum EnemyPos { None = 0, Front, Right, Left, Back };
 
     public Animator objectAnimator;
+    Rigidbody2D rigidbody;
+    Vector3 direction;
+
+    //아직 사용X
     protected EnemyPos enemyPos;
     public float moveDistance;
 
     BattleManager battleManager;
+    Unit _unit;
 
-   
 
     //add 
     public string name;
@@ -35,11 +39,11 @@ public class Monster : Character
     // Start is called before the first frame update
     protected virtual void Awake()
     {
+
         objectAnimator = gameObject.GetComponent<Animator>();
-        other = GameObject.FindGameObjectWithTag("Player").transform;
-
-
-
+       // other = GameObject.FindGameObjectWithTag("Player").transform;
+        rigidbody = GetComponent<Rigidbody2D>();
+        _unit = GetComponent<Unit>();
     }
 
     // Update is called once per frame
@@ -57,6 +61,13 @@ public class Monster : Character
     protected virtual void Start()
     {
 
+        myState = State.None;
+        StartCoroutine(Start_On());
+        
+    }
+    IEnumerator Start_On()
+    {
+        yield return new WaitForSeconds(1.0f);
         myState = State.Walk;
         setState(myState);
     }
@@ -83,12 +94,17 @@ public class Monster : Character
     }
 
 
+
     protected IEnumerator Tracking()
     {
+        //수정 필요
+        StartCoroutine(_unit.FindPathAgain());
         while (myState == State.Walk)
         {
             //move
-            transform.position = Vector2.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+
+            //transform.position = Vector2.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+
             objectAnimator.SetBool("Walk", true);
 
             yield return null;
@@ -100,6 +116,7 @@ public class Monster : Character
     //애니메이션 프레임에 설정할 것
     protected void Attack_On()
     {
+
         //Add Player Damage 
         //
         Debug.Log("Attack!!!!!");
@@ -149,10 +166,9 @@ public class Monster : Character
     }
 
     protected virtual IEnumerator AttackCooltime() {
-        Debug.Log("hi");
+
         yield return null; }
 
-    //protected virtual IEnumerator Attack
 
     //protected virtual IEnumerator Skill() { yield return null; }
 

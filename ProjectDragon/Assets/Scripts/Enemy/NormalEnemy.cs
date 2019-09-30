@@ -27,7 +27,6 @@ public class NormalEnemy : Monster
 
     protected override IEnumerator AttackCooltime()
     {
-        Debug.Log("NormalEnemy Cooltime : " + cooltime);
         yield return new WaitForSeconds(cooltime);
 
         if (myState==State.None)
@@ -37,8 +36,15 @@ public class NormalEnemy : Monster
             objectAnimator.SetBool("Walk", false);
             myState = State.Attack;
 
-            Debug.Log("NormalEnemy Cooltime! >Attack ");
+
         }
         yield return null;
     }
+
+    protected void Invincibility()
+    {
+
+    }
+
+
 }

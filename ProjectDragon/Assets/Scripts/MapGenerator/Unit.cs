@@ -4,23 +4,46 @@ using System.Collections;
 
 public class Unit : MonoBehaviour
 {
-   // public Grid grid;
-    public Transform target;
-    float speed = 1;
-    Vector3[] path;
-    int targetIndex;
+    // public Grid grid;
+     Vector3[] path;
+     int targetIndex;
+
+    [SerializeField]
+     Vector3 preTarget;
+    [SerializeField]
+     Transform target;
+    public float moveSpeed=1.0f;
+    //float speed = 0.2f;
+
+    //추가함!
+    [SerializeField]
+     Vector3 currentWaypoint;
+
+    private void Awake()
+    {
+        target = GameObject.FindGameObjectWithTag("Player").transform;
+    }
 
     void Start()
     {
-        StartCoroutine("FindPathAgain");    
+        //StartCoroutine(FindPathAgain());    
     }
-    IEnumerator FindPathAgain()
+
+    public IEnumerator FindPathAgain()
     {
-        while(true)
+        
+        while (true)
         {
-            PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
-            //0.35초마다 찾는다.
-            yield return new WaitForSeconds(0.35f);
+            preTarget = target.position;
+            //1초마다 찾는다.
+            yield return new WaitForSeconds(1.0f);
+
+            if (target.position != preTarget)
+            {
+                PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
+            }
+            yield return null;
+
         }
     }
 
@@ -30,14 +53,15 @@ public class Unit : MonoBehaviour
         {
             path = newPath;
             targetIndex = 0;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+            StopCoroutine(FollowPath());
+            StartCoroutine(FollowPath());
         }
     }
 
     IEnumerator FollowPath()
     {
-        Vector3 currentWaypoint = path[0];
+        currentWaypoint = path[0];
+
         while (true)
         {
             if (transform.position == currentWaypoint)
@@ -47,10 +71,12 @@ public class Unit : MonoBehaviour
                 {
                     yield break;
                 }
+               
                 currentWaypoint = path[targetIndex];
             }
+
             //해당 위치로 이동
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
             yield return null;
 
         }
