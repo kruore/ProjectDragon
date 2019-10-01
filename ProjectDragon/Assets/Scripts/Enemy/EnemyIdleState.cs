@@ -5,18 +5,17 @@ using UnityEngine;
 public class EnemyIdleState : StateMachineBehaviour
 {
 
-    Monster enemy;
+    FSM_NormalEnemy enemy;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        enemy = animator.gameObject.GetComponent<Monster>();
-        
-    
-        if (enemy.myState !=State.None)
+        enemy = animator.gameObject.GetComponent<FSM_NormalEnemy>();
+
+        if (enemy.CurrentState != State.None)
         {
-        enemy.myState = State.None;
-        enemy.setState(enemy.myState);
+            enemy.CurrentState = State.None;
+            enemy.setState(enemy.CurrentState);
 
         }
 

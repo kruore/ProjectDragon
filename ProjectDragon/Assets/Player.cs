@@ -171,7 +171,7 @@ public class Player : Character
         //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
-        weaponAnimator.SetFloat("Angle", AngleCalculate);
+        //weaponAnimator.SetFloat("Angle", AngleCalculate);
         #endregion
     }
     public void WeaponAnimatorChanger()
