@@ -14,6 +14,7 @@ public class FSM_NormalEnemy : Monster
         }
     }
 
+    [SerializeField]
     protected bool isAttackActive;
 
 
@@ -22,6 +23,7 @@ public class FSM_NormalEnemy : Monster
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
 
+        StartCoroutine(AttackRangeCheck());
         CurrentState = State.Walk;
         yield return null;
     }
@@ -33,12 +35,13 @@ public class FSM_NormalEnemy : Monster
         switch (newState)
         {
             case State.None:
+                
                 StartCoroutine(None());
                 break;
 
             case State.Walk:
+                
                 StartCoroutine(Walk());
-                StartCoroutine(AttackRangeCheck());
                 break;
 
             case State.Attack:
@@ -47,23 +50,61 @@ public class FSM_NormalEnemy : Monster
 
         }
     }
-
-     protected virtual IEnumerator None()
+    [SerializeField]
+    bool inAtkRange;
+    protected virtual IEnumerator None()
     {
-        StartCoroutine(AttackCooltime());
+        Debug.Log("None");
+        StartCoroutine(CalcCooltime());
+        //StartCoroutine(AttackCooltime());
 
+        yield return null;
+
+    }
+    [SerializeField]
+    public float Current_waitTime = 0;
+    [SerializeField]
+    public float Current_cooltime = 0;
+    public virtual IEnumerator CalcCooltime()
+    {
         while (true)
         {
-            //AtkRange에 플레이어가 없다면 추적
-            if (distanceOfPlayer > AtkRange)
+
+            if (Current_cooltime < cooltime)                    //cooltime 전
             {
-                CurrentState = State.Walk;
-                yield break;
+
+                if (Current_waitTime < waitTime)                 //waitTime 전
+                {
+                    Current_waitTime+= Time.deltaTime;
+                    Current_cooltime = Current_waitTime;
+                }
+                else                                             //waitTime 후
+                {
+                    //공격범위에 플레이어가 없다면 추적
+                    if (!inAtkRange)
+                    {
+                        CurrentState = State.Walk;   //Idle->Walk
+                        yield break;
+                    }
+                    else  //공격범위에 플레이어가 있다면 대기
+                    {
+                        Current_cooltime+= Time.deltaTime;
+
+                    }
+                }
             }
+            else                                                 //cooltime 후
+            {
+                if (CurrentState == State.None)     //Idle->Attack
+                {
+                    isAttackActive = true;
+                    CurrentState = State.Attack;
+                    yield break;
 
-            yield return null;
+                }
+            }
+                yield return null;
         }
-
     }
 
 
@@ -71,17 +112,13 @@ public class FSM_NormalEnemy : Monster
     {
         while (true)
         {
+            inAtkRange = false;
+
             if (distanceOfPlayer < AtkRange)
             {
-                //attack Animation parameters
-                //
-
-                isAttackActive = false;
-                CurrentState = State.Attack;
-
-                yield break;
+                inAtkRange = true;
+                
             }
-
             yield return null;
         }
 
@@ -90,35 +127,48 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Walk()
     {
+        Debug.Log("Walk");
         while (CurrentState == State.Walk)
         {
-            //move
-            transform.position = Vector2.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
-
+            //공격범위에 들어오면 Attack
+            if(inAtkRange)
+            {
+                isAttackActive = false;
+                CurrentState = State.Attack;
+                yield break;
+            }
             objectAnimator.SetBool("Walk", true);
+            //move
+            transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
 
             yield return null;
         }
+
     }
 
+    //attack Animation parameters
     protected virtual IEnumerator Attack()
     {
-        objectAnimator.SetBool("isAttackActive", isAttackActive);
+        Debug.Log("Attack");
+
         objectAnimator.SetBool("Walk", false);
         objectAnimator.SetTrigger("Attack");
+        objectAnimator.SetBool("isAttackActive", isAttackActive);
+
+        Current_waitTime = 0;
+        Current_cooltime = 0;
 
         yield return null;
     }
 
 
-    //근거리/애니메이션 프레임에 설정
-    //원거리/탄환 충돌시
+    //근거리/애니메이션 프레임에 설정  -->몸과 충돌시
+    //원거리 -->탄환 충돌시
     protected virtual IEnumerator Attack_On()
     {
         //Add Player hurt
         //    
-        //Debug.Log("Attack!!!!!");
-        Debug.Log("안뇽친구들 난 부모에욘");
+
         yield return null;
     }
 

@@ -214,7 +214,6 @@
     <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
     <Compile Include="Assets\Scripts\Enemy\RareEnemy.cs" />
     <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
-    <Compile Include="Assets\Scripts\Enemy\TestMonster.cs" />
     <Compile Include="Assets\Scripts\Interface.cs" />
     <Compile Include="Assets\Scripts\JoyStickController\JoyStick.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\EnemyFollow.cs" />

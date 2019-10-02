@@ -34,6 +34,7 @@ public class Slime : FSM_NormalEnemy
         {
             isAttackActive = true;
             CurrentState = State.Attack;
+
         }
         yield return null;
     }

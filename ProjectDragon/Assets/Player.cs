@@ -29,7 +29,7 @@ public class Player : Character
     public Rigidbody2D rigidbody2d;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    public Vector3 normalVec = new Vector3(-735.0f, -332, 0);
+    private Vector3 normalVec = new Vector3(0, 0, 0);
     public IsWear isWear;
     private Transform m_EnemyPos;
     public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
@@ -68,7 +68,6 @@ public class Player : Character
         //  playerAnimationStateChanger.SetInteger("myRange", myAttackType.GetHashCode());
         //  playerAnimationStateChanger.SetInteger("isMale", playerSex.GetHashCode());
         //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
-
     }
     // Update is called once per frame
     void Update()
@@ -171,6 +170,9 @@ public class Player : Character
         //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
+
+
+
         //weaponAnimator.SetFloat("Angle", AngleCalculate);
         #endregion
     }

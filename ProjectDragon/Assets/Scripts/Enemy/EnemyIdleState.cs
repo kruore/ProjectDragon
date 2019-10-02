@@ -15,8 +15,6 @@ public class EnemyIdleState : StateMachineBehaviour
         if (enemy.CurrentState != State.None)
         {
             enemy.CurrentState = State.None;
-            enemy.setState(enemy.CurrentState);
-
         }
 
     }
