@@ -26,19 +26,6 @@ public class Slime : FSM_NormalEnemy
 
     }
 
-    protected override IEnumerator AttackCooltime()
-    {
-        yield return new WaitForSeconds(cooltime);
-
-        if (CurrentState == State.None)
-        {
-            isAttackActive = true;
-            CurrentState = State.Attack;
-
-        }
-        yield return null;
-    }
-
 
 
 

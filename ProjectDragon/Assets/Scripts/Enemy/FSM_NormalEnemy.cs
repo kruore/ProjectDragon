@@ -18,6 +18,8 @@ public class FSM_NormalEnemy : Monster
     protected bool isAttackActive;
 
 
+
+
     protected IEnumerator Start_On()
     {
         //1초후 추적
@@ -35,47 +37,37 @@ public class FSM_NormalEnemy : Monster
         switch (newState)
         {
             case State.None:
-                
                 StartCoroutine(None());
                 break;
 
             case State.Walk:
-                
                 StartCoroutine(Walk());
                 break;
 
             case State.Attack:
                 StartCoroutine(Attack());
                 break;
-
         }
     }
-    [SerializeField]
-    bool inAtkRange;
     protected virtual IEnumerator None()
     {
         Debug.Log("None");
         StartCoroutine(CalcCooltime());
-        //StartCoroutine(AttackCooltime());
 
         yield return null;
 
     }
-    [SerializeField]
-    public float Current_waitTime = 0;
-    [SerializeField]
-    public float Current_cooltime = 0;
+
+
     public virtual IEnumerator CalcCooltime()
     {
         while (true)
         {
-
             if (Current_cooltime < cooltime)                    //cooltime 전
             {
-
                 if (Current_waitTime < waitTime)                 //waitTime 전
                 {
-                    Current_waitTime+= Time.deltaTime;
+                    Current_waitTime += Time.deltaTime;
                     Current_cooltime = Current_waitTime;
                 }
                 else                                             //waitTime 후
@@ -88,8 +80,7 @@ public class FSM_NormalEnemy : Monster
                     }
                     else  //공격범위에 플레이어가 있다면 대기
                     {
-                        Current_cooltime+= Time.deltaTime;
-
+                        Current_cooltime += Time.deltaTime;
                     }
                 }
             }
@@ -100,28 +91,53 @@ public class FSM_NormalEnemy : Monster
                     isAttackActive = true;
                     CurrentState = State.Attack;
                     yield break;
-
                 }
             }
-                yield return null;
+            yield return null;
         }
     }
 
 
-    protected virtual IEnumerator AttackRangeCheck()
+
+    //raycast
+    protected  IEnumerator AttackRangeCheck()
     {
         while (true)
         {
-            inAtkRange = false;
+            inAtkRange = CheckRaycast();
 
-            if (distanceOfPlayer < AtkRange)
-            {
-                inAtkRange = true;
-                
-            }
             yield return null;
         }
+    }
 
+    protected bool CheckRaycast()
+    {
+        inAtkRange = false;
+
+        directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
+        startingPosition = transform.position + directionOriginOffset;
+
+        hit = Physics2D.Raycast(startingPosition, direction, AtkRange, LayerMask.GetMask("Default"));
+
+        if (hit.collider != null)
+        {
+            //Debug.Log("hit name :" + hit.collider.gameObject.name);
+            if (hit.collider.gameObject.CompareTag("Player"))
+            {
+                inAtkRange = true;
+            }
+        }
+        return inAtkRange;
+    }
+
+    //Draw!!!!
+    private void OnDrawGizmos()
+    {
+        if (m_bDebugMode)
+        {
+            Debug.DrawRay(startingPosition, direction * AtkRange, Color.red);
+            Gizmos.DrawWireSphere(transform.position, AtkRange + Vector2.Dot(directionOriginOffset, direction));
+        }
     }
 
 
@@ -143,18 +159,18 @@ public class FSM_NormalEnemy : Monster
 
             yield return null;
         }
-
     }
 
-    //attack Animation parameters
     protected virtual IEnumerator Attack()
     {
         Debug.Log("Attack");
 
+        //attack Animation parameters
         objectAnimator.SetBool("Walk", false);
         objectAnimator.SetTrigger("Attack");
         objectAnimator.SetBool("isAttackActive", isAttackActive);
 
+        //Cooltime Initialize
         Current_waitTime = 0;
         Current_cooltime = 0;
 
@@ -167,16 +183,11 @@ public class FSM_NormalEnemy : Monster
     protected virtual IEnumerator Attack_On()
     {
         //Add Player hurt
-        //    
+        //
 
         yield return null;
     }
 
-
-    protected virtual IEnumerator AttackCooltime()
-    {
-        yield return null;
-    }
 
     //protected virtual IEnumerator Skill() { yield return null; }
 

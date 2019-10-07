@@ -22,26 +22,31 @@ public class Character : MonoBehaviour, PersonalSpecificational
     [SerializeField] private float atkRange;
     public Vector3 myPos;
     public Vector3 myRotat;
-    public int current_Anim_Frame;
+    public int current_Anim_Frame; //@
     public float current_angle;
-    public float enemy_angle;
+    public float enemy_angle; //@
 
     // TODO : 이건 적이나 플레이어에게만 규정할 것 (스킬이 존재하고 있는)
     //[SerializeField] private float skillCoolDown;
     //[SerializeField] private float skillRange;
 
     public State myState;
-    public AttackType myAttackType;
-    public AnglePos myAnim_AnglePos;
+    public AttackType myAttackType; //@
+    public AnglePos myAnim_AnglePos;  //@
 
+
+    //@
     [SerializeField] protected bool isAttacking;
     [SerializeField] protected bool isWalk;
     [SerializeField] protected bool isDead;
     [SerializeField] protected bool isHit;
     [SerializeField] protected bool isSkillActive;
-    public Transform other;
-    //Check Range
 
+
+    public Transform other;
+
+
+    //@
     public bool DistanceCheck(float closeDistance)
     {
         if (other)
@@ -156,6 +161,8 @@ public class Character : MonoBehaviour, PersonalSpecificational
     }
     #endregion
 
+
+    //@
     //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
     public AnglePos Current_AngleCaseString(float angle)
     {
