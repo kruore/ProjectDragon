@@ -8,15 +8,14 @@ using System.Collections;
 [AddComponentMenu("NGUI/Interaction/Drag Object")]
 public class UIJoystick : MonoBehaviour
 {
-
     static UIJoystick[] joysticks;                  // A static collection of all joysticks
     static bool enumeratedJoysticks = false;
 
     /// <summary>
     /// Target object that will be dragged.
     /// </summary>
-    public float angle;
     public float temp_angle;
+    public float angle;
     public Transform target;
     public Vector3 scale = Vector3.one;
     public float radius = 40f;                              // the radius for the joystick to move
@@ -42,22 +41,17 @@ public class UIJoystick : MonoBehaviour
     void Awake()
     {
         userInitTouchPos = Vector3.zero;
-
     }
-
     void Start()
     {
-        angle = 0;
+        gameObject.GetComponent<BoxCollider>().size = new Vector3(3000f, 2000f, 0f);
         if (centerOnPress)
         {
-
             StartCoroutine(fadeOutJoystick());
         }
     }
-
     IEnumerator fadeOutJoystick()
     {
-
         yield return new WaitForSeconds(fadeOutDelay);
         foreach (UIWidget widget in widgetsToFade)
         {
@@ -67,71 +61,143 @@ public class UIJoystick : MonoBehaviour
             TweenColor.Begin(widget.gameObject, 0.5f, newColor).method = UITweener.Method.EaseOut;
         }
     }
-
-
-
     /// <summary>
     /// Create a plane on which we will be performing the dragging.
     /// </summary>
-
     public void OnPress(bool pressed)
     {
+        Vector3 a = Vector3.zero;
+        int ab = 0;
         if (target != null)
         {
             mPressed = pressed;
-
             if (pressed)
             {
-                StopAllCoroutines();
-                if (Time.time < lastTapTime + doubleTapTimeWindow)
+                StopCoroutine("fadeOutJoystick");
+                if (Input.touchCount < 2)
                 {
-
-                    if (doubleTapMessageTarget != null && doubleTabMethodeName != "")
+                    if (Input.GetTouch(0).phase != TouchPhase.Ended)
                     {
-                        doubleTapMessageTarget.SendMessage(doubleTabMethodeName, SendMessageOptions.DontRequireReceiver);
-                        tapCount++;
+                        a = UICamera.currentCamera.ScreenToWorldPoint(Input.GetTouch(0).position);
+                        RaycastHit2D ray01 = Physics2D.Raycast(a, transform.forward, 1);
+                        if (ray01 == true && ray01.transform.gameObject.name == "SpaceToPos")
+                            if (centerOnPress)
+                            {
+                                userInitTouchPos = a;
+                                foreach (UIWidget widget in widgetsToFade)
+                                {
+                                    //TweenColor.Begin(widget.gameObject, 0.1f, Color.white).method = UITweener.Method.EaseIn;
+                                    widget.color = Color.white;
+                                }
+                                foreach (Transform widgetTF in widgetsToCenter)
+                                {
+                                    widgetTF.position = userInitTouchPos;
+                                }
+                            }
                     }
                     else
                     {
-                        Debug.LogWarning("Double Tab on Joystick but no Reciever or Methodename available");
+                        ResetJoystick();
                     }
                 }
-                else
+                else if (Input.touchCount > 1)
                 {
-                    tapCount = 1;
-                }
-                lastTapTime = Time.time;
-                //set Joystick to fingertouchposition
-                //Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
-                Ray ray = UICamera.currentCamera.ScreenPointToRay(Input.mousePosition);
-                float dist = 0f;
-
-                Vector3 currentPos = ray.GetPoint(dist);
-                currentPos.z = 0;
-                if (centerOnPress)
-                {
-                    userInitTouchPos = currentPos;
-                    foreach (UIWidget widget in widgetsToFade)
+                    for (int i = 0; i < Input.touchCount; i++)
                     {
-                        TweenColor.Begin(widget.gameObject, 0.1f, Color.white).method = UITweener.Method.EaseIn;
+                        a = UICamera.currentCamera.ScreenToWorldPoint(Input.GetTouch(i).position);
+                        RaycastHit2D ray01 = Physics2D.Raycast(a, transform.forward, 1);
+                        if (ray01 == true && ray01.transform.gameObject.name == "SpaceToPos")
+                        {
+                            ab = i;
+                            break;
+                        }
                     }
-                    foreach (Transform widgetTF in widgetsToCenter)
+                    if (centerOnPress)
                     {
-                        widgetTF.position = userInitTouchPos;
+                        if (Input.GetTouch(ab).phase != TouchPhase.Ended)
+                        {
+                            userInitTouchPos = a;
+                            foreach (UIWidget widget in widgetsToFade)
+                            {
+                                //TweenColor.Begin(widget.gameObject, 0.1f, Color.white).method = UITweener.Method.EaseIn;
+                                widget.color = Color.white;
+                            }
+                            foreach (Transform widgetTF in widgetsToCenter)
+                            {
+                                widgetTF.position = userInitTouchPos;
+                            }
+                        }
+                        else
+                        {
+                            ResetJoystick();
+                        }
                     }
                 }
-                else
-                {
-                    userInitTouchPos = target.position;
-                    OnDrag(Vector2.zero);
-                }
-
             }
             else
             {
                 ResetJoystick();
             }
         }
+
+
+        //if (target != null)
+        //{
+        //    mPressed = pressed;
+
+        //    if (pressed)
+        //    {
+        //        StopCoroutine(fadeOutJoystick());
+        //        if (Time.time < lastTapTime + doubleTapTimeWindow)
+        //        {
+
+        //            if (doubleTapMessageTarget != null && doubleTabMethodeName != "")
+        //            {
+        //                doubleTapMessageTarget.SendMessage(doubleTabMethodeName, SendMessageOptions.DontRequireReceiver);
+        //                tapCount++;
+        //            }
+        //            else
+        //            {
+        //                Debug.Log("´õºí ÅÜ ");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            tapCount = 1;
+        //        }
+        //        lastTapTime = Time.time;
+        //        //set Joystick to fingertouchposition
+        //        //Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
+        //        Ray ray = UICamera.currentCamera.ScreenPointToRay(Input.mousePosition);
+
+        //        float dist = 0f;
+
+        //        Vector3 currentPos = ray.GetPoint(dist);
+        //        currentPos.z = 0;
+        //        if (centerOnPress)
+        //        {
+        //            userInitTouchPos = currentPos;
+        //            foreach (UIWidget widget in widgetsToFade)
+        //            {
+        //                TweenColor.Begin(widget.gameObject, 0.1f, Color.white).method = UITweener.Method.EaseIn;
+        //            }
+        //            foreach (Transform widgetTF in widgetsToCenter)
+        //            {
+        //                widgetTF.position = userInitTouchPos;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            userInitTouchPos = target.position;
+        //            OnDrag(Vector2.zero);
+        //        }
+
+        //    }
+        //    else
+        //    {
+        //        ResetJoystick();
+        //    }
+        //}
     }
 
     /// <summary>
@@ -180,7 +246,6 @@ public class UIJoystick : MonoBehaviour
             position = target.localPosition;
         }
 
-
         if (normalize)
         {
             // Normalize the vector and multiply it with the length adjusted
@@ -189,22 +254,23 @@ public class UIJoystick : MonoBehaviour
             position = position / radius * Mathf.InverseLerp(radius, deadZone, 1);
         }
     }
-
-
-
     /// <summary>
     /// Apply the dragging momentum.
     /// </summary>
-
     void Update()
     {
         if (!enumeratedJoysticks)
         {
             // Collect all joysticks in the game, so we can relay finger latching messages
             joysticks = FindObjectsOfType(typeof(UIJoystick)) as UIJoystick[];
+
             enumeratedJoysticks = true;
         }
-        angle = GetAngle(gameObject.transform.position, target.transform.position);
+    }
+    private void FixedUpdate()
+    {
+
+        angle = GetAngle(target.transform.position, gameObject.transform.position);
         {
             if (angle == 0)
             {
@@ -213,19 +279,30 @@ public class UIJoystick : MonoBehaviour
         }
         temp_angle = angle;
     }
-
     void ResetJoystick()
     {
         // Release the finger control and set the joystick back to the default position
         tapCount = 0;
         position = Vector2.zero;
         target.position = userInitTouchPos;
-        if (centerOnPress)
+        foreach (UIWidget widget in widgetsToFade)
         {
-            StartCoroutine(fadeOutJoystick());
-        }
-    }
+            Color lastColor = widget.color;
+            lastColor.a = 0.1f;
+            widget.color = lastColor;
 
+        }
+        //if (centerOnPress)
+        //{
+        //    StartCoroutine(fadeOutJoystick());
+        //}
+    }
+    IEnumerator rebackJoystick()
+    {
+        yield return new WaitForSeconds(0.1f);
+        //  target.transform.position = Mathf.Lerp(target.transform.position,gameObject.transform.position,Time.deltaTime);
+
+    }
     public void Disable()
     {
         gameObject.SetActive(false);

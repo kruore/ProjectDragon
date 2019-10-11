@@ -50,7 +50,7 @@ public class Player : Character
         ATKChanger(10);
         ATKSpeedChanger(1.0f);
         MoveSpeed = 1;
-        myState = State.Walk;
+        CurrentState = State.Walk;
         AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
         //weaponAnimator = weaponSelection.GetComponent<Animator>();
@@ -187,53 +187,105 @@ public class Player : Character
             {
                 return;
             }
-            StateChaner(State.Attack);
+            CurrentState = State.Attack;
           //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
           //  AngleCalculate = enemy_angle;
         }
     }
-    public State StateChaner(State state)
+    protected override void SetState(State newState)
     {
-        switch (state)
+        switch (newState)
         {
+            case State.None:
+                break;
             case State.Dead:
                 isAttacking = false;
                 isWalk = false;
                 isDead = true;
                 isHit = false;
                 isSkillActive = false;
-                return State.Dead;
+                break;
             case State.Walk:
                 isAttacking = false;
                 isWalk = true;
                 isDead = false;
                 isHit = false;
                 isSkillActive = false;
-                return State.Attack;
+                break;
             case State.Skill:
                 isAttacking = false;
                 isWalk = false;
                 isDead = false;
                 isHit = false;
                 isSkillActive = true;
-                return State.Skill;
+                break;
             case State.Attack:
                 isAttacking = true;
                 isWalk = false;
                 isDead = false;
                 isHit = false;
                 isSkillActive = false;
-                return State.Skill;
+                break;
             case State.Hit:
                 isAttacking = false;
                 isWalk = false;
                 isDead = false;
                 isHit = true;
                 isSkillActive = false;
-                return State.Hit;
+                break;
         }
-        return State.None;
     }
-
+    public AnglePos Current_AngleCaseString(float angle)
+    {
+        if (angle == 0)
+        {
+            return AnglePos.Front;
+        }
+        if (angle < 45)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 135)
+        {
+            return AnglePos.Right;
+        }
+        else if (angle < 225)
+        {
+            return AnglePos.Back;
+        }
+        else if (angle < 315)
+        {
+            return AnglePos.Left;
+        }
+        return AnglePos.Front;
+    }
+    public AnglePos Enemy_AngleCaseString(float angle)
+    {
+        if (angle == 0)
+        {
+            return AnglePos.Back;
+        }
+        if (angle < 45)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 135)
+        {
+            return AnglePos.Left;
+        }
+        else if (angle < 225)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 315)
+        {
+            return AnglePos.Right;
+        }
+        return AnglePos.Front;
+    }
+    public void AnimatorCast(string animationtype)
+    {
+        gameObject.GetComponent<Animator>().Play(animationtype);
+    }
 }
 #endregion

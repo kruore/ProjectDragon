@@ -647,6 +647,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\AnimatorControll.cs" />
     <Compile Include="Assets\BattleManager.cs" />
     <Compile Include="Assets\ConsolePro\ConsoleProDebug.cs" />
     <Compile Include="Assets\ConsolePro\Remote\ConsoleProRemoteServer.cs" />
@@ -786,8 +787,9 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITexture.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
-    <Compile Include="Assets\ObjectPool.cs" />
+    <Compile Include="Assets\NYAN_dots\Scripts\Animator_Test.cs" />
     <Compile Include="Assets\Player.cs" />
+    <Compile Include="Assets\PlayerAnimator.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\Character\PlayerSkill.cs" />
     <Compile Include="Assets\Scripts\DataBase\Database.cs" />
@@ -798,6 +800,7 @@
     <Compile Include="Assets\Scripts\Interface.cs" />
     <Compile Include="Assets\Scripts\JoyStickController\JoyStick.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\EnemyFollow.cs" />
+    <Compile Include="Assets\Scripts\MapGenerator\FrameChecker.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\Grid.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\Heap.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\Node.cs" />
@@ -805,9 +808,9 @@
     <Compile Include="Assets\Scripts\MapGenerator\PathRequestManager.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\Tile.cs" />
     <Compile Include="Assets\Scripts\MapGenerator\Unit.cs" />
-    <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
+    <Compile Include="Assets\ShortRangeAttackArea.cs" />
     <Compile Include="Assets\Skill.cs" />
-    <Compile Include="Assets\SkillObjectPool.cs" />
+    <Compile Include="Assets\WeaponAnimator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
@@ -836,6 +839,8 @@
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\NGUI\RobotsNGUI\joysticktest\joyatlas.txt" />
+    <None Include="Assets\NYAN_dots\Readme.txt" />
+    <None Include="Assets\NYAN_dots\Readme_jp.txt" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryCommon.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryDark.uss" />
     <None Include="Packages\com.unity.collab-proxy\Editor\Resources\Styles\CollabHistoryLight.uss" />

@@ -52,62 +52,54 @@ public class BattleManager : MonoBehaviour
                 StopCoroutine("CalculateDistanceWithPlayer");
                 //Map Clear;
             }
-            for (int a = 0; a < Enemy.Length; a++)
+            if(Enemy.Length>0)
             {
-                other = Enemy[0];
-                Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
-            }
-            for (int a = 0; a < EnemyDistance.Length; a++)
-            {
-                if (other.GetComponent<Monster>().distanceOfPlayer > Enemy[a].GetComponent<Monster>().distanceOfPlayer)
+                for (int a = 0; a < Enemy.Length; a++)
                 {
-                    other = Enemy[a];
+                    other = Enemy[0];
+                    Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
                 }
-            }
-            player.GetComponent<Player>().EnemyPos = other.transform as Transform;
-            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
-            {
-                if (other == null)
+                for (int a = 0; a < EnemyDistance.Length; a++)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    if (other.GetComponent<Monster>().distanceOfPlayer > Enemy[a].GetComponent<Monster>().distanceOfPlayer)
+                    {
+                        other = Enemy[a];
+                    }
                 }
-                player.StateChaner(State.Attack);
-                player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
-
-            }
-            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
-            {
-                if (other == null)
+                player.GetComponent<Player>().EnemyPos = other.transform as Transform;
+                if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    if (other == null)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    player.CurrentState = State.Attack;
+                    if (other.GetComponent<Character>().HP > 0)
+                    {
+                        player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
+                    }
                 }
-                player.StateChaner(State.Walk);
-                //적을 보는 각도(플레이어)
-                player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position,player.transform.position);
-                //플레이어 조이스틱
-               // player.current_angle =
-            }
+                if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
+                {
+                    if (other == null)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    player.CurrentState = State.Walk;
+                    //적을 보는 각도(플레이어)
+                    if (other.GetComponent<Character>().HP > 0)
+                    {
+                        player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
+                    }
+                    if (other.GetComponent<Character>().HP < 0)
+                    {
+                        player.enemy_angle = player.current_angle;
+                    }
+                    //플레이어 조이스틱
+                    // player.current_angle =
+                }
 
-            yield return new WaitForSeconds(0.1f);
-        }
-
-    }
-    public void CalCulateAngleWithPlayer()
-    {
-        //적의 각도 측정기(적)
-        foreach (GameObject a in Enemy)
-        {
-            if (a.GetComponent<Monster>().distanceOfPlayer <= a.GetComponent<Monster>().moveDistance)
-            {
-                a.GetComponent<EnemyFollow>().enabled = true;
-                a.GetComponent<Monster>().angleOfPlayer = GetSideOfEnemyAndPlayerAngle(player.transform.position, a.transform.position);
-                angle = a.GetComponent<Monster>().angleOfPlayer;
-                a.GetComponent<Monster>().MonsterAnimation(angle);
-                a.GetComponent<Monster>().moveDistance = 256;
-            }
-            if (a.GetComponent<Monster>().distanceOfPlayer >= a.GetComponent<Monster>().moveDistance)
-            {
-                a.GetComponent<Monster>().MonsterAnimation(0);
+                yield return new WaitForSeconds(0.1f);
             }
         }
     }

@@ -5,7 +5,7 @@ using UnityEngine;
 public class AnimatorControll : MonoBehaviour
 {
     [Tooltip("재생할 오브젝트를 받아옵니다.")]
-    public Character Anim_Master;
+    public Player Anim_Master;
 
     [Tooltip("변수 할당용")]
     public AnglePos anglepos;
@@ -42,15 +42,9 @@ public class AnimatorControll : MonoBehaviour
         }
         set
         {
-            Debug.Log("holy shit what the fuck");
-            if (clearAnimator_name.Equals(temp_name))
+            if (!value.Equals(clearAnimator_name))
             {
-                Debug.Log("같은거 출력");
-            }
-            if (!clearAnimator_name.Equals(temp_name))
-            {
-                Debug.Log("다른거 출력");
-                AngleStringCast(clearAnimator_name);
+                AngleStringCast(value);
                 clearAnimator_name = value;
             }
         }
@@ -69,9 +63,15 @@ public class AnimatorControll : MonoBehaviour
     {
         anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
     }
+    private void Awake()
+    {
+        Anim_Master = GameObject.Find("테스터").GetComponent<Player>();
+    }
     // Start is called before the first frame update
     void Start()
     {
+        temp_name = "초기화값";
+        clearAnimator_name = "초기화값";
         anglepos = 0;
         playeranim = GetComponent<Animator>();
         controller = playeranim.runtimeAnimatorController;
@@ -125,6 +125,7 @@ public class AnimatorControll : MonoBehaviour
     }
     void AngleStringCast(string name)
     {
-        playeranim.CrossFade(name, 0.3f);
+        playeranim.Play(name);
+        //CrossFade(name, 0.3f);
     }
 }
