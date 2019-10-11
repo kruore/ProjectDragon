@@ -4,60 +4,36 @@ using UnityEngine;
 
 public class FSM_NormalEnemy : Monster
 {
-    public State CurrentState
-    {
-        get { return myState; }
-        set
-        {
-            myState = value;
-            setState(myState);
-        }
-    }
 
+    [Header(" ")]
     [SerializeField]
     protected bool isAttackActive;
-
-
-
+    //개체의 상태가 바뀔때마다 실행
+    protected override void SetState(State newState)
+    {
+        StartCoroutine(CurrentState.ToString());
+    }
 
     protected IEnumerator Start_On()
     {
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
-
         StartCoroutine(AttackRangeCheck());
+
         CurrentState = State.Walk;
+
         yield return null;
     }
 
 
-    //개체의 상태가 바뀔때마다 실행
-    public void setState(State newState)
-    {
-        switch (newState)
-        {
-            case State.None:
-                StartCoroutine(None());
-                break;
-
-            case State.Walk:
-                StartCoroutine(Walk());
-                break;
-
-            case State.Attack:
-                StartCoroutine(Attack());
-                break;
-        }
-    }
     protected virtual IEnumerator None()
     {
-        Debug.Log("None");
+        Debug.Log("Enemy None");
         StartCoroutine(CalcCooltime());
 
         yield return null;
 
     }
-
 
     public virtual IEnumerator CalcCooltime()
     {
@@ -73,7 +49,7 @@ public class FSM_NormalEnemy : Monster
                 else                                             //waitTime 후
                 {
                     //공격범위에 플레이어가 없다면 추적
-                    if (!inAtkRange)
+                    if (!inAtkDetectionRange)
                     {
                         CurrentState = State.Walk;   //Idle->Walk
                         yield break;
@@ -104,15 +80,15 @@ public class FSM_NormalEnemy : Monster
     {
         while (true)
         {
-            inAtkRange = CheckRaycast();
-
+            inAtkDetectionRange = CheckRaycast();
+            
             yield return null;
         }
     }
 
     protected bool CheckRaycast()
     {
-        inAtkRange = false;
+        inAtkDetectionRange = false;
 
         directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
         startingPosition = transform.position + directionOriginOffset;
@@ -124,13 +100,13 @@ public class FSM_NormalEnemy : Monster
             //Debug.Log("hit name :" + hit.collider.gameObject.name);
             if (hit.collider.gameObject.CompareTag("Player"))
             {
-                inAtkRange = true;
+                inAtkDetectionRange = true;
             }
         }
-        return inAtkRange;
+        return inAtkDetectionRange;
     }
 
-    //Draw!!!!
+    //Draw!!!! 테스트용
     private void OnDrawGizmos()
     {
         if (m_bDebugMode)
@@ -143,16 +119,18 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Walk()
     {
-        Debug.Log("Walk");
+        Debug.Log("Enemy Walk");
         while (CurrentState == State.Walk)
         {
-            //공격범위에 들어오면 Attack
-            if(inAtkRange)
+            //공격감지범위에 들어오면 Attack
+            if(inAtkDetectionRange)
             {
                 isAttackActive = false;
                 CurrentState = State.Attack;
                 yield break;
             }
+
+            //Walk Animation parameters
             objectAnimator.SetBool("Walk", true);
             //move
             transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
@@ -163,9 +141,9 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Attack()
     {
-        Debug.Log("Attack");
+        Debug.Log("Enemy Attack");
 
-        //attack Animation parameters
+        //Attack Animation parameters
         objectAnimator.SetBool("Walk", false);
         objectAnimator.SetTrigger("Attack");
         objectAnimator.SetBool("isAttackActive", isAttackActive);
@@ -177,16 +155,19 @@ public class FSM_NormalEnemy : Monster
         yield return null;
     }
 
+    protected IEnumerator Dead()
+    {
+        Debug.Log("Enemy Dead");
+
+        //Dead Animation parameters
+        objectAnimator.SetTrigger("Dead");
+        yield return null;
+    }
+
 
     //근거리/애니메이션 프레임에 설정  -->몸과 충돌시
     //원거리 -->탄환 충돌시
-    protected virtual IEnumerator Attack_On()
-    {
-        //Add Player hurt
-        //
-
-        yield return null;
-    }
+    protected virtual IEnumerator Attack_On() { yield return null; }
 
 
     //protected virtual IEnumerator Skill() { yield return null; }

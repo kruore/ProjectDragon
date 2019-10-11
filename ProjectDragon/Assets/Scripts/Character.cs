@@ -2,235 +2,157 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { None = 0, Walk, Attack, Dead, Skill, Hit};
-public enum AnglePos
-{
-   None = 0, Front, Right, Back, Left
-}
-public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange };
+public enum State { None = 0, Walk, Attack, Dead, Skill, Hit}
+public enum AnglePos { None = 0, Front, Right, Back, Left }
+public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
+
+
 public class Character : MonoBehaviour, PersonalSpecificational
 {
-    //state of animation
-    //state of Attack type for range
-
-
+    [SerializeField]
+    private State myState;
+    public State CurrentState
+    {
+        get { return myState; }
+        set
+        {
+            myState = value;
+            SetState(myState);
+        }
+    }
+    
+    
     //personal Specification
-    [SerializeField] private int hp;
-    [SerializeField] private int atk;
-    [SerializeField] private float atkSpeed;
-    [SerializeField] private float moveSpeed;
-    [SerializeField] private float atkRange;
+    [SerializeField] protected int hp;
+    [SerializeField] protected int maxHp;
+    [SerializeField] protected int atk;
+    [SerializeField] protected float atkSpeed;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float atkRange;
     public Vector3 myPos;
     public Vector3 myRotat;
-    public int current_Anim_Frame; //@
     public float current_angle;
-    public float enemy_angle; //@
-
-    // TODO : 이건 적이나 플레이어에게만 규정할 것 (스킬이 존재하고 있는)
-    //[SerializeField] private float skillCoolDown;
-    //[SerializeField] private float skillRange;
-
-    public State myState;
-    public AttackType myAttackType; //@
-    public AnglePos myAnim_AnglePos;  //@
-
-
-    //@
-    [SerializeField] protected bool isAttacking;
-    [SerializeField] protected bool isWalk;
-    [SerializeField] protected bool isDead;
-    [SerializeField] protected bool isHit;
-    [SerializeField] protected bool isSkillActive;
-
 
     public Transform other;
 
+   
 
-    //@
-    public bool DistanceCheck(float closeDistance)
-    {
-        if (other)
-        {
-            Vector3 offset = other.position - transform.position;
-            float sqrLen = offset.sqrMagnitude;
-
-            if (sqrLen < (closeDistance * closeDistance))
-            {
-                return isAttacking = true;
-            }
-        }
-        return isAttacking = false;
-    }
     #region ATKSPEED
     public float ATTACKSPEED
     {
-        get
-        {
-            return atkSpeed;
-        }
+        get { return atkSpeed; }
         set
         {
             atkSpeed = value;
         }
     }
-    public float ATKSpeedChanger(float AttackSpeed)
+
+    public float ATKSpeedChanger(float _attackSpeed)
     {
-        atkSpeed = atkSpeed + AttackSpeed;
-        return atkSpeed;
+        ATTACKSPEED = ATTACKSPEED + _attackSpeed;
+        return ATTACKSPEED;
     }
     #endregion
+
     #region ATK
     public int ATTACKDAMAGE
     {
-        get
-        {
-            return atk;
-        }
+        get { return atk; }
         set
         {
-
             atk = value;
         }
     }
+
     public int ATKChanger(int attackDamage)
     {
         atk = atk + attackDamage;
         return atk;
     }
     #endregion
+
     #region HPControll
     public int HP
     {
-        get
-        {
-            return hp;
-        }
+        get { return hp; }
         set
         {
-            if (value <= 0)
+            hp = value;
+            hp = Mathf.Clamp(value, 0, maxHp);
+
+            if (value < 0 && CurrentState != State.Dead)
             {
+                CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
-                myState = State.Dead;
-            }
-            else
-            {
-                hp = value;
             }
         }
     }
+
     public int HPChanged(int ATK)
     {
-        hp = hp - ATK;
-        return hp;
+        HP = HP - ATK;
+        return HP;
     }
     #endregion
+
     #region MoveSpeed
     public float MoveSpeed
     {
-        get
-        {
-            return moveSpeed;
-        }
+        get { return moveSpeed; }
         set
         {
             moveSpeed = value;
         }
     }
-    public float MoveSpeedChanger(float MoveSpeed)
+
+    public float MoveSpeedChanger(float _moveSpeed)
     {
-        moveSpeed = moveSpeed - MoveSpeed;
-        return moveSpeed;
+        MoveSpeed = MoveSpeed - _moveSpeed;
+        return MoveSpeed;
     }
     #endregion
+
     #region AtkRange
     public float AtkRange
     {
-        get
-        {
-            return atkRange;
-        }
+        get { return atkRange; }
         set
         {
             atkRange = value;
         }
     }
-    public float AtkRangeChanger(float AtkRange)
+
+    public float AtkRangeChanger(float _atkRange)
     {
-        atkRange = AtkRange;
-        return atkRange;
+        AtkRange = _atkRange;
+        return AtkRange;
     }
     #endregion
 
 
-    //@
+
+    //개체의 상태가 바뀔때마다 실행
+    protected virtual void SetState(State newState)
+    {
+    }
+
+
+    //@ 삭제예정 (플레이어로?)
     //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
-    public AnglePos Current_AngleCaseString(float angle)
-    {
-        if (angle == 0)
-        {
-            return AnglePos.Front;
-        }
-        if (angle < 45)
-        {
-            return AnglePos.Back;
-        }
-        else if (angle < 135)
-        {
-            return AnglePos.Right;
-        }
-        else if (angle < 225)
-        {
-            return AnglePos.Front;
-        }
-        else if (angle < 315)
-        {
-            return AnglePos.Left;
-        }
-        return AnglePos.Back;
-    }
-    public string Enemy_AngleCaseString(float angle)
-    {
-        if (angle < 45)
-        {
-            return "Front";
-        }
-        else if (angle < 135)
-        {
-            return "Left";
-        }
-        else if (angle < 225)
-        {
-            return "Back";
-        }
-        else if (angle < 315)
-        {
-            return "Right";
-        }
-        return "Front";
-    }
 
-    public AnglePos Current_AngleCaseString2(float _angle)
-    {
-        if(-45 <= _angle && _angle <= 45)    
-        {
-            return AnglePos.Front;
-        }
-        else if(45 < _angle && _angle < 135)  
-        {
-            return AnglePos.Right;
-        }
-        else if(-135 < _angle && _angle <-45)
-        {
-            return AnglePos.Left;
-        }
-        else
-        {
-            return AnglePos.Back;
-        }
-    }
+    //@삭제예정
+    protected bool isAttacking;
+    protected bool isWalk;
+    protected bool isDead;
+    protected bool isHit;
+    protected bool isSkillActive;
 
-    public void AnimatorCast(string animationtype)
-    {
-        gameObject.GetComponent<Animator>().Play(animationtype);
-    }
+    [HideInInspector]
+    public int current_Anim_Frame; 
+    [HideInInspector]
+    public float enemy_angle; 
+    [HideInInspector]
+    public AttackType myAttackType; 
+    [HideInInspector]
+    public AnglePos myAnim_AnglePos;  
 }

@@ -6,7 +6,6 @@ using UnityEngine;
 public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
-
     public GameObject weaponSelection;
     private Animator weaponAnimator;
 
@@ -18,9 +17,9 @@ public class Player : Character
     public float verticalSpeed = 5.0f;
     public GameObject DeadPanel;
     public SEX playerSex;
-    public AnglePos p_AnglePos;
     //JoyStick
     protected JoyPad joyPad;
+   // public AnglePos my_AnglePos { get { return myAnim_AnglePos; } set { myAnim_AnglePos = value; GetComponent<Animator>().CrossFade(playerSex.ToString(), 0.3f); } }
 
     //Animation Contorl
     public Animator playerAnimationStateChanger;
@@ -29,7 +28,7 @@ public class Player : Character
     public Rigidbody2D rigidbody2d;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    private Vector3 normalVec = new Vector3(0, 0, 0);
+    public Vector3 normalVec = new Vector3(0.0f, 0.0f, 0.0f);
     public IsWear isWear;
     private Transform m_EnemyPos;
     public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
@@ -42,6 +41,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
+      
         isWear = IsWear.DefaultCloth;
         //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
@@ -50,11 +50,11 @@ public class Player : Character
         ATKChanger(10);
         ATKSpeedChanger(1.0f);
         MoveSpeed = 1;
-        myState = State.Walk;
+        CurrentState = State.Walk;
         AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
-        weaponAnimator = weaponSelection.GetComponent<Animator>();
-        weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
+        //weaponAnimator = weaponSelection.GetComponent<Animator>();
+        // weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
     }
     void Start()
     {
@@ -70,8 +70,9 @@ public class Player : Character
         //   playerAnimationStateChanger.SetInteger("isWear", isWear.GetHashCode());
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
+        current_angle = joypadinput.GetComponent<UIJoystick>().angle;
         myPos = gameObject.transform.position;
         joystickPos = joypadinput.GetComponent<UIJoystick>().position;
         //키보드 세팅
@@ -170,10 +171,7 @@ public class Player : Character
         //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
-
-
-
-        //weaponAnimator.SetFloat("Angle", AngleCalculate);
+       // weaponAnimator.SetFloat("Angle", AngleCalculate);
         #endregion
     }
     public void WeaponAnimatorChanger()
@@ -189,53 +187,105 @@ public class Player : Character
             {
                 return;
             }
-            StateChaner(State.Attack);
+            CurrentState = State.Attack;
           //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
           //  AngleCalculate = enemy_angle;
         }
     }
-    public State StateChaner(State state)
+    protected override void SetState(State newState)
     {
-        switch (state)
+        switch (newState)
         {
+            case State.None:
+                break;
             case State.Dead:
                 isAttacking = false;
                 isWalk = false;
                 isDead = true;
                 isHit = false;
                 isSkillActive = false;
-                return State.Dead;
+                break;
             case State.Walk:
                 isAttacking = false;
                 isWalk = true;
                 isDead = false;
                 isHit = false;
                 isSkillActive = false;
-                return State.Attack;
+                break;
             case State.Skill:
                 isAttacking = false;
                 isWalk = false;
                 isDead = false;
                 isHit = false;
                 isSkillActive = true;
-                return State.Skill;
+                break;
             case State.Attack:
                 isAttacking = true;
                 isWalk = false;
                 isDead = false;
                 isHit = false;
                 isSkillActive = false;
-                return State.Skill;
+                break;
             case State.Hit:
                 isAttacking = false;
                 isWalk = false;
                 isDead = false;
                 isHit = true;
                 isSkillActive = false;
-                return State.Hit;
+                break;
         }
-        return State.None;
     }
-
+    public AnglePos Current_AngleCaseString(float angle)
+    {
+        if (angle == 0)
+        {
+            return AnglePos.Front;
+        }
+        if (angle < 45)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 135)
+        {
+            return AnglePos.Right;
+        }
+        else if (angle < 225)
+        {
+            return AnglePos.Back;
+        }
+        else if (angle < 315)
+        {
+            return AnglePos.Left;
+        }
+        return AnglePos.Front;
+    }
+    public AnglePos Enemy_AngleCaseString(float angle)
+    {
+        if (angle == 0)
+        {
+            return AnglePos.Back;
+        }
+        if (angle < 45)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 135)
+        {
+            return AnglePos.Left;
+        }
+        else if (angle < 225)
+        {
+            return AnglePos.Front;
+        }
+        else if (angle < 315)
+        {
+            return AnglePos.Right;
+        }
+        return AnglePos.Front;
+    }
+    public void AnimatorCast(string animationtype)
+    {
+        gameObject.GetComponent<Animator>().Play(animationtype);
+    }
 }
 #endregion

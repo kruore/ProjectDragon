@@ -26,6 +26,7 @@ public class PlayerAnimator : MonoBehaviour
     public IsWear m_cloth;
     public State m_state;
     public SEX m_sex;
+    public AnglePos p_AnglePos;
     //AnimationControl
 
     [Header("AnimationCounter")]
@@ -82,7 +83,7 @@ public class PlayerAnimator : MonoBehaviour
     // Backdate is called once per frame
     void Update()
     {
-        animationname = AnimationName_Returner("Player", m_state, currentPlayer.p_AnglePos);
+    //    animationname = AnimationName_Returner("Player", m_state, currentPlayer.p_AnglePos);
     }
 
     void AttackRangeAnimationSetting(AttackType m_attacktype)

@@ -4,37 +4,37 @@ using UnityEngine;
 
 public class PlayerSkill : MonoBehaviour
 {
-    public enum SKILLTYPE { None= 0, DASHATTACK,SHOOTINGATTACK,CHARGINGATTACK};
-    public enum SKILLSTATE { None = 0, START,RUN,COOLDOWN,END}
-    public string skillName;
-    public SKILLSTATE skillState;
-    public int skillDamage;
-    public Vector3 skillRange;
-    public int skillSpeed;
-    public int skillCoolDown;
-    public GameObject player;
-    public GameObject skillPref;
-    //public bool skill
-    // Start is called before the first frame update
-    void Start()
-    {
-        //장비 장착은 여기서
-        //skillName = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].name.ToString();
-        skillName = "BladeSkill01";
-        player = GameObject.FindGameObjectWithTag("Player");
-        skillPref = Resources.Load(skillName) as GameObject;
-    }
+    //public enum SKILLTYPE { None= 0, DASHATTACK,SHOOTINGATTACK,CHARGINGATTACK};
+    //public enum SKILLSTATE { None = 0, START,RUN,COOLDOWN,END}
+    //public string skillName;
+    //public SKILLSTATE skillState;
+    //public int skillDamage;
+    //public Vector3 skillRange;
+    //public int skillSpeed;
+    //public int skillCoolDown;
+    //public GameObject player;
+    //public GameObject skillPref;
+    ////public bool skill
+    //// Start is called before the first frame update
+    //void Start()
+    //{
+    //    //장비 장착은 여기서
+    //    //skillName = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].name.ToString();
+    //    skillName = "BladeSkill01";
+    //    player = GameObject.FindGameObjectWithTag("Player");
+    //    skillPref = Resources.Load(skillName) as GameObject;
+    //}
 
-    //TODO: 스킬 제작하기
+    ////TODO: 스킬 제작하기
 
-    public void SkillSetUp()
-    {
-        //Instantiate(skillPref,player.transform.position,Quaternion.identity);
-        GameObject skill = ObjectPool.Instance.PopFromPool(skillName);
-        skill.transform.position = transform.position + transform.up;
-        skill.SetActive(true);
-    }
-    // Update is called once per frame
+    //public void SkillSetUp()
+    //{
+    //    //Instantiate(skillPref,player.transform.position,Quaternion.identity);
+    //    GameObject skill = ObjectPool.Instance.PopFromPool(skillName);
+    //    skill.transform.position = transform.position + transform.up;
+    //    skill.SetActive(true);
+    //}
+    //// Update is called once per frame
     //void Update()
     //{
     //    switch (skillState)

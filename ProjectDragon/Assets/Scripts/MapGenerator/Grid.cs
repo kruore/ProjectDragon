@@ -42,8 +42,8 @@ public class Grid : MonoBehaviour
                 Vector3 worldPoint = worldBottonLeft + Vector3.right * (x * nodeDimeter + nodeRadius) + Vector3.up * (y * nodeDimeter + nodeRadius);
                 Vector3 worldPoint2D = worldBottonLeft + Vector3.right * (x * nodeDimeter + nodeRadius) + Vector3.up * (y * nodeDimeter + nodeRadius);
                 //walkable fasle이 되는 패널을 제외하고 움직임
-                //bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, nodeRadius, unwalkableMask));
-                //bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, new Vector2(nodeRadius,nodeRadius),0,unwalkableMask));
+               // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, nodeRadius, unwalkableMask));
+               // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, new Vector2(nodeRadius,nodeRadius),0,unwalkableMask));
                 bool walkable = !(Physics2D.OverlapBox(worldPoint2D, new Vector2(nodeRadius-0.1f, nodeRadius-0.1f), unwalkableMask));
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
