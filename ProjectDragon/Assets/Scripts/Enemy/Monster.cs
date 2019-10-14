@@ -13,7 +13,7 @@ public class Monster : Character
 
 
     [Header("[Enemy Attribute]")]
-    public string name;
+    //public string name;
     [SerializeField] protected float waitTime;          //Idle->Walk time
     [SerializeField] protected float cooltime;          //Idle ->Attack time
     protected float Current_waitTime = 0;
@@ -62,51 +62,55 @@ public class Monster : Character
         }
 
 
+        //test
         if(Input.GetKeyDown(KeyCode.Space))
         {
-            StopCoroutine(hurt(1));
             StartCoroutine(hurt(1));
         }
     }
 
-    Color _hideColor, _showColor;
-    [SerializeField] bool isHit;
-    float twinklingTime = 0;
-
+    [SerializeField] protected bool isHit;
+    [SerializeField] protected float knockTime=0.15f;
+    [SerializeField] protected float knockPower = 1.0f;
+  
     public IEnumerator hurt(int other_attackDamage)
     {
         Debug.Log("Enemy Hurt!");
+
+        isHit = true;
+
         //Hp감소
         HPChanged(other_attackDamage);
 
 
-        _showColor = _hideColor = spriteRenderer.color;
-        _hideColor.a = 0.5f;
-        _showColor.a = 1.0f;
+        //이펙트 연출
+        FlashWhite flashWhite = GetComponent<FlashWhite>();
+        StartCoroutine(flashWhite.Flash());
 
-        isHit = true;
-        
+        //넉백
+        StartCoroutine(DirectionKnockBack());
 
-        yield return new WaitForSeconds(0.25f);
-        
-        spriteRenderer.color = _hideColor;
+        //데미지 띄우기
 
-        yield return new WaitForSeconds(0.25f);
-        spriteRenderer.color = _showColor;
+        yield return null;
 
-        yield return new WaitForSeconds(0.25f);
-        spriteRenderer.color = _hideColor;
+    }
 
-        yield return new WaitForSeconds(0.25f);
-        spriteRenderer.color = _showColor;
+    // 방향넉백
+    public IEnumerator DirectionKnockBack()
+    {
+        rigidbody.velocity = Vector2.zero;
+        rigidbody.AddForce(-direction* knockPower, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(knockTime);
+
+        rigidbody.velocity = Vector2.zero;
 
         isHit = false;
 
         yield return null;
-
-
-
     }
+
+
 
     ////플레이어를 바라보는 방향에 대한 각도체크
     //float AngleCheck() 
@@ -129,8 +133,8 @@ public class Monster : Character
 
 
 
-    //삭제할것
-    //플레이어와 적과의 거리 캐스팅
+        //삭제할것
+        //플레이어와 적과의 거리 캐스팅
     [HideInInspector]
     public float distanceOfPlayer;
     [HideInInspector]

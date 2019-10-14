@@ -126,15 +126,20 @@ public class FSM_NormalEnemy : Monster
             if(inAtkDetectionRange)
             {
                 isAttackActive = false;
+                rigidbody.velocity = Vector2.zero;
                 CurrentState = State.Attack;
                 yield break;
             }
 
+            //test move
+            if (!isHit)
+            {
+                rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+                //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+            }
+
             //Walk Animation parameters
             objectAnimator.SetBool("Walk", true);
-            //move
-            transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
-
             yield return null;
         }
     }
