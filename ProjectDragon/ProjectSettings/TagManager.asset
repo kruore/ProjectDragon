@@ -42,3 +42,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: DamagePopup
+    uniqueID: 3681776175
+    locked: 0

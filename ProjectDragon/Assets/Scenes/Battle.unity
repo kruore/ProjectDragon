@@ -1858,8 +1858,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34b23f3a6fc9f534dbaea13f0e9dccd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pfDamagePopup: {fileID: 5567132192213746055, guid: 59913f935ba4ed44bb4dccbcfc4eeffd,
-    type: 3}
 --- !u!4 &853491959
 Transform:
   m_ObjectHideFlags: 0
@@ -1868,7 +1866,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853491957}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -25.88466, y: 1.5913494, z: 0.20615761}
+  m_LocalPosition: {x: -3.19, y: 3.86, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2207,7 +2205,7 @@ MonoBehaviour:
   originOffset: 0.3
   startingPosition: {x: 0, y: 0}
   directionOriginOffset: {x: 0, y: 0, z: 0}
-  isHit: 0
+  isHit_Enemy: 0
   knockTime: 0.2
   knockPower: 1
   distanceOfPlayer: 0

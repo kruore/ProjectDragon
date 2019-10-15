@@ -132,7 +132,7 @@ public class FSM_NormalEnemy : Monster
             }
 
             //test move
-            if (!isHit)
+            if (!isHit_Enemy)
             {
                 rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);

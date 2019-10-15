@@ -69,7 +69,7 @@ public class Monster : Character
         }
     }
 
-    [SerializeField] protected bool isHit;
+    [SerializeField] protected bool isHit_Enemy;
     [SerializeField] protected float knockTime=0.15f;
     [SerializeField] protected float knockPower = 1.0f;
   
@@ -77,7 +77,7 @@ public class Monster : Character
     {
         Debug.Log("Enemy Hurt!");
 
-        isHit = true;
+        isHit_Enemy = true;
 
         //Hp감소
         HPChanged(other_attackDamage);
@@ -91,7 +91,8 @@ public class Monster : Character
         StartCoroutine(DirectionKnockBack());
 
         //데미지 띄우기
-
+        DamagePopup damagePopup = new DamagePopup();
+        damagePopup.Create(transform.position, other_attackDamage,false);
         yield return null;
 
     }
@@ -105,7 +106,7 @@ public class Monster : Character
 
         rigidbody.velocity = Vector2.zero;
 
-        isHit = false;
+        isHit_Enemy = false;
 
         yield return null;
     }
