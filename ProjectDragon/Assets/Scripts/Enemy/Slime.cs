@@ -43,7 +43,16 @@ public class Slime : FSM_NormalEnemy
 
     }
 
-    
+    public void Update()
+    {
+        //test
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(hurt(1));
+        }
+    }
+
+
 
 
 

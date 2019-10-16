@@ -19,7 +19,10 @@ public class Monster : Character
     protected float Current_waitTime = 0;
     protected float Current_cooltime = 0;
 
-    protected float KnockBackResistance;
+    [SerializeField] protected float knockTime = 0.15f;
+    [SerializeField] protected float knockPower = 1.0f;
+    [SerializeField] protected bool isHit_Enemy;
+
     //public float Attribute;
     //enum KnockBackResistance { 상,중,하};
 
@@ -62,17 +65,9 @@ public class Monster : Character
         }
 
 
-        //test
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(hurt(1));
-        }
+       
     }
 
-    [SerializeField] protected bool isHit_Enemy;
-    [SerializeField] protected float knockTime=0.15f;
-    [SerializeField] protected float knockPower = 1.0f;
-  
     public IEnumerator hurt(int other_attackDamage)
     {
         Debug.Log("Enemy Hurt!");
@@ -92,7 +87,7 @@ public class Monster : Character
 
         //데미지 띄우기
         DamagePopup damagePopup = new DamagePopup();
-        damagePopup.Create(transform.position, other_attackDamage,false);
+        damagePopup.Create(transform.position, other_attackDamage,false,transform);
         yield return null;
 
     }

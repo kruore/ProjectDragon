@@ -6,6 +6,8 @@ using TMPro;
 public class DamagePopup : MonoBehaviour
 {
 
+    public string poolItemName = "DamagePopupObj";
+
     [SerializeField] float moveYSpeed = 3.0f;
     [SerializeField] float disappearSpeed = 7.0f;
     [SerializeField] float disappearTimer = 0.3f;
@@ -15,12 +17,30 @@ public class DamagePopup : MonoBehaviour
     Transform damagePopupTransform;
     DamagePopup damagePopup;
 
-    public DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit)
-    {
-        damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
-        damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
+    Transform _parent;
 
+    void Initialize()
+    {
+        moveYSpeed = 3.0f;
+        disappearSpeed = 7.0f;
+        disappearTimer = 0.3f;
+        textColor.a = 1.0f;
+        textMesh.color = Color.white ;
+    }
+
+    public DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit, Transform parent = null)
+    {
+        //damageObject.transform.position = position;
+        //damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
+        //damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
+        
+        _parent = parent;
+        GameObject damageObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
+        damagePopup = damageObject.transform.GetComponent<DamagePopup>();
+        damagePopup.Initialize();
+        damagePopup.transform.position = position;
         damagePopup.Setup(damageAmount,isCriticalHit);
+        damageObject.SetActive(true);
 
         return damagePopup;
     }
@@ -46,6 +66,7 @@ public class DamagePopup : MonoBehaviour
             textColor = textMesh.color;  //예시
         }
         textMesh.color = textColor;
+
     }
 
     float increaseScaleAmount = 1f;
@@ -71,8 +92,9 @@ public class DamagePopup : MonoBehaviour
             textMesh.color = textColor;
             if (textColor.a < 0)
             {
-                Debug.Log("Destroy");
-                Destroy(gameObject);
+                //Object
+                ObjectPool.Instance.PushToPool(poolItemName, gameObject, _parent);
+                //Destroy(gameObject);
             }
         }
     }

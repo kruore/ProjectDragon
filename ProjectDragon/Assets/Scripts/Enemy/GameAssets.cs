@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameAssets : MonoBehaviour
-{    
+{
+    public string poolItemName = "DamagePopupObj";
     public Transform pfDamagePopup;
 
     static GameAssets _i;
