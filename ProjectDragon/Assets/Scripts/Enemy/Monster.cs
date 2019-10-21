@@ -40,9 +40,14 @@ public class Monster : Character
     protected Vector3 directionOriginOffset;
 
     //Effect
-    FlashWhite flashWhite;
-    DamagePopup damagePopup;
-   
+    protected FadeOut fadeOut;
+    protected FlashWhite flashWhite;
+    protected DamagePopup damagePopup;
+    //protected GameObject childDustParticle;
+    protected DustParticleController DustParticleController;
+    bool DustParticle_Actuation = false;
+
+
 
     float Angle
     {
@@ -68,7 +73,6 @@ public class Monster : Character
 
     public IEnumerator hurt(int other_attackDamage)
     {
-        Debug.Log("Enemy Hurt!");
 
         isHit = true;
 
@@ -79,12 +83,10 @@ public class Monster : Character
         StartCoroutine(DirectionKnockBack());
 
         //White Shader
-        flashWhite = GetComponent<FlashWhite>();
         StartCoroutine(flashWhite.Flash());
 
 
         //데미지 띄우기
-        damagePopup = new DamagePopup();
         damagePopup.Create(transform.position, other_attackDamage,false,transform);
         yield return null;
 
@@ -103,9 +105,6 @@ public class Monster : Character
 
         yield return null;
     }
-    //protected GameObject childDustParticle;
-    bool DustParticle_Actuation = false;
-    DustParticleController DustParticleController;
 
     //Dust Particle
     protected void DustParticleCheck()
@@ -113,11 +112,15 @@ public class Monster : Character
         DustParticle_Actuation = isHit || isWalk ? true : false;
         //childDustParticle.SetActive(DustParticle_Actuation);
 
-
-        DustParticleController = GetComponentInChildren<DustParticleController>();
         DustParticleController.DustParticleCheck(DustParticle_Actuation, isHit);
 
     }
+
+    
+
+
+
+
 
 
 

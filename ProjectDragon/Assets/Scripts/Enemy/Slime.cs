@@ -11,6 +11,13 @@ public class Slime : FSM_NormalEnemy
         other = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
 
+        //Effect
+        fadeOut = GetComponent<FadeOut>();
+        damagePopup = new DamagePopup();
+        flashWhite = GetComponent<FlashWhite>();
+        //childDustParticle = transform.Find("DustParticle").gameObject;
+        DustParticleController = GetComponent<DustParticleController>();
+
 
         ////Normal Enemy 초기화
         //HP = maxHp = 100;
@@ -26,7 +33,6 @@ public class Slime : FSM_NormalEnemy
     private void Start()
     {
         StartCoroutine(Start_On());
-
     }
 
     //애니메이션 프레임에 넣기

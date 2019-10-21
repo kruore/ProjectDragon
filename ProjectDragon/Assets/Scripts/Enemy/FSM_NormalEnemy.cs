@@ -8,6 +8,7 @@ public class FSM_NormalEnemy : Monster
     [Header(" ")]
     [SerializeField]
     protected bool isAttackActive;
+
     //개체의 상태가 바뀔때마다 실행
     protected override void SetState(State newState)
     {
@@ -28,7 +29,6 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator None()
     {
-        Debug.Log("Enemy None");
         StartCoroutine(CalcCooltime());
 
         yield return null;
@@ -37,6 +37,7 @@ public class FSM_NormalEnemy : Monster
 
     public virtual IEnumerator CalcCooltime()
     {
+        
         while (true)
         {
             if (Current_cooltime < cooltime)                    //cooltime 전
@@ -120,8 +121,6 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Walk()
     {
-
-        Debug.Log("Enemy Walk");
         while (CurrentState == State.Walk)
         {
             //공격감지범위에 들어오면 Attack
@@ -137,7 +136,6 @@ public class FSM_NormalEnemy : Monster
             //test move
             if (!isHit)
             {
-
                 isWalk = true;
                 rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
@@ -151,7 +149,7 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Attack()
     {
-        Debug.Log("Enemy Attack");
+        isAttacking = true;
 
         //Attack Animation parameters
         objectAnimator.SetBool("Walk", false);
@@ -169,15 +167,12 @@ public class FSM_NormalEnemy : Monster
     {
         if (!isDead)
         {
-            Debug.Log("Enemy Dead");
-
             isDead = true;
 
             //Dead Animation parameters
             objectAnimator.SetTrigger("Dead");
 
             //Fade Out
-            FadeOut fadeOut = GetComponent<FadeOut>();
             StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
         }
         yield return null;

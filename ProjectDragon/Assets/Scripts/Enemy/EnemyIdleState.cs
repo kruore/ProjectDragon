@@ -14,6 +14,7 @@ public class EnemyIdleState : StateMachineBehaviour
 
         if (enemy.CurrentState != State.None)
         {
+            enemy.isAttacking = false;
             enemy.CurrentState = State.None;
         }
 

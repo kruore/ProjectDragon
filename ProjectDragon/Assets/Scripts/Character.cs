@@ -35,7 +35,8 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     public Transform other;
 
-    protected bool isAttacking;
+    
+    [HideInInspector] public bool isAttacking;
     protected bool isWalk;
     protected bool isDead;
     protected bool isHit;
