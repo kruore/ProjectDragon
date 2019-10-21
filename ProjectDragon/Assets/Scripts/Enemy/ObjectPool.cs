@@ -22,7 +22,7 @@ public class ObjectPool : MonoSingleton<ObjectPool>
         {
             return false;
         }
-        //if (parent == null) Debug.Log("parent NUll");
+
         pool.PushToPool(item, parent == null ? transform : parent);
         return true;
     }

@@ -18,13 +18,11 @@ public class Monster : Character
     [SerializeField] protected float cooltime;          //Idle ->Attack time
     protected float Current_waitTime = 0;
     protected float Current_cooltime = 0;
-
     [SerializeField] protected float knockTime = 0.15f;
     [SerializeField] protected float knockPower = 1.0f;
-    [SerializeField] protected bool isHit_Enemy;
-
     //public float Attribute;
-    //enum KnockBackResistance { 상,중,하};
+
+
 
     [Header("[Rare Enemy Attribute]")]
     [SerializeField] protected float skillCooltime;     //상태2->상태1 time [Rare Type만]
@@ -38,10 +36,13 @@ public class Monster : Character
     protected Vector3 direction;
     protected RaycastHit2D hit;
     [SerializeField] protected float originOffset = 0.3f;
-    [SerializeField]
     protected Vector2 startingPosition;
-    [SerializeField]
     protected Vector3 directionOriginOffset;
+
+    //Effect
+    FlashWhite flashWhite;
+    DamagePopup damagePopup;
+   
 
     float Angle
     {
@@ -63,30 +64,27 @@ public class Monster : Character
         {
             Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, other.transform.position);
         }
-
-
-       
     }
 
     public IEnumerator hurt(int other_attackDamage)
     {
         Debug.Log("Enemy Hurt!");
 
-        isHit_Enemy = true;
+        isHit = true;
 
-        //Hp감소
+        //Hp 감소
         HPChanged(other_attackDamage);
-
-
-        //이펙트 연출
-        FlashWhite flashWhite = GetComponent<FlashWhite>();
-        StartCoroutine(flashWhite.Flash());
 
         //넉백
         StartCoroutine(DirectionKnockBack());
 
+        //White Shader
+        flashWhite = GetComponent<FlashWhite>();
+        StartCoroutine(flashWhite.Flash());
+
+
         //데미지 띄우기
-        DamagePopup damagePopup = new DamagePopup();
+        damagePopup = new DamagePopup();
         damagePopup.Create(transform.position, other_attackDamage,false,transform);
         yield return null;
 
@@ -101,9 +99,24 @@ public class Monster : Character
 
         rigidbody.velocity = Vector2.zero;
 
-        isHit_Enemy = false;
+        isHit = false;
 
         yield return null;
+    }
+    //protected GameObject childDustParticle;
+    bool DustParticle_Actuation = false;
+    DustParticleController DustParticleController;
+
+    //Dust Particle
+    protected void DustParticleCheck()
+    {
+        DustParticle_Actuation = isHit || isWalk ? true : false;
+        //childDustParticle.SetActive(DustParticle_Actuation);
+
+
+        DustParticleController = GetComponentInChildren<DustParticleController>();
+        DustParticleController.DustParticleCheck(DustParticle_Actuation, isHit);
+
     }
 
 
@@ -129,8 +142,8 @@ public class Monster : Character
 
 
 
-        //삭제할것
-        //플레이어와 적과의 거리 캐스팅
+    //삭제할것
+    //플레이어와 적과의 거리 캐스팅
     [HideInInspector]
     public float distanceOfPlayer;
     [HideInInspector]

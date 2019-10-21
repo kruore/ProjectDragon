@@ -36,8 +36,6 @@ public class FadeOut : MonoBehaviour
 
     public IEnumerator FadeOut_Cor(SpriteRenderer spriteRenderer = null, TextMeshPro textMesh = null)
     {
-
-        Debug.Log("코루틴");
         while (isVisible)
         {
             if (spriteRenderer != null)
@@ -49,7 +47,6 @@ public class FadeOut : MonoBehaviour
                 else
                 {
                     isVisible = false;
-
                 }
             }
             else
@@ -82,7 +79,6 @@ public class FadeOut : MonoBehaviour
                     textMesh.color = fadecolor;
                 }
             }
-
             yield return null;
         }
 

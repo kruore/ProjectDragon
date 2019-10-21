@@ -35,7 +35,13 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     public Transform other;
 
-   
+    protected bool isAttacking;
+    protected bool isWalk;
+    protected bool isDead;
+    protected bool isHit;
+    protected bool isSkillActive;
+
+
 
     #region ATKSPEED
     public float ATTACKSPEED
@@ -80,7 +86,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
             hp = value;
             hp = Mathf.Clamp(value, 0, maxHp);
 
-            if (value < 0 && CurrentState != State.Dead)
+            if (value <= 0)
             {
                 CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
@@ -139,13 +145,6 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     //@ 삭제예정 (플레이어로?)
     //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
-
-    //@삭제예정
-    protected bool isAttacking;
-    protected bool isWalk;
-    protected bool isDead;
-    protected bool isHit;
-    protected bool isSkillActive;
 
     [HideInInspector]
     public int current_Anim_Frame; 

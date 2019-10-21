@@ -18,9 +18,9 @@ public class FSM_NormalEnemy : Monster
     {
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
-        StartCoroutine(AttackRangeCheck());
-
         CurrentState = State.Walk;
+        //공격감지 체크
+        StartCoroutine(AttackRangeCheck());
 
         yield return null;
     }
@@ -116,9 +116,11 @@ public class FSM_NormalEnemy : Monster
         }
     }
 
+    
 
     protected virtual IEnumerator Walk()
     {
+
         Debug.Log("Enemy Walk");
         while (CurrentState == State.Walk)
         {
@@ -126,14 +128,17 @@ public class FSM_NormalEnemy : Monster
             if(inAtkDetectionRange)
             {
                 isAttackActive = false;
+                isWalk = false;
                 rigidbody.velocity = Vector2.zero;
                 CurrentState = State.Attack;
                 yield break;
             }
 
             //test move
-            if (!isHit_Enemy)
+            if (!isHit)
             {
+
+                isWalk = true;
                 rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
             }
@@ -162,10 +167,19 @@ public class FSM_NormalEnemy : Monster
 
     protected IEnumerator Dead()
     {
-        Debug.Log("Enemy Dead");
+        if (!isDead)
+        {
+            Debug.Log("Enemy Dead");
 
-        //Dead Animation parameters
-        objectAnimator.SetTrigger("Dead");
+            isDead = true;
+
+            //Dead Animation parameters
+            objectAnimator.SetTrigger("Dead");
+
+            //Fade Out
+            FadeOut fadeOut = GetComponent<FadeOut>();
+            StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
+        }
         yield return null;
     }
 
@@ -174,8 +188,6 @@ public class FSM_NormalEnemy : Monster
     //원거리 -->탄환 충돌시
     protected virtual IEnumerator Attack_On() { yield return null; }
 
-
-    //protected virtual IEnumerator Skill() { yield return null; }
 
 
 }

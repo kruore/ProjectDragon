@@ -12,7 +12,6 @@ public class Slime : FSM_NormalEnemy
         spriteRenderer = GetComponent<SpriteRenderer>();
 
 
-
         ////Normal Enemy 초기화
         //HP = maxHp = 100;
         //ATTACKDAMAGE = 10;
@@ -50,6 +49,8 @@ public class Slime : FSM_NormalEnemy
         {
             StartCoroutine(hurt(1));
         }
+
+        DustParticleCheck();
     }
 
 
