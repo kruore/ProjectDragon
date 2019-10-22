@@ -43,13 +43,12 @@ public class Monster : Character
     protected FadeOut fadeOut;
     protected FlashWhite flashWhite;
     protected DamagePopup damagePopup;
-    //protected GameObject childDustParticle;
-    protected DustParticleController DustParticleController;
+    protected GameObject childDustParticle;
     bool DustParticle_Actuation = false;
 
 
-
-    float Angle
+    [HideInInspector]
+    public float Angle
     {
         get { return current_angle; }
         set
@@ -110,17 +109,10 @@ public class Monster : Character
     protected void DustParticleCheck()
     {
         DustParticle_Actuation = isHit || isWalk ? true : false;
-        //childDustParticle.SetActive(DustParticle_Actuation);
-
-        DustParticleController.DustParticleCheck(DustParticle_Actuation, isHit);
-
+        childDustParticle.SetActive(DustParticle_Actuation);
     }
 
     
-
-
-
-
 
 
 

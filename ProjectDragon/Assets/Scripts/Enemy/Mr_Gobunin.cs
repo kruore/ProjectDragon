@@ -5,46 +5,57 @@ using UnityEngine;
 public class Mr_Gobunin : FSM_NormalEnemy
 {
 
-    
-
     private void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
         rigidbody = GetComponent<Rigidbody2D>();
         other = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //Effect
+        fadeOut = GetComponent<FadeOut>();
+        damagePopup = new DamagePopup();
+        flashWhite = GetComponent<FlashWhite>();
+        childDustParticle = transform.Find("DustParticle").gameObject;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Start_On());
     }
 
     Projectile projectile;
-    float projectileSpeed;
+    float projectileSpeed = 1;
+    GameObject projectileObject;
     //Create Projectile 
     protected Projectile Create()
     {
-        Debug.Log("Create Projectile");
-        GameObject projectileObject = ObjectPool.Instance.PopFromPool("ProjectileObj");
+
+        projectileObject = ObjectPool.Instance.PopFromPool("ProjectileObj",transform);
         projectile = projectileObject.transform.GetComponent<Projectile>();
         projectile.gameObject.SetActive(true);
-        projectile.ProjectileInit(0, projectileSpeed, ATTACKDAMAGE, "ProjectileObj", true, gameObject.transform.position);
+        projectile.ProjectileInit(Angle, projectileSpeed, ATTACKDAMAGE, "ProjectileObj", true, transform.position);
         return projectile;
 
         //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
 
-    //탄환 생성
+
+    private void Update()
+    {
+        DustParticleCheck();
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            Create();
+        }
+    }
+    //탄환 공격
     protected override IEnumerator Attack_On()
     {
-
         yield return null;
 
     }
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-
-        Create();
-        }
-    }
 }

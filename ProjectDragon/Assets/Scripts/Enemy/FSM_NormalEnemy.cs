@@ -40,6 +40,7 @@ public class FSM_NormalEnemy : Monster
         
         while (true)
         {
+            //[조건] cooltime > waitTime
             if (Current_cooltime < cooltime)                    //cooltime 전
             {
                 if (Current_waitTime < waitTime)                 //waitTime 전
@@ -121,6 +122,9 @@ public class FSM_NormalEnemy : Monster
 
     protected virtual IEnumerator Walk()
     {
+        //Walk Animation parameters
+        objectAnimator.SetBool("Walk", true);
+
         while (CurrentState == State.Walk)
         {
             //공격감지범위에 들어오면 Attack
@@ -139,10 +143,9 @@ public class FSM_NormalEnemy : Monster
                 isWalk = true;
                 rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+                //StartCoroutine(aStar.FindPathAgain(rigidbody, direction, MoveSpeed));
             }
 
-            //Walk Animation parameters
-            objectAnimator.SetBool("Walk", true);
             yield return null;
         }
     }

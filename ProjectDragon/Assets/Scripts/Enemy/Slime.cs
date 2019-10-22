@@ -15,9 +15,8 @@ public class Slime : FSM_NormalEnemy
         fadeOut = GetComponent<FadeOut>();
         damagePopup = new DamagePopup();
         flashWhite = GetComponent<FlashWhite>();
-        //childDustParticle = transform.Find("DustParticle").gameObject;
-        DustParticleController = GetComponent<DustParticleController>();
-
+        childDustParticle = transform.Find("DustParticle").gameObject;
+       
 
         ////Normal Enemy 초기화
         //HP = maxHp = 100;
@@ -40,7 +39,6 @@ public class Slime : FSM_NormalEnemy
     {
         if(inAtkDetectionRange)
         {
-            Debug.Log("Enemy Attack_On");
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
@@ -50,13 +48,14 @@ public class Slime : FSM_NormalEnemy
 
     public void Update()
     {
+        DustParticleCheck();
+
         //test
         if (Input.GetKeyDown(KeyCode.Space))
         {
             StartCoroutine(hurt(1));
         }
 
-        DustParticleCheck();
     }
 
 

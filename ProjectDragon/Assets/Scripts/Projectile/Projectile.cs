@@ -4,30 +4,35 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public string poolItemName = "ProjectileObj";
 
     public bool inited, isplayskill;
     public int damage;
-    public float angle, speed, lifetime, generationtime;
+    public float m_angle
+    {
+        get
+        {
+            return angle;
+        }
+        set
+        {
+            angle = value;
+        }
+    }
+    public float angle, speed, lifetime, generationtime, targetpointrangex, targetpointrangey;
     public string projectilename;
     Rigidbody2D rb2d;
     Animator anim;
-    Vector2 PiSet;
 
-    Vector3 _Pos;
-
-    private void Awake()
+    void Awake()
     {
+        Application.targetFrameRate = 60;
         rb2d = gameObject.GetComponent<Rigidbody2D>();
         anim = gameObject.GetComponent<Animator>();
-        
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        //gameObject.transform.position = gameObject.transform.parent.position;
-            
-    }
+    public IEnumerator Reset;
+
     private void FixedUpdate()
     {
         if (inited)
@@ -46,19 +51,31 @@ public class Projectile : MonoBehaviour
     /// <param name="position">쏘아지는 위치</param>
     public void ProjectileInit(float _angle, float _speed, int _damage, string _projectilename, bool _isplayskill, Vector3 position)
     {
+        Reset = ResetProjectile();
         inited = true;
-        _Pos = position;
-        gameObject.transform.position = _Pos;
+        gameObject.transform.position = position;
+
         isplayskill = _isplayskill;
-        angle = _angle;
+        m_angle = _angle;
         speed = _speed;
         damage = _damage;
         projectilename = _projectilename;
+        if (anim == null)
+        {
+            anim = gameObject.GetComponent<Animator>();
+        }
+        if (rb2d == null)
+        {
+            rb2d = gameObject.GetComponent<Rigidbody2D>();
+        }
         anim.Play("ProjecTileTest");
-        gameObject.GetComponent<CircleCollider2D>().enabled = true;
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -angle));
         anim.SetBool("Destory", false);
-        rb2d.velocity = new Vector2(Mathf.Cos((-angle + 90) / 360 * 2 * Mathf.PI) *  speed, Mathf.Sin((-angle + 90) / 360 * 2 * Mathf.PI) * speed);
+        gameObject.GetComponent<CircleCollider2D>().enabled = true;
+        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, -m_angle));
+
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
+        rb2d.velocity = new Vector2(-Mathf.Cos((m_angle - 90) / 360 * 2 * Mathf.PI) * speed, -Mathf.Sin((m_angle - 90) / 360 * 2 * Mathf.PI) * speed);
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -66,7 +83,13 @@ public class Projectile : MonoBehaviour
         if (collision.tag.Equals("Player"))
         {
             collision.GetComponent<Player>().HPChanged(damage);
-            StartCoroutine(ResetProjectile());
+            if (Reset != null)
+            {
+                StartCoroutine(Reset);
+                Reset = null;
+
+            }
+
         }
         //else
         //{
@@ -79,28 +102,37 @@ public class Projectile : MonoBehaviour
     }
     private void OnBecameInvisible()
     {
-        //if (gameObject.GetComponent<CircleCollider2D>().enabled)
-        //{
-        //    StartCoroutine(ResetProjectile());
-        //    Debug.Log("안보여");
-        //}
+#if !UNITY_EDITOR
+        if (gameObject.GetComponent<CircleCollider2D>().enabled)
+        {
+            if (Reset != null)
+            {
+                StartCoroutine(Reset);
+                Reset = null;
+            }
+
+        }
+#endif
     }
     IEnumerator ResetProjectile()
     {
-        float cliptime=0;
-       anim.SetBool("Destory", true);
+        float cliptime = 0;
+        anim.SetBool("Destory", true);
         inited = false;
         gameObject.GetComponent<CircleCollider2D>().enabled = false;
         foreach (AnimationClip clip in anim.runtimeAnimatorController.animationClips)
         {
-            if(clip.name.Equals("ProjectileDestroy"))
+            if (clip.name.Equals("ProjectileDestroy"))
             {
                 cliptime = clip.length;
             }
         }
         rb2d.velocity = Vector3.zero;
-       yield return new WaitForSecondsRealtime(cliptime);
-            gameObject.transform.position = _Pos;  //gameObject.transform.parent.position
+        yield return new WaitForSecondsRealtime(cliptime);
+        gameObject.transform.position = gameObject.transform.parent.position;
+
+        //Push ObjectPoolList
+        ObjectPool.Instance.PushToPool(poolItemName, gameObject, transform);
         yield return null;
     }
 }

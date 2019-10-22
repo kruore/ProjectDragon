@@ -2,13 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectPool : MonoSingleton<ObjectPool>
+public class ObjectPool : MonoBehaviour
 {
+    public static ObjectPool Instance
+    {
+        get { return instance; }
+        set { }
+    }
+    private static ObjectPool instance = null;
+
 
     public List<PooledObject> objectPool = new List<PooledObject>();
 
     private void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+
         for (int i= 0; i < objectPool.Count; ++i)
         {
             objectPool[i].Initialize(transform);
