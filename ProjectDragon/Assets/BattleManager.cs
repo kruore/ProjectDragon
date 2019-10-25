@@ -22,6 +22,7 @@ public class BattleManager : MonoBehaviour
 
     public void Start()
     {
+        Application.targetFrameRate = 60;
         //시작할때 while을 통해 코루틴을 기동시켜 반복 재생
         EnemyFinder();
         StartCoroutine("CalculateDistanceWithPlayer");
@@ -36,7 +37,10 @@ public class BattleManager : MonoBehaviour
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
-
+    public void SkillActive()
+    {
+        Debug.Log("스킬 작또오옹");
+    }
     //적의 거리를 플레이어로 하여금 측정하도록 함
     IEnumerator CalculateDistanceWithPlayer()
     {
@@ -52,45 +56,56 @@ public class BattleManager : MonoBehaviour
                 StopCoroutine("CalculateDistanceWithPlayer");
                 //Map Clear;
             }
-            for (int a = 0; a < Enemy.Length; a++)
+            if (Enemy.Length > 0)
             {
-                other = Enemy[0];
-                Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
-            }
-            for (int a = 0; a < EnemyDistance.Length; a++)
-            {
-                if (other.GetComponent<Monster>().distanceOfPlayer > Enemy[a].GetComponent<Monster>().distanceOfPlayer)
+                for (int a = 0; a < Enemy.Length; a++)
                 {
-                    other = Enemy[a];
+                    other = Enemy[0];
+                    Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
                 }
-            }
-            player.GetComponent<Player>().EnemyPos = other.transform as Transform;
-            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
-            {
-                if (other == null)
+                for (int a = 0; a < EnemyDistance.Length; a++)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    if (other.GetComponent<Monster>().distanceOfPlayer > Enemy[a].GetComponent<Monster>().distanceOfPlayer)
+                    {
+                        other = Enemy[a];
+                    }
                 }
-                player.CurrentState = State.Attack;
-                player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
+                player.GetComponent<Player>().EnemyPos = other.transform as Transform;
+                if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
+                {
+                    if (other == null)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    player.CurrentState = State.Attack;
+                    if (other.GetComponent<Character>().HP > 0)
+                    {
+                        player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
+                    }
+                }
+                if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
+                {
+                    if (other == null)
+                    {
+                        yield return new WaitForSeconds(0.1f);
+                    }
+                    player.CurrentState = State.Walk;
+                    //적을 보는 각도(플레이어)
+                    if (other.GetComponent<Character>().HP > 0)
+                    {
+                        player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
+                    }
+                    if (other.GetComponent<Character>().HP < 0)
+                    {
+                        player.enemy_angle = player.current_angle;
+                    }
+                    //플레이어 조이스틱
+                    // player.current_angle =
+                }
 
+                yield return new WaitForSeconds(0.1f);
             }
-            if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) > player.GetComponent<Player>().AtkRange)
-            {
-                if (other == null)
-                {
-                    yield return new WaitForSeconds(0.1f);
-                }
-                player.CurrentState = State.Walk;
-                //적을 보는 각도(플레이어)
-                player.enemy_angle = GetSideOfEnemyAndPlayerAngle(other.transform.position, player.transform.position);
-                //플레이어 조이스틱
-                // player.current_angle =
-            }
-
-            yield return new WaitForSeconds(0.1f);
         }
-
     }
     #region 편의기능
     //거리를 찍어주는 것

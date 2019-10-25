@@ -5,6 +5,14 @@ TagManager:
   serializedVersion: 2
   tags:
   - Enemy
+  - button
+  - SkillButton
+  - axisX
+  - axisY
+  - MiniMapRoom
+  - MiniMap
+  - RoomManager
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -17,9 +25,9 @@ TagManager:
   - NGUI
   - UnwalkableMask
   - Enemy
-  - 
-  - 
-  - 
+  - MousePos
+  - Player
+  - Wall
   - 
   - 
   - 
@@ -41,7 +49,4 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
-    locked: 0
-  - name: DamagePopup
-    uniqueID: 3681776175
     locked: 0

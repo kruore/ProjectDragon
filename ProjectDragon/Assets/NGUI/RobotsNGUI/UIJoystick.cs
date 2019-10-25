@@ -69,9 +69,9 @@ public class UIJoystick : MonoBehaviour
 
 
 
-/// <summary>
-/// Create a plane on which we will be performing the dragging.
-/// </summary>
+    /// <summary>
+    /// Create a plane on which we will be performing the dragging.
+    /// </summary>
 
     public void OnPress(bool pressed)
     {
@@ -239,4 +239,3 @@ public class UIJoystick : MonoBehaviour
         return Quaternion.FromToRotation(Vector3.up, End - Start).eulerAngles.z;
     }
 }
-

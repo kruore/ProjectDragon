@@ -15,20 +15,44 @@ public class FSM_NormalEnemy : Monster
         StartCoroutine(CurrentState.ToString());
     }
 
+    public override int HPChanged(int ATK)
+    {
+        //살아 있을때
+        if (!isDead)
+        {
+            isHit = true;
+
+            //넉백
+            StartCoroutine(DirectionKnockBack());
+
+            //White Shader
+            StartCoroutine(flashWhite.Flash());
+
+            return base.HPChanged(ATK);
+        }
+
+        return 0;
+    }
+
     protected IEnumerator Start_On()
     {
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
         CurrentState = State.Walk;
         //공격감지 체크
+
         StartCoroutine(AttackRangeCheck());
 
         yield return null;
     }
 
 
+
+
     protected virtual IEnumerator None()
     {
+        objectAnimator.SetBool("Attack", false);
+
         StartCoroutine(CalcCooltime());
 
         yield return null;
@@ -37,7 +61,7 @@ public class FSM_NormalEnemy : Monster
 
     public virtual IEnumerator CalcCooltime()
     {
-        
+
         while (true)
         {
             //[조건] cooltime > waitTime
@@ -53,6 +77,7 @@ public class FSM_NormalEnemy : Monster
                     //공격범위에 플레이어가 없다면 추적
                     if (!inAtkDetectionRange)
                     {
+                        isAttackActive = false;
                         CurrentState = State.Walk;   //Idle->Walk
                         yield break;
                     }
@@ -78,14 +103,17 @@ public class FSM_NormalEnemy : Monster
 
 
     //raycast
-    protected  IEnumerator AttackRangeCheck()
+    protected IEnumerator AttackRangeCheck()
     {
+
         while (true)
         {
             inAtkDetectionRange = CheckRaycast();
-            
+
             yield return null;
         }
+
+
     }
 
     protected bool CheckRaycast()
@@ -95,16 +123,36 @@ public class FSM_NormalEnemy : Monster
         directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
         startingPosition = transform.position + directionOriginOffset;
 
-        hit = Physics2D.Raycast(startingPosition, direction, AtkRange, LayerMask.GetMask("Default"));
+        #region int layerMask 숫자로 변환 해두기..
 
-        if (hit.collider != null)
+        //layerMask = ~layerMask;   //이런것도 있다. 
+        //int layerMask = (1 << ;player_Layer_num; | 1 << ;player_Layer_num; );
+        //int layerMask = (1 << 8) | (1 << 13) | (1 << 12);
+
+        int layerMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Wall"));
+
+        #endregion
+
+        
+        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange, layerMask);
+
+        foreach (RaycastHit2D _hit in hit)
         {
-            //Debug.Log("hit name :" + hit.collider.gameObject.name);
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (_hit.collider != null)
             {
-                inAtkDetectionRange = true;
+                //Debug.Log("hit name :" + _hit.collider.gameObject.name);
+                if(_hit.collider.gameObject.CompareTag("Wall"))
+                {
+                    break;
+                }
+                if (_hit.collider.gameObject.CompareTag("Player"))
+                {
+                    inAtkDetectionRange = true;
+                    break;
+                }
             }
         }
+        
         return inAtkDetectionRange;
     }
 
@@ -118,7 +166,7 @@ public class FSM_NormalEnemy : Monster
         }
     }
 
-    
+
 
     protected virtual IEnumerator Walk()
     {
@@ -128,11 +176,10 @@ public class FSM_NormalEnemy : Monster
         while (CurrentState == State.Walk)
         {
             //공격감지범위에 들어오면 Attack
-            if(inAtkDetectionRange)
+            if (inAtkDetectionRange)
             {
-                isAttackActive = false;
                 isWalk = false;
-                rigidbody.velocity = Vector2.zero;
+                rb2d.velocity = Vector2.zero;
                 CurrentState = State.Attack;
                 yield break;
             }
@@ -141,7 +188,7 @@ public class FSM_NormalEnemy : Monster
             if (!isHit)
             {
                 isWalk = true;
-                rigidbody.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+                rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
                 //StartCoroutine(aStar.FindPathAgain(rigidbody, direction, MoveSpeed));
             }
@@ -155,8 +202,8 @@ public class FSM_NormalEnemy : Monster
         isAttacking = true;
 
         //Attack Animation parameters
+        objectAnimator.SetBool("Attack", true);
         objectAnimator.SetBool("Walk", false);
-        objectAnimator.SetTrigger("Attack");
         objectAnimator.SetBool("isAttackActive", isAttackActive);
 
         //Cooltime Initialize
@@ -164,14 +211,36 @@ public class FSM_NormalEnemy : Monster
         Current_cooltime = 0;
 
         yield return null;
+        
+
     }
+
+
+#region 구버전애니메이션 관리
+//    //Attack 애니메이션 1번만 돌리고 -> Idle로
+//    protected virtual IEnumerator AttackEnd()
+//    {
+
+//        clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
+//        Debug.Log(clipInfo[0].clip.name);
+
+
+//        float cliptime = clipInfo[0].clip.length;
+//        Debug.Log(cliptime);
+//        yield return new WaitForSeconds(cliptime-0.1f);
+
+//        yield return null;
+//        IsAttacking = false;
+
+
+//    }
+
+#endregion
 
     protected IEnumerator Dead()
     {
-        if (!isDead)
+        if (isDead)
         {
-            isDead = true;
-
             //Dead Animation parameters
             objectAnimator.SetTrigger("Dead");
 
@@ -180,6 +249,8 @@ public class FSM_NormalEnemy : Monster
         }
         yield return null;
     }
+
+ 
 
 
     //근거리/애니메이션 프레임에 설정  -->몸과 충돌시

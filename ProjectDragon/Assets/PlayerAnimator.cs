@@ -26,7 +26,6 @@ public class PlayerAnimator : MonoBehaviour
     public IsWear m_cloth;
     public State m_state;
     public SEX m_sex;
-    public AnglePos p_AnglePos;
     //AnimationControl
 
     [Header("AnimationCounter")]
@@ -83,7 +82,7 @@ public class PlayerAnimator : MonoBehaviour
     // Backdate is called once per frame
     void Update()
     {
-    //    animationname = AnimationName_Returner("Player", m_state, currentPlayer.p_AnglePos);
+        //animationname = AnimationName_Returner("Player", m_state, currentPlayer.p_AnglePos);
     }
 
     void AttackRangeAnimationSetting(AttackType m_attacktype)
@@ -159,7 +158,6 @@ public class PlayerAnimator : MonoBehaviour
             PlayerWalkRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
             PlayerWalkFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
             PlayerWalkBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
-            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
         }
     }
     void Skill_AnimationMatching()
@@ -176,7 +174,6 @@ public class PlayerAnimator : MonoBehaviour
             PlayerSkillRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
             PlayerSkillFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
             PlayerSkillBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
-            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
         }
     }
     void Hit_AnimationMatching()
@@ -193,7 +190,6 @@ public class PlayerAnimator : MonoBehaviour
             PlayerHitRight[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Right.ToString() + "_" + i);
             PlayerHitFront[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Front.ToString() + "_" + i);
             PlayerHitBack[i] = Resources.Load<Sprite>(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
-            Debug.Log(name + sprite_name + AnglePos.Back.ToString() + "_" + i);
         }
     }
     IEnumerator AnimationControllPlayer(Character c)

@@ -4,51 +4,43 @@ using UnityEngine;
 
 public class Mr_Gobunin : FSM_NormalEnemy
 {
-
-    private void Awake()
+    public RuntimeAnimatorController projectileAnimator;
+    protected override void Awake()
     {
-        objectAnimator = gameObject.GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
-        other = GameObject.FindGameObjectWithTag("Player").transform;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        //Effect
-        fadeOut = GetComponent<FadeOut>();
-        damagePopup = new DamagePopup();
-        flashWhite = GetComponent<FlashWhite>();
+        base.Awake();
         childDustParticle = transform.Find("DustParticle").gameObject;
+        projectile = new Projectile();
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         StartCoroutine(Start_On());
     }
 
+
+    ////Create Projectile 
+    //protected Projectile Create()
+    //{
+
+    //    projectileObject = ObjectPool.Instance.PopFromPool("ProjectileObj",transform);
+    //    projectile = projectileObject.transform.GetComponent<Projectile>();
+    //    projectile.gameObject.SetActive(true);
+    //    projectile.ProjectileInit(Angle, projectileSpeed, ATTACKDAMAGE, "ProjectileObj", true, transform.position);
+    //    return projectile;
+
+    //    //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
+
+    //}
+
     Projectile projectile;
-    float projectileSpeed = 1;
-    GameObject projectileObject;
-    //Create Projectile 
-    protected Projectile Create()
-    {
-
-        projectileObject = ObjectPool.Instance.PopFromPool("ProjectileObj",transform);
-        projectile = projectileObject.transform.GetComponent<Projectile>();
-        projectile.gameObject.SetActive(true);
-        projectile.ProjectileInit(Angle, projectileSpeed, ATTACKDAMAGE, "ProjectileObj", true, transform.position);
-        return projectile;
-
-        //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
-
-    }
-
-
     private void Update()
     {
         DustParticleCheck();
 
         if (Input.GetKeyDown(KeyCode.D))
         {
-            Create();
+            projectile.Create(Angle, 1, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", true, transform.position, transform);
         }
     }
     //탄환 공격
@@ -57,5 +49,5 @@ public class Mr_Gobunin : FSM_NormalEnemy
         yield return null;
 
     }
-
 }
+

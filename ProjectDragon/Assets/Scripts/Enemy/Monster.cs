@@ -7,9 +7,16 @@ using UnityEngine;
 public class Monster : Character
 {
 
-    protected Animator objectAnimator;
-    protected Rigidbody2D rigidbody;
+
+    protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
+    protected Animator objectAnimator;
+    protected AnimatorClipInfo[] clipInfo;
+    [SerializeField]
+    protected bool invincible = false;  //무적상태인지
+
+
+
 
 
     [Header("[Enemy Attribute]")]
@@ -34,7 +41,7 @@ public class Monster : Character
     [SerializeField] protected bool m_bDebugMode = false;      //테스트용
     public bool inAtkDetectionRange;
     protected Vector3 direction;
-    protected RaycastHit2D hit;
+    protected RaycastHit2D[] hit;
     [SerializeField] protected float originOffset = 0.3f;
     protected Vector2 startingPosition;
     protected Vector3 directionOriginOffset;
@@ -46,6 +53,21 @@ public class Monster : Character
     protected GameObject childDustParticle;
     bool DustParticle_Actuation = false;
 
+    protected override void Awake()
+    {
+        objectAnimator = gameObject.GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();
+        other = GameObject.FindGameObjectWithTag("Player").transform;
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        //Effect
+        fadeOut = GetComponent<FadeOut>();
+        damagePopup = new DamagePopup();
+        flashWhite = GetComponent<FlashWhite>();
+        base.Awake();
+
+     //   Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
+    }
 
     [HideInInspector]
     public float Angle
@@ -70,35 +92,26 @@ public class Monster : Character
         }
     }
 
-    public IEnumerator hurt(int other_attackDamage)
+    public override int HPChanged(int ATK)
     {
-
-        isHit = true;
-
-        //Hp 감소
-        HPChanged(other_attackDamage);
-
-        //넉백
-        StartCoroutine(DirectionKnockBack());
-
-        //White Shader
-        StartCoroutine(flashWhite.Flash());
-
-
-        //데미지 띄우기
-        damagePopup.Create(transform.position, other_attackDamage,false,transform);
-        yield return null;
-
+        if (!isDead)
+        {
+            //데미지 띄우기
+            damagePopup.Create(transform.position, ATK, false, transform);
+            return base.HPChanged(ATK);
+        }
+        return 0;
     }
+
 
     // 방향넉백
     public IEnumerator DirectionKnockBack()
     {
-        rigidbody.velocity = Vector2.zero;
-        rigidbody.AddForce(-direction* knockPower, ForceMode2D.Impulse);
+        rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(-direction* knockPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockTime);
 
-        rigidbody.velocity = Vector2.zero;
+        rb2d.velocity = Vector2.zero;
 
         isHit = false;
 
@@ -112,9 +125,7 @@ public class Monster : Character
         childDustParticle.SetActive(DustParticle_Actuation);
     }
 
-    
-
-
+   
 
     ////플레이어를 바라보는 방향에 대한 각도체크
     //float AngleCheck() 
@@ -139,7 +150,7 @@ public class Monster : Character
 
     //삭제할것
     //플레이어와 적과의 거리 캐스팅
-    [HideInInspector]
+
     public float distanceOfPlayer;
     [HideInInspector]
     public float angleOfPlayer;

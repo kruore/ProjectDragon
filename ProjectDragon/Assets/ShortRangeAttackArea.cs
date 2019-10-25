@@ -24,12 +24,13 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     private void Awake()
     {
-
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
+        My_Angle = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     public void Update()
     {
         m_viewRotateZ = My_Angle.enemy_angle;
+        FindViewTargets();
     }
     private void OnDrawGizmos()
     {
@@ -85,15 +86,15 @@ public class ShortRangeAttackArea : MonoBehaviour
 
                     if (m_bDebugMode)
                         Debug.DrawLine(originPos, targetPos, Color.red);
-                    if (hitedTarget.CompareTag("Enemy"))
+                    if (hitedTarget.CompareTag("Enemy")||hitedTarget.isActiveAndEnabled==true)
                     {
-                       
-                        //hitedTarget.GetComponent<Character>().HPChanged(1);
+                        hitedTarget.GetComponent<Character>().HPChanged(1);
+                        //임시 버젼
+                        //hitedTarget.GetComponent<SpriteRenderer>().color = Color.red;
                     }
                 }
             }
         }
-
         if (hitedTargetContainer.Count > 0)
             return hitedTargetContainer.ToArray();
         else
@@ -104,9 +105,5 @@ public class ShortRangeAttackArea : MonoBehaviour
     {
         float radian = (transform.eulerAngles.z- angleInDegree+180) * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(radian), Mathf.Cos(radian));
-
-
-
-        
     }
 }

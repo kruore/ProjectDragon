@@ -19,7 +19,7 @@ public class Player : Character
     public SEX playerSex;
     //JoyStick
     protected JoyPad joyPad;
-   // public AnglePos my_AnglePos { get { return myAnim_AnglePos; } set { myAnim_AnglePos = value; GetComponent<Animator>().CrossFade(playerSex.ToString(), 0.3f); } }
+    // public AnglePos my_AnglePos { get { return myAnim_AnglePos; } set { myAnim_AnglePos = value; GetComponent<Animator>().CrossFade(playerSex.ToString(), 0.3f); } }
 
     //Animation Contorl
     public Animator playerAnimationStateChanger;
@@ -41,7 +41,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
-      
+
         isWear = IsWear.DefaultCloth;
         //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
@@ -49,12 +49,14 @@ public class Player : Character
         HP = 100;
         ATKChanger(10);
         ATKSpeedChanger(1.0f);
-        MoveSpeed = 1;
+        MoveSpeed = 3;
         CurrentState = State.Walk;
         AtkRangeChanger(10);
         myAttackType = AttackType.ShortRange;
+        //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
         //weaponAnimator = weaponSelection.GetComponent<Animator>();
         // weaponAnimator.runtimeAnimatorController = Resources.Load<RuntimeAnimatorController>("SwordAnimation");
+
     }
     void Start()
     {
@@ -72,9 +74,10 @@ public class Player : Character
     // Update is called once per frame
     void FixedUpdate()
     {
-        current_angle = joypadinput.GetComponent<UIJoystick>().angle;
+        current_angle = joypadinput.GetComponent<JoyPad>().angle;
         myPos = gameObject.transform.position;
-        joystickPos = joypadinput.GetComponent<UIJoystick>().position;
+        joystickPos = joypadinput.GetComponent<JoyPad>().position;
+       // Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Enemy"), true);
         //키보드 세팅
         //float h = horizontalSpeed * Input.GetAxis("Horizontal");
         //float v = verticalSpeed * Input.GetAxis("Vertical");
@@ -87,8 +90,8 @@ public class Player : Character
 
         AnimationChanger();
 
-        transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed, Space.World);
-        transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed, Space.World);
+        transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed * moveSpeed, Space.World);
+        transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed * moveSpeed, Space.World);
         #region 구버젼 애니메이터
         ////Angle of joystick and normalVec
         //if (isAttacking.Equals(false))
@@ -171,7 +174,7 @@ public class Player : Character
         //weaponAnimator.SetBool("isDead", isDead);
         // playerAnimationStateChanger.SetBool("isSkillActive", isSkillActive);
         //weaponAnimator.SetBool("isHit", isHit);
-       // weaponAnimator.SetFloat("Angle", AngleCalculate);
+        // weaponAnimator.SetFloat("Angle", AngleCalculate);
         #endregion
     }
     public void WeaponAnimatorChanger()
@@ -188,8 +191,8 @@ public class Player : Character
                 return;
             }
             CurrentState = State.Attack;
-          //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
-          //  AngleCalculate = enemy_angle;
+            //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
+            //  AngleCalculate = enemy_angle;
         }
     }
     protected override void SetState(State newState)

@@ -10,7 +10,7 @@ public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 public class Character : MonoBehaviour, PersonalSpecificational
 {
     [SerializeField]
-    private State myState;
+    protected State myState;
     public State CurrentState
     {
         get { return myState; }
@@ -42,7 +42,13 @@ public class Character : MonoBehaviour, PersonalSpecificational
     protected bool isHit;
     protected bool isSkillActive;
 
+    protected virtual void Awake()
+    {
+    }
+    protected virtual void Start()
+    {
 
+    }
 
     #region ATKSPEED
     public float ATTACKSPEED
@@ -84,19 +90,24 @@ public class Character : MonoBehaviour, PersonalSpecificational
         get { return hp; }
         set
         {
-            hp = value;
-            hp = Mathf.Clamp(value, 0, maxHp);
-
-            if (value <= 0)
+            if (value > 0)
             {
+                hp = value;
+                hp = Mathf.Clamp(value, 0, maxHp);
+            }
+            else if (!isDead)
+            {
+                hp = -1;
+                isDead = true;
                 CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
             }
         }
     }
 
-    public int HPChanged(int ATK)
+    public virtual int HPChanged(int ATK)
     {
+        Debug.Log(ATK);
         HP = HP - ATK;
         return HP;
     }

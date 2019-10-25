@@ -14,7 +14,6 @@ public class DamagePopup : MonoBehaviour
 
     Color textColor;
     TextMeshPro textMesh;
-    Transform damagePopupTransform;
     DamagePopup damagePopup;
 
     Transform _parent;

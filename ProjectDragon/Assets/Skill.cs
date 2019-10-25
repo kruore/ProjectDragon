@@ -4,43 +4,35 @@ using UnityEngine;
 
 public class Skill : MonoBehaviour
 {
-    public Player playerObject;
-    public string poolItemName = "Skill";
+    public string skillName = null;
     public float moveSpeed = 10f;
     public float lifeTime = 3f;
     public float _elapsedTime = 0f;
-    public float skill_angle;
 
-    public Vector3 normalVec = new Vector3(1, 1, 1);
-    public float Timer
-    {
-        get
-        {
-            gameObject.SetActive(true);
-            return (_elapsedTime += Time.deltaTime);
-        }
-        set
-        {
-            _elapsedTime = 0;
-            if(_elapsedTime.Equals(0))
-            {
-                gameObject.SetActive(false);
-            }
-        }
-    }
     private void Start()
     {
-        skill_angle = playerObject.enemy_angle;
-        transform.rotation = Quaternion.Euler(0, 0, skill_angle);
+        skillName = Database.Inst.skill[0].name;
     }
-    void Update()
-    { 
-        transform.position += -(transform.up) * moveSpeed * Time.deltaTime;
 
-        if (Timer > lifeTime)
+    void Update()
+    {
+        transform.position += transform.up * moveSpeed * Time.deltaTime;
+
+        if (GetTimer() > lifeTime)
         {
-            Timer = 0;
+            SetTimer();
+            ObjectPool.Instance.PushToPool(skillName, gameObject);
+          //  gameObject.SetActive(false);
         }
-       
+    }
+
+    float GetTimer()
+    {
+        return (_elapsedTime += Time.deltaTime);
+    }
+
+    void SetTimer()
+    {
+        _elapsedTime = 0f;
     }
 }

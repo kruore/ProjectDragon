@@ -5,34 +5,63 @@ using UnityEngine;
 public class Doldori : FSM_NormalEnemy
 {
 
-    private void Awake()
+    protected override void Awake()
     {
-        objectAnimator = gameObject.GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
-        other = GameObject.FindGameObjectWithTag("Player").transform;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        //Effect
-        fadeOut = GetComponent<FadeOut>();
-        damagePopup = new DamagePopup();
-        flashWhite = GetComponent<FlashWhite>();
+        base.Awake();
         childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         StartCoroutine(Start_On());
     }
 
     void Update()
     {
         DustParticleCheck();
+
+        if (isAttacking)
+        {
+            //무적상태
+            invincible = true;
+        }
+        else
+        {
+            invincible = false;
+        }
+
+        //test
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            HPChanged(1);
+        }
+    }
+    protected override IEnumerator Attack()
+    {
+        //플레이어 방향으로 돌진
+        rb2d.AddForce(direction * 3.0f, ForceMode2D.Impulse);
+
+        yield return base.Attack();
     }
 
-    //탄환 공격
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (CurrentState == State.Attack)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                isAttacking = false;
+                rb2d.velocity = Vector2.zero;
+            }
+        }
+        //if(collision.gameObject.CompareTag("Wall"))
+    }
+
+
     protected override IEnumerator Attack_On()
     {
-
         yield return null;
 
     }

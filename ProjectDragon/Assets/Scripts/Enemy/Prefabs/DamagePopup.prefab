@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5567132192213746050}
   - component: {fileID: 5567132192213746051}
   - component: {fileID: 3610804872143701471}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: DamagePopup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -220,6 +220,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da60d77b74848c944b932650dab94cff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  poolItemName: DamagePopupObj
   moveYSpeed: 3
   disappearSpeed: 7
   disappearTimer: 0.3

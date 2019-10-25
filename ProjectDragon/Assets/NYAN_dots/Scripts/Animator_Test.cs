@@ -24,7 +24,7 @@ namespace NYAN_dots
 		void Update()
 		{
             //移動処理(Movement processing)
-            joystickPos = joypadinput.GetComponent<UIJoystick>().position;
+         //   joystickPos = joypadinput.GetComponent<JoyPad>().position;
             //키보드 세팅
             //float h = horizontalSpeed * Input.GetAxis("Horizontal");
             //float v = verticalSpeed * Input.GetAxis("Vertical");

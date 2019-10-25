@@ -4,23 +4,16 @@ using UnityEngine;
 
 public class Mr_Goburin : FSM_NormalEnemy
 {
-    private void Awake()
+    protected override void Awake()
     {
-        objectAnimator = gameObject.GetComponent<Animator>();
-        rigidbody = GetComponent<Rigidbody2D>();
-        other = GameObject.FindGameObjectWithTag("Player").transform;
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        //Effect
-        fadeOut = GetComponent<FadeOut>();
-        damagePopup = new DamagePopup();
-        flashWhite = GetComponent<FlashWhite>();
+        base.Awake();
         childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
 
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         StartCoroutine(Start_On());
     }
 
