@@ -121,8 +121,15 @@ public class Monster : Character
     //Dust Particle
     protected void DustParticleCheck()
     {
-        DustParticle_Actuation = isHit || isWalk ? true : false;
-        childDustParticle.SetActive(DustParticle_Actuation);
+        if (!isDead)
+        {
+            DustParticle_Actuation = isHit || isWalk ? true : false;
+            childDustParticle.SetActive(DustParticle_Actuation);
+        }
+        else
+        {
+            childDustParticle.SetActive(false);
+        }
     }
 
    

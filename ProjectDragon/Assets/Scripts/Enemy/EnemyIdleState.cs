@@ -11,9 +11,12 @@ public class EnemyIdleState : StateMachineBehaviour
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemy = animator.gameObject.GetComponent<FSM_NormalEnemy>();
-        if (enemy.CurrentState != State.None)
+        if (!enemy.isDead)
         {
-            enemy.CurrentState = State.None;
+            if (enemy.CurrentState != State.None)
+            {
+                enemy.CurrentState = State.None;
+            }
         }
 
     }

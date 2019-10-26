@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 9d69ae98725365b4b94189120dc1b40a, type: 3}
+  m_Sprite: {fileID: 21300016, guid: 50f815140cd7c3748a5a0288893b197e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4f1db1b21fae64bb1c9150cdb93fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  disappearSpeed: 7
+  disappearSpeed: 2
   disappearTimer: 4
   isVisible: 1
   fadecolor: {r: 0, g: 0, b: 0, a: 0}
@@ -196,7 +196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myState: 0
   hp: 100
-  maxHp: 1
+  maxHp: 100
   atk: 1
   atkSpeed: 1
   moveSpeed: 1
@@ -205,24 +205,28 @@ MonoBehaviour:
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
   other: {fileID: 0}
-  isAttacking: 0
+  isDead: 0
   current_Anim_Frame: 0
   enemy_angle: 0
   myAttackType: 0
   myAnim_AnglePos: 0
+  invincible: 0
   waitTime: 2
   cooltime: 3
   knockTime: 0.15
   knockPower: 1
   skillCooltime: 0
   skillDamage: 0
-  m_bDebugMode: 0
+  m_bDebugMode: 1
   inAtkDetectionRange: 0
   originOffset: 0.3
   distanceOfPlayer: 0
   angleOfPlayer: 0
   moveDistance: 0
   isAttackActive: 0
+  m_viewTargetMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!1 &2954448564663233802
 GameObject:
   m_ObjectHideFlags: 0
@@ -1526,7 +1530,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 1, b: 1, a: 1}
+        key0: {r: 0.4509804, g: 0.4509804, b: 0.4509804, a: 1}
         key1: {r: 1, g: 1, b: 1, a: 0}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}

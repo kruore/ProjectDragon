@@ -30,7 +30,7 @@ public class BattleManager : MonoBehaviour
     public void FixedUpdate()
     {
         //거리 측정하기~
-        CalculateDistanceWithPlayer();
+        //CalculateDistanceWithPlayer();
     }
     public void EnemyFinder()
     {

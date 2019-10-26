@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4AFF48B6-6491-63DF-BF08-210DF2C5B4D9}</ProjectGuid>
+    <ProjectGuid>{D84C003E-C074-E370-F027-1D073BF99516}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -347,25 +347,25 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\ObjectAssets\FreePixelFood\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Editor">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Editor.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Editor.dll</HintPath>
     </Reference>
     <Reference Include="XiaomiSupport">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -566,34 +566,34 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.SqliteClient">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Assets/Plugins/System.Configuration.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.EnterpriseServices">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Security">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Assets/Plugins/System.Security.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Security.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="ChannelPurchase">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
     </Reference>
     <Reference Include="UnityStore">
-      <HintPath>C:/Users/admin/Desktop/1024MyProject/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
+      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

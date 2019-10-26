@@ -8,6 +8,15 @@ public class FSM_NormalEnemy : Monster
     [Header(" ")]
     [SerializeField]
     protected bool isAttackActive;
+    [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
+    BoxCollider2D collider;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        m_viewTargetMask = LayerMask.GetMask("Player", "Wall");
+        collider = GetComponent<BoxCollider2D>();
+    }
 
     //개체의 상태가 바뀔때마다 실행
     protected override void SetState(State newState)
@@ -62,8 +71,9 @@ public class FSM_NormalEnemy : Monster
     public virtual IEnumerator CalcCooltime()
     {
 
-        while (true)
+        while (CurrentState == State.None)
         {
+
             //[조건] cooltime > waitTime
             if (Current_cooltime < cooltime)                    //cooltime 전
             {
@@ -105,16 +115,15 @@ public class FSM_NormalEnemy : Monster
     //raycast
     protected IEnumerator AttackRangeCheck()
     {
-
-        while (true)
+        //살아있을때만 raycast 체크
+        while (!isDead)
         {
             inAtkDetectionRange = CheckRaycast();
 
             yield return null;
         }
-
-
     }
+
 
     protected bool CheckRaycast()
     {
@@ -125,16 +134,16 @@ public class FSM_NormalEnemy : Monster
 
         #region int layerMask 숫자로 변환 해두기..
 
-        //layerMask = ~layerMask;   //이런것도 있다. 
-        //int layerMask = (1 << ;player_Layer_num; | 1 << ;player_Layer_num; );
-        //int layerMask = (1 << 8) | (1 << 13) | (1 << 12);
+        ////layerMask = ~layerMask;   //이런것도 있다. 
+        ////int layerMask = (1 << ;player_Layer_num; | 1 << ;player_Layer_num; );
+        ////int layerMask = (1 << 8) | (1 << 13) | (1 << 12);
 
-        int layerMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Wall"));
+        //int layerMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Wall"));
 
         #endregion
 
-        
-        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange, layerMask);
+
+        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange, m_viewTargetMask);
 
         foreach (RaycastHit2D _hit in hit)
         {
@@ -216,37 +225,41 @@ public class FSM_NormalEnemy : Monster
     }
 
 
-#region 구버전애니메이션 관리
-//    //Attack 애니메이션 1번만 돌리고 -> Idle로
-//    protected virtual IEnumerator AttackEnd()
-//    {
+    #region 구버전애니메이션 관리
+    //    //Attack 애니메이션 1번만 돌리고 -> Idle로
+    //    protected virtual IEnumerator AttackEnd()
+    //    {
 
-//        clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
-//        Debug.Log(clipInfo[0].clip.name);
-
-
-//        float cliptime = clipInfo[0].clip.length;
-//        Debug.Log(cliptime);
-//        yield return new WaitForSeconds(cliptime-0.1f);
-
-//        yield return null;
-//        IsAttacking = false;
+    //        clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
+    //        Debug.Log(clipInfo[0].clip.name);
 
 
-//    }
+    //        float cliptime = clipInfo[0].clip.length;
+    //        Debug.Log(cliptime);
+    //        yield return new WaitForSeconds(cliptime-0.1f);
 
-#endregion
+    //        yield return null;
+    //        IsAttacking = false;
+
+
+    //    }
+
+    #endregion
 
     protected IEnumerator Dead()
     {
-        if (isDead)
-        {
-            //Dead Animation parameters
-            objectAnimator.SetTrigger("Dead");
 
-            //Fade Out
-            StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
-        }
+        //Dead Animation parameters
+        objectAnimator.SetTrigger("Dead");
+
+        collider.enabled = false;
+
+        //애니메이션 시간때문에..대략
+        yield return new WaitForSeconds(2.0f);
+
+        //Fade Out
+        StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
+
         yield return null;
     }
 
