@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class TitleManager : MonoBehaviour
 {
-    public UILabel test;
     // Start is called before the first frame update
     void Start()
     {
-        Screen.SetResolution(Screen.width * 16 / 9,Screen.width, true);
-        GameManager.Inst.singletonF();
+        GameManager.Inst.ScreensizeReadjust();
         DataTransaction.Inst.ToString();
-        test.text = Database.Inst.playData.inventory.Count.ToString();
     }
     public void GotoLobby()
     {

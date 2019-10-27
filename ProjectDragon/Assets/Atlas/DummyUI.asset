@@ -1089,8 +1089,8 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
+    paddingLeft: -1
+    paddingRight: -1
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uC544\uC774\uCF58"

@@ -15,8 +15,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 06e21a362efd0b74a971f59b3f3f89b2, type: 2}
   mSprites:
   - name: Lock
-    x: 1943
-    y: 980
+    x: 1915
+    y: 1224
     width: 104
     height: 111
     borderLeft: 0
@@ -27,9 +27,22 @@ MonoBehaviour:
     paddingRight: 6
     paddingTop: 3
     paddingBottom: 3
+  - name: under-construction-2408061_960_720
+    x: 0
+    y: 1328
+    width: 801
+    height: 720
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: Unlock
-    x: 1883
-    y: 1574
+    x: 1915
+    y: 1441
     width: 116
     height: 111
     borderLeft: 0
@@ -41,8 +54,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 2
   - name: "\uAC15\uD654\uC218\uCE58_1"
-    x: 974
-    y: 1468
+    x: 1665
+    y: 831
     width: 37
     height: 39
     borderLeft: 0
@@ -54,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uAC15\uD654\uC218\uCE58_2"
-    x: 2000
-    y: 1646
+    x: 741
+    y: 1288
     width: 37
     height: 39
     borderLeft: 0
@@ -67,8 +80,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 10
   - name: "\uAC15\uD654\uC218\uCE58_3"
-    x: 2000
-    y: 1606
+    x: 2010
+    y: 1554
     width: 37
     height: 39
     borderLeft: 0
@@ -80,8 +93,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 10
   - name: "\uAC15\uD654\uC218\uCE58_4"
-    x: 2000
-    y: 1566
+    x: 2010
+    y: 1594
     width: 37
     height: 39
     borderLeft: 0
@@ -93,8 +106,8 @@ MonoBehaviour:
     paddingTop: 5
     paddingBottom: 10
   - name: "\uAC15\uD654\uC218\uCE58_\uBC18\uD22C\uBA85"
-    x: 974
-    y: 1508
+    x: 702
+    y: 1289
     width: 38
     height: 38
     borderLeft: 0
@@ -106,8 +119,8 @@ MonoBehaviour:
     paddingTop: 80
     paddingBottom: 10
   - name: "\uB2EB\uAE30\uBC84\uD2BC"
-    x: 1117
-    y: 984
+    x: 1231
+    y: 1226
     width: 38
     height: 49
     borderLeft: 0
@@ -119,8 +132,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uB808\uC5B4\uB3C4_\uB178\uB9D0"
-    x: 1883
-    y: 1536
+    x: 295
+    y: 756
     width: 35
     height: 37
     borderLeft: 0
@@ -132,8 +145,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uB808\uC5B4\uB3C4_\uB808\uC5B4"
-    x: 679
-    y: 1046
+    x: 1167
+    y: 718
     width: 35
     height: 35
     borderLeft: 0
@@ -145,8 +158,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uB808\uC5B4\uB3C4_\uB808\uC804\uB4DC"
-    x: 1955
-    y: 1538
+    x: 1167
+    y: 754
     width: 35
     height: 35
     borderLeft: 0
@@ -158,8 +171,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uB808\uC5B4\uB3C4_\uC720\uB2C8\uD06C"
-    x: 1919
-    y: 1538
+    x: 1665
+    y: 795
     width: 35
     height: 35
     borderLeft: 0
@@ -171,8 +184,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uB85C\uB529\uAC8C\uC774\uC9C0"
-    x: 679
-    y: 897
+    x: 0
+    y: 756
     width: 194
     height: 10
     borderLeft: 0
@@ -184,8 +197,8 @@ MonoBehaviour:
     paddingTop: 78
     paddingBottom: 40
   - name: "\uB85C\uB529\uAC8C\uC774\uC9C0_\uCE94\uBC84\uC2A4\uC790\uB978"
-    x: 679
-    y: 908
+    x: 99
+    y: 767
     width: 195
     height: 10
     borderLeft: 0
@@ -197,8 +210,8 @@ MonoBehaviour:
     paddingTop: 6
     paddingBottom: 6
   - name: "\uB85C\uB529\uBC14"
-    x: 1534
-    y: 1417
+    x: 1231
+    y: 1098
     width: 500
     height: 117
     borderLeft: 0
@@ -210,8 +223,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 7
   - name: "\uB9C8\uB098\uBC14"
-    x: 513
-    y: 1311
+    x: 0
+    y: 1092
     width: 460
     height: 235
     borderLeft: 30
@@ -223,8 +236,8 @@ MonoBehaviour:
     paddingTop: 15
     paddingBottom: 6
   - name: "\uBB34\uAE30\uB4B7\uD328\uB110"
-    x: 1026
-    y: 1718
+    x: 1315
+    y: 1216
     width: 599
     height: 330
     borderLeft: 120
@@ -236,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uBC30\uD2C0"
-    x: 488
-    y: 885
+    x: 1468
+    y: 477
     width: 190
     height: 196
     borderLeft: 0
@@ -249,8 +262,8 @@ MonoBehaviour:
     paddingTop: 28
     paddingBottom: 32
   - name: "\uBC30\uD2C0_\uD074\uB9AD"
-    x: 0
-    y: 1068
+    x: 718
+    y: 692
     width: 237
     height: 221
     borderLeft: 0
@@ -262,8 +275,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 32
   - name: "\uBD84\uD574\uAC15\uD654\uBC31\uBC84\uD2BC"
-    x: 389
-    y: 1023
+    x: 99
+    y: 778
     width: 97
     height: 55
     borderLeft: 0
@@ -275,8 +288,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uBD84\uD574\uAC15\uD654\uBC31\uBC84\uD2BC (Copy)"
-    x: 1632
-    y: 1031
+    x: 0
+    y: 777
     width: 98
     height: 58
     borderLeft: 0
@@ -288,8 +301,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uBD84\uD574\uBC84\uD2BC_\uAC00\uC6B4\uB370"
-    x: 1156
-    y: 974
+    x: 342
+    y: 756
     width: 170
     height: 127
     borderLeft: 0
@@ -301,8 +314,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uBD84\uD574\uBC84\uD2BC_\uAC00\uC6B4\uB370_\uD074\uB9AD"
-    x: 946
-    y: 906
+    x: 513
+    y: 756
     width: 170
     height: 127
     borderLeft: 0
@@ -315,7 +328,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: "\uBD84\uD574\uBC84\uD2BC_\uC624\uB978\uCABD"
     x: 170
-    y: 792
+    y: 963
     width: 171
     height: 128
     borderLeft: 0
@@ -327,8 +340,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: -2
   - name: "\uBD84\uD574\uBC84\uD2BC_\uC624\uB978\uCABD_\uD074\uB9AD"
-    x: 1156
-    y: 1102
+    x: 170
+    y: 834
     width: 171
     height: 128
     borderLeft: 0
@@ -340,8 +353,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: -3
   - name: "\uBD84\uD574\uBC84\uD2BC_\uC67C\uCABD"
-    x: 0
-    y: 936
+    x: 1167
+    y: 528
     width: 169
     height: 131
     borderLeft: 0
@@ -354,7 +367,7 @@ MonoBehaviour:
     paddingBottom: -2
   - name: "\uBD84\uD574\uBC84\uD2BC_\uC67C\uCABD_\uD074\uB9AD"
     x: 0
-    y: 804
+    y: 960
     width: 169
     height: 131
     borderLeft: 60
@@ -366,8 +379,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uBD84\uD574\uBC84\uD2BC_\uCC10"
-    x: 0
-    y: 1401
+    x: 461
+    y: 1141
     width: 512
     height: 134
     borderLeft: 150
@@ -379,8 +392,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 0
   - name: "\uC2A4\uD06C\uB864\uBC14_\uBE44\uD65C\uC131\uD654"
-    x: 493
-    y: 1357
+    x: 779
+    y: 1284
     width: 19
     height: 43
     borderLeft: 0
@@ -392,8 +405,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 83
   - name: "\uC2A4\uD06C\uB864\uBC14_\uD65C\uC131\uD654"
-    x: 493
-    y: 1313
+    x: 1701
+    y: 787
     width: 19
     height: 43
     borderLeft: 0
@@ -405,8 +418,8 @@ MonoBehaviour:
     paddingTop: 2
     paddingBottom: 83
   - name: "\uC2A4\uD06C\uB864\uBC14\uB4B7\uBD80\uBD84"
-    x: 1450
-    y: 1111
+    x: 123
+    y: 840
     width: 16
     height: 119
     borderLeft: 0
@@ -418,8 +431,8 @@ MonoBehaviour:
     paddingTop: 4
     paddingBottom: 5
   - name: "\uC2A4\uD0AC"
-    x: 739
-    y: 919
+    x: 1665
+    y: 592
     width: 206
     height: 185
     borderLeft: 0
@@ -431,8 +444,8 @@ MonoBehaviour:
     paddingTop: 40
     paddingBottom: 31
   - name: "\uC2A4\uD0AC_\uD074\uB9AD"
-    x: 974
-    y: 1231
+    x: 1732
+    y: 989
     width: 253
     height: 226
     borderLeft: 0
@@ -444,8 +457,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 8
   - name: "\uC544\uC774\uCF58\uBC30\uACBD"
-    x: 1626
-    y: 1535
+    x: 461
+    y: 884
     width: 256
     height: 256
     borderLeft: 0
@@ -457,8 +470,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC5F4\uB9B0\uCC45"
-    x: 1228
-    y: 1231
+    x: 718
+    y: 914
     width: 253
     height: 226
     borderLeft: 0
@@ -470,8 +483,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 8
   - name: "\uC635\uC158"
-    x: 493
-    y: 1082
+    x: 972
+    y: 790
     width: 245
     height: 228
     borderLeft: 0
@@ -483,8 +496,8 @@ MonoBehaviour:
     paddingTop: 8
     paddingBottom: 20
   - name: "\uC7A5\uBE44\uB2EB\uAE30\uBC84\uD2BC"
-    x: 1450
-    y: 1009
+    x: 1828
+    y: 1553
     width: 181
     height: 80
     borderLeft: 0
@@ -496,8 +509,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uB4B7\uD328\uB110_RE"
-    x: 1026
-    y: 1458
+    x: 802
+    y: 1276
     width: 507
     height: 259
     borderLeft: 20
@@ -509,8 +522,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uBC30\uACBD"
-    x: 959
-    y: 1034
+    x: 1468
+    y: 674
     width: 196
     height: 196
     borderLeft: 0
@@ -522,8 +535,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uC815\uBCF4\uD328\uB110"
-    x: 1883
-    y: 1686
+    x: 1659
+    y: 434
     width: 158
     height: 157
     borderLeft: 0
@@ -535,8 +548,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uC815\uBCF4\uD655\uC778"
-    x: 238
-    y: 921
+    x: 1818
+    y: 415
     width: 150
     height: 157
     borderLeft: 0
@@ -548,7 +561,7 @@ MonoBehaviour:
     paddingTop: 50
     paddingBottom: 49
   - name: "\uC7A5\uBE44\uCC3D_\uB4B7\uD328\uB110"
-    x: 513
+    x: 1315
     y: 1547
     width: 512
     height: 501
@@ -561,8 +574,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uBE44\uCE78"
-    x: 1327
-    y: 978
+    x: 0
+    y: 836
     width: 122
     height: 123
     borderLeft: 0
@@ -574,8 +587,8 @@ MonoBehaviour:
     paddingTop: 3
     paddingBottom: 2
   - name: "\uC7A5\uBE44\uD558\uAE30\uBC30\uACBD"
-    x: 1626
-    y: 1792
+    x: 974
+    y: 1019
     width: 256
     height: 256
     borderLeft: 0
@@ -587,21 +600,21 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC7A5\uCC29\uC7A5\uBE44\uC2A4\uD15F"
-    x: 1328
-    y: 1116
+    x: 342
+    y: 977
     width: 114
     height: 114
     borderLeft: 0
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 6
-    paddingRight: 8
-    paddingTop: 9
-    paddingBottom: 5
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uC7A5\uCC29\uC7A5\uBE44\uCE74\uD14C\uACE0\uB9AC"
-    x: 0
-    y: 764
+    x: 197
+    y: 794
     width: 114
     height: 39
     borderLeft: 0
@@ -613,8 +626,8 @@ MonoBehaviour:
     paddingTop: 34
     paddingBottom: 55
   - name: "\uC7A5\uCC29\uD45C\uC2DC"
-    x: 1482
-    y: 1417
+    x: 1270
+    y: 1235
     width: 38
     height: 40
     borderLeft: 0
@@ -626,8 +639,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC804\uD658\uD45C\uC2DC"
-    x: 1608
-    y: 904
+    x: 1915
+    y: 1336
     width: 122
     height: 104
     borderLeft: 0
@@ -639,8 +652,8 @@ MonoBehaviour:
     paddingTop: 12
     paddingBottom: 12
   - name: "\uC810\uC120"
-    x: 1358
-    y: 927
+    x: 461
+    y: 1320
     width: 240
     height: 7
     borderLeft: 0
@@ -652,8 +665,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC810\uC120 1"
-    x: 1117
-    y: 927
+    x: 461
+    y: 1312
     width: 240
     height: 7
     borderLeft: 0
@@ -665,8 +678,8 @@ MonoBehaviour:
     paddingTop: 7
     paddingBottom: 7
   - name: "\uC815\uB82C\uC544\uB798\uD14C\uB450\uB9AC"
-    x: 1117
-    y: 935
+    x: 0
+    y: 717
     width: 490
     height: 38
     borderLeft: 30
@@ -678,8 +691,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: "\uC815\uB82C\uD14C\uB450\uB9AC\uC544\uB798"
-    x: 0
-    y: 1290
+    x: 1218
+    y: 871
     width: 492
     height: 110
     borderLeft: 35
@@ -691,8 +704,8 @@ MonoBehaviour:
     paddingTop: 11
     paddingBottom: 11
   - name: "\uC81C\uC791"
-    x: 1732
-    y: 898
+    x: 956
+    y: 596
     width: 210
     height: 193
     borderLeft: 0
@@ -704,8 +717,8 @@ MonoBehaviour:
     paddingTop: 31
     paddingBottom: 32
   - name: "\uC81C\uC791_\uD074\uB9AD"
-    x: 739
-    y: 1105
+    x: 1828
+    y: 1843
     width: 219
     height: 205
     borderLeft: 0
@@ -717,8 +730,8 @@ MonoBehaviour:
     paddingTop: 19
     paddingBottom: 32
   - name: "\uCC44\uC9D1"
-    x: 1732
-    y: 1092
+    x: 1828
+    y: 1634
     width: 212
     height: 208
     borderLeft: 0
@@ -730,8 +743,8 @@ MonoBehaviour:
     paddingTop: 23
     paddingBottom: 25
   - name: "\uCC44\uC9D1_\uD074\uB9AD"
-    x: 1482
-    y: 1090
+    x: 1727
+    y: 778
     width: 249
     height: 210
     borderLeft: 0
@@ -743,8 +756,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 24
   - name: "\uCC44\uC9D1\uBC00\uAE30"
-    x: 238
-    y: 1079
+    x: 1218
+    y: 660
     width: 249
     height: 210
     borderLeft: 0
@@ -756,8 +769,8 @@ MonoBehaviour:
     paddingTop: 22
     paddingBottom: 24
   - name: "\uD06C\uB9AC\uC2A4\uD0C8"
-    x: 1883
-    y: 1844
+    x: 1872
+    y: 573
     width: 164
     height: 204
     borderLeft: 0
@@ -769,8 +782,8 @@ MonoBehaviour:
     paddingTop: 28
     paddingBottom: 24
   - name: "\uD234\uD301\uBC15\uC2A4"
-    x: 1482
-    y: 1301
+    x: 1231
+    y: 982
     width: 495
     height: 115
     borderLeft: 0
@@ -783,7 +796,7 @@ MonoBehaviour:
     paddingBottom: 5
   - name: "\uD544\uD130\uC815\uB9AC\uBC84\uD2BC"
     x: 342
-    y: 857
+    y: 913
     width: 115
     height: 63
     borderLeft: 0
@@ -795,7 +808,7 @@ MonoBehaviour:
     paddingTop: 21
     paddingBottom: 44
   - name: "\uD655\uC778\uC815\uBCF4\uD328\uB110"
-    x: 0
+    x: 802
     y: 1536
     width: 512
     height: 512

@@ -36,6 +36,7 @@ public static class ButtonManager
                     LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(false);
                     LobbyManager.inst.BGID.SetActive(false);
                     LobbyManager.inst.Selecteditem.Clear();
+                    LobbyManager.inst.UpdateAllScrollview();
                     return "Lock";
                     break;
                 case "EquipPanel":
@@ -47,11 +48,15 @@ public static class ButtonManager
                     LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
                     LobbyManager.inst.BGID.SetActive(false);
                     LobbyManager.inst.Selecteditem.Clear();
+                    LobbyManager.inst.UpdateAllScrollview();
                     break;
                 case "Decomposition":
                     LobbyManager.inst.Inventoryback.transform.Find("Decomposition").gameObject.SetActive(false);
                     LobbyManager.inst.BGID.SetActive(false);
                     LobbyManager.inst.Selecteditem.Clear();
+                    LobbyManager.inst.UpdateAllScrollview();
+                    LobbyManager.inst.lobbystate=LobbyState.Nomal;
+                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
                     break;
                 case "Inventory":
                     break;
@@ -59,6 +64,10 @@ public static class ButtonManager
                     //DeactiveToolboxpanel();
                     break;
                 default:
+                    if(SceneManager.sceneCount.Equals(SceneManager.GetSceneAt(1)))
+                    {
+                        LobbyManager.inst.QuitApplicationinlobby();
+                    }
                     Debug.Log(debug);
                     break;
             }
@@ -134,6 +143,5 @@ public static class ButtonManager
     public static void GotoLobby()
     {
         SceneManager.LoadScene("Lobby");
-
     }
 }

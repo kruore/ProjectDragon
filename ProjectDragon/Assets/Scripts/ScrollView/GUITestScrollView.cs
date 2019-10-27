@@ -44,7 +44,6 @@ public class GUITestScrollView : MonoBehaviour
             cell.upgrade_Level = inventories[i].upgrade_Level;
             cell.isLock = inventories[i].isLock;
             cell.stat = inventories[i].stat;
-            Debug.Log(cell.inventoryNum);
             grid.AddItem(cell, false);
         }
         grid.UpdateAllCellData();
