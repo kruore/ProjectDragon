@@ -8,9 +8,9 @@ public class DamagePopup : MonoBehaviour
 
     public string poolItemName = "DamagePopupObj";
 
-    [SerializeField] float moveYSpeed = 3.0f;
+    [SerializeField] float moveYSpeed = 2.0f;
     [SerializeField] float disappearSpeed = 7.0f;
-    [SerializeField] float disappearTimer = 0.3f;
+    [SerializeField] float disappearTimer = 0.2f;
 
     Color textColor;
     TextMeshPro textMesh;

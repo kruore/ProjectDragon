@@ -51,6 +51,7 @@ public class Monster : Character
     protected FlashWhite flashWhite;
     protected DamagePopup damagePopup;
     protected GameObject childDustParticle;
+    protected GameObject childDeadParticle;
     bool DustParticle_Actuation = false;
 
     protected override void Awake()
@@ -97,7 +98,7 @@ public class Monster : Character
         if (!isDead)
         {
             //데미지 띄우기
-            damagePopup.Create(transform.position, ATK, false, transform);
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false, transform);
             return base.HPChanged(ATK);
         }
         return 0;

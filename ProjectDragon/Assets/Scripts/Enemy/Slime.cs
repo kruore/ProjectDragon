@@ -8,12 +8,19 @@ public class Slime : FSM_NormalEnemy
     {
         base.Awake();
         childDustParticle = transform.Find("DustParticle").gameObject;
+        childDeadParticle = transform.Find("DeadParticle").gameObject;
     }
-    // Start is called before the first frame update
-    protected override void Start()
+
+    //protected override void Start()
+    //{
+    //    base.Start();
+    //    //StartCoroutine(Start_On());
+    //}
+
+    public void Update()
     {
-        base.Start();
-        StartCoroutine(Start_On());
+        DustParticleCheck();
+
     }
 
     //애니메이션 프레임에 넣기
@@ -28,20 +35,30 @@ public class Slime : FSM_NormalEnemy
 
     }
 
-    public void Update()
+    protected override IEnumerator Dead()
     {
-        DustParticleCheck();
+        Color fadeColor=spriteRenderer.color;
+        fadeColor.a = 0.0f;
 
-        //test
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            HPChanged(1);
-        }
+        //Dead Animation parameters
+        objectAnimator.SetTrigger("Dead");
 
+        col.enabled = false;
+
+        //애니메이션 시간때문에..대략
+        //yield return new WaitForSeconds(2.0f);
+
+        DeadParticle();
+        spriteRenderer.color = fadeColor;  
+
+        Destroy(gameObject, 5.0f);
+
+        yield return null;
     }
 
-
-
-
+    void DeadParticle()
+    {
+        childDeadParticle.SetActive(true);
+    }
 
 }

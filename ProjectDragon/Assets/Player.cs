@@ -107,6 +107,32 @@ public class Player : Character
         #endregion
 
     }
+
+    //충돌했을때 서로 콜라이더로 밀지 않게 
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+
+                rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+                rigidbody2d.velocity = Vector2.zero;
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+
+            }
+        }
+    }
+
     IEnumerator DeadFade()
     {
         yield return new WaitForSeconds(2.0f);

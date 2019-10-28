@@ -28,13 +28,14 @@ public class Room : MonoBehaviour
     public bool doorTop, doorBot, doorLeft, doorRight;
 
     public GameObject[] door_All = new GameObject[4];
+    public Monster[] monsters;
 
     public RoomState roomState = RoomState.DeActivate;
 
     public int enemyCount;
 
     public RoomManager roomManager;
-
+    public BattleManager battleManager;
     public int depth;
 
     public GameObject MiniMapPos
@@ -61,11 +62,18 @@ public class Room : MonoBehaviour
 
     private void Start()
     {
-        enemyCount = 0;
-         //enemyCount = transform.GetComponentsInChildren<Monster>().Length;
+        monsters = transform.GetComponentsInChildren<Monster>();
+        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        enemyCount = monsters.Length;
     }
     void Update()
     {
+        enemyCount = 0;
+        foreach(Monster obj in monsters)
+        {
+            if (obj == null) continue;
+            if (obj.GetComponent<BoxCollider2D>().enabled) enemyCount++;
+        }
 
         if (!roomState.Equals(RoomState.Clear))
         {
@@ -73,7 +81,7 @@ public class Room : MonoBehaviour
             {
                 IsClear();
             }
-            else CheckPlayerPos();
+            else if(!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
         }
     }
 
@@ -83,7 +91,12 @@ public class Room : MonoBehaviour
         if (gridPos == PlayerPos)
         {
             roomState = RoomState.Activate;
-
+            battleManager.EnemyFinder();
+            StartCoroutine(battleManager.CalculateDistanceWithPlayer());
+            for(int i = 0; i < enemyCount; i++)
+            {
+                StartCoroutine(monsters[i].GetComponent<FSM_NormalEnemy>().Start_On());
+            }
         }
     }
 

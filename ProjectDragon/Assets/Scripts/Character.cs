@@ -37,6 +37,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
 
     protected bool isAttacking;
+    [SerializeField]
     protected bool isWalk;
     [HideInInspector] public bool isDead;
     protected bool isHit;
@@ -107,7 +108,6 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     public virtual int HPChanged(int ATK)
     {
-        Debug.Log(ATK);
         HP = HP - ATK;
         return HP;
     }

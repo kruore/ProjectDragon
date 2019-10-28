@@ -24,8 +24,8 @@ public class BattleManager : MonoBehaviour
     {
         Application.targetFrameRate = 60;
         //시작할때 while을 통해 코루틴을 기동시켜 반복 재생
-        EnemyFinder();
-        StartCoroutine("CalculateDistanceWithPlayer");
+        //EnemyFinder();
+        //StartCoroutine("CalculateDistanceWithPlayer");
     }
     public void FixedUpdate()
     {
@@ -42,7 +42,7 @@ public class BattleManager : MonoBehaviour
         Debug.Log("스킬 작또오옹");
     }
     //적의 거리를 플레이어로 하여금 측정하도록 함
-    IEnumerator CalculateDistanceWithPlayer()
+    public IEnumerator CalculateDistanceWithPlayer()
     {
         bool isActive = true;
         while (isActive)
@@ -58,6 +58,7 @@ public class BattleManager : MonoBehaviour
             }
             if (Enemy.Length > 0)
             {
+                //////////////////////////////////////////// 쀄에에에에에에ㅔ에에에에에에에에에엑 
                 for (int a = 0; a < Enemy.Length; a++)
                 {
                     other = Enemy[0];
@@ -70,6 +71,8 @@ public class BattleManager : MonoBehaviour
                         other = Enemy[a];
                     }
                 }
+
+                ////////////////////////////////////////////////////////////
                 player.GetComponent<Player>().EnemyPos = other.transform as Transform;
                 if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
                 {

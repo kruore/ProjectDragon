@@ -9,13 +9,15 @@ public class FSM_NormalEnemy : Monster
     [SerializeField]
     protected bool isAttackActive;
     [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
-    BoxCollider2D collider;
+    protected BoxCollider2D col;
+    [SerializeField]
+    public bool isCollision = false;
 
     protected override void Awake()
     {
         base.Awake();
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall");
-        collider = GetComponent<BoxCollider2D>();
+        col = GetComponent<BoxCollider2D>();
     }
 
     //개체의 상태가 바뀔때마다 실행
@@ -43,7 +45,7 @@ public class FSM_NormalEnemy : Monster
         return 0;
     }
 
-    protected IEnumerator Start_On()
+    public IEnumerator Start_On()
     {
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
@@ -150,7 +152,7 @@ public class FSM_NormalEnemy : Monster
             if (_hit.collider != null)
             {
                 //Debug.Log("hit name :" + _hit.collider.gameObject.name);
-                if(_hit.collider.gameObject.CompareTag("Wall"))
+                if (_hit.collider.gameObject.CompareTag("Wall"))
                 {
                     break;
                 }
@@ -161,7 +163,7 @@ public class FSM_NormalEnemy : Monster
                 }
             }
         }
-        
+
         return inAtkDetectionRange;
     }
 
@@ -194,7 +196,7 @@ public class FSM_NormalEnemy : Monster
             }
 
             //test move
-            if (!isHit)
+            if (!isHit && !isCollision)
             {
                 isWalk = true;
                 rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
@@ -203,6 +205,43 @@ public class FSM_NormalEnemy : Monster
             }
 
             yield return null;
+        }
+    }
+
+
+    //충돌했을때 서로 콜라이더로 밀지 않게 
+    //protected void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player")|| (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
+    //    {
+    //        isCollision = true;
+    //        rb2d.bodyType = RigidbodyType2D.Kinematic;
+    //        rb2d.velocity = Vector2.zero;
+    //    }
+    //}
+    protected void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Player") || (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
+            {
+                isCollision = true;
+                rb2d.bodyType = RigidbodyType2D.Kinematic;
+                rb2d.velocity = Vector2.zero;
+            }
+
+        }
+    }
+    protected void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Player") || (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
+            {
+                Debug.Log("떨어짐");
+                rb2d.bodyType = RigidbodyType2D.Dynamic;
+                isCollision = false;
+            }
         }
     }
 
@@ -246,13 +285,13 @@ public class FSM_NormalEnemy : Monster
 
     #endregion
 
-    protected IEnumerator Dead()
+    protected virtual IEnumerator Dead()
     {
 
         //Dead Animation parameters
         objectAnimator.SetTrigger("Dead");
 
-        collider.enabled = false;
+        col.enabled = false;
 
         //애니메이션 시간때문에..대략
         yield return new WaitForSeconds(2.0f);
@@ -260,10 +299,10 @@ public class FSM_NormalEnemy : Monster
         //Fade Out
         StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
 
+        Destroy(gameObject, 5.0f);
+
         yield return null;
     }
-
- 
 
 
     //근거리/애니메이션 프레임에 설정  -->몸과 충돌시
