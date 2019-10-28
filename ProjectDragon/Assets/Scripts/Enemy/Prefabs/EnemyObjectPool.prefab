@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5584760134166737027}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -15.68, y: -0.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children: []
@@ -47,7 +47,7 @@ MonoBehaviour:
   - poolItemName: DamagePopupObj
     prefab: {fileID: 5567132192213746108, guid: 59913f935ba4ed44bb4dccbcfc4eeffd,
       type: 3}
-    poolCount: 1
+    poolCount: 30
     poolList: []
   - poolItemName: ProjectileObj
     prefab: {fileID: 2767004985795059362, guid: 47e41df5c60f2d4449e77675780a3a8d,

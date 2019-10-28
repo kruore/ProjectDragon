@@ -24,6 +24,8 @@ public class MapCreator : MonoBehaviour
 {
     public GameObject[,] map_Data;
     public GameObject map_Base;
+    public GameObject[] map_Prefabs;
+    public int map_Prefabs_Count = 1;
 
     public int gridSizeX, gridSizeY, gridSizeX_Cen, gridSizeY_Cen, numberOfRooms = 15;
     public Vector2 stair_LocalPosition = new Vector2(0.0f, 0.0f);
@@ -35,7 +37,8 @@ public class MapCreator : MonoBehaviour
 
     private void Awake()
     {
-        map_Base = Resources.Load("Map") as GameObject;
+        map_Base = Resources.Load("Map/Map_Base") as GameObject;
+        ResourceLoadMap("Forest");
 
         if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
         {
@@ -46,6 +49,18 @@ public class MapCreator : MonoBehaviour
         gridSizeX = (int)(worldSize.x * 2);
         gridSizeY = (int)(worldSize.y * 2);
         map_Data = new GameObject[gridSizeX, gridSizeY];
+    }
+
+    void ResourceLoadMap(string _mapType)
+    {
+        map_Prefabs = new GameObject[map_Prefabs_Count];
+
+        for (int i = 0; i < map_Prefabs_Count; i++)
+        {
+            string name = "Map/Map_" + _mapType;
+            name += "_" + (i+1).ToString();
+            map_Prefabs[i] = Resources.Load(name) as GameObject;
+        }
     }
 
     void Start()
@@ -319,7 +334,12 @@ public class MapCreator : MonoBehaviour
             int x = (int)room.gridPos.x;
             int y = (int)room.gridPos.y;
 
-            map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Base, drawPos, Quaternion.identity, Map_Root.transform);
+            if (room.type.Equals(RoomType.Begin)) map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Base, drawPos, Quaternion.identity, Map_Root.transform);
+            else
+            {
+                int rand = Random.Range(0, map_Prefabs_Count - 1);
+                map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Prefabs[rand], drawPos, Quaternion.identity, Map_Root.transform);
+            }
             map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
 
             GameObject map = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen];
@@ -467,7 +487,7 @@ public class MapCreator : MonoBehaviour
 
         temp[temp.Count - 1].GetComponent<Room>().roomType = RoomType.Stair;
 
-        GameObject stair = Resources.Load("Stair") as GameObject;
+        GameObject stair = Resources.Load("Object/Stair") as GameObject;
         GameObject stairTemp = GameObject.Instantiate(stair, temp[temp.Count - 1].transform.position, Quaternion.identity, temp[temp.Count - 1].transform);
         stairTemp.name = "Stair";
         stairTemp.transform.localPosition = new Vector3(stair_LocalPosition.x, stair_LocalPosition.y, 0.0f);
@@ -495,7 +515,7 @@ public class MapCreator : MonoBehaviour
 
         int rand = Random.Range(0, temp.Count - 1);
 
-        GameObject map_Market = Resources.Load("Map_Market") as GameObject;
+        GameObject map_Market = Resources.Load("Map/Map_Market") as GameObject;
         GameObject map_MarketTemp = GameObject.Instantiate(map_Market, temp[rand].transform.position, Quaternion.identity, _parent);
         map_MarketTemp.AddComponent<Room>();
 

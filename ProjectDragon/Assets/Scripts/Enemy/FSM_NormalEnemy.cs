@@ -221,27 +221,23 @@ public class FSM_NormalEnemy : Monster
     //}
     protected void OnCollisionStay2D(Collision2D collision)
     {
-        if (collision != null)
+        if (collision.gameObject.CompareTag("Player") ||
+            (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
-            if (collision.gameObject.CompareTag("Player") || (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
-            {
-                isCollision = true;
-                rb2d.bodyType = RigidbodyType2D.Kinematic;
-                rb2d.velocity = Vector2.zero;
-            }
-
+            isCollision = true;
+            rb2d.bodyType = RigidbodyType2D.Kinematic;
+            rb2d.velocity = Vector2.zero;
         }
+  
     }
     protected void OnCollisionExit2D(Collision2D collision)
     {
-        if (collision != null)
+        if (collision.gameObject.CompareTag("Player") ||
+             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
-            if (collision.gameObject.CompareTag("Player") || (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
-            {
-                Debug.Log("떨어짐");
-                rb2d.bodyType = RigidbodyType2D.Dynamic;
-                isCollision = false;
-            }
+            Debug.Log("떨어짐");
+            rb2d.bodyType = RigidbodyType2D.Dynamic;
+            isCollision = false;
         }
     }
 

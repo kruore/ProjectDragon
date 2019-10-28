@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 4
   m_Sprite: {fileID: 21300002, guid: 8804c8031d3861a4db05199dcf758bd5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -205,6 +205,7 @@ MonoBehaviour:
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
   other: {fileID: 0}
+  isWalk: 0
   isDead: 0
   current_Anim_Frame: 0
   enemy_angle: 0
@@ -227,6 +228,7 @@ MonoBehaviour:
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 0
+  isCollision: 0
   projectileAnimator: {fileID: 22100000, guid: 6eb69141677a6414981b0339384cec3b, type: 2}
 --- !u!1 &3736805460130200167
 GameObject:

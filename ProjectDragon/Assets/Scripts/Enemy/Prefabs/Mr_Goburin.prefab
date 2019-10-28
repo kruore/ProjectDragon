@@ -205,11 +205,13 @@ MonoBehaviour:
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
   other: {fileID: 0}
-  isAttacking: 0
+  isWalk: 0
+  isDead: 0
   current_Anim_Frame: 0
   enemy_angle: 0
   myAttackType: 0
   myAnim_AnglePos: 0
+  invincible: 0
   waitTime: 2
   cooltime: 3
   knockTime: 0.15
@@ -223,6 +225,10 @@ MonoBehaviour:
   angleOfPlayer: 0
   moveDistance: 0
   isAttackActive: 0
+  m_viewTargetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  isCollision: 0
 --- !u!1 &581777206034813176
 GameObject:
   m_ObjectHideFlags: 0
@@ -4897,7 +4903,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 3
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0

@@ -29,12 +29,26 @@ public class BattleManager : MonoBehaviour
     }
     public void FixedUpdate()
     {
+        Enemy = GameObject.FindGameObjectsWithTag("Enemy");
+        other = Enemy[0];
+        float otherDistance = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[0].GetComponent<Transform>());
+        for (int a = 1; a < Enemy.Length; a++)
+        {
+            if (Enemy[a] != null)
+            {
+                float distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
+                if (otherDistance > distanceOfPlayer)
+                {
+                    other = Enemy[a];
+                    otherDistance = distanceOfPlayer;
+                }
+            }
+        }
         //거리 측정하기~
         //CalculateDistanceWithPlayer();
     }
     public void EnemyFinder()
     {
-        Enemy = GameObject.FindGameObjectsWithTag("Enemy");
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     public void SkillActive()
@@ -56,21 +70,37 @@ public class BattleManager : MonoBehaviour
                 StopCoroutine("CalculateDistanceWithPlayer");
                 //Map Clear;
             }
-            if (Enemy.Length > 0)
+            int nullCount = 0;
+            foreach (GameObject obj in Enemy)
             {
+                if (obj == null) nullCount++;
+            }
+            if (Enemy.Length - nullCount > 0)
+            {
+                //GameObject[] temp_Enemy;
+                //int nullCount = 0;
+                //foreach(GameObject obj in Enemy)
+                //{
+                //    if (obj == null) nullCount++;
+                //}
+                //Debug.Log(nullCount);
+                //if (!nullCount.Equals(0) && Enemy.Length - nullCount != 0)
+                //{
+                //    temp_Enemy = new GameObject[Enemy.Length - nullCount];
+                //    int index = 0;
+                //    for (int i = 0; i < Enemy.Length - nullCount; i++)
+                //    {
+                //        for(int j = 0; j < Enemy.Length; j++)
+                //        {
+                //            if (Enemy[j] == null) continue;
+                //            if (index > j) continue;
+
+                //            temp_Enemy[i] = Enemy[j];
+                //            index = j;
+                //        }
+                //    }
+                //}
                 //////////////////////////////////////////// 쀄에에에에에에ㅔ에에에에에에에에에엑 
-                for (int a = 0; a < Enemy.Length; a++)
-                {
-                    other = Enemy[0];
-                    Enemy[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), Enemy[a].GetComponent<Transform>());
-                }
-                for (int a = 0; a < EnemyDistance.Length; a++)
-                {
-                    if (other.GetComponent<Monster>().distanceOfPlayer > Enemy[a].GetComponent<Monster>().distanceOfPlayer)
-                    {
-                        other = Enemy[a];
-                    }
-                }
 
                 ////////////////////////////////////////////////////////////
                 player.GetComponent<Player>().EnemyPos = other.transform as Transform;

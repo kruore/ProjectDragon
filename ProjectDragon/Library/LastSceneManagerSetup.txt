@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/Map_Battle_Normal.unity
+- path: Assets/Scenes/Stage/Map_Generator.unity
   isLoaded: 1
   isActive: 1

@@ -205,7 +205,6 @@
     <Compile Include="Assets\ObjectAssets\FreePixelEffect\StateRandom.cs" />
     <Compile Include="Assets\Player.cs" />
     <Compile Include="Assets\PlayerAnimator.cs" />
-    <Compile Include="Assets\Script_동하꺼\CameraFollow.cs" />
     <Compile Include="Assets\Script_동하꺼\Map\Door.cs" />
     <Compile Include="Assets\Script_동하꺼\Map\Loading.cs" />
     <Compile Include="Assets\Script_동하꺼\Map\MapCreator.cs" />
@@ -214,6 +213,11 @@
     <Compile Include="Assets\Script_동하꺼\Map\Room.cs" />
     <Compile Include="Assets\Script_동하꺼\Map\RoomManager.cs" />
     <Compile Include="Assets\Script_동하꺼\Map\Stair.cs" />
+    <Compile Include="Assets\Script_동하꺼\Object\Box.cs" />
+    <Compile Include="Assets\Script_동하꺼\Object\Bush.cs" />
+    <Compile Include="Assets\Script_동하꺼\Object\MapObject.cs" />
+    <Compile Include="Assets\Script_동하꺼\Object\Root.cs" />
+    <Compile Include="Assets\Script_동하꺼\Player\CameraFollow.cs" />
     <Compile Include="Assets\Script_동하꺼\Player\Tester.cs" />
     <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
     <Compile Include="Assets\Scripts\Boss\BossBoxDamage.cs" />

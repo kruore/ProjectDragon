@@ -27,7 +27,7 @@ public class Stair : MonoBehaviour
             //게임 매니저에게 스테이지 지나갔다고 전달
             //게임 현재 위치 저장
             //다음 스테이지 시작
-            SceneManager.LoadScene("Map_Battle_Loading");
+            SceneManager.LoadScene("Map_Loading");
         }
     }
 

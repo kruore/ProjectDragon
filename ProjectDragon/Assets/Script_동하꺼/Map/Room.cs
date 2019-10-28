@@ -32,10 +32,11 @@ public class Room : MonoBehaviour
 
     public RoomState roomState = RoomState.DeActivate;
 
-    public int enemyCount;
+    public int enemyCount = 0;
 
     public RoomManager roomManager;
     public BattleManager battleManager;
+
     public int depth;
 
     public GameObject MiniMapPos
@@ -69,19 +70,18 @@ public class Room : MonoBehaviour
     void Update()
     {
         enemyCount = 0;
-        foreach(Monster obj in monsters)
+        foreach (Monster obj in monsters)
         {
             if (obj == null) continue;
             if (obj.GetComponent<BoxCollider2D>().enabled) enemyCount++;
         }
-
         if (!roomState.Equals(RoomState.Clear))
         {
             if (enemyCount == 0 && roomState.Equals(RoomState.Activate))
             {
                 IsClear();
             }
-            else if(!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
+            else if (!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
         }
     }
 
@@ -93,7 +93,7 @@ public class Room : MonoBehaviour
             roomState = RoomState.Activate;
             battleManager.EnemyFinder();
             StartCoroutine(battleManager.CalculateDistanceWithPlayer());
-            for(int i = 0; i < enemyCount; i++)
+            for (int i = 0; i < enemyCount; i++)
             {
                 StartCoroutine(monsters[i].GetComponent<FSM_NormalEnemy>().Start_On());
             }

@@ -42,4 +42,9 @@ public class RoomManager : MonoBehaviour
     {
         return Map_Data[player_PosX, player_PosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;
     }
+
+    public bool PlayerIsClearRoom()
+    {
+        return Map_Data[player_PosX, player_PosY].GetComponent<Room>().roomState == RoomState.Clear ? true : false;
+    }
 }
