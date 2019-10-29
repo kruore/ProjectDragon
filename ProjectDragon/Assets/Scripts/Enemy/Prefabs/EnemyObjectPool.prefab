@@ -47,7 +47,7 @@ MonoBehaviour:
   - poolItemName: DamagePopupObj
     prefab: {fileID: 5567132192213746108, guid: 59913f935ba4ed44bb4dccbcfc4eeffd,
       type: 3}
-    poolCount: 30
+    poolCount: 50
     poolList: []
   - poolItemName: ProjectileObj
     prefab: {fileID: 2767004985795059362, guid: 47e41df5c60f2d4449e77675780a3a8d,

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ShortRangeAttackArea : MonoBehaviour
 {
+    public BattleManager battlemanager;
     public Player My_Angle;
     public float angle;
     [SerializeField] private bool m_bDebugMode = false;
@@ -26,10 +27,22 @@ public class ShortRangeAttackArea : MonoBehaviour
     {
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
         My_Angle = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+        m_viewObstacleMask = LayerMask.NameToLayer("Wall");
+        battlemanager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
     public void Update()
     {
-        m_viewRotateZ = My_Angle.enemy_angle;
+        if (!battlemanager.EnemyArray.Count.Equals(0))
+        {
+            m_viewRotateZ = My_Angle.enemy_angle;
+        }
+        else
+        {
+            m_viewRotateZ = My_Angle.current_angle;
+        }
+    }
+    public void AttackOn()
+    {
         FindViewTargets();
     }
     private void OnDrawGizmos()
@@ -49,7 +62,7 @@ public class ShortRangeAttackArea : MonoBehaviour
             Debug.DrawRay(originPos, lookDir * m_viewRadius, Color.green);
             Debug.DrawRay(originPos, horizontalRightDir * m_viewRadius, Color.cyan);
 
-            FindViewTargets();
+            //   FindViewTargets();
         }
     }
 
@@ -70,7 +83,7 @@ public class ShortRangeAttackArea : MonoBehaviour
             // 아래 두 줄은 위의 코드와 동일하게 동작함. 내부 구현도 동일
             float dot = Vector2.Dot(lookDir, dir);
             float angle = Mathf.Acos(dot) * Mathf.Rad2Deg;
-         //   float angle = m_viewRotateZ * Mathf.Rad2Deg;
+            //   float angle = m_viewRotateZ * Mathf.Rad2Deg;
 
             if (angle <= m_horizontalViewHalfAngle)
             {
@@ -86,9 +99,9 @@ public class ShortRangeAttackArea : MonoBehaviour
 
                     if (m_bDebugMode)
                         Debug.DrawLine(originPos, targetPos, Color.red);
-                    if (hitedTarget.CompareTag("Enemy")||hitedTarget.isActiveAndEnabled==true)
+                    if (hitedTarget.CompareTag("Enemy") || hitedTarget.isActiveAndEnabled == true)
                     {
-                        hitedTarget.GetComponent<Character>().HPChanged(1);
+                        hitedTarget.GetComponent<Character>().HPChanged(My_Angle.ATTACKDAMAGE);
                         //임시 버젼
                         //hitedTarget.GetComponent<SpriteRenderer>().color = Color.red;
                     }
@@ -103,7 +116,7 @@ public class ShortRangeAttackArea : MonoBehaviour
     //0 ~360의 값을 Up Vector 기준 Local Direction으로 변환시켜줌.
     private Vector2 AngleToDirZ(float angleInDegree)
     {
-        float radian = (transform.eulerAngles.z- angleInDegree+180) * Mathf.Deg2Rad;
+        float radian = (transform.eulerAngles.z - angleInDegree + 180) * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(radian), Mathf.Cos(radian));
     }
 }

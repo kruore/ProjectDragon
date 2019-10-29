@@ -156,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95acbd8902bd2dc429b3d6477881047a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nextScene: Map1
+  nextScene: MaDongSeok
   label: {fileID: 1812720223}
   next_Button: {fileID: 939099719}
 --- !u!1 &606084102
@@ -268,7 +268,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 939099719}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 599.99994, y: -250.00008, z: 0}
+  m_LocalPosition: {x: 255, y: -143, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1812720222}
@@ -314,9 +314,9 @@ BoxCollider:
   m_GameObject: {fileID: 939099719}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 200, y: 100, z: 0}
+  m_Size: {x: 100, y: 50, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &939099724
 MonoBehaviour:
@@ -349,8 +349,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 200
-  mHeight: 100
+  mWidth: 100
+  mHeight: 50
   mDepth: 1
   mMat: {fileID: 0}
   autoResizeBoxCollider: 1
@@ -568,7 +568,7 @@ Transform:
   m_GameObject: {fileID: 1212493848}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.14, y: 6.49, z: 0}
-  m_LocalScale: {x: 0.0018518518, y: 0.0018518518, z: 0.0018518518}
+  m_LocalScale: {x: 0.004608295, y: 0.004608295, z: 0.004608295}
   m_Children:
   - {fileID: 1684437252}
   - {fileID: 96348452}
@@ -754,19 +754,19 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 144
-  mHeight: 70
+  mWidth: 72
+  mHeight: 36
   mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.057143
+  aspectRatio: 2
   keepCrispWhenShrunk: 1
   mTrueTypeFont: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   mFont: {fileID: 0}
   mText: Next
-  mFontSize: 70
+  mFontSize: 35
   mFontStyle: 0
   mAlignment: 0
   mEncoding: 1

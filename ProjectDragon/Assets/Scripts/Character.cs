@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { None = 0, Walk, Attack, Dead, Skill, Hit}
+public enum State { None = 0, Idle,Walk, Attack, Dead, Skill, Hit}
 public enum AnglePos { None = 0, Front, Right, Back, Left }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 
@@ -18,13 +18,17 @@ public class Character : MonoBehaviour, PersonalSpecificational
         {
             myState = value;
             SetState(myState);
+            if(myState==State.Walk)
+            {
+                Debug.Log("ss");
+            }
         }
     }
     
     
     //personal Specification
     [SerializeField] protected int hp;
-    [SerializeField] protected int maxHp;
+    [SerializeField] public int maxHp;
     [SerializeField] protected int atk;
     [SerializeField] protected float atkSpeed;
     [SerializeField] protected float moveSpeed;

@@ -8,8 +8,13 @@ public class Player : Character
 {
     public GameObject weaponSelection;
     private Animator weaponAnimator;
-
+    public UISprite hpBar;
     public GameObject battlemanager;
+    public bool StopPlayer;
+    public float StopTime;
+    public float StopMaxTime;
+
+    public AudioClip walk_Sound;
 
     public string Charactermotion = "motion01";
     //대각 속도
@@ -33,25 +38,55 @@ public class Player : Character
     private Transform m_EnemyPos;
     public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
 
+    public GameObject EndPanel;
 
     //Check JoyStick
     private float h;
     private float v;
 
+    //MP 임시사용용 변수
+    public int mp;
+    public int maxMp = 100;
+
+    //MP 임시 사용
+    public int MP
+    {
+        get { return mp; }
+        set
+        {
+            if (value > 0)
+            {
+                mp = value;
+                mp = Mathf.Clamp(value, 0, maxMp);
+            }
+            else
+            {
+                mp = -1;
+            }
+        }
+    }
+
+    public virtual int MPChanged(int ATK)
+    {
+        MP = MP - ATK;
+        return MP;
+    }
+
     // Start is called before the first frame update
     void Awake()
     {
-
+        EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
         //playerSex = Database.Inst.playData.sex;
         playerSex = SEX.Male;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
-        HP = 100;
+        HP = GameManagerTester.Inst.hp;
+        MP = GameManagerTester.Inst.mana;
         ATKChanger(10);
         ATKSpeedChanger(1.0f);
         MoveSpeed = 3;
         CurrentState = State.Walk;
-        AtkRangeChanger(10);
+        AtkRangeChanger(3);
         myAttackType = AttackType.ShortRange;
         //Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
         //weaponAnimator = weaponSelection.GetComponent<Animator>();
@@ -66,6 +101,7 @@ public class Player : Character
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
+        hpBar = GameObject.Find("UI Root/PlayerHPBGI/PlayerHP").GetComponent<UISprite>();
         // gameObject.GetComponent<CircleCollider2D>().radius = AtkRange;
         //  playerAnimationStateChanger.SetInteger("myRange", myAttackType.GetHashCode());
         //  playerAnimationStateChanger.SetInteger("isMale", playerSex.GetHashCode());
@@ -88,10 +124,22 @@ public class Player : Character
 
         //Make Right direction by Set Animatoion bool setting
 
-        AnimationChanger();
-
-        transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed * moveSpeed, Space.World);
-        transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed * moveSpeed, Space.World);
+        if (StopPlayer.Equals(false))
+        {
+            rigidbody2d.velocity = new Vector2(10.0f*Time.deltaTime * h * horizontalSpeed * moveSpeed, 10.0f*Time.deltaTime* v *verticalSpeed * moveSpeed);
+            ////transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed * moveSpeed, Space.World);
+            
+            //transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed * moveSpeed, Space.World);
+        }
+        else if(StopPlayer.Equals(true))
+        {
+            StopTime += Time.deltaTime;
+            if(StopTime>=StopMaxTime)
+            {
+                StopPlayer = false;
+                StopTime = 0;
+            }
+        }
         #region 구버젼 애니메이터
         ////Angle of joystick and normalVec
         //if (isAttacking.Equals(false))
@@ -105,46 +153,25 @@ public class Player : Character
         //  //  AnimationChanger(Angle);
         //}
         #endregion
-
     }
-
-    //충돌했을때 서로 콜라이더로 밀지 않게 
-    protected void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision != null)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-
-                rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
-                rigidbody2d.velocity = Vector2.zero;
-            }
-        }
-    }
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision != null)
-        {
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
-
-            }
-        }
-    }
-
     IEnumerator DeadFade()
     {
         yield return new WaitForSeconds(2.0f);
         DeadPanel.SetActive(true);
     }
-
+  
     public static float GetAngle(Vector3 Start, Vector3 End)
     {
         Vector3 v = End - Start;
         return Quaternion.FromToRotation(Vector3.up, End - Start).eulerAngles.z;
     }
-
+    public override int HPChanged(int ATK)
+    {
+        base.HPChanged(ATK);
+        hpBar.fillAmount = (float)HP / (float)maxHp;
+        Debug.Log((float)HP / (float)maxHp);
+        return HP;
+    }
     #region Animation Changer
     public void AnimationChanger()
     {
@@ -207,20 +234,6 @@ public class Player : Character
     {
         //    weaponAnimator.SetBool();
     }
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-
-        if (collision.CompareTag("Enemy"))
-        {
-            if (EnemyPos == null)
-            {
-                return;
-            }
-            CurrentState = State.Attack;
-            //  enemy_angle = GetAngle(EnemyPos.position, gameObject.transform.position);
-            //  AngleCalculate = enemy_angle;
-        }
-    }
     protected override void SetState(State newState)
     {
         switch (newState)
@@ -233,8 +246,12 @@ public class Player : Character
                 isDead = true;
                 isHit = false;
                 isSkillActive = false;
+                Time.timeScale = 0;
+                EndPanel.SetActive(true);
+                EndPanel.GetComponentInChildren<UILabel>().text = "사망하셨습니다.";
                 break;
             case State.Walk:
+                SoundManager.Inst.WalkSound(walk_Sound, State.Walk);
                 isAttacking = false;
                 isWalk = true;
                 isDead = false;
@@ -292,29 +309,52 @@ public class Player : Character
     {
         if (angle == 0)
         {
-            return AnglePos.Back;
+            return AnglePos.Front;
         }
-        if (angle < 45)
+        if (angle >=0 && angle < 45)
         {
             return AnglePos.Front;
         }
-        else if (angle < 135)
-        {
-            return AnglePos.Left;
-        }
-        else if (angle < 225)
-        {
-            return AnglePos.Front;
-        }
-        else if (angle < 315)
+        else if (angle >= 45 && angle < 135)
         {
             return AnglePos.Right;
+        }
+        else if (angle>=135 && angle < 225)
+        {
+            return AnglePos.Back;
+        }
+        else if (angle >= 225 &&angle < 315)
+        {
+            return AnglePos.Left;
         }
         return AnglePos.Front;
     }
     public void AnimatorCast(string animationtype)
     {
         gameObject.GetComponent<Animator>().Play(animationtype);
+    }
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+
+                rigidbody2d.bodyType = RigidbodyType2D.Kinematic;
+                rigidbody2d.velocity = Vector2.zero;
+            }
+        }
+    }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision != null)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+
+            }
+        }
     }
 }
 #endregion

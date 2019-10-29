@@ -11,6 +11,7 @@ public class JoyPad : MonoBehaviour
     [HideInInspector]
     public float temp_angle;
     public float angle;
+    public Player player;
 
 
     public Transform target;
@@ -43,14 +44,10 @@ public class JoyPad : MonoBehaviour
         widget = gameObject.GetComponent<UIWidget>();
         target = gameObject.transform.GetChild(0);
         target2 = gameObject.transform.GetChild(0).GetChild(0);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
     void Start()
     {
-        if (centerOnPress)
-        {
-            Debug.Log("중앙이 눌렸음");
-            //StartCoroutine(fadeOutJoystick());
-        }
     }
     IEnumerator fadeOutJoystick()
     {
@@ -94,21 +91,18 @@ public class JoyPad : MonoBehaviour
                             ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
                             if (centerOnPress)
                             {
-                                Debug.Log("버튼입니다.");
                                 target.transform.position = fingerPoint01;
                                 break;
                             }
                         }
                         if (!hit.collider.tag.Equals("button"))
                         {
-                            Debug.Log("버튼이 아닙니다.");
                             return;
                         }
                     }
                 }
                 if (touch01.phase.Equals(TouchPhase.Ended))
                 {
-                    Debug.Log("손가락 떨어짐");
                 }
             }
             if (Input.touchCount > 1)
@@ -226,17 +220,38 @@ public class JoyPad : MonoBehaviour
         if (Input.touchCount == 0)
         {
             ResetJoystick();
-            Debug.Log("조이스틱 초기화");
         }
     }
-    private void FixedUpdate()
+    private void Update()
     {
         //각도 구하기
         angle = GetAngle(target2.transform.position, target.transform.position);
         {
-            if (angle == 0)
+            if (player.CurrentState != State.Dead)
             {
-                angle = temp_angle;
+                if (angle == 0)
+                {
+                    angle = temp_angle;
+                    if (player.CurrentState != State.Idle && player.CurrentState != State.Attack)
+                    {
+                        player.CurrentState = State.Idle;
+                    }
+                    else if (player.CurrentState == State.Walk && player.CurrentState != State.Attack)
+                    {
+                        player.CurrentState = State.Idle;
+                    }
+                }
+                else
+                {
+                    if (player.CurrentState == State.Idle && player.CurrentState != State.Attack)
+                    {
+                        player.CurrentState = State.Walk;
+                    }
+                }
+            }
+            else
+            {
+                player.CurrentState = State.Dead;
             }
         }
         temp_angle = angle;

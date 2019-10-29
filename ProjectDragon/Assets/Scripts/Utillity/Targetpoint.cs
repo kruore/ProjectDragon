@@ -12,6 +12,7 @@ public class Targetpoint : MonoBehaviour
     [SerializeField]
     GameObject player;
     public int AttackPoint;
+    public ParticleSystem[] explosion;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +20,15 @@ public class Targetpoint : MonoBehaviour
         GetComponent<Animator>().SetFloat("StartTime", projecTileStart);
         GetComponent<Animator>().SetFloat("EndTime", projecTileEnd);
         boss = GameObject.Find("BossCore").GetComponent<Boss_MaDongSeok>();
+        explosion = GetComponentsInChildren<ParticleSystem>();
     }
-
+    void Explosion()
+    {
+        for (int i = 0; i < explosion.Length; i++)
+        {
+            explosion[i].Play();
+        }
+    }
     public void ProjecTileEnd()
     {
         Debug.Log(player);
@@ -48,6 +56,13 @@ public class Targetpoint : MonoBehaviour
         if (boss.currentstate.Equals(BossState.Phase1))
         {
             boss.TargeExplosion(gameObject.transform.position);
+        }
+        else
+        {
+           if(player!=null)
+            {
+                player.GetComponent<Character>().HPChanged(25);
+            }
         }
     }
 

@@ -15,7 +15,6 @@ public class Loading : MonoBehaviour
     private void Awake()
     {
         //다음 씬이 뭔지 판단해야 한다.
-        nextScene = "Map1";
     }
     void Start()
     {

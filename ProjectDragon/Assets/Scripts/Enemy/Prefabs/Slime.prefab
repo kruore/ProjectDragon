@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 2954448563601634526}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.49, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 0}
+  m_LocalScale: {x: 1.4316, y: 1.4316, z: 0}
   m_Children:
   - {fileID: 2954448564663233803}
   - {fileID: 4712990234587959456}
@@ -196,11 +196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myState: 0
-  hp: 100
-  maxHp: 100
-  atk: 1
-  atkSpeed: 1
-  moveSpeed: 1
+  hp: 15
+  maxHp: 15
+  atk: 5
+  atkSpeed: 2
+  moveSpeed: 1.5
   atkRange: 0.43
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}

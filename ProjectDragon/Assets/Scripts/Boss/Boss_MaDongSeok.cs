@@ -26,7 +26,6 @@ public class Boss_MaDongSeok : Monster
     // Start is called before the first frame update
     protected override void Awake()
     {
-        maxHp = 100;
         HP = maxHp;
         Bossphasechange = BossPhase();
         Debug.Log(HP);
@@ -43,7 +42,7 @@ public class Boss_MaDongSeok : Monster
         Random.InitState((int)System.DateTime.Now.Ticks);
         armright = gameObject.transform.Find("MaDongSeokRightArm").gameObject;
         armLeft = gameObject.transform.Find("MaDongSeokLeftArm").gameObject;
-        objectPool = GameObject.Find("Madongseok_ObjectPool").gameObject;
+        objectPool = GameObject.Find("MaDongSeokObjectPool").gameObject;
         //projectileStone = objectPool.transform.GetComponentsInChildren<Targetpoint>();
         projectile = new Projectile();
         random = 0;
@@ -57,7 +56,7 @@ public class Boss_MaDongSeok : Monster
         {
             explosion[i].Pause();
         }
-        StartCoroutine(BossPhase());
+        
         base.Start();
     }
     protected override void SetState(State newState)
@@ -71,9 +70,13 @@ public class Boss_MaDongSeok : Monster
             Explosion();
         }
     }
+    public void StartBoss()
+    {
+        StartCoroutine(Bossphasechange);
+    }
     public override int HPChanged(int ATK)
     {
-        damagePopup.Create(transform.position, ATK, false, transform);
+        //damagePopup.Create(transform.position, ATK, false, transform);
         if (HP < 50&& currentstate.Equals(BossState.Phase1))
         {
 

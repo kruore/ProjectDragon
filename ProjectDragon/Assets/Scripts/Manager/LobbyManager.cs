@@ -7,6 +7,8 @@ public enum ItemState { 기본, 검, 활, 지팡이, 갑옷 }
 public enum ItemRarity { 기본, 노말, 레어, 유니크, 레전드 }
 public class LobbyManager : MonoBehaviour
 {
+    public AudioClip LobbyBGM;
+    public string BattleScenename;
     public static LobbyManager inst;
     bool isnight = true;
     GameObject particle;
@@ -50,6 +52,7 @@ public class LobbyManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
         GameManager.Inst.ScreensizeReadjust();
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
@@ -606,6 +609,6 @@ public class LobbyManager : MonoBehaviour
     }
     public void GotoBattle()
     {
-        SceneManager.LoadScene("Battle");
+        SceneManager.LoadScene(BattleScenename);
     }
 }

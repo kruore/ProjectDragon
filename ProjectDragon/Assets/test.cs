@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class test : MonoBehaviour
 {
-    public GameObject boss;
+    public GameObject boss,player;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +17,11 @@ public class test : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A))
         {
             boss.GetComponent<Character>().HPChanged(7);
+        }
+
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            player.GetComponent<Character>().HPChanged(7);
         }
     }
 }
