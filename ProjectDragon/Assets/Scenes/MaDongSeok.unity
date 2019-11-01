@@ -188,7 +188,7 @@ SpriteRenderer:
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1001 &195463793
@@ -5311,7 +5311,7 @@ SpriteRenderer:
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &355753241
@@ -5778,13 +5778,17 @@ PrefabInstance:
       propertyPath: skill
       value: 
       objectReference: {fileID: 1889435704}
-    - target: {fileID: 1012355793, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
-      propertyPath: onClick.Array.data[0].mTarget
-      value: 
-      objectReference: {fileID: 1586427988}
     - target: {fileID: 1099074028, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: mWidth
+      value: 1884
+      objectReference: {fileID: 0}
+    - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: aspectRatio
+      value: 4.1866665
       objectReference: {fileID: 0}
     - target: {fileID: 1099074029, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: onClick.Array.size
@@ -5798,14 +5802,10 @@ PrefabInstance:
       propertyPath: onClick.Array.data[0].mMethodName
       value: GotoLobby
       objectReference: {fileID: 0}
-    - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
-      propertyPath: mWidth
-      value: 1884
-      objectReference: {fileID: 0}
-    - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
-      propertyPath: aspectRatio
-      value: 4.1866665
-      objectReference: {fileID: 0}
+    - target: {fileID: 1012355793, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: onClick.Array.data[0].mTarget
+      value: 
+      objectReference: {fileID: 1586427988}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
 --- !u!1 &554628567
@@ -10935,7 +10935,7 @@ SpriteRenderer:
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &767610264
@@ -11014,7 +11014,7 @@ SpriteRenderer:
   m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &797741521
@@ -16098,6 +16098,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleManager
       objectReference: {fileID: 0}
+    - target: {fileID: 5370934434592048140, guid: 55db38af1a210f24687ede17f227cfda,
+        type: 3}
+      propertyPath: walksound
+      value: 
+      objectReference: {fileID: 1586427990}
+    - target: {fileID: 5370934434592048140, guid: 55db38af1a210f24687ede17f227cfda,
+        type: 3}
+      propertyPath: Attacksound
+      value: 
+      objectReference: {fileID: 8300000, guid: 921155737296d7d4f8bde8157c48c325, type: 3}
     - target: {fileID: 5370934434592048131, guid: 55db38af1a210f24687ede17f227cfda,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -16153,16 +16163,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5370934434592048140, guid: 55db38af1a210f24687ede17f227cfda,
-        type: 3}
-      propertyPath: walksound
-      value: 
-      objectReference: {fileID: 1586427990}
-    - target: {fileID: 5370934434592048140, guid: 55db38af1a210f24687ede17f227cfda,
-        type: 3}
-      propertyPath: Attacksound
-      value: 
-      objectReference: {fileID: 8300000, guid: 921155737296d7d4f8bde8157c48c325, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55db38af1a210f24687ede17f227cfda, type: 3}
 --- !u!4 &1288081259 stripped
