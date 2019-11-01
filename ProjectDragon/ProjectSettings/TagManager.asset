@@ -3,7 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - button
+  - SkillButton
+  - axisX
+  - axisY
+  - MiniMapRoom
+  - MiniMap
+  - RoomManager
+  - Wall
+  - Object
+  - Skill
   layers:
   - Default
   - TransparentFX
@@ -13,12 +24,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - NGUI
+  - UnwalkableMask
+  - Enemy
+  - MousePos
+  - Player
+  - Wall
   - 
   - 
   - 
