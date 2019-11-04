@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>Temp\bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_11;UNITY_2018_3;UNITY_2018;UNITY_INCLUDE_TESTS;UNITY_ANALYTICS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_EVENT_QUEUE;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_AR;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_RUNTIME_PERMISSIONS;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;UNITY_5_3_OR_NEWER;UNITY_5_4_OR_NEWER;UNITY_5_5_OR_NEWER;UNITY_5_6_OR_NEWER;UNITY_2017_1_OR_NEWER;UNITY_2017_2_OR_NEWER;UNITY_2017_3_OR_NEWER;UNITY_2017_4_OR_NEWER;UNITY_2018_1_OR_NEWER;UNITY_2018_2_OR_NEWER;UNITY_2018_3_OR_NEWER;UNITY_2018_3_11;UNITY_2018_3;UNITY_2018;UNITY_INCLUDE_TESTS;ENABLE_AUDIO;ENABLE_CACHING;ENABLE_CLOTH;ENABLE_MICROPHONE;ENABLE_MULTIPLE_DISPLAYS;ENABLE_PHYSICS;ENABLE_SPRITES;ENABLE_GRID;ENABLE_TILEMAP;ENABLE_TERRAIN;ENABLE_TEXTURE_STREAMING;ENABLE_DIRECTOR;ENABLE_UNET;ENABLE_LZMA;ENABLE_UNITYEVENTS;ENABLE_WEBCAM;ENABLE_WWW;ENABLE_CLOUD_SERVICES_COLLAB;ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS;ENABLE_CLOUD_SERVICES_ADS;ENABLE_CLOUD_HUB;ENABLE_CLOUD_PROJECT_ID;ENABLE_CLOUD_SERVICES_USE_WEBREQUEST;ENABLE_CLOUD_SERVICES_UNET;ENABLE_CLOUD_SERVICES_BUILD;ENABLE_CLOUD_LICENSE;ENABLE_EDITOR_HUB;ENABLE_EDITOR_HUB_LICENSE;ENABLE_WEBSOCKET_CLIENT;ENABLE_DIRECTOR_AUDIO;ENABLE_DIRECTOR_TEXTURE;ENABLE_TIMELINE;ENABLE_EDITOR_METRICS;ENABLE_EDITOR_METRICS_CACHING;ENABLE_MANAGED_JOBS;ENABLE_MANAGED_TRANSFORM_JOBS;ENABLE_MANAGED_ANIMATION_JOBS;INCLUDE_DYNAMIC_GI;INCLUDE_GI;ENABLE_MONO_BDWGC;PLATFORM_SUPPORTS_MONO;INCLUDE_PUBNUB;ENABLE_VIDEO;ENABLE_CUSTOM_RENDER_TEXTURE;ENABLE_LOCALIZATION;PLATFORM_ANDROID;UNITY_ANDROID;UNITY_ANDROID_API;ENABLE_SUBSTANCE;ENABLE_EGL;ENABLE_NETWORK;ENABLE_RUNTIME_GI;ENABLE_CRUNCH_TEXTURE_COMPRESSION;ENABLE_UNITYWEBREQUEST;ENABLE_CLOUD_SERVICES;ENABLE_CLOUD_SERVICES_ANALYTICS;ENABLE_EVENT_QUEUE;ENABLE_CLOUD_SERVICES_PURCHASING;ENABLE_CLOUD_SERVICES_CRASH_REPORTING;ENABLE_CLOUD_SERVICES_NATIVE_CRASH_REPORTING;PLATFORM_SUPPORTS_ADS_ID;UNITY_CAN_SHOW_SPLASH_SCREEN;ENABLE_VR;ENABLE_AR;UNITY_HAS_GOOGLEVR;UNITY_HAS_TANGO;ENABLE_SPATIALTRACKING;ENABLE_RUNTIME_PERMISSIONS;UNITY_ASTC_ONLY_DECOMPRESS;ENABLE_UNITYADS_RUNTIME;UNITY_UNITYADS_API;ENABLE_MONO;NET_STANDARD_2_0;ENABLE_PROFILER;UNITY_ASSERTIONS;UNITY_EDITOR;UNITY_EDITOR_64;UNITY_EDITOR_WIN;ENABLE_UNITY_COLLECTIONS_CHECKS;ENABLE_BURST_AOT;UNITY_TEAM_LICENSE;ENABLE_VSTU;CSHARP_7_OR_LATER;CSHARP_7_3_OR_NEWER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <NoWarn>0169</NoWarn>
@@ -198,18 +198,15 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UITooltip.cs" />
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\NYAN_dots\Scripts\Animator_Test.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\Door.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\Loading.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\MapCreator.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\MiniMap.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\NpcBehavior.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\Room.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\RoomManager.cs" />
-    <Compile Include="Assets\Script_동하꺼\Map\Stair.cs" />
-    <Compile Include="Assets\Script_동하꺼\Object\Box.cs" />
-    <Compile Include="Assets\Script_동하꺼\Object\Bush.cs" />
-    <Compile Include="Assets\Script_동하꺼\Object\MapObject.cs" />
-    <Compile Include="Assets\Script_동하꺼\Object\Root.cs" />
+    <Compile Include="Assets\Scripts\A_Star\EnemyFollow.cs" />
+    <Compile Include="Assets\Scripts\A_Star\FrameChecker.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Grid.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Heap.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Node.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Pathfinding.cs" />
+    <Compile Include="Assets\Scripts\A_Star\PathRequestManager.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Tile.cs" />
+    <Compile Include="Assets\Scripts\A_Star\Unit.cs" />
     <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\DataBase\Database.cs" />
@@ -231,15 +228,18 @@
     <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\TitleManager.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\EnemyFollow.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\FrameChecker.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Grid.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Heap.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Node.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Pathfinding.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\PathRequestManager.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Tile.cs" />
-    <Compile Include="Assets\Scripts\MapGenerator\Unit.cs" />
+    <Compile Include="Assets\Scripts\Map\Door.cs" />
+    <Compile Include="Assets\Scripts\Map\Loading.cs" />
+    <Compile Include="Assets\Scripts\Map\MapCreator.cs" />
+    <Compile Include="Assets\Scripts\Map\MiniMap.cs" />
+    <Compile Include="Assets\Scripts\Map\NpcBehavior.cs" />
+    <Compile Include="Assets\Scripts\Map\Room.cs" />
+    <Compile Include="Assets\Scripts\Map\RoomManager.cs" />
+    <Compile Include="Assets\Scripts\Map\Stair.cs" />
+    <Compile Include="Assets\Scripts\Object\Box.cs" />
+    <Compile Include="Assets\Scripts\Object\Bush.cs" />
+    <Compile Include="Assets\Scripts\Object\MapObject.cs" />
+    <Compile Include="Assets\Scripts\Object\Root.cs" />
     <Compile Include="Assets\Scripts\Player\AnimatorControll.cs" />
     <Compile Include="Assets\Scripts\Player\JoyPad.cs" />
     <Compile Include="Assets\Scripts\Player\Player.cs" />
@@ -368,12 +368,6 @@
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
       <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Editor">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="XiaomiSupport">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/XiaomiSupport.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
       <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
@@ -584,30 +578,6 @@
     </Reference>
     <Reference Include="Mono.Data.SqliteClient">
       <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Configuration">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Configuration.dll</HintPath>
-    </Reference>
-    <Reference Include="System.EnterpriseServices">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Security">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/System.Security.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
-    </Reference>
-    <Reference Include="ChannelPurchase">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityStore">
-      <HintPath>C:/Users/admin/Documents/GitHub/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>

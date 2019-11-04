@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Scenes/MaDongSeok.unity
+- path: Assets/Scenes/Logo.unity
   isLoaded: 1
   isActive: 1
