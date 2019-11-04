@@ -76,7 +76,7 @@ MonoBehaviour:
   m_MinSize: {x: 583, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 1
-  controlID: 155
+  controlID: 92
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -168,7 +168,7 @@ MonoBehaviour:
   m_MinSize: {x: 583, y: 498}
   m_MaxSize: {x: 14004, y: 14048}
   vertical: 0
-  controlID: 156
+  controlID: 93
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -193,7 +193,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 498}
   m_MaxSize: {x: 10002, y: 14048}
   vertical: 1
-  controlID: 17
+  controlID: 94
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -218,7 +218,7 @@ MonoBehaviour:
   m_MinSize: {x: 306, y: 224}
   m_MaxSize: {x: 8006, y: 4024}
   vertical: 0
-  controlID: 18
+  controlID: 52
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -293,10 +293,10 @@ MonoBehaviour:
     y: 0
     width: 561
     height: 947
-  m_MinSize: {x: 277, y: 174}
-  m_MaxSize: {x: 4002, y: 8024}
+  m_MinSize: {x: 277, y: 198}
+  m_MaxSize: {x: 4002, y: 8048}
   vertical: 1
-  controlID: 157
+  controlID: 145
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -343,8 +343,8 @@ MonoBehaviour:
     y: 636
     width: 561
     height: 311
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 124}
+  m_MaxSize: {x: 4002, y: 4024}
   m_ActualView: {fileID: 25}
   m_Panes:
   - {fileID: 25}
@@ -1103,9 +1103,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 70440000
-      m_LastClickedID: 17520
-      m_ExpandedIDs: d6fbffff
+      m_SelectedIDs: eec1ffff
+      m_LastClickedID: -15890
+      m_ExpandedIDs: 0cc2ffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1193,20 +1193,20 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/NGUI/RobotsNGUI
+    - Assets
   m_ViewMode: 1
   m_StartGridSize: 45
   m_LastFolders:
-  - Assets/NGUI/RobotsNGUI
+  - Assets
   m_LastFoldersGridSize: 45
-  m_LastProjectPath: "C:\\Users\\epsel\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\GitHub\\ProjectDragon\\ProjectDragon"
+  m_LastProjectPath: E:\GitHub\ProjectDragon\ProjectDragon
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 3e330000
-    m_LastClickedID: 13118
-    m_ExpandedIDs: 00000000382a00004a2b00005e2b00006e2c0000862c0000502d0000842e0000ea2e00002a2f0000de2f000046300000e63000004e320000ae3200003e3300005a330000a6330000423400006a36000022380000d2380000e03800000439000098390000a2390000b0390000e8390000ea390000683a0000123b0000343b0000c23c0000c43c00007c3d0000423e0000c43e0000d43e00005a3f0000723f0000b83f0000f63f0000fc3f0000de410000e0410000f44100000a4600000c4600000e46000010460000124600001446000016460000184600001a4600001c46000000ca9a3b
+    m_SelectedIDs: e05a0000
+    m_LastClickedID: 23264
+    m_ExpandedIDs: 00000000e05a00000e5b0000165b0000865b0000905b0000c45b0000445c0000745c0000885c0000b05c0000ca5c0000005d0000805d00009a5d0000e25d0000ee5d00000a5e00004a5e0000da5e0000545f0000905f00009a5f0000ac5f0000cc5f0000d65f0000de5f0000ee5f0000f05f00001a6000005e60000070600000ec600000ee6000002c61000074610000986100009c610000c4610000ca610000e0610000fc610000fe6100009662000098620000a4620000386400003a6400003c6400003e64000040640000426400004464000046640000486400004a64000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1234,7 +1234,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000382a00004a2b00005e2b00006e2c0000862c0000502d0000842e0000ea2e00002a2f0000de2f000046300000e63000004e320000ae3200003e3300005a330000a6330000423400006a36000022380000d2380000e03800000439000098390000a2390000b0390000e8390000ea390000683a0000123b0000343b0000c23c0000c43c00007c3d0000423e0000c43e0000d43e00005a3f0000723f0000b83f0000f63f0000fc3f0000de410000e0410000f44100000a4600000c4600000e46000010460000124600001446000016460000184600001a4600001c460000
+    m_ExpandedIDs: 00000000e05a00000e5b0000165b0000865b0000905b0000c45b0000445c0000745c0000885c0000b05c0000ca5c0000005d0000805d00009a5d0000e25d0000ee5d00000a5e00004a5e0000da5e0000545f0000905f00009a5f0000ac5f0000cc5f0000d65f0000de5f0000ee5f0000f05f00001a6000005e60000070600000ec600000ee6000002c61000074610000986100009c610000c4610000ca610000e0610000fc610000fe6100009662000098620000a4620000386400003a6400003c6400003e64000040640000426400004464000046640000486400004a640000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1261,7 +1261,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 1
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000ec07000000000000a8a000002c2500002e250000e02300005c3a0000883c0000763b0000523b0000c84b0000b22d00003a320000f03c00005a3c0000563c0000323900007439000056390000fa3900007014000030170000664800008e36000020380000e62a0000f42b0000902d0000b62f0000d6300000ac2e00001c330000482e00004c3900007a120000a8360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
