@@ -28,7 +28,7 @@ public class Room : MonoBehaviour
     public bool doorTop, doorBot, doorLeft, doorRight;
 
     public GameObject[] door_All = new GameObject[4];
-    public Monster[] monsters;
+    public List<Monster> monsters = new List<Monster>();
 
     public RoomState roomState = RoomState.DeActivate;
 
@@ -45,7 +45,7 @@ public class Room : MonoBehaviour
         set
         {
             miniMapPos = value;
-            switch(roomType)
+            switch (roomType)
             {
                 case RoomType.Begin:
                     miniMapPos.GetComponent<UISprite>().color = Color.cyan;
@@ -61,20 +61,33 @@ public class Room : MonoBehaviour
     }
     private GameObject miniMapPos;
 
-    private void Start()
+    private void Awake()
     {
-        monsters = transform.GetComponentsInChildren<Monster>();
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        enemyCount = monsters.Length;
+        Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
+        foreach (Monster obj in temp_monsters)
+        {
+            monsters.Add(obj);
+        }
+        enemyCount = monsters.Count;
     }
+
     void Update()
     {
         enemyCount = 0;
+
+        List<Monster> temp_monsters = new List<Monster>();
         foreach (Monster obj in monsters)
         {
-            if (obj == null) continue;
-            if (obj.GetComponent<BoxCollider2D>().enabled) enemyCount++;
+            if (obj.isDead) continue;
+            if (obj.GetComponent<BoxCollider2D>().enabled)
+            {
+                temp_monsters.Add(obj);
+                enemyCount++;
+            }
         }
+        monsters = temp_monsters;
+
         if (!roomState.Equals(RoomState.Clear))
         {
             if (enemyCount == 0 && roomState.Equals(RoomState.Activate))

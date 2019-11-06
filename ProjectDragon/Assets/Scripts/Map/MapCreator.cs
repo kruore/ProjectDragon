@@ -22,37 +22,42 @@ public class room
 
 public class MapCreator : MonoBehaviour
 {
+    //map grid data
     public GameObject[,] map_Data;
+    //prefabs data
     public GameObject map_Base;
     public GameObject[] map_Prefabs;
     public int map_Prefabs_Count = 1;
 
-    public int gridSizeX, gridSizeY, gridSizeX_Cen, gridSizeY_Cen, numberOfRooms = 15;
+    //room count
+    public int numberOfRooms = 15;
+    private int gridSizeX, gridSizeY, gridSizeX_Cen, gridSizeY_Cen;
+    //stair pos
     public Vector2 stair_LocalPosition = new Vector2(0.0f, 0.0f);
 
-    public Vector2 worldSize = new Vector2(2.5f, 2.5f);
+    public Vector2 worldSize = new Vector2(6.0f, 6.0f);
 
     public room[,] rooms;
-    public List<Vector2> takenPositions = new List<Vector2>();
+    private List<Vector2> takenPositions = new List<Vector2>();
 
     private void Awake()
     {
-        map_Base = Resources.Load("Map/Map_Base") as GameObject;
-        ResourceLoadMap("Forest");
+        ResourceLoadMap("Forest"); // 임시로 숲이라고 함
+        gridSizeX_Cen = (int)(worldSize.x / 2);
+        gridSizeY_Cen = (int)(worldSize.y / 2);
+        gridSizeX = (int)worldSize.x;
+        gridSizeY = (int)worldSize.y;
 
-        if (numberOfRooms >= (worldSize.x * 2) * (worldSize.y * 2))
+        if (numberOfRooms >= gridSizeX * gridSizeY)
         {
-            numberOfRooms = Mathf.RoundToInt((worldSize.x * 2) * (worldSize.y * 2));
+            numberOfRooms = Mathf.RoundToInt(gridSizeX * gridSizeY);
         }
-        gridSizeX_Cen = (int)worldSize.x;
-        gridSizeY_Cen = (int)worldSize.y;
-        gridSizeX = (int)(worldSize.x * 2);
-        gridSizeY = (int)(worldSize.y * 2);
         map_Data = new GameObject[gridSizeX, gridSizeY];
     }
 
     void ResourceLoadMap(string _mapType)
     {
+        map_Base = Resources.Load("Map/Map_" + _mapType + "_Base") as GameObject;
         map_Prefabs = new GameObject[map_Prefabs_Count];
 
         for (int i = 0; i < map_Prefabs_Count; i++)

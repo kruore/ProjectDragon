@@ -38,6 +38,16 @@ public class RoomManager : MonoBehaviour
         miniMap.UpdateMiniMap();
     }
 
+    public Room PlayerLocationInMap()
+    {
+        return Map_Data[player_PosX, player_PosY].GetComponent<Room>();
+    }
+
+    public List<Monster> PlayerLocationRoomMonsterData()
+    {
+        return Map_Data[player_PosX, player_PosY].GetComponent<Room>().monsters;
+    }
+
     public bool PlayerIsNPCRoom()
     {
         return Map_Data[player_PosX, player_PosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;

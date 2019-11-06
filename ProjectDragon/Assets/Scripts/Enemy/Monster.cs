@@ -11,7 +11,6 @@ public class Monster : Character
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     protected Animator objectAnimator;
-    protected AnimatorClipInfo[] clipInfo;
     [SerializeField]
     protected bool invincible = false;  //무적상태인지
 

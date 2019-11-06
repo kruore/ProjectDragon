@@ -279,7 +279,7 @@ GameObject:
   - component: {fileID: 6772136881643465515}
   - component: {fileID: 6772136881643465518}
   - component: {fileID: 6772136881643465516}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: East
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   - component: {fileID: 6772136881849821702}
   - component: {fileID: 6772136881849822712}
   - component: {fileID: 6772136881849821703}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: North
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 6772136881994370765}
   - component: {fileID: 6772136881994370766}
   - component: {fileID: 6772136881994370752}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: West
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -568,7 +568,7 @@ GameObject:
   - component: {fileID: 6772136882031898219}
   - component: {fileID: 6772136882031898221}
   - component: {fileID: 6772136882031898220}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -673,7 +673,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6772136882246247280}
   - component: {fileID: 6772136882246247282}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: North
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -731,7 +731,7 @@ GameObject:
   - component: {fileID: 6772136882290537647}
   - component: {fileID: 6772136882290537632}
   - component: {fileID: 6772136882290537633}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -837,7 +837,7 @@ GameObject:
   - component: {fileID: 6772136882401137038}
   - component: {fileID: 6772136882401137024}
   - component: {fileID: 6772136882401137039}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -976,7 +976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6772136883002863882}
   - component: {fileID: 6772136883002863884}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: West
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1033,7 +1033,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6772136883049361307}
   - component: {fileID: 6772136883049361309}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: East
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1170,7 +1170,7 @@ GameObject:
   - component: {fileID: 6772136883191500328}
   - component: {fileID: 6772136883191500330}
   - component: {fileID: 6772136883191500329}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Door
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1310,7 +1310,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6772136883352424702}
   - component: {fileID: 6772136883352424688}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: South
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -1368,7 +1368,7 @@ GameObject:
   - component: {fileID: 6772136883371363850}
   - component: {fileID: 6772136883371363852}
   - component: {fileID: 6772136883371363851}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: South
   m_TagString: Wall
   m_Icon: {fileID: 0}
