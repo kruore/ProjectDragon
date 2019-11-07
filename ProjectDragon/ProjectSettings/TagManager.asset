@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - Object
   - Skill
+  - Map
   layers:
   - Default
   - TransparentFX

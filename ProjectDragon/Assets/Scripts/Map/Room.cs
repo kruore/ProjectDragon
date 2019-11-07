@@ -26,6 +26,7 @@ public class Room : MonoBehaviour
     public RoomType roomType;
 
     public bool doorTop, doorBot, doorLeft, doorRight;
+    public GameObject portal;
 
     public GameObject[] door_All = new GameObject[4];
     public List<Monster> monsters = new List<Monster>();
@@ -63,6 +64,18 @@ public class Room : MonoBehaviour
 
     private void Awake()
     {
+        InitRoom();
+    }
+
+    void Update()
+    {
+        //룸의 상태 관리
+        CheckRoomState();
+    }
+
+    //방의 데이터를 초기화 - 방 생성시 바로 작동합니다.
+    private void InitRoom()
+    {
         battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
         foreach (Monster obj in temp_monsters)
@@ -72,30 +85,36 @@ public class Room : MonoBehaviour
         enemyCount = monsters.Count;
     }
 
-    void Update()
+    //룸의 상태를 확인
+    void CheckRoomState()
     {
-        enemyCount = 0;
-
-        List<Monster> temp_monsters = new List<Monster>();
-        foreach (Monster obj in monsters)
-        {
-            if (obj.isDead) continue;
-            if (obj.GetComponent<BoxCollider2D>().enabled)
-            {
-                temp_monsters.Add(obj);
-                enemyCount++;
-            }
-        }
-        monsters = temp_monsters;
-
         if (!roomState.Equals(RoomState.Clear))
         {
+            //몬스터 리스트 관리
+            MonsterCounting();
             if (enemyCount == 0 && roomState.Equals(RoomState.Activate))
             {
+                //몬스터가 한 마리도 없다면 클리어입니다.
                 IsClear();
             }
             else if (!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
         }
+    }
+
+    //몬스터 리스트 관리
+    void MonsterCounting()
+    {
+        List<Monster> temp_monsters = new List<Monster>();
+        foreach (Monster obj in monsters)
+        {
+            if (obj.isDead) continue;
+            else
+            {
+                temp_monsters.Add(obj);
+            }
+        }
+        monsters = temp_monsters;
+        enemyCount = monsters.Count;
     }
 
     void CheckPlayerPos()
@@ -106,9 +125,10 @@ public class Room : MonoBehaviour
             roomState = RoomState.Activate;
             battleManager.EnemyFinder();
             StartCoroutine(battleManager.CalculateDistanceWithPlayer());
-            for (int i = 0; i < enemyCount; i++)
+
+            foreach(Monster obj in monsters)
             {
-                StartCoroutine(monsters[i].GetComponent<FSM_NormalEnemy>().Start_On());
+                StartCoroutine(obj.GetComponent<FSM_NormalEnemy>().Start_On());
             }
         }
     }
