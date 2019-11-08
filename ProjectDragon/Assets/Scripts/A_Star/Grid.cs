@@ -15,11 +15,13 @@ public class Grid : MonoBehaviour
 
     void Awake()
     {
-        nodeDimeter = nodeRadius;
+        nodeDimeter = nodeRadius*2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDimeter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDimeter);
         CreateGrid();
+
     }
+
 
     public int MaxSize
     {
@@ -29,7 +31,7 @@ public class Grid : MonoBehaviour
         }
     }
     //Grid 생성
-    void CreateGrid()
+    public void CreateGrid()
     {
         grid = new Node[gridSizeX, gridSizeY];
         Vector3 worldBottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
@@ -40,11 +42,12 @@ public class Grid : MonoBehaviour
             for (int y = 0; y < gridSizeY; y++)
             {
                 Vector3 worldPoint = worldBottonLeft + Vector3.right * (x * nodeDimeter + nodeRadius) + Vector3.up * (y * nodeDimeter + nodeRadius);
-                Vector3 worldPoint2D = worldBottonLeft + Vector3.right * (x * nodeDimeter + nodeRadius) + Vector3.up * (y * nodeDimeter + nodeRadius);
+                //Vector3 worldPoint2D = worldBottonLeft + Vector3.right * (x * nodeDimeter + nodeRadius) + Vector3.up * (y * nodeDimeter + nodeRadius);
                 //walkable fasle이 되는 패널을 제외하고 움직임
-               // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, nodeRadius, unwalkableMask));
-               // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, new Vector2(nodeRadius,nodeRadius),0,unwalkableMask));
-                bool walkable = !(Physics2D.OverlapBox(worldPoint2D, new Vector2(nodeRadius-0.1f, nodeRadius-0.1f), unwalkableMask));
+                // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, nodeRadius, unwalkableMask));
+                // bool walkable = !(Physics2D.OverlapCircle(worldPoint2D, new Vector2(nodeRadius,nodeRadius),0,unwalkableMask));
+
+                bool walkable = !(Physics2D.OverlapBox(worldPoint, new Vector2(nodeRadius, nodeRadius), 0.0f, unwalkableMask));
                 grid[x, y] = new Node(walkable, worldPoint, x, y);
             }
         }
@@ -80,6 +83,7 @@ public class Grid : MonoBehaviour
     {
         float percentX = (worldPosition.x + gridWorldSize.x / 2) / gridWorldSize.x;
         float percentY = (worldPosition.y + gridWorldSize.y / 2) / gridWorldSize.y;
+
         percentX = Mathf.Clamp01(percentX);
         percentY = Mathf.Clamp01(percentY);
 

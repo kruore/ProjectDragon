@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Doldori : FSM_NormalEnemy
 {
+    [SerializeField]
+    bool invincible = false;  //무적상태인지
+
 
     protected override void Awake()
     {
@@ -46,8 +49,10 @@ public class Doldori : FSM_NormalEnemy
     }
 
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    protected override void OnCollisionEnter2D(Collision2D collision)
     {
+        base.OnCollisionEnter2D(collision);
+
         if (CurrentState == State.Attack)
         {
             if (collision.gameObject.CompareTag("Player"))

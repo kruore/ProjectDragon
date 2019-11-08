@@ -11,11 +11,11 @@ public class Slime : FSM_NormalEnemy
         childDeadParticle = transform.Find("DeadParticle").gameObject;
     }
 
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    //StartCoroutine(Start_On());
-    //}
+    protected override void Start()
+    {
+        base.Start();
+        //StartCoroutine(Start_On());
+    }
 
     public void Update()
     {

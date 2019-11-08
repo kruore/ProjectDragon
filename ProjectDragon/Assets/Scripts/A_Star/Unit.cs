@@ -12,7 +12,7 @@ public class Unit : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine("FindPathAgain");    
+        StartCoroutine(FindPathAgain());    
     }
     IEnumerator FindPathAgain()
     {
@@ -30,8 +30,9 @@ public class Unit : MonoBehaviour
         {
             path = newPath;
             targetIndex = 0;
-            StopCoroutine("FollowPath");
-            StartCoroutine("FollowPath");
+            StopCoroutine(FollowPath());
+            StartCoroutine(FollowPath());
+
         }
     }
 
@@ -50,7 +51,7 @@ public class Unit : MonoBehaviour
                 currentWaypoint = path[targetIndex];
             }
             //해당 위치로 이동
-            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
 
         }

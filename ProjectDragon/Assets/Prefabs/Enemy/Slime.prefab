@@ -76,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 21300016, guid: 50f815140cd7c3748a5a0288893b197e, type: 3}
+  m_Sprite: {fileID: 21300016, guid: 9d69ae98725365b4b94189120dc1b40a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.6, y: 1.6}
+  m_Size: {x: 0.53333336, y: 0.53333336}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -124,7 +124,7 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 0.53333336, y: 0.53333336}
-    newSize: {x: 1.6, y: 1.6}
+    newSize: {x: 0.53333336, y: 0.53333336}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
@@ -201,7 +201,7 @@ MonoBehaviour:
   atk: 5
   atkSpeed: 2
   moveSpeed: 1.5
-  atkRange: 0.43
+  atkRange: 0.52
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
@@ -212,7 +212,6 @@ MonoBehaviour:
   enemy_angle: 0
   myAttackType: 0
   myAnim_AnglePos: 0
-  invincible: 0
   waitTime: 2
   cooltime: 3
   knockTime: 0.15
@@ -221,15 +220,13 @@ MonoBehaviour:
   skillDamage: 0
   m_bDebugMode: 1
   inAtkDetectionRange: 0
-  originOffset: 0.3
+  originOffset: 0
   distanceOfPlayer: 0
   angleOfPlayer: 0
   moveDistance: 0
-  isAttackActive: 0
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 0
-  isCollision: 0
 --- !u!1 &2954448564663233802
 GameObject:
   m_ObjectHideFlags: 0

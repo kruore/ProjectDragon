@@ -11,9 +11,7 @@ public class Monster : Character
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     protected Animator objectAnimator;
-    protected AnimatorClipInfo[] clipInfo;
-    [SerializeField]
-    protected bool invincible = false;  //무적상태인지
+
 
 
 
@@ -42,7 +40,7 @@ public class Monster : Character
     public bool inAtkDetectionRange;
     protected Vector3 direction;
     protected RaycastHit2D[] hit;
-    [SerializeField] protected float originOffset = 0.3f;
+    [SerializeField] protected float originOffset;
     protected Vector2 startingPosition;
     protected Vector3 directionOriginOffset;
 
