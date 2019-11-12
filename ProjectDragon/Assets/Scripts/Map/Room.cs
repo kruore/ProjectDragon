@@ -29,7 +29,7 @@ public class Room : MonoBehaviour
     public GameObject portal;
 
     public GameObject[] door_All = new GameObject[4];
-    public List<Monster> monsters = new List<Monster>();
+    public List<GameObject> monsters = new List<GameObject>();
 
     public RoomState roomState = RoomState.DeActivate;
 
@@ -76,11 +76,11 @@ public class Room : MonoBehaviour
     //방의 데이터를 초기화 - 방 생성시 바로 작동합니다.
     private void InitRoom()
     {
-        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        //battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
         foreach (Monster obj in temp_monsters)
         {
-            monsters.Add(obj);
+            monsters.Add(obj.gameObject);
         }
         enemyCount = monsters.Count;
     }
@@ -104,10 +104,10 @@ public class Room : MonoBehaviour
     //몬스터 리스트 관리
     void MonsterCounting()
     {
-        List<Monster> temp_monsters = new List<Monster>();
-        foreach (Monster obj in monsters)
+        List<GameObject> temp_monsters = new List<GameObject>();
+        foreach (GameObject obj in monsters)
         {
-            if (obj.isDead) continue;
+            if (obj.GetComponent<Monster>().isDead) continue;
             else
             {
                 temp_monsters.Add(obj);
@@ -123,10 +123,10 @@ public class Room : MonoBehaviour
         if (gridPos == PlayerPos)
         {
             roomState = RoomState.Activate;
-            battleManager.EnemyFinder();
-            StartCoroutine(battleManager.CalculateDistanceWithPlayer());
+            //battleManager.EnemyFinder();
+            //StartCoroutine(battleManager.CalculateDistanceWithPlayer());
 
-            foreach(Monster obj in monsters)
+            foreach(GameObject obj in monsters)
             {
                 StartCoroutine(obj.GetComponent<FSM_NormalEnemy>().Start_On());
             }
@@ -139,7 +139,7 @@ public class Room : MonoBehaviour
         roomState = RoomState.Clear;
         OpenAllDoor();
         roomManager.miniMap.gameObject.SetActive(true);
-        MiniMapPos.SetActive(true);
+        MiniMapPos.GetComponent<UISprite>().alpha = 1.0f;
         //CollectAll_Items();
 
         //계단방의 경우 문이 열립니다.

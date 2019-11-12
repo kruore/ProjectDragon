@@ -323,8 +323,7 @@ public class MapCreator : MonoBehaviour
         Map_Root.tag = "RoomManager";
         RoomManager Manager = Map_Root.GetComponent<RoomManager>();
         Map_Root.transform.SetPositionAndRotation(new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-        Manager.gridSizeX_Cen = gridSizeX_Cen;
-        Manager.gridSizeY_Cen = gridSizeY_Cen;
+        Manager.SetGridData(gridSizeX_Cen, gridSizeY_Cen, gridSizeX, gridSizeY);
 
         //모든 방 설정
         foreach (room room in rooms)
@@ -518,7 +517,7 @@ public class MapCreator : MonoBehaviour
             temp.Add(obj);
         }
 
-        int rand = Random.Range(0, temp.Count - 1);
+        int rand = Random.Range(0, temp.Count);
 
         GameObject map_Market = Resources.Load("Map/Map_Market") as GameObject;
         GameObject map_MarketTemp = GameObject.Instantiate(map_Market, temp[rand].transform.position, Quaternion.identity, _parent);

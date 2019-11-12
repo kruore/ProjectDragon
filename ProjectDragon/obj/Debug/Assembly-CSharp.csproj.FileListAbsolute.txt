@@ -1022,7 +1022,6 @@ E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.ProfilerModule.
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.ScreenCaptureModule.dll
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SharedInternalsModule.dll
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpatialTracking.dll
-E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpriteMaskModule.dll
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpriteShapeModule.dll
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.StreamingModule.dll
@@ -1102,7 +1101,6 @@ E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.Physics2DModule
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.ProfilerModule.xml
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.ScreenCaptureModule.xml
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SharedInternalsModule.xml
-E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpriteMaskModule.xml
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpriteShapeModule.xml
 E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.StreamingModule.xml

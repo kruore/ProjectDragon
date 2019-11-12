@@ -827,6 +827,23 @@ PrefabInstance:
       propertyPath: startingRenderQueue
       value: 3003
       objectReference: {fileID: 0}
+    - target: {fileID: 677011137, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: mDepth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1012355792, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: mDepth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1717254947, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: mDepth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 722791699478975994, guid: d9ca20a145676494480da6d75f8116c2,
+        type: 3}
+      propertyPath: mDepth
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
 --- !u!1 &329488817
@@ -1391,8 +1408,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 90
-  mHeight: 90
+  mWidth: 60
+  mHeight: 60
   mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
@@ -2951,6 +2968,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomManager: {fileID: 0}
   panel: {fileID: 0}
+  button: {fileID: 0}
+  isMax: 0
+  mini:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
+  maxi:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!114 &1264281241
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2980,7 +3009,7 @@ MonoBehaviour:
     relative: 1
     absolute: 0
   updateAnchors: 1
-  mColor: {r: 0.7019608, g: 0.7019608, b: 0.7019608, a: 1}
+  mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 150
   mHeight: 150
@@ -2991,20 +3020,20 @@ MonoBehaviour:
   keepAspectRatio: 0
   aspectRatio: 1
   mType: 0
-  mFillDirection: 4
+  mFillDirection: 0
   mFillAmount: 1
   mInvert: 0
   mFlip: 0
-  mApplyGradient: 0
-  mGradientTop: {r: 1, g: 1, b: 1, a: 1}
-  mGradientBottom: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  mApplyGradient: 1
+  mGradientTop: {r: 1, g: 1, b: 1, a: 0.39215687}
+  mGradientBottom: {r: 1, g: 1, b: 1, a: 0.39215687}
   centerType: 1
   leftType: 1
   rightType: 1
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
-  mSpriteName: grey_panel
+  mSpriteName: red_panel
   mFixedAspect: 0
   mFillCenter: 1
 --- !u!1 &1324740222
@@ -3208,7 +3237,7 @@ MonoBehaviour:
   bottomType: 1
   topType: 1
   mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
-  mSpriteName: grey_panel
+  mSpriteName: yellow_panel
   mFixedAspect: 0
   mFillCenter: 1
 --- !u!1 &1359909803
@@ -3236,7 +3265,7 @@ Transform:
   m_GameObject: {fileID: 1359909803}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children:
   - {fileID: 743855552}
   - {fileID: 895379847}
@@ -3952,7 +3981,7 @@ Transform:
   m_GameObject: {fileID: 1506295514}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.002617801, y: 0.002617801, z: 0.002617801}
+  m_LocalScale: {x: 0.0027777778, y: 0.0027777778, z: 0.0027777778}
   m_Children:
   - {fileID: 1324740223}
   - {fileID: 2056584558}
@@ -4014,13 +4043,13 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3005
+  startingRenderQueue: 3002
   mClipTexture: {fileID: 2800000, guid: 505a4aa2be60a31478dc1897f8d21084, type: 3}
   mAlpha: 1
   mClipping: 3
-  mClipRange: {x: 0, y: 0, z: 900, w: 900}
+  mClipRange: {x: 0, y: 0, z: 600, w: 600}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 3
+  mDepth: 2
   mSortingOrder: 0
   mSortingLayerName: 
   mClipOffset: {x: 0, y: 0}
@@ -4415,7 +4444,7 @@ GameObject:
   - component: {fileID: 1780953301}
   - component: {fileID: 1780953302}
   m_Layer: 8
-  m_Name: MaximalizeButton
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4460,11 +4489,7 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick:
-  - mTarget: {fileID: 1264281240}
-    mMethodName: Maximalize
-    mParameters: []
-    oneShot: 0
+  onClick: []
 --- !u!65 &1780953302
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4473,7 +4498,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1780953299}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 150, y: 150, z: 0}
@@ -4613,13 +4638,13 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3002
+  startingRenderQueue: 3003
   mClipTexture: {fileID: 2800000, guid: 505a4aa2be60a31478dc1897f8d21084, type: 3}
   mAlpha: 1
   mClipping: 3
   mClipRange: {x: 0, y: 0, z: 150, w: 150}
   mClipSoftness: {x: 4, y: 4}
-  mDepth: 1
+  mDepth: 3
   mSortingOrder: 0
   mSortingLayerName: 
   mClipOffset: {x: 0, y: 0}
@@ -5048,6 +5073,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoomManager: {fileID: 0}
   panel: {fileID: 0}
+  button: {fileID: 0}
+  isMax: 0
+  mini:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
+  maxi:
+    mTarget: {fileID: 0}
+    mMethodName: 
+    mParameters: []
+    oneShot: 0
 --- !u!114 &2056584560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5079,8 +5116,8 @@ MonoBehaviour:
   updateAnchors: 1
   mColor: {r: 0.4528302, g: 0.4528302, b: 0.4528302, a: 1}
   mPivot: 4
-  mWidth: 900
-  mHeight: 900
+  mWidth: 600
+  mHeight: 600
   mDepth: 0
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0

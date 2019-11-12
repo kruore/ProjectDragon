@@ -83,7 +83,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 2800000, guid: 602586a2450154c4db4680fd0788fce0, type: 3}
-  mSpriteName: grey_panel
+  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mSpriteName: Portal
   mFixedAspect: 0
   mFillCenter: 1
