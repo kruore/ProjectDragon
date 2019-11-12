@@ -5,19 +5,26 @@ using UnityEngine;
 public class Tracking : MonoBehaviour
 {
 
-    t_Grid grid;
-    float moveSpeed = 1.0f;
-    t_Node [] findPathNode;
+    t_PathFinding pathFinding;
+    public t_Node [] findPathNode;
     int pathNextIndex;
+
+    //임시
+    float moveSpeed = 1.0f;
     bool isWalking = true;
 
+    public Transform targetPos;
     private void Awake()
     {
         GameObject AStar = GameObject.Find("AStar");
-        grid = AStar.transform.GetComponent<t_Grid>();
+        pathFinding = new t_PathFinding();
+        targetPos = GameObject.FindGameObjectWithTag("Player").transform;
+        
+        //grid = AStar.transform.GetComponent<t_Grid>();
     }
     void Start()
     {
+       pathFinding.FindPath(transform.position, targetPos.position);
        StartCoroutine(FindPath());
        StartCoroutine(Move());
     }
@@ -28,9 +35,10 @@ public class Tracking : MonoBehaviour
     {
         while(true)
         {
-            if (grid != null && grid.finalPath.Count > 0)
+            if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
             {
-                findPathNode = grid.finalPath.ToArray();
+                Debug.Log("FindPath");
+                findPathNode = pathFinding.finalPath.ToArray();
             }
                 yield return new WaitForSeconds(0.35f);
         }
@@ -38,7 +46,7 @@ public class Tracking : MonoBehaviour
 
     IEnumerator Move()
     {
-        if (grid != null && grid.finalPath.Count > 0)
+        if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
         {
             Vector3 currentWaypoint = findPathNode[0].Pos;
             Debug.Log(findPathNode[0].Pos.ToString());
@@ -55,6 +63,7 @@ public class Tracking : MonoBehaviour
                     currentWaypoint = findPathNode[pathNextIndex].Pos;
                 }
 
+                Debug.Log("Move");
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
                 yield return null;
             }

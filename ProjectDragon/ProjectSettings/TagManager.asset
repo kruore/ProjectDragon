@@ -16,6 +16,7 @@ TagManager:
   - Object
   - Skill
   - wall
+  - temp
   layers:
   - Default
   - TransparentFX

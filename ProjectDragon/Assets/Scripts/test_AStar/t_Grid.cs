@@ -11,18 +11,30 @@ public class t_Grid : MonoBehaviour
     public float distance;
 
     t_Node[,] grid;
-    public List<t_Node> finalPath = new List<t_Node>();
+    //public List<t_Node> finalPath = new List<t_Node>();
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
+
+    GameObject[] Enemies;
+    List<GameObject> EnemiesArray;
     private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
-        
+
+        Enemies = GameObject.FindGameObjectsWithTag("temp");
+        if (Enemies.Length > 1)
+        {
+            for (int i = 0; i < Enemies.Length; i++)
+            {
+                EnemiesArray.Add(Enemies[i]);
+            }
+        }
+
     }
 
     // Start is called before the first frame update
@@ -126,24 +138,37 @@ public class t_Grid : MonoBehaviour
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+
+//#if UNITY_EDITOR
+//        Dictionary<int, t_Node[]> temp = new Dictionary<int, t_Node[]>();
+
+//        for(int i=0;i<Enemies.Length;++i)
+//        {
+//            for(int j=0; j<temp.Count;++j)
+//            {
+//                temp[j] = EnemiesArray[i].transform.GetComponent<Tracking>().findPathNode;
+//            }
+//        }
+       
         if (grid != null && displayGridGizmos)
         {
             foreach (t_Node n in grid)
             {
                 Gizmos.color = (n.IsWall) ? Color.white : Color.red;
-   
-                if(finalPath!=null)
-                {
-                    if(finalPath.Contains(n))
-                    {
-                        Gizmos.color = Color.blue;
-                    }
-                }
+
+                //if (finalPath != null)
+                //{
+                //    if (finalPath.Contains(n))
+                //    {
+                //        Gizmos.color = Color.blue;
+                //    }
+                //}
 
                 Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
 
             }
         }
+//#endif
     }
 
 }

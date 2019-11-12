@@ -4,23 +4,33 @@ using UnityEngine;
 
 public class t_PathFinding : MonoBehaviour
 {
-    t_Grid grid;
-    public Transform startPos;
-    public Transform targetPos;
+    public t_Grid grid;
 
+    public List<t_Node> finalPath = new List<t_Node>();
     private void Awake()
     {
-        grid = GetComponent<t_Grid>();
     }
 
     private void Start()
     {
-        FindPath(startPos.position, targetPos.position);
+        //FindPath(startPos.position, targetPos.position);
         
+    }
+    private void Update()
+    {
+        
+    }
+
+    void Create()
+    {
+        GameObject AStar = GameObject.Find("AStar");
+        grid = AStar.transform.GetComponent<t_Grid>();
     }
 
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
     {
+        Create();
+
         t_Node startNode = grid.NodeFromWorldPosition(_startPos);
         t_Node targetNode = grid.NodeFromWorldPosition(_targetPos);
 
@@ -88,7 +98,7 @@ public class t_PathFinding : MonoBehaviour
             currentNode = currentNode.Parent;
         }
         FinalPath.Reverse();
-        grid.finalPath = FinalPath;
+        finalPath = FinalPath;
     }
 
     int GetManhattenDistance(t_Node _nodeA, t_Node _nodeB)
