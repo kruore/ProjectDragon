@@ -113,7 +113,11 @@ public class Room : MonoBehaviour
                 temp_monsters.Add(obj);
             }
         }
-        monsters = temp_monsters;
+
+        //테스트 필요
+        monsters.RemoveRange(0, monsters.Count);
+        monsters.AddRange(temp_monsters);
+        /////////////
         enemyCount = monsters.Count;
     }
 
