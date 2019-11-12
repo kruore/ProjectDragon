@@ -258,11 +258,10 @@
     <Compile Include="Assets\Scripts\ScrollView\UIReuseScrollViewCell.cs" />
     <Compile Include="Assets\Scripts\TEST\BossBoxDamage.cs" />
     <Compile Include="Assets\Scripts\TEST\GameManagerTester.cs" />
-    <Compile Include="Assets\Scripts\test_AStar\EnemyTracking.cs" />
     <Compile Include="Assets\Scripts\test_AStar\t_Grid.cs" />
     <Compile Include="Assets\Scripts\test_AStar\t_Node.cs" />
     <Compile Include="Assets\Scripts\test_AStar\t_PathFinding.cs" />
-    <Compile Include="Assets\Scripts\test_AStar\test_cube.cs" />
+    <Compile Include="Assets\Scripts\test_AStar\Tracking.cs" />
     <Compile Include="Assets\Scripts\Utillity\CameraFollow.cs" />
     <Compile Include="Assets\Scripts\Utillity\DamagePopup.cs" />
     <Compile Include="Assets\Scripts\Utillity\FadeOut.cs" />

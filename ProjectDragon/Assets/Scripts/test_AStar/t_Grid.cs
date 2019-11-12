@@ -16,14 +16,18 @@ public class t_Grid : MonoBehaviour
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
-
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
         gridSizeX = Mathf.RoundToInt(gridWorldSize.x / nodeDiameter);
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
+        
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
     }
 
     void CreateGrid()

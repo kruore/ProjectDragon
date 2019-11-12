@@ -13,10 +13,10 @@ public class t_PathFinding : MonoBehaviour
         grid = GetComponent<t_Grid>();
     }
 
-
-    void Update()
+    private void Start()
     {
         FindPath(startPos.position, targetPos.position);
+        
     }
 
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
