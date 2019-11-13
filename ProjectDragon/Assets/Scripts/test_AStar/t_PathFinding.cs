@@ -21,19 +21,23 @@ public class t_PathFinding : MonoBehaviour
         
     }
 
-    void Create()
+    void Create(float objBoxSizeX, float objBoxSizeY)
     {
         GameObject AStar = GameObject.Find("AStar");
         grid = AStar.transform.GetComponent<t_Grid>();
+
+        grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
+
     }
 
-    public void FindPath(Vector3 _startPos,Vector3 _targetPos)
+    public void FindPath(Vector3 _startPos,Vector3 _targetPos,float objBoxSizeX,float objBoxSizeY)
     {
-        Create();
+        Create(objBoxSizeX, objBoxSizeY);
 
         t_Node startNode = grid.NodeFromWorldPosition(_startPos);
         t_Node targetNode = grid.NodeFromWorldPosition(_targetPos);
 
+        t_Node currentNode;
 
         List<t_Node> OpenList = new List<t_Node>();
         HashSet<t_Node> ClosedList = new HashSet<t_Node>();
@@ -42,7 +46,7 @@ public class t_PathFinding : MonoBehaviour
 
         while(OpenList.Count>0)
         {
-            t_Node currentNode = OpenList[0];
+            currentNode = OpenList[0];
             for(int i=1;i<OpenList.Count;i++)
             {
                 if(OpenList[i].FCost<currentNode.FCost|| OpenList[i].FCost== currentNode.FCost&&OpenList[i].hCost<currentNode.hCost)

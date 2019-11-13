@@ -4,29 +4,36 @@ using UnityEngine;
 
 public class Tracking : MonoBehaviour
 {
+    public t_PathFinding pathFinding;
 
-    t_PathFinding pathFinding;
     public t_Node [] findPathNode;
     int pathNextIndex;
+    BoxCollider2D m_boxCollider;
 
     //임시
     float moveSpeed = 1.0f;
     bool isWalking = true;
-
     public Transform targetPos;
+
+
     private void Awake()
     {
-        GameObject AStar = GameObject.Find("AStar");
         pathFinding = new t_PathFinding();
+        m_boxCollider = GetComponent<BoxCollider2D>();
+
+        //임시
         targetPos = GameObject.FindGameObjectWithTag("Player").transform;
-        
-        //grid = AStar.transform.GetComponent<t_Grid>();
+
     }
     void Start()
     {
-       pathFinding.FindPath(transform.position, targetPos.position);
+       pathFinding.FindPath(transform.position, targetPos.position, m_boxCollider.size.x,m_boxCollider.size.y);
        StartCoroutine(FindPath());
        StartCoroutine(Move());
+    }
+    private void Update()
+    {
+        
     }
 
 
@@ -37,7 +44,7 @@ public class Tracking : MonoBehaviour
         {
             if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
             {
-                Debug.Log("FindPath");
+                //Debug.Log("FindPath");
                 findPathNode = pathFinding.finalPath.ToArray();
             }
                 yield return new WaitForSeconds(0.35f);
@@ -49,11 +56,10 @@ public class Tracking : MonoBehaviour
         if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
         {
             Vector3 currentWaypoint = findPathNode[0].Pos;
-            Debug.Log(findPathNode[0].Pos.ToString());
 
             while (isWalking)
             {
-                if (Vector3.Distance(transform.position, currentWaypoint) < 0.1)  //오차범위 0.1
+                if (Vector3.Distance(transform.position, currentWaypoint) ==0.0f)  //오차범위 0.1
                 {
                     pathNextIndex++;
                     if (pathNextIndex >= findPathNode.Length)
@@ -63,7 +69,6 @@ public class Tracking : MonoBehaviour
                     currentWaypoint = findPathNode[pathNextIndex].Pos;
                 }
 
-                Debug.Log("Move");
                 transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, moveSpeed * Time.deltaTime);
                 yield return null;
             }
