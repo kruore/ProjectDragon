@@ -36,7 +36,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             conn = Application.persistentDataPath + "/DS_Database.sqlite";
             if (!File.Exists(conn))
             {
-                WWW loadDB = new WWW("jar:file://" + Application.dataPath + "/StreamingAsset/DS_Database.sqlite");
+                WWW loadDB = new WWW("jar:file://" + Application.dataPath + "/StreamingAssets/DS_Database.sqlite");
                 loadDB.bytesDownloaded.ToString();
                 while (!loadDB.isDone) { }
                 File.WriteAllBytes(conn, loadDB.bytes);
@@ -53,7 +53,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         else
         {
-            conn = "URI=file:" + Application.dataPath + "/StreamingAsset/DS_Database.sqlite";
+            conn = "URI=file:" + Application.dataPath + "/StreamingAssets/DS_Database.sqlite";
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
@@ -66,13 +66,13 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     //모든 테이블의 정보를 로드 합니다.
     void LoadAllTableData()
     {
-        //LoadPlayerData();
-        //Load_Weapon_Table();
-        //Load_Armor_Table(); 
+        LoadPlayerData();
+        Load_Weapon_Table();
+        Load_Armor_Table(); 
         //Load_Item_Table();
         Load_ActiveSkill_Table();
         Load_Passive_Table();
-        //Load_Monster_Table();
+        Load_Monster_Table();
     }
 
     //구글 연결 함수

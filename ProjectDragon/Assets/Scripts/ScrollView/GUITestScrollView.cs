@@ -29,7 +29,7 @@ public class GUITestScrollView : MonoBehaviour
         // ItemCellData 는 IReuseCellData 상속받아서 구현된 데이터 클래스다.
         count = inventories.Count;
 
-        for (int i = 3; i < count; ++i)
+        for (int i = 0; i < count; ++i)
         {
             EuipmentcellData cell = new EuipmentcellData();
             cell.amount = inventories[i].amount;
@@ -40,8 +40,6 @@ public class GUITestScrollView : MonoBehaviour
             cell.name = inventories[i].name;
             cell.inventoryNum = inventories[i].num;
             cell.rarity = inventories[i].rarity;
-            cell.upgrade_Count = inventories[i].upgrade_Count;
-            cell.upgrade_Level = inventories[i].upgrade_Level;
             cell.isLock = inventories[i].isLock;
             cell.stat = inventories[i].stat;
             grid.AddItem(cell, false);
@@ -66,8 +64,6 @@ public class GUITestScrollView : MonoBehaviour
                 cell.name = inventories[i].name;
                 cell.inventoryNum = inventories[i].num;
                 cell.rarity = inventories[i].rarity;
-                cell.upgrade_Count = inventories[i].upgrade_Count;
-                cell.upgrade_Level = inventories[i].upgrade_Level;
                 cell.isLock = inventories[i].isLock;
                 cell.stat = inventories[i].stat;
                 grid.AddItem(cell, false);

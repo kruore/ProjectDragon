@@ -49,9 +49,6 @@ public class Boss_MaDongSeok : Monster
         projectiletime = 0.5f;
         Idletime = 3f;
         MCamera = GameObject.Find("Camera").GetComponent<Camera>();
-        viewportposition0 = MCamera.ViewportToWorldPoint(new Vector3(0, 0, 1));
-        viewportposition1 = MCamera.ViewportToWorldPoint(new Vector3(1, 1, 1));
-        Debug.Log("0번" + viewportposition0 + "1번" + viewportposition1);
         for (int i = 0; i < explosion.Length; i++)
         {
             explosion[i].Pause();

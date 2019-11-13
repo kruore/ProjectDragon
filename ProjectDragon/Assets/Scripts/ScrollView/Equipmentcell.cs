@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class Equipmentcell : UIReuseScrollViewCell
 {
     public UISprite equipIcon, itemIcon;
-    public UISprite rarity;
-    public UILabel Itemname, Itemvalue, Attackpercent, Activemana, Activecooltime, Activetarget, Activerange;
+    public UISprite rarity,activeIcon;
+    public UILabel Itemname, Itemvalue;
     public EuipmentcellData cell;
     float time,myYposition;
     private void Start()
@@ -17,9 +17,9 @@ public class Equipmentcell : UIReuseScrollViewCell
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
         cell = item;
-        rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
-        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+        //rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
+       // gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+       // gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
         bool check = true;
         if (LobbyManager.inst.Selecteditem.Count > 0)
         {
@@ -36,14 +36,14 @@ public class Equipmentcell : UIReuseScrollViewCell
             }
             if (check)
             {
-                gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-                gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+                //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+                //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
             }
         }
         else
         {
-            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+            //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+            //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
         }
        
         Itemname.text = item.name;
@@ -51,25 +51,25 @@ public class Equipmentcell : UIReuseScrollViewCell
         if (!item.item_Class.Equals(Item_CLASS.갑옷) && !item.item_Class.Equals(Item_CLASS.아이템))
         {
             Itemvalue.text = "공격력:" + item.stat.ToString();
-            Attackpercent.text = "공격력:" + Database.Inst.skill[item.skill_index].attack_Power.ToString() + "%";
-            Activemana.text = "소모마나량:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            Activecooltime.text = "쿨타임:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            Activetarget.text = "대상:" + Database.Inst.skill[item.skill_index].attack_Type;
-            Activerange.text = "범위:" + Database.Inst.skill[item.skill_index].attack_Range.ToString();
-            Attackpercent.gameObject.SetActive(true);
-            Activemana.gameObject.SetActive(true);
-            Activecooltime.gameObject.SetActive(true);
-            Activetarget.gameObject.SetActive(true);
-            Activerange.gameObject.SetActive(true);
+            //Attackpercent.text = "공격력:" + Database.Inst.skill[item.skill_index].attack_Power.ToString() + "%";
+            //Activemana.text = "소모마나량:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
+            //Activecooltime.text = "쿨타임:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
+            //Activetarget.text = "대상:" + Database.Inst.skill[item.skill_index].attack_Type;
+            //Activerange.text = "범위:" + Database.Inst.skill[item.skill_index].attack_Range.ToString();
+            //Attackpercent.gameObject.SetActive(true);
+            //Activemana.gameObject.SetActive(true);
+            //Activecooltime.gameObject.SetActive(true);
+            //Activetarget.gameObject.SetActive(true);
+            //Activerange.gameObject.SetActive(true);
         }
         else if (item.item_Class.Equals(Item_CLASS.갑옷))
         {
             Itemvalue.text = "체력:\t" + item.stat.ToString();
-            Attackpercent.gameObject.SetActive(false);
-            Activemana.gameObject.SetActive(false);
-            Activecooltime.gameObject.SetActive(false);
-            Activetarget.gameObject.SetActive(false);
-            Activerange.gameObject.SetActive(false);
+            //Attackpercent.gameObject.SetActive(false);
+            //Activemana.gameObject.SetActive(false);
+            //Activecooltime.gameObject.SetActive(false);
+            //Activetarget.gameObject.SetActive(false);
+            //Activerange.gameObject.SetActive(false);
         }
 
         if (item == null)
@@ -86,15 +86,16 @@ public class Equipmentcell : UIReuseScrollViewCell
         LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(true);
         LobbyManager.inst.BGI.SetActive(true);
     }
-    // private void
     public void ButtonActive()
     {
-        GameObject Equipanel;
-        Database.Inventory Equipdata;
+        Debug.Log("cellclick");
+        
         bool check = true;
         switch (LobbyManager.inst.lobbystate)
         {
             case LobbyState.Nomal:
+                GameObject Equipanel;
+                Database.Inventory Equipdata;
                 if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum) && !cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
                 {
                     GameObject changeEquipanel;

@@ -23,10 +23,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 184
-    paddingRight: 22
-    paddingTop: 21
-    paddingBottom: 281
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0002"
     x: 1203
     y: 1049
@@ -36,10 +36,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 166
-    paddingRight: 43
-    paddingTop: 37
-    paddingBottom: 235
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0003"
     x: 0
     y: 1456
@@ -49,10 +49,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 139
-    paddingRight: 64
-    paddingTop: 72
-    paddingBottom: 166
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0004"
     x: 0
     y: 732
@@ -62,10 +62,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 356
-    paddingRight: 85
-    paddingTop: 104
-    paddingBottom: 304
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0005"
     x: 1629
     y: 1608
@@ -75,10 +75,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 319
-    paddingRight: 112
-    paddingTop: 120
-    paddingBottom: 270
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0006"
     x: 603
     y: 1045
@@ -88,10 +88,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 280
-    paddingRight: 127
-    paddingTop: 138
-    paddingBottom: 218
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0007"
     x: 0
     y: 1155
@@ -101,10 +101,10 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 269
-    paddingRight: 141
-    paddingTop: 347
-    paddingBottom: 183
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: "\uBA3C\uC9C0\uC774\uD399\uD2B8_0008"
     x: 1203
     y: 1789
@@ -114,9 +114,9 @@ MonoBehaviour:
     borderRight: 0
     borderTop: 0
     borderBottom: 0
-    paddingLeft: 222
-    paddingRight: 158
-    paddingTop: 420
-    paddingBottom: 151
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   mPixelSize: 1
   mReplacement: {fileID: 0}

@@ -23,10 +23,6 @@ public class EuipmentcellData : IReuseCellData
     public RARITY rarity { get { return m_rarity; } set { m_rarity = value; } }
     public Item_CLASS m_item_Class;
     public Item_CLASS item_Class { get { return m_item_Class; } set { m_item_Class = value; } }
-    public int m_upgrade_Level;
-    public int upgrade_Level { get { return m_upgrade_Level; } set { m_upgrade_Level = value; } }
-    public int m_upgrade_Count;
-    public int upgrade_Count { get { return m_upgrade_Count; } set { m_upgrade_Count = value; } }
     public string m_imageName;
     public string imageName { get { return m_imageName; } set { m_imageName = value; } }
     public int m_amount;

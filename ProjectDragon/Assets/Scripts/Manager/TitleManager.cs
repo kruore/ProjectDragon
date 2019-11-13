@@ -9,7 +9,7 @@ public class TitleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        SoundManager.Inst.Ds_BgmPlayer(TitleBGM);
+        //SoundManager.Inst.Ds_BgmPlayer(TitleBGM);
         GameManager.Inst.ScreensizeReadjust();
         DataTransaction.Inst.ToString();
         //효과음

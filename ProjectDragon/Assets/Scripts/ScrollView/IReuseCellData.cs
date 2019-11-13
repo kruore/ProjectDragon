@@ -36,16 +36,6 @@ public interface IReuseCellData
         get;
         set;
     } // 아이템 타입
-    int upgrade_Level
-    {
-        get;
-        set;
-    }//아이템 레벨
-    int upgrade_Count
-    {
-        get;
-        set;
-    }//강화 진행중 정도 - 아이템 경험치
     string imageName
     {
         get;

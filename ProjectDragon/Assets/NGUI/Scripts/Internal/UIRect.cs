@@ -165,7 +165,7 @@ public abstract class UIRect : MonoBehaviour
 	/// Whether anchors will be recalculated on every update.
 	/// </summary>
 
-	public AnchorUpdate updateAnchors = AnchorUpdate.OnUpdate;
+	public AnchorUpdate updateAnchors = AnchorUpdate.OnEnable;
 
 	[System.NonSerialized] protected GameObject mGo;
 	[System.NonSerialized] protected Transform mTrans;
