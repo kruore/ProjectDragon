@@ -57,11 +57,25 @@ public class t_PathFinding : MonoBehaviour
 
             OpenList.Remove(currentNode);
             ClosedList.Add(currentNode);
-
-            if (currentNode == targetNode)
+            //Grid의 하나 노드보다 큰 경우
+            if (grid.nodeOverlapCountX > 0 || grid.nodeOverlapCountY > 0)
             {
-                GetFinalPath(startNode, targetNode);
+                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode))
+                {
+                    if (OverlapNode == targetNode)
+                    {
+                        GetFinalPath(startNode, currentNode);
+                    }
+                }
             }
+            else
+            {
+                if (currentNode == targetNode)
+                {
+                    GetFinalPath(startNode, targetNode);
+                }
+            }
+
 
             foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode))
             {
