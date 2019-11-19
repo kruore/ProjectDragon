@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 2954448563601634513}
   - component: {fileID: 2954448563601634512}
   - component: {fileID: 2954448563601634527}
+  - component: {fileID: 1642156482}
   m_Layer: 10
   m_Name: Slime
   m_TagString: Enemy
@@ -119,7 +120,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0014851093, y: -0.02511406}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -215,7 +216,7 @@ MonoBehaviour:
   waitTime: 2
   cooltime: 3
   knockTime: 0.15
-  knockPower: 1
+  knockPower: 1.5
   skillCooltime: 0
   skillDamage: 0
   m_bDebugMode: 1
@@ -227,6 +228,21 @@ MonoBehaviour:
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!114 &1642156482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954448563601634526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f943712fa0d246b4db4c0a1442ad1e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinding: {fileID: 0}
+  currentWaypoint: {x: 0, y: 0, z: 0}
+  targetPos: {fileID: 0}
 --- !u!1 &2954448564663233802
 GameObject:
   m_ObjectHideFlags: 0
@@ -4996,11 +5012,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6487932858946191329, guid: 4fdeeb51b0fb16c4da6fe73cd3532ebf,
-        type: 3}
-      propertyPath: m_SortingOrder
-      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4fdeeb51b0fb16c4da6fe73cd3532ebf, type: 3}

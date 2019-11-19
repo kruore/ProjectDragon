@@ -14,14 +14,18 @@ public class t_Grid : MonoBehaviour
     public int nodeOverlapCountY;       //오브젝트와 노드가 겹치는 노드갯수 Y축
 
     t_Node[,] grid;
-    //public List<t_Node> finalPath = new List<t_Node>();
 
     float nodeDiameter;
     int gridSizeX, gridSizeY;
 
+    public int MaxSize
+    {
+        get { return gridSizeX * gridSizeY; }
+    }
+
 
     GameObject[] Enemies;
-    List<GameObject> EnemiesArray;
+
     private void Awake()
     {
         nodeDiameter = nodeRadius * 2;
@@ -29,22 +33,10 @@ public class t_Grid : MonoBehaviour
         gridSizeY = Mathf.RoundToInt(gridWorldSize.y / nodeDiameter);
         CreateGrid();
 
-        Enemies = GameObject.FindGameObjectsWithTag("temp");
+        Enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
     }
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        if (Enemies.Length > 1)
-        {
-            for (int i = 0; i < Enemies.Length; ++i)
-            {
-                //EnemiesArray.Add(Enemies[i]);
-                //Debug.Log(EnemiesArray[i].name);
-            }
-        }
-    }
 
     void CreateGrid()
     {
@@ -57,15 +49,13 @@ public class t_Grid : MonoBehaviour
             {
                 Vector3 worldPoint = BottonLeft + Vector3.right * (x * nodeDiameter + nodeRadius) + Vector3.up * (y * nodeDiameter + nodeRadius);
                 bool wall = true;
-                if (Physics2D.OverlapBox(worldPoint, new Vector2(nodeRadius, nodeRadius), 0.0f, wallMask))
+                if (Physics2D.OverlapBox(worldPoint, new Vector2(nodeDiameter, nodeDiameter), 0.0f, wallMask))
                 {
                     wall = false;
                 }
-
                 grid[x, y] = new t_Node(wall, worldPoint, x, y);
             }
         }
-
     }
 
 
@@ -93,9 +83,6 @@ public class t_Grid : MonoBehaviour
     {
         nodeOverlapCountX = CalcOverlapNodeCount(objBoxSizeX);
         nodeOverlapCountY = CalcOverlapNodeCount(objBoxSizeY);
-
-        Debug.Log(nodeOverlapCountX);
-        Debug.Log(nodeOverlapCountY);
     }
     public List<t_Node> GetOverlapNodes(t_Node _Node)
     {
@@ -103,7 +90,7 @@ public class t_Grid : MonoBehaviour
         int xCheck, yCheck;
 
         //Right Side
-        xCheck = _Node.gridX + 1;
+        xCheck = _Node.gridX + nodeOverlapCountX;
         yCheck = _Node.gridY;
 
         if (xCheck >= 0 && xCheck < gridSizeX)
@@ -116,7 +103,7 @@ public class t_Grid : MonoBehaviour
         }
 
         //Left Side
-        xCheck = _Node.gridX - 1;
+        xCheck = _Node.gridX - nodeOverlapCountX;
         yCheck = _Node.gridY;
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
@@ -129,7 +116,7 @@ public class t_Grid : MonoBehaviour
 
         //Top Side
         xCheck = _Node.gridX;
-        yCheck = _Node.gridY + 1;
+        yCheck = _Node.gridY + nodeOverlapCountY;
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
             if (yCheck >= 0 && yCheck < gridSizeY)
@@ -141,7 +128,7 @@ public class t_Grid : MonoBehaviour
 
         //Bottom Side
         xCheck = _Node.gridX;
-        yCheck = _Node.gridY - 1;
+        yCheck = _Node.gridY - nodeOverlapCountY;
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
             if (yCheck >= 0 && yCheck < gridSizeY)
@@ -152,8 +139,8 @@ public class t_Grid : MonoBehaviour
         }
 
         //Right TopSide
-        xCheck = _Node.gridX + 1;
-        yCheck = _Node.gridY + 1;
+        xCheck = _Node.gridX + nodeOverlapCountX;
+        yCheck = _Node.gridY + nodeOverlapCountY;
 
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
@@ -165,8 +152,8 @@ public class t_Grid : MonoBehaviour
         }
 
         //Left TopSide
-        xCheck = _Node.gridX - 1;
-        yCheck = _Node.gridY + 1;
+        xCheck = _Node.gridX - nodeOverlapCountX;
+        yCheck = _Node.gridY + nodeOverlapCountY;
 
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
@@ -178,8 +165,8 @@ public class t_Grid : MonoBehaviour
         }
 
         //Right BottomSide
-        xCheck = _Node.gridX + 1;
-        yCheck = _Node.gridY - 1;
+        xCheck = _Node.gridX + nodeOverlapCountX;
+        yCheck = _Node.gridY - nodeOverlapCountY;
 
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
@@ -191,8 +178,8 @@ public class t_Grid : MonoBehaviour
         }
 
         //Left BottomSide
-        xCheck = _Node.gridX - 1;
-        yCheck = _Node.gridY - 1;
+        xCheck = _Node.gridX - nodeOverlapCountX;
+        yCheck = _Node.gridY - nodeOverlapCountY;
 
         if (xCheck >= 0 && xCheck < gridSizeX)
         {
@@ -205,6 +192,7 @@ public class t_Grid : MonoBehaviour
 
         return NeighboringNodes;
     }
+
     public List<t_Node> GetNeighboringNodes(t_Node _Node)
     {
         List<t_Node> NeighboringNodes = new List<t_Node>();
@@ -218,7 +206,6 @@ public class t_Grid : MonoBehaviour
             if (yCheck >= 0 && yCheck < gridSizeY)
             {
                 NeighboringNodes.Add(grid[xCheck, yCheck]);
-                Debug.Log("xCheck" + xCheck);
             }
         }
 
@@ -260,12 +247,12 @@ public class t_Grid : MonoBehaviour
 
         return NeighboringNodes;
     }
-
+    
     void OnDrawGizmos()
     {
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-        //#if UNITY_EDITOR
+        #if UNITY_EDITOR
 
         if (grid != null && displayGridGizmos)
         {
@@ -273,22 +260,25 @@ public class t_Grid : MonoBehaviour
             foreach (t_Node n in grid)
             {
                 Gizmos.color = (n.IsWall) ? Color.white : Color.red;
-                for (int i = 0; i < Enemies.Length; ++i)
-                {
-                    if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
+               
+                    for (int i = 0; i < Enemies.Length; ++i)
                     {
-                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
+                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
                         {
-                            Gizmos.color = Color.blue;
+                            if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
+                            {
+                                Gizmos.color = Color.blue;
+                            }
                         }
                     }
-                }
+
+                
                 Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
 
             }
 
         }
-        //#endif
+        #endif
     }
 
 }

@@ -181,6 +181,7 @@ public class FSM_NormalEnemy : Monster
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
+        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y);
 
         while (CurrentState == State.Walk)
         {
@@ -197,7 +198,9 @@ public class FSM_NormalEnemy : Monster
             if (!isHit && !isCollision)
             {
                 isWalk = true;
-                rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+                //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+
+                GetComponent<Tracking>().FindPathManager(rb2d,MoveSpeed);
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
                 //StartCoroutine(aStar.FindPathAgain(rigidbody, direction, MoveSpeed));
             }
@@ -224,7 +227,6 @@ public class FSM_NormalEnemy : Monster
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
-            Debug.Log("떨어짐");
             rb2d.bodyType = RigidbodyType2D.Dynamic;
             isCollision = false;
         }

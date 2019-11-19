@@ -87,7 +87,7 @@ public class Monster : Character
         //플레이어를 바라보는 방향에 대한 각도체크
         if (CurrentState != State.Attack)
         {
-            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, other.transform.position);
+            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, GetComponent<Tracking>().currentWaypoint);
         }
     }
 
@@ -112,6 +112,7 @@ public class Monster : Character
 
         rb2d.velocity = Vector2.zero;
 
+        yield return new WaitForSeconds(0.2f);
         isHit = false;
 
         yield return null;

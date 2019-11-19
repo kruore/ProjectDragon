@@ -5,23 +5,12 @@ using UnityEngine;
 public class t_PathFinding : MonoBehaviour
 {
     public t_Grid grid;
-
+    public t_Node startNode;
     public List<t_Node> finalPath = new List<t_Node>();
-    private void Awake()
-    {
-    }
+    public Vector3[] findPathNode;
 
-    private void Start()
-    {
-        //FindPath(startPos.position, targetPos.position);
-        
-    }
-    private void Update()
-    {
-        
-    }
 
-    void Create(float objBoxSizeX, float objBoxSizeY)
+    public void Create(float objBoxSizeX, float objBoxSizeY)
     {
         GameObject AStar = GameObject.Find("AStar");
         grid = AStar.transform.GetComponent<t_Grid>();
@@ -30,41 +19,48 @@ public class t_PathFinding : MonoBehaviour
 
     }
 
-    public void FindPath(Vector3 _startPos,Vector3 _targetPos,float objBoxSizeX,float objBoxSizeY)
+    public void FindPath(Vector3 _startPos,Vector3 _targetPos)
     {
-        Create(objBoxSizeX, objBoxSizeY);
 
-        t_Node startNode = grid.NodeFromWorldPosition(_startPos);
+        startNode = grid.NodeFromWorldPosition(_startPos);
         t_Node targetNode = grid.NodeFromWorldPosition(_targetPos);
 
         t_Node currentNode;
 
-        List<t_Node> OpenList = new List<t_Node>();
+        Heap<t_Node> OpenList = new Heap<t_Node>(grid.MaxSize);
         HashSet<t_Node> ClosedList = new HashSet<t_Node>();
 
         OpenList.Add(startNode);
 
         while(OpenList.Count>0)
         {
-            currentNode = OpenList[0];
-            for(int i=1;i<OpenList.Count;i++)
-            {
-                if(OpenList[i].FCost<currentNode.FCost|| OpenList[i].FCost== currentNode.FCost&&OpenList[i].hCost<currentNode.hCost)
-                {
-                    currentNode = OpenList[i];
-                }
-            }
-
-            OpenList.Remove(currentNode);
+            currentNode = OpenList.RemoveFirst();
             ClosedList.Add(currentNode);
-            //Grid의 하나 노드보다 큰 경우
-            if (grid.nodeOverlapCountX > 0 || grid.nodeOverlapCountY > 0)
+            if(OpenList ==null)
+            {
+                 break;
+            }
+            //currentNode = OpenList[0];
+            //for(int i=1;i<OpenList.Count;i++)
+            //{
+            //    if(OpenList[i].FCost<currentNode.FCost|| OpenList[i].FCost== currentNode.FCost&&OpenList[i].hCost<currentNode.hCost)
+            //    {
+            //        currentNode = OpenList[i];
+            //    }
+            //}
+
+            //OpenList.Remove(currentNode);
+            //ClosedList.Add(currentNode);
+
+            //도착했는가?
+            if (grid.nodeOverlapCountX > 0 || grid.nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
             {
                 foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode))
                 {
-                    if (OverlapNode == targetNode)
+                    if (OverlapNode == targetNode|| currentNode==targetNode)
                     {
                         GetFinalPath(startNode, currentNode);
+                        break;
                     }
                 }
             }
@@ -73,6 +69,7 @@ public class t_PathFinding : MonoBehaviour
                 if (currentNode == targetNode)
                 {
                     GetFinalPath(startNode, targetNode);
+                    break;
                 }
             }
 
@@ -85,7 +82,6 @@ public class t_PathFinding : MonoBehaviour
                 }
                 int moveCost = currentNode.gCost + GetManhattenDistance(currentNode, NeighborNode);
 
-                //moveCost is Neighbors of the current node
                 //NeighborNode are In an OpenList 
                 //moveCost's F value < NeighborNode's F value 
                 if (moveCost < NeighborNode.gCost || !OpenList.Contains(NeighborNode))
@@ -117,7 +113,26 @@ public class t_PathFinding : MonoBehaviour
         }
         FinalPath.Reverse();
         finalPath = FinalPath;
+        findPathNode = SimplifyPath(FinalPath);
+
     }
+    Vector3[] SimplifyPath(List<t_Node> path)
+    {
+        List<Vector3> waypoints = new List<Vector3>();
+        Vector2 directionOld = Vector2.zero;
+
+        for (int i = 1; i < path.Count; i++)
+        {
+            Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
+            if (directionNew != directionOld)
+            {
+                waypoints.Add(path[i].Pos);
+            }
+            directionOld = directionNew;
+        }
+        return waypoints.ToArray();
+    }
+
 
     int GetManhattenDistance(t_Node _nodeA, t_Node _nodeB)
     {

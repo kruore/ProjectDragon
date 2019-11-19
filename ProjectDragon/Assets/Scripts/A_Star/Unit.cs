@@ -20,7 +20,8 @@ public class Unit : MonoBehaviour
         {
             PathRequestManager.RequestPath(transform.position, target.position, OnPathFound);
             //0.35초마다 찾는다.
-            yield return new WaitForSeconds(0.35f);
+            //yield return new WaitForSeconds(0.35f);
+            yield return null;
         }
     }
 
@@ -51,7 +52,7 @@ public class Unit : MonoBehaviour
                 currentWaypoint = path[targetIndex];
             }
             //해당 위치로 이동
-            //transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, speed * Time.deltaTime);
             yield return null;
 
         }
