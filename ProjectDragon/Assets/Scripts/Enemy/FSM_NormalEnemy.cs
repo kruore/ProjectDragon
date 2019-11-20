@@ -189,7 +189,10 @@ public class FSM_NormalEnemy : Monster
             if (inAtkDetectionRange)
             {
                 isWalk = false;
-                rb2d.velocity = Vector2.zero;
+                //if(!isHit)
+                //{
+                    //rb2d.velocity = Vector2.zero;
+                //}
                 CurrentState = State.Attack;
                 yield break;
             }
@@ -217,7 +220,7 @@ public class FSM_NormalEnemy : Monster
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
             isCollision = true;
-            rb2d.bodyType = RigidbodyType2D.Kinematic;
+            rb2d.isKinematic = true;
             rb2d.velocity = Vector2.zero;
         }
     }
@@ -227,7 +230,7 @@ public class FSM_NormalEnemy : Monster
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
-            rb2d.bodyType = RigidbodyType2D.Dynamic;
+            rb2d.isKinematic = false;
             isCollision = false;
         }
     }

@@ -106,16 +106,14 @@ public class Monster : Character
     // 방향넉백
     public IEnumerator DirectionKnockBack()
     {
-        rb2d.velocity = Vector2.zero;
-        rb2d.AddForce(-direction* knockPower, ForceMode2D.Impulse);
+        //rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
+
         yield return new WaitForSeconds(knockTime);
 
         rb2d.velocity = Vector2.zero;
-
-        yield return new WaitForSeconds(0.2f);
         isHit = false;
 
-        yield return null;
     }
 
     //Dust Particle

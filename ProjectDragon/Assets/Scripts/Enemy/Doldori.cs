@@ -49,20 +49,20 @@ public class Doldori : FSM_NormalEnemy
     }
 
 
-    protected override void OnCollisionEnter2D(Collision2D collision)
-    {
-        base.OnCollisionEnter2D(collision);
+    //protected override void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    base.OnCollisionEnter2D(collision);
 
-        if (CurrentState == State.Attack)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                isAttacking = false;
-                rb2d.velocity = Vector2.zero;
-            }
-        }
-        //if(collision.gameObject.CompareTag("Wall"))
-    }
+    //    if (CurrentState == State.Attack)
+    //    {
+    //        if (collision.gameObject.CompareTag("Player"))
+    //        {
+    //            isAttacking = false;
+    //            rb2d.velocity = Vector2.zero;
+    //        }
+    //    }
+    //    //if(collision.gameObject.CompareTag("Wall"))
+    //}
 
 
     protected override IEnumerator Attack_On()

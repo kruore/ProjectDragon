@@ -56,18 +56,18 @@ public class Tracking : MonoBehaviour
             isArriveStartNode = true;
         }
 
-        if (!isArriveStartNode)
+        if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 이동
         {
             transform.position = Vector3.MoveTowards(transform.position, pathFinding.startNode.Pos, 10.0f * Time.deltaTime);
         }
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, _moveSpeed * Time.deltaTime);
-        }
         //Velocity Move
-        //    _rb2d.velocity = Vector3.zero;
-        //    moveDirection = (currentWaypoint - pathFinding.startNode.Pos).normalized;
-        //   _rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
+           // _rb2d.velocity = Vector3.zero;
+            //Vector3 moveDirection = (currentWaypoint - pathFinding.startNode.Pos).normalized;
+           //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
+        }
 
         yield return null;
 

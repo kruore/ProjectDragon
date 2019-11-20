@@ -13,6 +13,7 @@ public class Slime : FSM_NormalEnemy
 
     protected override void Start()
     {
+        //Time.timeScale = 0.2f;
         base.Start();
         StartCoroutine(Start_On());
     }
@@ -46,7 +47,7 @@ public class Slime : FSM_NormalEnemy
         col.enabled = false;
 
         //애니메이션 시간때문에..대략
-        //yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.0f);
 
         DeadParticle();
         spriteRenderer.color = fadeColor;  

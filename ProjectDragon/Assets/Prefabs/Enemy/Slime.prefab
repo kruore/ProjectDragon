@@ -201,7 +201,7 @@ MonoBehaviour:
   maxHp: 15
   atk: 5
   atkSpeed: 2
-  moveSpeed: 1.5
+  moveSpeed: 1
   atkRange: 0.52
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
@@ -215,7 +215,7 @@ MonoBehaviour:
   myAnim_AnglePos: 0
   waitTime: 2
   cooltime: 3
-  knockTime: 0.15
+  knockTime: 0.3
   knockPower: 1.5
   skillCooltime: 0
   skillDamage: 0

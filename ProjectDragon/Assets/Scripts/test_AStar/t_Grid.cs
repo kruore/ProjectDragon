@@ -247,38 +247,38 @@ public class t_Grid : MonoBehaviour
 
         return NeighboringNodes;
     }
-    
-    void OnDrawGizmos()
-    {
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-        #if UNITY_EDITOR
+//    void OnDrawGizmos()
+//    {
+//        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-        if (grid != null && displayGridGizmos)
-        {
+//#if UNITY_EDITOR
 
-            foreach (t_Node n in grid)
-            {
-                Gizmos.color = (n.IsWall) ? Color.white : Color.red;
-               
-                    for (int i = 0; i < Enemies.Length; ++i)
-                    {
-                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
-                        {
-                            if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
-                            {
-                                Gizmos.color = Color.blue;
-                            }
-                        }
-                    }
+//        if (grid != null && displayGridGizmos)
+//        {
 
-                
-                Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
+//            foreach (t_Node n in grid)
+//            {
+//                Gizmos.color = (n.IsWall) ? Color.white : Color.red;
 
-            }
+//                for (int i = 0; i < Enemies.Length; ++i)
+//                {
+//                    if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
+//                    {
+//                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
+//                        {
+//                            Gizmos.color = Color.blue;
+//                        }
+//                    }
+//                }
 
-        }
-        #endif
-    }
+
+//                Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
+
+//            }
+
+//        }
+//#endif
+//    }
 
 }
