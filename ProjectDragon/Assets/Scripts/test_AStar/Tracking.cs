@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Tracking : MonoBehaviour
 {
+    [HideInInspector]
     public t_PathFinding pathFinding;
 
-    //t_Node[] findPathNode;
+    t_Node[] findPathNode;
+    [HideInInspector]
     public Vector3 currentWaypoint;
     int pathNextIndex;
 
     //Vector3 moveDirection;
 
     //임시
+    [HideInInspector]
     public Transform targetPos;
 
 
@@ -29,8 +32,9 @@ public class Tracking : MonoBehaviour
     public void FindPathManager(Rigidbody2D _rb2d, float _moveSpeed)
     {
         pathFinding.FindPath(transform.position, targetPos.position);
-        if (pathFinding.grid != null && pathFinding.findPathNode.Length > 0)
+        if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
         {
+            findPathNode = pathFinding.finalPath.ToArray();
             StartCoroutine(Move(_rb2d, _moveSpeed));
         }
 
@@ -39,16 +43,16 @@ public class Tracking : MonoBehaviour
     IEnumerator Move(Rigidbody2D _rb2d, float _moveSpeed)
     {
 
-        currentWaypoint = pathFinding.findPathNode[0];
+        currentWaypoint = findPathNode[0].Pos;
 
         if (Vector3.Distance(transform.position, currentWaypoint) == 0.0f)  //오차범위 0.1
         {
             pathNextIndex++;
-            if (pathNextIndex >= pathFinding.findPathNode.Length)
+            if (pathNextIndex >= findPathNode.Length)
             {
                 yield break;
             }
-            currentWaypoint = pathFinding.findPathNode[pathNextIndex];
+            currentWaypoint = findPathNode[pathNextIndex].Pos;
         }
 
         if (transform.position == pathFinding.startNode.Pos)
@@ -56,7 +60,7 @@ public class Tracking : MonoBehaviour
             isArriveStartNode = true;
         }
 
-        if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 이동
+        if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 먼저이동
         {
             transform.position = Vector3.MoveTowards(transform.position, pathFinding.startNode.Pos, 10.0f * Time.deltaTime);
         }

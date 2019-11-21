@@ -248,37 +248,39 @@ public class t_Grid : MonoBehaviour
         return NeighboringNodes;
     }
 
-//    void OnDrawGizmos()
-//    {
-//        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
+    #region NodeDraw
+    void OnDrawGizmos()
+    {
+        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-//#if UNITY_EDITOR
+#if UNITY_EDITOR
 
-//        if (grid != null && displayGridGizmos)
-//        {
+        if (grid != null && displayGridGizmos)
+        {
 
-//            foreach (t_Node n in grid)
-//            {
-//                Gizmos.color = (n.IsWall) ? Color.white : Color.red;
+            foreach (t_Node n in grid)
+            {
+                Gizmos.color = (n.IsWall) ? Color.white : Color.red;
 
-//                for (int i = 0; i < Enemies.Length; ++i)
-//                {
-//                    if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
-//                    {
-//                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
-//                        {
-//                            Gizmos.color = Color.blue;
-//                        }
-//                    }
-//                }
+                for (int i = 0; i < Enemies.Length; ++i)
+                {
+                    if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath != null)
+                    {
+                        if (Enemies[i].transform.GetComponent<Tracking>().pathFinding.finalPath.Contains(n))
+                        {
+                            Gizmos.color = Color.blue;
+                        }
+                    }
+                }
 
 
-//                Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
+                Gizmos.DrawCube(n.Pos, Vector3.one * (nodeDiameter - .1f));
 
-//            }
+            }
 
-//        }
-//#endif
-//    }
+        }
+#endif
+    }
+    #endregion
 
 }

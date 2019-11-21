@@ -51,7 +51,6 @@ public class FSM_NormalEnemy : Monster
         //공격감지 체크
 
         StartCoroutine(AttackRangeCheck());
-
         yield return null;
     }
 
@@ -61,9 +60,7 @@ public class FSM_NormalEnemy : Monster
     protected virtual IEnumerator None()
     {
         objectAnimator.SetBool("Attack", false);
-
         StartCoroutine(CalcCooltime());
-
         yield return null;
 
     }
@@ -119,7 +116,6 @@ public class FSM_NormalEnemy : Monster
         while (!isDead)
         {
             inAtkDetectionRange = CheckRaycast();
-
             yield return null;
         }
     }
@@ -191,7 +187,7 @@ public class FSM_NormalEnemy : Monster
                 isWalk = false;
                 //if(!isHit)
                 //{
-                    //rb2d.velocity = Vector2.zero;
+                    //rb2d.velocity = Vector2.zero;  //move가 velocity로 하는거라면 넣기
                 //}
                 CurrentState = State.Attack;
                 yield break;
@@ -205,7 +201,6 @@ public class FSM_NormalEnemy : Monster
 
                 GetComponent<Tracking>().FindPathManager(rb2d,MoveSpeed);
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
-                //StartCoroutine(aStar.FindPathAgain(rigidbody, direction, MoveSpeed));
             }
 
             yield return null;
@@ -214,14 +209,27 @@ public class FSM_NormalEnemy : Monster
 
 
     //충돌했을때 서로 콜라이더로 밀지 않게 
-    protected virtual void OnCollisionEnter2D(Collision2D collision)
+    //protected virtual void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Player") ||
+    //         (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
+    //    {
+    //        isCollision = true;
+    //        rb2d.isKinematic = true;
+    //        rb2d.velocity = Vector2.zero;
+    //    }
+    //}
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") ||
-             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
+            (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
             isCollision = true;
-            rb2d.isKinematic = true;
-            rb2d.velocity = Vector2.zero;
+            if (!isHit)
+            {
+                rb2d.isKinematic = true;
+                rb2d.velocity = Vector2.zero;
+            }
         }
     }
 

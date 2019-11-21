@@ -111,9 +111,11 @@ public class Monster : Character
 
         yield return new WaitForSeconds(knockTime);
 
-        rb2d.velocity = Vector2.zero;
         isHit = false;
-
+        if (!isHit)
+        {
+            rb2d.velocity = Vector2.zero;
+        }
     }
 
     //Dust Particle
