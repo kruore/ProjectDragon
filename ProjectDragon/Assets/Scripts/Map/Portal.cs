@@ -16,8 +16,11 @@ public class Portal : MonoBehaviour
 
     private bool isPortalOn = false;
 
+    private GameObject player;
+
     private void Awake()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         GetComponent<Animator>().Play("t_PortalCreate");
     }
 

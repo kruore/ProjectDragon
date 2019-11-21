@@ -104,7 +104,7 @@ public class Room : MonoBehaviour
     //몬스터 리스트 관리
     void MonsterCounting()
     {
-        List<GameObject> temp_monsters = new List<GameObject>();
+         List<GameObject> temp_monsters = new List<GameObject>();
         foreach (GameObject obj in monsters)
         {
             if (obj.GetComponent<Monster>().isDead) continue;
@@ -115,7 +115,7 @@ public class Room : MonoBehaviour
         }
 
         //테스트 필요
-        monsters.RemoveRange(0, monsters.Count);
+        monsters.Clear();
         monsters.AddRange(temp_monsters);
         /////////////
         enemyCount = monsters.Count;

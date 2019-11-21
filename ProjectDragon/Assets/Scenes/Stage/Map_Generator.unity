@@ -4409,6 +4409,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2844523811675965163, guid: 41560e8add85e3e47840185a0b6fffbb,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2844523809845417481, guid: 41560e8add85e3e47840185a0b6fffbb,
         type: 3}
       propertyPath: joypadinput
@@ -4763,6 +4768,7 @@ GameObject:
   - component: {fileID: 1867093828}
   - component: {fileID: 1867093827}
   - component: {fileID: 1867093830}
+  - component: {fileID: 1867093831}
   m_Layer: 0
   m_Name: Portal
   m_TagString: Untagged
@@ -4826,7 +4832,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300032, guid: e1de067093b814d4ea5a569eb7a512a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -4834,7 +4840,7 @@ SpriteRenderer:
   m_Size: {x: 0.32, y: 0.32}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1867093829
@@ -4863,6 +4869,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030009b398df9c840ad77ca76975fabf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!58 &1867093831
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1867093826}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.16}
+  serializedVersion: 2
+  m_Radius: 0.16
 --- !u!114 &1922435594 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5370934434592048140, guid: 55db38af1a210f24687ede17f227cfda,
