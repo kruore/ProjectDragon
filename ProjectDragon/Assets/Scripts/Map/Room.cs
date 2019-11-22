@@ -26,16 +26,17 @@ public class Room : MonoBehaviour
     public RoomType roomType;
 
     public bool doorTop, doorBot, doorLeft, doorRight;
+    public GameObject portal;
 
     public GameObject[] door_All = new GameObject[4];
-    public Monster[] monsters;
+    public List<GameObject> monsters = new List<GameObject>();
 
     public RoomState roomState = RoomState.DeActivate;
 
     public int enemyCount = 0;
 
     public RoomManager roomManager;
-    public BattleManager battleManager;
+    public Player playerSet;
 
     public int depth;
 
@@ -45,7 +46,7 @@ public class Room : MonoBehaviour
         set
         {
             miniMapPos = value;
-            switch(roomType)
+            switch (roomType)
             {
                 case RoomType.Begin:
                     miniMapPos.GetComponent<UISprite>().color = Color.cyan;
@@ -61,27 +62,70 @@ public class Room : MonoBehaviour
     }
     private GameObject miniMapPos;
 
-    private void Start()
+    private void Awake()
     {
-        monsters = transform.GetComponentsInChildren<Monster>();
-        battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
-        enemyCount = monsters.Length;
+        InitRoom();
+        playerSet = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
+
     void Update()
     {
-        enemyCount = 0;
-        foreach (Monster obj in monsters)
+        //룸의 상태 관리
+        CheckRoomState();
+    }
+
+    //방의 데이터를 초기화 - 방 생성시 바로 작동합니다.
+    private void InitRoom()
+    {
+        //battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
+        foreach (Monster obj in temp_monsters)
         {
-            if (obj == null) continue;
-            if (obj.GetComponent<BoxCollider2D>().enabled) enemyCount++;
+            monsters.Add(obj.gameObject);
         }
+        enemyCount = monsters.Count;
+    }
+
+    //룸의 상태를 확인
+    void CheckRoomState()
+    {
         if (!roomState.Equals(RoomState.Clear))
         {
+            //몬스터 리스트 관리
+            MonsterCounting();
             if (enemyCount == 0 && roomState.Equals(RoomState.Activate))
             {
+                //몬스터가 한 마리도 없다면 클리어입니다.
                 IsClear();
             }
             else if (!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
+        }
+    }
+
+    //몬스터 리스트 관리
+    void MonsterCounting()
+    {
+        List<GameObject> temp_monsters = new List<GameObject>();
+
+        foreach (GameObject obj in monsters)
+        {
+            if (obj.GetComponent<Monster>().isDead) temp_monsters.Add(obj);
+            else
+            {
+                continue;
+            }
+        }
+
+        foreach (GameObject obj in temp_monsters)
+        {
+            if (monsters.Contains(obj)) monsters.Remove(obj);
+        }
+
+        //monsters = temp_monsters;
+        enemyCount = monsters.Count;
+        if(enemyCount <1)
+        {
+            playerSet.TempNullSet();
         }
     }
 
@@ -91,11 +135,14 @@ public class Room : MonoBehaviour
         if (gridPos == PlayerPos)
         {
             roomState = RoomState.Activate;
-            battleManager.EnemyFinder();
-            StartCoroutine(battleManager.CalculateDistanceWithPlayer());
-            for (int i = 0; i < enemyCount; i++)
+            playerSet.EnemyArray = monsters;
+            StartCoroutine(playerSet.CalculateDistanceWithPlayer());
+            //battleManager.EnemyFinder();
+            //StartCoroutine(battleManager.CalculateDistanceWithPlayer());
+
+            foreach (GameObject obj in monsters)
             {
-                StartCoroutine(monsters[i].GetComponent<FSM_NormalEnemy>().Start_On());
+                StartCoroutine(obj.GetComponent<FSM_NormalEnemy>().Start_On());
             }
         }
     }
@@ -106,7 +153,7 @@ public class Room : MonoBehaviour
         roomState = RoomState.Clear;
         OpenAllDoor();
         roomManager.miniMap.gameObject.SetActive(true);
-        MiniMapPos.SetActive(true);
+        MiniMapPos.GetComponent<UISprite>().alpha = 1.0f;
         //CollectAll_Items();
 
         //계단방의 경우 문이 열립니다.

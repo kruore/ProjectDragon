@@ -28,16 +28,18 @@ public class ShortRangeAttackArea : MonoBehaviour
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
         My_Angle = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         m_viewObstacleMask = LayerMask.NameToLayer("Wall");
-        battlemanager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
+        //battlemanager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
     public void Update()
     {
-        if (!battlemanager.EnemyArray.Count.Equals(0))
+        if (My_Angle.AngleisAttack==true)
         {
+            angle = My_Angle.enemy_angle;
             m_viewRotateZ = My_Angle.enemy_angle;
         }
         else
         {
+            angle = My_Angle.current_angle;
             m_viewRotateZ = My_Angle.current_angle;
         }
     }

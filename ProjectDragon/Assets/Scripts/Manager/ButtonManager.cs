@@ -63,9 +63,13 @@ public static class ButtonManager
                 case "ToolBox":
                     //DeactiveToolboxpanel();
                     break;
+                case "Quit":
+                    GameObject.Find("UI Root/QuitPanel/QuitBGI").SetActive(false);
+                    break;
                 default:
-                    if(SceneManager.sceneCount.Equals(SceneManager.GetSceneAt(1)))
+                    if(SceneManager.GetActiveScene().name.Equals("Lobby"))
                     {
+                        LobbyManager.inst.test = SceneManager.GetActiveScene().name;
                         LobbyManager.inst.QuitApplicationinlobby();
                     }
                     Debug.Log(debug);
@@ -75,7 +79,13 @@ public static class ButtonManager
         }
         else
         {
-            SceneManager.LoadScene("Main");
+            if (SceneManager.GetActiveScene().name.Equals("Lobby"))
+            {
+                LobbyManager.inst.test = SceneManager.GetActiveScene().name;
+                LobbyManager.inst.QuitState();
+                LobbyManager.inst.QuitApplicationinlobby();
+            }
+            
         }
         return null;
     }
@@ -135,6 +145,10 @@ public static class ButtonManager
         {
             Debug.Log("SetActiveObject가 없어요.");
         }
+    }
+    public static void GameQuit()
+    {
+        Application.Quit();
     }
     #endregion
     /// <summary>

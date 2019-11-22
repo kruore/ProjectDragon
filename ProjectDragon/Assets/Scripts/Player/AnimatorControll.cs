@@ -84,18 +84,18 @@ public class AnimatorControll : MonoBehaviour
     //public AnimationClip animationClip;
     public void Update()
     {
-        if (my_state != State.Attack)
+        if (Anim_Master.AngleisAttack == false)
         {
             my_state = Anim_Master.CurrentState;
             temp_name = clearAnimator_name;
-            ClearAnimator_Name = "Female_DefaultCloth_ShortRange_" + my_state + "_" + anglepos.ToString();
             anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
+            ClearAnimator_Name = "Female_DefaultCloth_ShortRange_" + my_state + "_" + anglepos.ToString();
         }
-        else if (my_state.Equals(State.Attack))
+        else if (Anim_Master.AngleisAttack == true)
         {
             my_state = Anim_Master.CurrentState;
             temp_name = clearAnimator_name;
-            anglepos = Anim_Master.Enemy_AngleCaseString(Anim_Master.current_angle);
+            anglepos = Anim_Master.Enemy_AngleCaseString(Anim_Master.enemy_angle);
             temp_name = AttackName;
             AttackName = "Female_DefaultCloth_ShortRange_" + my_state + "_" + anglepos.ToString();
             AngleStringCast(AttackName);

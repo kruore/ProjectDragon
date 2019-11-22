@@ -22,6 +22,7 @@ public class room
 
 public class MapCreator : MonoBehaviour
 {
+    public Player playerSet;
     public GameObject[,] map_Data;
     public GameObject map_Base;
     public GameObject[] map_Prefabs;
@@ -66,10 +67,11 @@ public class MapCreator : MonoBehaviour
     void Start()
     {
         //map_Data[player_PosX, player_PosY] = GameObject.Instantiate(map_Base, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-
+        playerSet = GameObject.Find("테스터").GetComponent<Player>();
         CreateRooms(); //lays out the actual map
         SetRoomDoors(); //assigns the doors where rooms would connect
         DrawMap(); //instantiates objects to make up a map
+
     }
 
     /// <summary>
@@ -402,7 +404,8 @@ public class MapCreator : MonoBehaviour
         SetNpcRoom(Map_Root.transform);
         Manager.Map_Data = map_Data;
         Manager.SetPlayerPos(0, 0);
-    }
+        playerSet.EnemyRoom = Manager;
+}
     void SetRoomDoors()
     {
         for (int x = 0; x < gridSizeX; x++)

@@ -73,6 +73,10 @@ public class JoyPad : MonoBehaviour
     }
     public void OnPress(bool pressed)
     {
+        if (pressed == false)
+        {
+            player.CurrentState = State.Idle;
+        }
         if (pressed.Equals(true))
         {
             if (Input.touchCount == 1)
@@ -145,116 +149,115 @@ public class JoyPad : MonoBehaviour
     {
         //Debug.Log("delta " +  delta + " delta.magnitude = " + delta.magnitude);
         //Ray ray = UICamera.currentCamera.ScreenPointToRay(UICamera.lastTouchPosition);
-
-        Touch touch01 = Input.GetTouch(0);
-        Ray ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
-        RaycastHit[] rayhited = Physics.RaycastAll(ray, 10);
-        float dist = 0f;
-
-        if (Input.touchCount > 1)
+        if (Input.touchCount > 0)
         {
-            Debug.Log("일단 1보단 큼");
-            Touch touch02 = Input.GetTouch(1);
-            for (int i = 0; i < Input.touchCount; i++)
+            Touch touch01 = Input.GetTouch(0);
+            Ray ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
+            RaycastHit[] rayhited = Physics.RaycastAll(ray, 10);
+            float dist = 0f;
+            if (Input.touchCount > 1)
             {
-                foreach (RaycastHit hit in rayhited)
+                Debug.Log("일단 1보단 큼");
+                Touch touch02 = Input.GetTouch(1);
+                for (int i = 0; i < Input.touchCount; i++)
                 {
-                    if (hit.collider.tag.Equals("button"))
+                    foreach (RaycastHit hit in rayhited)
                     {
-                        ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
-                        break;
+                        if (hit.collider.tag.Equals("button"))
+                        {
+                            ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
+                            break;
+                        }
+                        else if (!hit.collider.tag.Equals("button"))
+                        {
+                            touch02 = Input.GetTouch(1);
+                            fingerPoint01 = UICamera.currentCamera.ScreenToWorldPoint(touch02.position);
+                            ray = UICamera.currentCamera.ScreenPointToRay(touch02.position);
+                            break;
+                        }
                     }
-                    else if (!hit.collider.tag.Equals("button"))
-                    {
-                        touch02 = Input.GetTouch(1);
-                        fingerPoint01 = UICamera.currentCamera.ScreenToWorldPoint(touch02.position);
-                        ray = UICamera.currentCamera.ScreenPointToRay(touch02.position);
-                        break;
-                    }
+
                 }
-
             }
-        }
-        Vector3 currentPos = ray.GetPoint(dist);
-        Vector3 offset = currentPos - userInitTouchPos;
+            Vector3 currentPos = ray.GetPoint(dist);
+            Vector3 offset = currentPos - userInitTouchPos;
 
-        if (offset.x != 0f || offset.y != 0f)
-        {
-            offset = target2.InverseTransformDirection(offset);
-            offset.Scale(scale);
-            offset = target2.TransformDirection(offset);
-            offset.z = 0f;
-        }
+            if (offset.x != 0f || offset.y != 0f)
+            {
+                offset = target2.InverseTransformDirection(offset);
+                offset.Scale(scale);
+                offset = target2.TransformDirection(offset);
+                offset.z = 0f;
+            }
 
-        target2.position = userInitTouchPos + offset;
+            target2.position = userInitTouchPos + offset;
 
-        Vector3 zeroZpos = target2.position;
-        zeroZpos.z = 0f;
-        target2.position = zeroZpos;
-        // Calculate the length. This involves a squareroot operation,
-        // so it's slightly expensive. We re-use this length for multiple
-        // things below to avoid doing the square-root more than one.
+            Vector3 zeroZpos = target2.position;
+            zeroZpos.z = 0f;
+            target2.position = zeroZpos;
+            // Calculate the length. This involves a squareroot operation,
+            // so it's slightly expensive. We re-use this length for multiple
+            // things below to avoid doing the square-root more than one.
 
-        float length = target2.localPosition.magnitude;
+            float length = target2.localPosition.magnitude;
 
-        if (length < deadZone)
-        {
-            // If the length of the vector is smaller than the deadZone radius,
-            // set the position to the origin.
-            position = Vector2.zero;
-            target2.localPosition = position;
-        }
-        else if (length > radius)
-        {
-            target2.localPosition = Vector3.ClampMagnitude(target2.localPosition, radius);
-            position = target2.localPosition;
-        }
-
-        if (normalize)
-        {
-            // Normalize the vector and multiply it with the length adjusted
-            // to compensate for the deadZone radius.
-            // This prevents the position from snapping from zero to the deadZone radius.
-            position = position / radius * Mathf.InverseLerp(radius, deadZone, 1);
-        }
-        if (Input.touchCount == 0)
-        {
-            ResetJoystick();
+            if (length < deadZone)
+            {
+                // If the length of the vector is smaller than the deadZone radius,
+                // set the position to the origin.
+                position = Vector2.zero;
+                target2.localPosition = position;
+            }
+            else if (length > radius)
+            {
+                target2.localPosition = Vector3.ClampMagnitude(target2.localPosition, radius);
+                position = target2.localPosition;
+            }
+            if(player.CurrentState!=State.Attack)
+            {
+                if (angle > 0)
+                {
+                    player.CurrentState = State.Walk;
+                }
+                else if (angle == 0)
+                {
+                    player.CurrentState = State.Idle;
+                }
+            }
+            if (normalize)
+            {
+                // Normalize the vector and multiply it with the length adjusted
+                // to compensate for the deadZone radius.
+                // This prevents the position from snapping from zero to the deadZone radius.
+                position = position / radius * Mathf.InverseLerp(radius, deadZone, 1);
+            }
+            if (player.current_angle > 0 && !player.AngleisAttack)
+            {
+                player.CurrentState = State.Walk;
+            }
         }
     }
     private void Update()
     {
         //각도 구하기
-        angle = GetAngle(target2.transform.position, target.transform.position);
-        {
-            if (player.CurrentState != State.Dead)
-            {
-                if (angle == 0)
-                {
-                    angle = temp_angle;
-                    if (player.CurrentState != State.Idle && player.CurrentState != State.Attack)
-                    {
-                        player.CurrentState = State.Idle;
-                    }
-                    else if (player.CurrentState == State.Walk && player.CurrentState != State.Attack)
-                    {
-                        player.CurrentState = State.Idle;
-                    }
-                }
-                else
-                {
-                    if (player.CurrentState == State.Idle && player.CurrentState != State.Attack)
-                    {
-                        player.CurrentState = State.Walk;
-                    }
-                }
-            }
-            else
-            {
-                player.CurrentState = State.Dead;
-            }
-        }
-        temp_angle = angle;
+        //angle = GetAngle(target2.transform.position, target.transform.position);
+        //{
+        //    if (player.CurrentState != State.Dead)
+        //    {
+        //        if (angle == 0 &&!(player.CurrentState==State.Attack))
+        //        {
+        //            angle = temp_angle;
+        //        }
+        //        else if(angle ==0&&(player.CurrentState == State.Attack))
+        //        {
+        //            if (player.CurrentState != State.Idle)
+        //            {
+        //                player.CurrentState = State.Idle;
+        //            }
+        //        }
+        //    }
+        //    temp_angle = angle;
+        //}
     }
     public static float GetAngle(Vector3 Start, Vector3 End)
     {

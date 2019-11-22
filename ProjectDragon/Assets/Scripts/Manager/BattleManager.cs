@@ -25,7 +25,7 @@ public class BattleManager : MonoBehaviour
 
     public void Start()
     {
-        SoundManager.Inst.Ds_BgmPlayer(BGM);
+        //SoundManager.Inst.Ds_BgmPlayer(BGM);
         Application.targetFrameRate = 60;
         //시작할때 while을 통해 코루틴을 기동시켜 반복 재생
         EnemyFinder();
@@ -88,7 +88,6 @@ public class BattleManager : MonoBehaviour
                             other = EnemyDistanceArray[a];
                         }
                     }
-                    player.GetComponent<Player>().EnemyPos = other.transform as Transform;
                     if (DistanceCheckPlayerAndEnemy(player.GetComponent<Transform>(), other.GetComponent<Transform>()) < player.GetComponent<Player>().AtkRange)
                     {
                         if (other == null)

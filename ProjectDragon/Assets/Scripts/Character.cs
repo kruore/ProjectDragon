@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { None = 0, Idle,Walk, Attack, Dead, Skill, Hit}
+public enum State { None = 0, Idle, Walk, Attack, Dead, Skill, Hit }
 public enum AnglePos { None = 0, Front, Right, Back, Left }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 
@@ -18,20 +18,36 @@ public class Character : MonoBehaviour, PersonalSpecificational
         {
             myState = value;
             SetState(myState);
-            if(myState==State.Walk)
-            {
-                Debug.Log("ss");
-            }
         }
     }
-    
-    
-    //personal Specification
+
+    [Header("스테이터스")]
+    [SerializeField] protected int currentHp;
     [SerializeField] protected int hp;
-    [SerializeField] public int maxHp;
-    [SerializeField] protected int atk;
-    [SerializeField] protected float atkSpeed;
+    [SerializeField] protected int damage;
     [SerializeField] protected float moveSpeed;
+    [SerializeField] protected int atk;
+    [SerializeField] protected float attackSpeed;
+    [SerializeField] protected float attackRange;
+    [SerializeField] protected float nuckBack;
+
+    [Header("속성 저항값")]
+    protected int resist_Fire;
+    protected int resist_Water;
+    protected int resist_Poison;
+    protected int resist_Electric;
+
+    [Header("속성 데미지값")]
+    protected int attackType_Fire;
+    protected int attackType_Water;
+    protected int attackType_Poison;
+    protected int attackType_Electric;
+
+
+
+//personal Specification
+    [SerializeField] public int maxHp;
+    [SerializeField] protected float atkSpeed;
     [SerializeField] protected float atkRange;
     public Vector3 myPos;
     public Vector3 myRotat;
@@ -58,10 +74,10 @@ public class Character : MonoBehaviour, PersonalSpecificational
     #region ATKSPEED
     public float ATTACKSPEED
     {
-        get { return atkSpeed; }
+        get { return attackSpeed; }
         set
         {
-            atkSpeed = value;
+            attackSpeed = value;
         }
     }
 
@@ -90,7 +106,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
     #endregion
 
     #region HPControll
-    public int HP
+    public virtual int HP
     {
         get { return hp; }
         set
@@ -163,11 +179,11 @@ public class Character : MonoBehaviour, PersonalSpecificational
     //공격을 할때 각도에 따라서 모션을 보여주기 위해 만듬 (즉, 적이 있을때만 사용)
 
     [HideInInspector]
-    public int current_Anim_Frame; 
+    public int current_Anim_Frame;
     [HideInInspector]
-    public float enemy_angle; 
+    public float enemy_angle;
     [HideInInspector]
-    public AttackType myAttackType; 
+    public AttackType myAttackType;
     [HideInInspector]
-    public AnglePos myAnim_AnglePos;  
+    public AnglePos myAnim_AnglePos;
 }

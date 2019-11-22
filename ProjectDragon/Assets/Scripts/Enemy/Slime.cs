@@ -16,7 +16,10 @@ public class Slime : FSM_NormalEnemy
     //    base.Start();
     //    //StartCoroutine(Start_On());
     //}
-
+    public void Start()
+    {
+        MoveSpeed = 3.0f;
+    }
     public void Update()
     {
         DustParticleCheck();
@@ -26,7 +29,7 @@ public class Slime : FSM_NormalEnemy
     //애니메이션 프레임에 넣기
     protected override IEnumerator Attack_On()
     {
-        if (inAtkDetectionRange)
+        if (inAtkDetectionRange&&!isDead)
         {
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
