@@ -9,7 +9,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     public AudioSource Ds_musicSource;//배경음악
     public Slider Ds_soundslider;//옵션.사운드조절바
     public float Ds_volumeRange = 0.5f;//현재사운드 크기
-
+    public List<AudioClip> Clips=new List<AudioClip>();
     /// <summary>
     /// 초기의 배경음과 이펙스재생을 할 오디오 소스 생성
     /// </summary>
@@ -79,5 +79,32 @@ public class SoundManager : MonoSingleton<SoundManager>
             Ds_efxSource.volume = Ds_volumeRange;
         }
         Ds_efxSource.Stop();
+    }
+    
+    public void SoundSet(params int[] _indexes)
+    {
+        if(_indexes.Length>0)
+        {
+            for(int i=0;i< _indexes.Length;i++)
+            {
+                SoundTable(_indexes[i]);
+            }
+        }
+    }
+
+    public void SoundTable(int _index)
+    {
+        AudioClip soundclip;
+        switch (_index)
+        {
+            case 1:
+            //                soundclip = Resources.Load<AudioClip>("Sound/");
+            default:
+                break;
+        }
+    }
+    private void OnLevelWasLoaded(int level)
+    {
+        Clips.Clear();
     }
 }

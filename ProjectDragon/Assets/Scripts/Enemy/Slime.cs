@@ -11,15 +11,12 @@ public class Slime : FSM_NormalEnemy
         childDeadParticle = transform.Find("DeadParticle").gameObject;
     }
 
-    //protected override void Start()
-    //{
-    //    base.Start();
-    //    //StartCoroutine(Start_On());
-    //}
-    public void Start()
+    protected override void Start()
     {
-        MoveSpeed = 3.0f;
+        base.Start();
+        StartCoroutine(Start_On());
     }
+
     public void Update()
     {
         DustParticleCheck();
@@ -49,7 +46,7 @@ public class Slime : FSM_NormalEnemy
         col.enabled = false;
 
         //애니메이션 시간때문에..대략
-        //yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(2.0f);
 
         DeadParticle();
         spriteRenderer.color = fadeColor;  

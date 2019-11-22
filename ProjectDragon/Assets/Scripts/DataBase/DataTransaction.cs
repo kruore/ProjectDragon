@@ -12,13 +12,14 @@ using Random = UnityEngine.Random;
 
 public class DataTransaction : MonoSingleton<DataTransaction>
 {
+    //public Text text;
     //public T Temp_Inventory;
     private Database database;
     public IDbCommand DEB_dbcmd;
 
     private void Awake()
     {
-        DataPhasing();
+        StartCoroutine(DataPhasing());
         database = gameObject.AddComponent<Database>();
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
@@ -26,18 +27,17 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
     private void Start()
     {
-        
+        //text.text = Database.Inst.playData.inventory.Count.ToString();
     }
 
     #region Database Connecting
 
     //현재 파일 중에 DB파일이 없다면 생성
-    void DataPhasing()
+    IEnumerator DataPhasing()
     {
         string conn;
         if (Application.platform.Equals(RuntimePlatform.Android))
         {
-
             conn = Application.persistentDataPath + "/DS_Database.sqlite";
             if (!File.Exists(conn))
             {
@@ -47,8 +47,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
                 File.WriteAllBytes(conn, loadDB.bytes);
             }
         }
-
-        //yield return null;
+        yield return null;
     }
 
     //DB에 연결합니다.
@@ -65,7 +64,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
+        //text.text = "쓋";
         dbconn.Open();
+        //text.text = "open";
         DEB_dbcmd = dbconn.CreateCommand();
     }
 
@@ -79,6 +80,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         Load_ActiveSkill_Table();
         Load_Monster_Table();
         LoadPlayerData();
+
         yield return null;
         StopCoroutine(LoadAllTableData());
     }
@@ -86,16 +88,14 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     //플레이어 데이터를 로드합니다.
     public void LoadPlayerData()
     {
-        Debug.Log("didkdkdk4");
         //플레이어 테이블 데이터 로드
         Load_Inventory_Table();
-        Debug.Log("didkdkdk4");
+
         //플레이어의 패시브 데이터를 로드
         Load_Emblem_PlayData();
-        Debug.Log("didkdkdk4");
+
         //플레이어 기본 데이터 로드
         Load_PlayerPrefs_Data();
-        Debug.Log("didkdkdk4");
     }
 
     public void SavePlayerData()
@@ -148,7 +148,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         //인벤토리에 아이템 삽입
         Insert_Inventory_Item(inventories);
 
-        Change_ManaPower(_mp);
+        Mp += _mp;
     }
 
     /// <summary>
@@ -204,15 +204,6 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.inventory.AddRange(_inventories);
     }
 
-    #region what is this?>??
-    /// <summary>
-    /// 리얼 mp를 _amount만큼 증가시키거나 감소시킵니다.
-    /// </summary>
-    /// <param name="_amount"></param>
-    public void Change_ManaPower(int _amount)
-    {
-        database.playData.mp += _amount;
-    }
     #endregion
 
     /// <summary>
@@ -231,7 +222,6 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
     }
 
-    #endregion
 
 
     #region player data method & property
@@ -255,6 +245,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             else if (MaxHp <= temp) temp = MaxHp;
 
             database.playData.currentHp = temp;
+            //알고리즘 존나 병신임
+            if (database.playData.currentHp == 0.0f) InitializePlayData();
         }
     }
     public float CurrentDamage
@@ -293,9 +285,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         get { return database.playData.mp; }
         set
         {
-            //int temp = value;
-            //if (temp < 0) temp = 0;
-            //else if()
+            int temp = value;
+            if (temp < 0) temp = 0;
+            else if (9999999 < temp) temp = 9999999;
+
             database.playData.mp = value;
         }
     }
@@ -365,17 +358,27 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             }
         }
     }
+
+    /// <summary>
+    /// 엠블럼 기능 구조~~
+    /// </summary>
+    /// <param name="_optionTableName"></param>
+    /// <param name="_num"></param>
+    /// <returns></returns>
     private Database.OptionTable LoadOptionData(string _optionTableName, int _num)
     {
         string sqlQuery = "SELECT * FROM " + _optionTableName + " WHERE Num = " + _num;
         DEB_dbcmd.CommandText = sqlQuery;
         IDataReader reader = DEB_dbcmd.ExecuteReader();
+        reader.Read();
 
         int Num = reader.GetInt32(0);
         float Parameter = reader.GetFloat(1);
         string Description = reader.GetString(2);
         string MethodName = reader.GetString(3);
 
+        reader.Close();
+        reader = null;
         return new Database.OptionTable(Num, Parameter, Description, MethodName);
     }
     private void ApplyOption(Database.OptionTable option)
@@ -399,10 +402,14 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     }
     #endregion
 
+
+    /// <summary>
+    /// 플레이어가 죽었거나 포기했을때 부르면 데이터가 초기화 됩니다.
+    /// </summary>
     public void InitializePlayData()
     {
         InitialPlayData();
-        SavePlayerData();
+        //SavePlayerData();
     }
 
     #region 공사중
@@ -458,26 +465,22 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     /// <summary>
     /// reset emblem table and player data, if unlocked emblemes are retained
     /// </summary>
+    /// 
+    // 쿼리 에러 뜸
     private void ResetEmblem()
     {
-        //List<Database.Emblem> emblem = database.playData.emblem;
-        ////Insert Data into Table
-        //for (int i = 0; i < emblem.Count; i++)
-        //{
-        //    int Status = (int)emblem[i].status;
+        List<Database.Emblem> emblem = database.playData.emblem;
+        //Insert Data into Table
+        for (int i = 0; i < emblem.Count; i++)
+        {
+            int Status = (int)emblem[i].status;
 
-        //    if (Status > 1)
-        //    {
-        //        database.playData.emblem[i].status = EMBLEM_STATUS.Unlock;
-        //        Status = 1;
-        //    }
-
-        //    string sqlQuery = "UPDATE Emblem" +
-        //                      "SET Status = " + Status +
-        //                      "WHERE Num = " + i;
-        //    DEB_dbcmd.CommandText = sqlQuery;
-        //    DEB_dbcmd.ExecuteNonQuery();
-        //}
+            if (Status > 1)
+            {
+                database.playData.emblem[i].status = EMBLEM_STATUS.Unlock;
+                Status = 1;
+            }
+        }
     }
     #endregion
 
@@ -487,7 +490,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
     void Load_PlayerPrefs_Data()
     {
-        if (PlayerPrefs.HasKey("save"))
+        if (PlayerPrefs.HasKey("save1"))
         {
             database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
             database.playData.hp = PlayerPrefs.GetFloat("hp");
@@ -621,7 +624,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
     }
 
-
+    // 쿼리 에러 뜸
     void Save_Emblem_PlayData()
     {
         List<Database.Emblem> emblem = database.playData.emblem;
@@ -631,10 +634,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             int Status = (int)emblem[i].status;
 
             string sqlQuery = "UPDATE Emblem" +
-                              "SET Status = " + Status +
-                              "WHERE Num = " + i;
-            DataTransaction.Inst.DEB_dbcmd.CommandText = sqlQuery;
-            DataTransaction.Inst.DEB_dbcmd.ExecuteNonQuery();
+                              " SET Status = " + Status +
+                              " WHERE Num = " + i;
+            DEB_dbcmd.CommandText = sqlQuery;
+            DEB_dbcmd.ExecuteNonQuery();
         }
     }
 

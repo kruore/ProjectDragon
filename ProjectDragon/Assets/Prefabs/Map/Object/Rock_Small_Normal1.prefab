@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2757166703008788837}
   - component: {fileID: 2757166703008788838}
   - component: {fileID: 2757166703008788839}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rock_Small_Normal1
   m_TagString: Wall
   m_Icon: {fileID: 0}

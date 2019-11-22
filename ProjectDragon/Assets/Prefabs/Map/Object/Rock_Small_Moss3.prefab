@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1861371455606534474}
   - component: {fileID: 1861371455606534475}
   - component: {fileID: 1861371455606534476}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rock_Small_Moss3
   m_TagString: Wall
   m_Icon: {fileID: 0}

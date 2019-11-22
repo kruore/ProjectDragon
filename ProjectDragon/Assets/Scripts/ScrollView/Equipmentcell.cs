@@ -24,6 +24,10 @@ public class Equipmentcell : UIReuseScrollViewCell
         {
             equipIcon.gameObject.SetActive(true);
         }
+       else
+        {
+            equipIcon.gameObject.SetActive(false);
+        }
         bool check = true;
         if (LobbyManager.inst.Selecteditem.Count > 0)
         {
@@ -99,6 +103,8 @@ public class Equipmentcell : UIReuseScrollViewCell
         {
             case LobbyState.Nomal:
                 
+                break;
+            #region delete
             //    GameObject Equipanel;
             //    Database.Inventory Equipdata;
             //    if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum) && !cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
@@ -215,7 +221,7 @@ public class Equipmentcell : UIReuseScrollViewCell
             //    }
             //    break;
             //case LobbyState.Decomposition:
-                
+
             //    if (LobbyManager.inst.Selecteditem.Count > 0)
             //    {
             //        foreach (int Select in LobbyManager.inst.Selecteditem)
@@ -252,7 +258,7 @@ public class Equipmentcell : UIReuseScrollViewCell
             //        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
             //        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
             //    }
-                break;
+            #endregion
             default:
                 break;
         }
@@ -338,20 +344,29 @@ public class Equipmentcell : UIReuseScrollViewCell
         if(sender.Equals(gameObject)&& state)
         {
             Debug.Log("Press");
-            StartCoroutine("TimeRange");
+            //StartCoroutine("TimeRange");
+            time = Time.time;
+            myYposition = transform.position.y;
         }
         else if(sender.Equals(gameObject) && !state)
         {
-            if(time>1.5f&&(Mathf.Abs(myYposition-gameObject.transform.position.y)<0.05)&&LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
+            if((Time.time - time) >1.5f&&(Mathf.Abs(myYposition-gameObject.transform.position.y)<0.05)&&LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
             {
                 Debug.Log(Mathf.Abs(myYposition - gameObject.transform.position.y));
-                LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
-                LobbyManager.inst.BGID.SetActive(true);
-                GameManager.Inst.Scenestack.Push("Lock");
-                LobbyManager.inst.lobbystate = LobbyState.Lock;
+                if(!cell.m_Class.Equals(CLASS.갑옷))
+                {
+                    Database.Inst.playData.equiWeapon_InventoryNum = cell.inventoryNum;
+                    LobbyManager.inst.SetWeapon();
+                    DataTransaction.Inst.SavePlayerData();
+                }
+                
+                //LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
+                //LobbyManager.inst.BGID.SetActive(true);
+                //GameManager.Inst.Scenestack.Push("Lock");
+                //LobbyManager.inst.lobbystate = LobbyState.Lock;
             }
             StopCoroutine("TimeRange");
-            Debug.Log(time);
+            Debug.Log(Time.time - time);
             Debug.Log("Presscancle");
         }
     }
@@ -369,5 +384,9 @@ public class Equipmentcell : UIReuseScrollViewCell
     public void Activefalse()
     {
         UIButton.current.gameObject.SetActive(false);
+    }
+    public void Activetrue()
+    {
+        UIButton.current.transform.Find("ActiveStat").gameObject.SetActive(true);
     }
 }

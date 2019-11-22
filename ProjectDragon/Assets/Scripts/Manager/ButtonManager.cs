@@ -41,6 +41,9 @@ public static class ButtonManager
                     break;
                 case "EquipPanel":
                     GameObject.Find("UI Root").transform.Find("EquipPanel").gameObject.SetActive(false);
+                    LobbyManager.inst.itemclassselect = ItemState.기본;
+                    LobbyManager.inst.ItemRarityselect = ItemRarity.기본;
+                    LobbyManager.inst.UpdateAllScrollview();
                     return "EquipPanel";
                     break;
                 case "Enchant":
@@ -69,7 +72,7 @@ public static class ButtonManager
                 default:
                     if(SceneManager.GetActiveScene().name.Equals("Lobby"))
                     {
-                        LobbyManager.inst.test = SceneManager.GetActiveScene().name;
+                        //LobbyManager.inst.test = SceneManager.GetActiveScene().name;
                         LobbyManager.inst.QuitApplicationinlobby();
                     }
                     Debug.Log(debug);
@@ -81,7 +84,7 @@ public static class ButtonManager
         {
             if (SceneManager.GetActiveScene().name.Equals("Lobby"))
             {
-                LobbyManager.inst.test = SceneManager.GetActiveScene().name;
+                //LobbyManager.inst.test = SceneManager.GetActiveScene().name;
                 LobbyManager.inst.QuitState();
                 LobbyManager.inst.QuitApplicationinlobby();
             }

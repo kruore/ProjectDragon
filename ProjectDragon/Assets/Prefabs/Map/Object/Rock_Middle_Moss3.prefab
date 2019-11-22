@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6328061782914419540}
   - component: {fileID: 6328061782914419541}
   - component: {fileID: 6328061782914419542}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Rock_Middle_Moss3
   m_TagString: Wall
   m_Icon: {fileID: 0}

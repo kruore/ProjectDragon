@@ -11,9 +11,7 @@ public class Monster : Character
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     protected Animator objectAnimator;
-    protected AnimatorClipInfo[] clipInfo;
-    [SerializeField]
-    protected bool invincible = false;  //무적상태인지
+
 
 
 
@@ -42,7 +40,7 @@ public class Monster : Character
     public bool inAtkDetectionRange;
     protected Vector3 direction;
     protected RaycastHit2D[] hit;
-    [SerializeField] protected float originOffset = 0.3f;
+    [SerializeField] protected float originOffset;
     protected Vector2 startingPosition;
     protected Vector3 directionOriginOffset;
 
@@ -89,7 +87,7 @@ public class Monster : Character
         //플레이어를 바라보는 방향에 대한 각도체크
         if (CurrentState != State.Attack)
         {
-            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, other.transform.position);
+            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, GetComponent<Tracking>().currentWaypoint);
         }
     }
 
@@ -108,15 +106,16 @@ public class Monster : Character
     // 방향넉백
     public IEnumerator DirectionKnockBack()
     {
-        rb2d.velocity = Vector2.zero;
-        rb2d.AddForce(-direction* knockPower, ForceMode2D.Impulse);
+        //rb2d.velocity = Vector2.zero;
+        rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
+
         yield return new WaitForSeconds(knockTime);
 
-        rb2d.velocity = Vector2.zero;
-
         isHit = false;
-
-        yield return null;
+        if (!isHit)
+        {
+            rb2d.velocity = Vector2.zero;
+        }
     }
 
     //Dust Particle

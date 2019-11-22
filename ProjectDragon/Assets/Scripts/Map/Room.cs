@@ -28,7 +28,7 @@ public class Room : MonoBehaviour
     public bool doorTop, doorBot, doorLeft, doorRight;
     public GameObject portal;
 
-    public GameObject[] door_All = new GameObject[4];
+    public GameObject[] door_All = new GameObject[4] { null, null, null, null};
     public List<GameObject> monsters = new List<GameObject>();
 
     public RoomState roomState = RoomState.DeActivate;
@@ -36,9 +36,11 @@ public class Room : MonoBehaviour
     public int enemyCount = 0;
 
     public RoomManager roomManager;
-    public Player playerSet;
+    //public BattleManager battleManager;
 
     public int depth;
+
+    public Player playerSet;
 
     public GameObject MiniMapPos
     {
@@ -105,28 +107,21 @@ public class Room : MonoBehaviour
     //몬스터 리스트 관리
     void MonsterCounting()
     {
-        List<GameObject> temp_monsters = new List<GameObject>();
-
+         List<GameObject> temp_monsters = new List<GameObject>();
         foreach (GameObject obj in monsters)
         {
-            if (obj.GetComponent<Monster>().isDead) temp_monsters.Add(obj);
+            if (obj.GetComponent<Monster>().isDead) continue;
             else
             {
-                continue;
+                temp_monsters.Add(obj);
             }
         }
 
-        foreach (GameObject obj in temp_monsters)
-        {
-            if (monsters.Contains(obj)) monsters.Remove(obj);
-        }
-
-        //monsters = temp_monsters;
+        //테스트 필요
+        monsters.Clear();
+        monsters.AddRange(temp_monsters);
+        /////////////
         enemyCount = monsters.Count;
-        if(enemyCount <1)
-        {
-            playerSet.TempNullSet();
-        }
     }
 
     void CheckPlayerPos()
@@ -135,15 +130,19 @@ public class Room : MonoBehaviour
         if (gridPos == PlayerPos)
         {
             roomState = RoomState.Activate;
-            playerSet.EnemyArray = monsters;
-            StartCoroutine(playerSet.CalculateDistanceWithPlayer());
+
             //battleManager.EnemyFinder();
             //StartCoroutine(battleManager.CalculateDistanceWithPlayer());
+
+            playerSet.EnemyArray = monsters;
+            StartCoroutine(playerSet.CalculateDistanceWithPlayer());
 
             foreach (GameObject obj in monsters)
             {
                 StartCoroutine(obj.GetComponent<FSM_NormalEnemy>().Start_On());
             }
+
+            
         }
     }
 

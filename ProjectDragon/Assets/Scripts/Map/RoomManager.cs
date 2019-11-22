@@ -36,7 +36,7 @@ public class RoomManager : MonoBehaviour
         miniMap.RoomManager = GetComponent<RoomManager>();
     }
 
-    public void SetPlayerPos(int _player_PosX, int _player_PosY)
+    public void SetPlayerPos(int _player_PosX,int _player_PosY)
     {
         player_PosX = _player_PosX;
         player_PosY = _player_PosY;

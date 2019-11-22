@@ -143,7 +143,7 @@ public class Player : Character
             //동작
             while (isActive)
             {
-                // EnemyArray = EnemyRoom.PlayerLocationRoomMonsterData();
+                //EnemyArray = EnemyRoom.PlayerLocationRoomMonsterData();
                 if (EnemyArray.Count > 0)
                 {
                     for (int a = 0; a < EnemyArray.Count; a++)

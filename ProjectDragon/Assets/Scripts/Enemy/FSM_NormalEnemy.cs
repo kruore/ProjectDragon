@@ -6,12 +6,10 @@ public class FSM_NormalEnemy : Monster
 {
 
     [Header(" ")]
-    [SerializeField]
-    protected bool isAttackActive;
+    bool isAttackActive;
     [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected BoxCollider2D col;
-    [SerializeField]
-    public bool isCollision = false;
+    bool isCollision = false;
 
     protected override void Awake()
     {
@@ -53,7 +51,6 @@ public class FSM_NormalEnemy : Monster
         //공격감지 체크
 
         StartCoroutine(AttackRangeCheck());
-
         yield return null;
     }
 
@@ -63,9 +60,7 @@ public class FSM_NormalEnemy : Monster
     protected virtual IEnumerator None()
     {
         objectAnimator.SetBool("Attack", false);
-
         StartCoroutine(CalcCooltime());
-
         yield return null;
 
     }
@@ -121,7 +116,6 @@ public class FSM_NormalEnemy : Monster
         while (!isDead)
         {
             inAtkDetectionRange = CheckRaycast();
-
             yield return null;
         }
     }
@@ -145,7 +139,7 @@ public class FSM_NormalEnemy : Monster
         #endregion
 
 
-        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange, m_viewTargetMask);
+        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
         foreach (RaycastHit2D _hit in hit)
         {
@@ -172,17 +166,18 @@ public class FSM_NormalEnemy : Monster
     {
         if (m_bDebugMode)
         {
-            Debug.DrawRay(startingPosition, direction * AtkRange, Color.red);
-            Gizmos.DrawWireSphere(transform.position, AtkRange + Vector2.Dot(directionOriginOffset, direction));
+            Debug.DrawRay(startingPosition, direction * (AtkRange - originOffset), Color.red);
+            Gizmos.DrawWireSphere(transform.position, AtkRange );
         }
     }
-
+    //+ Vector2.Dot(directionOriginOffset, direction)
 
 
     protected virtual IEnumerator Walk()
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
+        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
 
         while (CurrentState == State.Walk)
         {
@@ -190,7 +185,10 @@ public class FSM_NormalEnemy : Monster
             if (inAtkDetectionRange)
             {
                 isWalk = false;
-                rb2d.velocity = Vector2.zero;
+                //if(!isHit)
+                //{
+                    //rb2d.velocity = Vector2.zero;  //move가 velocity로 하는거라면 넣기
+                //}
                 CurrentState = State.Attack;
                 yield break;
             }
@@ -199,9 +197,13 @@ public class FSM_NormalEnemy : Monster
             if (!isHit && !isCollision)
             {
                 isWalk = true;
-                rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+                //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+
+                //AStar
+                GetComponent<Tracking>().FindPathManager(rb2d,MoveSpeed);
+
+
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
-                //StartCoroutine(aStar.FindPathAgain(rigidbody, direction, MoveSpeed));
             }
 
             yield return null;
@@ -210,36 +212,40 @@ public class FSM_NormalEnemy : Monster
 
 
     //충돌했을때 서로 콜라이더로 밀지 않게 
-    //protected void OnCollisionEnter2D(Collision2D collision)
+    //protected virtual void OnCollisionEnter2D(Collision2D collision)
     //{
-    //    if (collision.gameObject.CompareTag("Player")|| (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision))
+    //    if (collision.gameObject.CompareTag("Player") ||
+    //         (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
     //    {
     //        isCollision = true;
-    //        rb2d.bodyType = RigidbodyType2D.Kinematic;
+    //        rb2d.isKinematic = true;
     //        rb2d.velocity = Vector2.zero;
     //    }
     //}
-    protected void OnCollisionStay2D(Collision2D collision)
+    private void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") ||
             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
             isCollision = true;
-            rb2d.bodyType = RigidbodyType2D.Kinematic;
-            rb2d.velocity = Vector2.zero;
+            if (!isHit)
+            {
+                rb2d.isKinematic = true;
+                rb2d.velocity = Vector2.zero;
+            }
         }
-  
     }
-    protected void OnCollisionExit2D(Collision2D collision)
+
+    protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
-            Debug.Log("떨어짐");
-            rb2d.bodyType = RigidbodyType2D.Dynamic;
+            rb2d.isKinematic = false;
             isCollision = false;
         }
     }
+
 
     protected virtual IEnumerator Attack()
     {

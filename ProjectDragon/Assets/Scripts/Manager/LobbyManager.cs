@@ -13,24 +13,26 @@ public class LobbyManager : MonoBehaviour
     public static LobbyManager inst;
     bool isnight = true;
     GameObject particle;
-    public GameObject fireobject, playeranimation, playerimg, equipCharactor;
+    public GameObject fireobject, playeranimation, playerimg, equipCharactor, playerStat;
     public GameObject filterobject;
     public AudioClip fire;
     public GameObject Statpanel;
     #region equipobject
     public GameObject changeEquip, BGID, BGI;
-    public GameObject Inventoryback, Currentweapon, CurrentArmor, CurrentActive, scrollview,EuiptIcons;
+    public GameObject Inventoryback, Currentweapon, CurrentArmor, CurrentActive, scrollview, EuiptIcons;
+    public List<UISprite> Weapon, Armor, weaponicon, armoricon, activeicon;
     public int changeequipdata, currentEquipdata, selectData, enchantJam, m_sortSelect;
     public LobbyState lobbystate = LobbyState.Nomal;
     public List<int> Selecteditem;
     public ItemState itemclassselect;
     public ItemRarity ItemRarityselect;
-    public float sizeoption;
+    public float sizeoption = 2;
     public List<GUITestScrollView> gUITestScrollViews;
     public static string teststring;
-    public int[] jamcounts = new int[3];
+    //public int[] jamcounts = new int[3];
+    string classname = "null";
     double distance;
-    public string test = "", test2 = "";
+    //public string test = "", test2 = "";
     public UILabel testlabel, testlabel2;
     public int sortSelect
     {
@@ -41,7 +43,7 @@ public class LobbyManager : MonoBehaviour
         set
         {
             m_sortSelect = value;
-            InventorySort(m_sortSelect, scrollview.GetComponent<GUITestScrollView>());
+            //InventorySort(m_sortSelect, scrollview.GetComponent<GUITestScrollView>());
         }
     }
     #endregion
@@ -54,18 +56,20 @@ public class LobbyManager : MonoBehaviour
     {
         GameManager.Inst.name.ToString();
         DataTransaction.Inst.gameObject.ToString();
-        test = "null";
         statepanelbutton = true;
         testlabel = GameObject.Find("test").GetComponent<UILabel>();
         testlabel2 = GameObject.Find("test2").GetComponent<UILabel>();
+        //player 체력,마나,스텟 조정
+        playerStat = GameObject.Find("UI Root/LobbyPanel/IconBackgroundU/Player");
+        playerStat.transform.Find("HPCountBG/HP").GetComponent<UISprite>().fillAmount = (float)DataTransaction.Inst.CurrentHp / (float)DataTransaction.Inst.MaxHp;
+        playerStat.transform.Find("HPCountBG/Label").GetComponent<UILabel>().text = string.Format("{0}/{1}", DataTransaction.Inst.CurrentHp, DataTransaction.Inst.MaxHp);
+        playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
         GameManager.Inst.QuitObject = GameObject.Find("UI Root/QuitPanel").transform.Find("QuitBGI").gameObject;
         SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
         Selecteditem = new List<int>();
         EuiptIcons = GameObject.Find(string.Format("UI Root/LobbyPanel/IconBackgroundU/EquipItem/EquipLabel"));
-         test = Statpanel.GetComponent<TweenPosition>().from.x + "::" + Statpanel.GetComponent<TweenPosition>().to.x.ToString() + "::" + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x;
-        sizeoption = 2;
         if (isnight)
         {
             SoundManager.Inst.Ds_BgmPlayer(fire);
@@ -74,12 +78,12 @@ public class LobbyManager : MonoBehaviour
         else
         {
         }
-        string classname = "null";
-        testlabel.text = test;
+
         playerimg = GameObject.Find("UI Root/LobbyPanel/Statpanel/Panel/playersizebox/Character");
         equipCharactor = GameObject.Find("UI Root").transform.Find("EquipPanel/Charactorpanel/playersizebox/Charactor").gameObject;
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
-        EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>().spriteName = item.imageName;
+        Weapon.Add(EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>());
+        //EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>().spriteName = item.imageName;
         if (item.Class.Equals(CLASS.검))
         {
             classname = "Worrior";
@@ -105,21 +109,21 @@ public class LobbyManager : MonoBehaviour
         }
 
         string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
-        playerimg.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
+        playerimg.GetComponent<UITexture>().mainTexture = Resources.Load<Texture2D>(playerclass);
         equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
-        //ChangeItemIcon(Currentweapon, item);Assets/Resources/PlayerCharactor/Female_Worrior_Weapon.asset
+        ChangeItemIcon(Currentweapon, item);
         //Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
-
-        playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
-        playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
-        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
-        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
-        equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
+        Weapon.Add(playerimg.transform.Find("Weapon").GetComponent<UISprite>());
+        Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox/X").GetComponent<UISprite>();
+        Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox/X").GetComponent<UISprite>();
+        Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox/X").GetComponent<UISprite>();
+        Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox/X").GetComponent<UISprite>();
+        Weapon.Add(equipCharactor.transform.Find("Weapon").GetComponent<UISprite>());
         //CurrentActive.transform.Find("IconIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].skill_Index].imageName;
         //GameObject.Find("UI Root/LobbyPanel/Player/HPCountBG/HP").GetComponent<UISprite>().fillAmount =Database.Inst.playData.currentHp/Database.Inst.playData.;
         //GameObject.Find("UI Root/LobbyPanel/Player/Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text=
-
+        SetWeapon();
 
         ////테스트용 코드
         ////GameManager.Inst.Scenestack.Push("Enchant");
@@ -235,9 +239,10 @@ public class LobbyManager : MonoBehaviour
         }
         //GameObject.Find("Panel/Label").GetComponent<UILabel>().text = test;
 
-        test2 = Statpanel.GetComponent<TweenPosition>().from.x + "::" + Statpanel.GetComponent<TweenPosition>().to.x.ToString() + "::" + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x;
-        testlabel.text = test;
-        testlabel2.text = test2;
+    }
+    public void OptionPanel()
+    {
+        UIButton.current.transform.Find("OptionPanel").gameObject.SetActive(true);
     }
     public void StatpanelSetup()
     {
@@ -247,10 +252,8 @@ public class LobbyManager : MonoBehaviour
             Statpanel.GetComponent<TweenPosition>().to = Statpanel.transform.localPosition;
             Statpanel.GetComponent<TweenPosition>().to.x = Statpanel.GetComponent<TweenPosition>().to.x + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x - Statpanel.GetComponent<UISprite>().localSize.x;
             Debug.Log(Statpanel.GetComponent<TweenPosition>().from.x + "::" + Statpanel.GetComponent<TweenPosition>().to.x.ToString() + "::" + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x);
-            test = Statpanel.GetComponent<TweenPosition>().from.x + "::" + Statpanel.GetComponent<TweenPosition>().to.x.ToString() + "::" + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x;
             statepanelbutton = false;
         }
-
     }
     public void TouchBackButton()
     {
@@ -296,7 +299,7 @@ public class LobbyManager : MonoBehaviour
         equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
         ChangeItemIcon(Currentweapon, item);
-        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text =Database.Inst.weapons[item.DB_Num].damage.ToString();
+        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = Database.Inst.weapons[item.DB_Num].damage.ToString();
         playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
         playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
@@ -307,7 +310,7 @@ public class LobbyManager : MonoBehaviour
     }
     public void ChangeItemIcon(GameObject Icon, Database.Inventory data)
     {
-        Icon.transform.Find("EquipIcon").GetComponent<UISprite>().spriteName = data.name;
+        Icon.transform.Find("EquipIcon").GetComponent<UISprite>().spriteName = data.imageName;
 
         //if (data.isLock)
         //{
@@ -360,6 +363,7 @@ public class LobbyManager : MonoBehaviour
         foreach (GUITestScrollView scrollView in gUITestScrollViews)
         {
             scrollView.EV_UpdateAll();
+            Debug.Log(scrollView.gameObject.name);
         }
 
     }
@@ -414,14 +418,14 @@ public class LobbyManager : MonoBehaviour
     {
         ButtonManager.GameQuit();
     }
-    public void EnchantJamCountMinus()
-    {
-        if (enchantJam > 0)
-        {
-            enchantJam--;
-            Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
-        }
-    }
+    //public void EnchantJamCountMinus()
+    //{
+    //    if (enchantJam > 0)
+    //    {
+    //        enchantJam--;
+    //        Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
+    //    }
+    //}
     //public void EnchantJamCountPlus()
     //{
     //    if (Database.Inst.playData.inventory[0].amount > enchantJam)
@@ -430,16 +434,91 @@ public class LobbyManager : MonoBehaviour
     //        Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
     //    }
     //}
-    public void EnchantJamCountMax()
+    //public void EnchantJamCountMax()
+    //{
+    //    Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
+    //}
+    //public void InventorySort(int sortmethods, GUITestScrollView scrollview)
+    //{
+    //    if (sortmethods.Equals(0))
+    //    {
+    //        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+    //        {
+    //            if (a.num > b.num)
+    //            {
+    //                return 1;
+    //            }
+    //            else
+    //            {
+    //                return -1;
+    //            }
+    //        });
+    //    }
+    //    else if (sortmethods.Equals(1))
+    //    {
+    //        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+    //        {
+    //            if (a.rarity > b.rarity)
+    //            {
+    //                return 1;
+    //            }
+    //            else if (a.rarity.Equals(b.rarity))
+    //            {
+    //                if (a.Class > b.Class)
+    //                {
+    //                    return 1;
+    //                }
+    //                else if (a.Class.Equals(b.Class))
+    //                {
+    //                    return a.num.CompareTo(b.num);
+    //                }
+    //                else
+    //                {
+    //                    return -1;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                return -1;
+    //            }
+    //        });
+    //    }
+    //    else if (sortmethods.Equals(2))
+    //    {
+    //        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+    //        {
+    //            if (a.Class > b.Class)
+    //            {
+    //                return 1;
+    //            }
+    //            else if (a.Class.Equals(b.Class))
+    //            {
+    //                if (a.rarity > b.rarity)
+    //                {
+    //                    return 1;
+    //                }
+    //                else if (a.rarity.Equals(b.rarity))
+    //                {
+    //                    return a.num.CompareTo(b.num);
+    //                }
+    //                else
+    //                {
+    //                    return -1;
+    //                }
+    //            }
+    //            else
+    //            {
+    //                return -1;
+    //            }
+    //        });
+    //    }
+    //    scrollview.EV_UpdateAll();
+    //}
+    public void inventoryAcquisitionorder()
     {
-        Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
-    }
-    public void InventorySort(int sortmethods, GUITestScrollView scrollview)
-    {
-        if (sortmethods.Equals(0))
-        {
-            Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
             {
+
                 if (a.num > b.num)
                 {
                     return 1;
@@ -449,10 +528,12 @@ public class LobbyManager : MonoBehaviour
                     return -1;
                 }
             });
-        }
-        else if (sortmethods.Equals(1))
-        {
-            Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+        UpdateAllScrollview();
+        UIButton.current.transform.parent.gameObject.SetActive(false);
+    }
+    public void inventoryClassorder()
+    {
+        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
             {
                 if (a.rarity > b.rarity)
                 {
@@ -466,6 +547,7 @@ public class LobbyManager : MonoBehaviour
                     }
                     else if (a.Class.Equals(b.Class))
                     {
+                        Debug.Log("EE");
                         return a.num.CompareTo(b.num);
                     }
                     else
@@ -478,12 +560,14 @@ public class LobbyManager : MonoBehaviour
                     return -1;
                 }
             });
-        }
-        else if (sortmethods.Equals(2))
-        {
-            Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
+        UpdateAllScrollview();
+        UIButton.current.transform.parent.gameObject.SetActive(false);
+    }
+    public void inventorytypeorder()
+    {
+        Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
             {
-                if (a.Class > b.Class)
+                if (a.Class < b.Class)
                 {
                     return 1;
                 }
@@ -507,10 +591,9 @@ public class LobbyManager : MonoBehaviour
                     return -1;
                 }
             });
-        }
-        scrollview.EV_UpdateAll();
+        UpdateAllScrollview();
+        UIButton.current.transform.parent.gameObject.SetActive(false);
     }
-
     public void togglevalueChangeitemrarity()
     {
         if (UIToggle.current.gameObject.GetComponent<UISprite>().spriteName.Equals("레어도_노말") && UIToggle.current.value)
@@ -593,6 +676,91 @@ public class LobbyManager : MonoBehaviour
     public void QuitApplicationinlobbyCancle()
     {
         GameObject.Find("UI Root/QuitPanel/Quit").SetActive(false);
+    }
+    public void Manacontrol(int _mana)
+    {
+        Database.Inst.playData.mp -= _mana;
+        playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
+    }
+    public void SetWeapon()
+    {
+        Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+        string classname = "null";
+        if (item.Class.Equals(CLASS.검))
+        {
+            classname = "Worrior";
+            if (Database.Inst.playData.sex.Equals(SEX.Male))
+            {
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+            }
+            else
+            {
+                playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+                equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+            }
+        }
+        else if (item.Class.Equals(CLASS.활))
+        {
+            classname = "Archer";
+
+        }
+        else if (item.Class.Equals(CLASS.지팡이))
+        {
+            classname = "Wizard";
+        }
+        //Assets / Resources / PlayerCharactor / Female_Worrior_Weapon.mat
+        string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
+
+        NGUIAtlas weaponatlas = Resources.Load<NGUIAtlas>(playerclass + "_Weapon");
+        for (int i = 0; Weapon.Count > i; i++)
+        {
+            Weapon[i].atlas = weaponatlas;
+            Weapon[i].spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
+        }
+        UpdateAllScrollview();
+    }
+    public void Togglebox()
+    {
+        if (UIToggle.current.value)
+        {
+            switch (UIToggle.current.transform.parent.gameObject.name)
+            {
+                case "SwordIcon":
+                    itemclassselect = ItemState.검;
+                    Debug.Log("sword");
+                    break;
+                case "BowIcon":
+                    itemclassselect = ItemState.활;
+                    Debug.Log("bow");
+                    break;
+                case "ArmorIcon":
+                    itemclassselect = ItemState.지팡이;
+                    Debug.Log("armor");
+                    break;
+                case "WandIcon":
+                    itemclassselect = ItemState.갑옷;
+                    Debug.Log("wand");
+                    break;
+                default:
+                    Debug.Log(UIToggle.current.transform.parent.gameObject.name);
+                    break;
+            }
+            UpdateAllScrollview();
+        }
+    }
+    public void CurrentWeaponStat()
+    {
+        Database.Weapon currentweapon =DataTransaction.Inst.CurrentEquipWeapon;
+        GameObject optionBGI = UIButton.current.transform.Find("OptionBGI").gameObject;
+        optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.name;
+        optionBGI.transform.Find("Value").GetComponent<UILabel>().text = currentweapon.damage.ToString();
+        optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.optionTableName;
+    }
+    //Statpanel업데이트
+    public void SetplayerStat()
+    {
+        GameObject StatBanel = GameObject.Find("UI Root/LobbyPanel/Statpanel/Sprite/StatBGI");
     }
     public void GotoBattle()
     {

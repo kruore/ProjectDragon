@@ -281,7 +281,7 @@ public class Database : MonoSingleton<Database>
         public List<Inventory> inventory = new List<Inventory>();
         public List<Emblem> emblem = new List<Emblem>();
         public float currentHp;
-        public float baseHp = 20.0f;
+        public readonly float baseHp = 20.0f;
         public float hp;
         public float damage;
         public float moveSpeed;
