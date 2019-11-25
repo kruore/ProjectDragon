@@ -30,6 +30,10 @@ public class ShortRangeAttackArea : MonoBehaviour
         m_viewObstacleMask = LayerMask.NameToLayer("Wall");
         //battlemanager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
+    private void Start()
+    {
+        m_viewRadius = My_Angle.AtkRange - 2f;
+    }
     public void Update()
     {
         if (My_Angle.AngleisAttack==true)
@@ -46,6 +50,10 @@ public class ShortRangeAttackArea : MonoBehaviour
     public void AttackOn()
     {
         FindViewTargets();
+    }
+    public void LongAttackOn()
+    {
+        //원거리 공격을 만들어서 넣으면 될 것같다.
     }
     private void OnDrawGizmos()
     {

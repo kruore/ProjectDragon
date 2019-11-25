@@ -14,11 +14,10 @@ public class Player : Character
     // 플레이어 캐릭터 스테이터스
 
     // 테스팅용
-    public bool TestBoolStick;
     public bool AngleisAttack;
 
 
-
+  //  public UILabel CheckAngleLabel;
 
     //플레이어 세팅
     public SEX sex;
@@ -44,8 +43,6 @@ public class Player : Character
     public float verticalSpeed = 5.0f;
     public GameObject DeadPanel;
     public SEX playerSex;
-
-
 
     //플레이어 애니메이션 컨트롤
     public Animator playerAnimationStateChanger;
@@ -196,28 +193,27 @@ public class Player : Character
     {
         TempEnemy = null;
         CurrentState = State.Idle;
+        AngleisAttack = false;
     }
     void PlayerPrefDataTrascation()
     {
-        maxHp = (int)DataTransaction.Inst.MaxHp;
-        mp = (int)DataTransaction.Inst.Mp;
-        sex = DataTransaction.Inst.Sex;
-        ATTACKDAMAGE = (int)DataTransaction.Inst.CurrentDamage;
+        //maxHp = (int)DataTransaction.Inst.MaxHp;
+        //mp = (int)DataTransaction.Inst.Mp;
+        //sex = DataTransaction.Inst.Sex;
+        //ATTACKDAMAGE = (int)DataTransaction.Inst.CurrentDamage;
     }
 
     // Start is called before the first frame update
     void Awake()
     {
-        TestBoolStick = true;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
         playerSex = SEX.Female;
-        PlayerPrefDataTrascation();
+    //    PlayerPrefDataTrascation();
         MoveSpeed = 3.0f;
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
-        MoveSpeed = 3;
         CurrentState = State.Idle;
         AtkRangeChanger(4);
     }
@@ -226,6 +222,8 @@ public class Player : Character
         StartCoroutine(CalculateDistanceWithPlayer());
         //내가 끼고 있는 칼에 대한 정의
         //Database.Inventory myWeapon = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+        joypadinput = GameObject.Find("UI Root/GameObject");
+        //CheckAngleLabel = GameObject.Find("UI Root/CurrentAngle").GetComponent<UILabel>();
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
@@ -234,44 +232,15 @@ public class Player : Character
     // Update is called once per frame
     void FixedUpdate()
     {
-        current_angle = GetAngle(joypadinput.GetComponent<JoyPad>().target2.transform.position, joypadinput.GetComponent<JoyPad>().target.transform.position);
+        current_angle = joyPad.angle;
+        //CheckAngleLabel.text = current_angle.ToString();
         myPos = gameObject.transform.position;
         joystickPos = joypadinput.GetComponent<JoyPad>().position;
-#if UNITY_EDITOR
+        //joystick
+        h = joystickPos.x;
+        v = joystickPos.y;
 
-        if (TestBoolStick == false)
-        {
-            h = Input.GetAxis("Horizontal");
-            v = Input.GetAxis("Vertical");
-            if (h > 0 && v == 0)
-            {
-                current_angle = 90f;
-            }
-            if (h < 0 && v == 0)
-            {
-                current_angle = 270f;
-            }
-            if (h == 0 && v < 0)
-            {
-                current_angle = 360f;
-            }
-            if (h == 0 && v > 0)
-            {
-                current_angle = 180f;
-            }
-            enemy_angle = current_angle;
-
-        }
-
-#endif
-
-        if (TestBoolStick)
-        {
-            //joystick
-            h = joystickPos.x;
-            v = joystickPos.y;
-            //Make Right direction by Set Animatoion bool setting
-        }
+        //Make Right direction by Set Animatoion bool setting
         if (StopPlayer.Equals(false))
         {
             rigidbody2d.velocity = new Vector2(10.0f * Time.deltaTime * h * horizontalSpeed * moveSpeed, 10.0f * Time.deltaTime * v * verticalSpeed * moveSpeed);

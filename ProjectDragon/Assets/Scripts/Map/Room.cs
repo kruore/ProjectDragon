@@ -122,6 +122,10 @@ public class Room : MonoBehaviour
         monsters.AddRange(temp_monsters);
         /////////////
         enemyCount = monsters.Count;
+        if(monsters.Count==0)
+        {
+            playerSet.TempNullSet();
+        }
     }
 
     void CheckPlayerPos()

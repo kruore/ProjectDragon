@@ -355,7 +355,7 @@ PrefabInstance:
       objectReference: {fileID: 645481341}
     - target: {fileID: 1099074028, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: mWidth
@@ -413,6 +413,10 @@ PrefabInstance:
         type: 3}
       propertyPath: mDepth
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1707971591, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
@@ -528,7 +532,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -689,12 +693,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7ae067acff73b945a41221c4c3d497b, type: 3}
---- !u!1 &1563416290 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4897370201369941147, guid: d9ca20a145676494480da6d75f8116c2,
-    type: 3}
-  m_PrefabInstance: {fileID: 237628170}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1711491478
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -783,16 +781,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2844523809845417481, guid: 41560e8add85e3e47840185a0b6fffbb,
         type: 3}
-      propertyPath: joypadinput
-      value: 
-      objectReference: {fileID: 1563416290}
-    - target: {fileID: 2844523809845417481, guid: 41560e8add85e3e47840185a0b6fffbb,
-        type: 3}
-      propertyPath: atkRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2844523809845417481, guid: 41560e8add85e3e47840185a0b6fffbb,
-        type: 3}
       propertyPath: EndPanel
       value: 
       objectReference: {fileID: 405359826}
@@ -851,15 +839,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2844523811675965163, guid: 41560e8add85e3e47840185a0b6fffbb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2844523809845417476, guid: 41560e8add85e3e47840185a0b6fffbb,
         type: 3}
       propertyPath: m_viewRadius
-      value: 2
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41560e8add85e3e47840185a0b6fffbb, type: 3}

@@ -155,12 +155,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myState: 0
+  currentHp: 0
   hp: 100
-  maxHp: 100
-  atk: 0
-  atkSpeed: 0
+  damage: 0
   moveSpeed: 0
-  atkRange: 0
+  atk: 0
+  attackSpeed: 0
+  attackRange: 0
+  nuckBack: 0
+  maxHp: 100
+  atkSpeed: 0
+  atkRange: 5
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
@@ -171,25 +176,34 @@ MonoBehaviour:
   enemy_angle: 0
   myAttackType: 0
   myAnim_AnglePos: 0
+  temp_angle: 0
+  isActive: 0
+  AngleisAttack: 0
+  CheckAngleLabel: {fileID: 0}
+  sex: 0
+  isWear: 0
   weaponSelection: {fileID: 0}
   hpBar: {fileID: 0}
-  battlemanager: {fileID: 0}
   StopPlayer: 0
   StopTime: 0
   StopMaxTime: 0.5
   walk_Sound: {fileID: 8300000, guid: bcfd43541cde34941bf2132fd061af74, type: 3}
-  Charactermotion: motion01
   horizontalSpeed: 5
   verticalSpeed: 5
   DeadPanel: {fileID: 0}
   playerSex: 0
   playerAnimationStateChanger: {fileID: 0}
-  playerControllerVec: {x: 0, y: 0}
   rigidbody2d: {fileID: 0}
   joypadinput: {fileID: 0}
   joystickPos: {x: 0, y: 0, z: 0}
   normalVec: {x: 0, y: 0, z: 0}
-  isWear: 0
+  h: 0
+  v: 0
+  EndPanel: {fileID: 0}
+  EnemyRoom: {fileID: 0}
+  Enemy: []
+  EnemyArray: []
+  TempEnemy: {fileID: 0}
   mp: 0
   maxMp: 100
 --- !u!61 &2844523809845417478
@@ -256,7 +270,7 @@ MonoBehaviour:
   angle: 0
   m_bDebugMode: 1
   m_horizontalViewAngle: 120
-  m_viewRadius: 3
+  m_viewRadius: 2
   m_viewRotateZ: 70
   m_viewTargetMask:
     serializedVersion: 2

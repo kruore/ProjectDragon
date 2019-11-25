@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM_NormalEnemy : Monster
+public class FSM_NormalEnemy : Enemy
 {
 
     [Header(" ")]

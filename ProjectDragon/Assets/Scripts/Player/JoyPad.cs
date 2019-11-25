@@ -234,30 +234,14 @@ public class JoyPad : MonoBehaviour
             if (player.current_angle > 0 && !player.AngleisAttack)
             {
                 player.CurrentState = State.Walk;
+                angle = GetAngle(target2.transform.position, target.transform.position);
             }
         }
     }
     private void Update()
     {
         //각도 구하기
-        //angle = GetAngle(target2.transform.position, target.transform.position);
-        //{
-        //    if (player.CurrentState != State.Dead)
-        //    {
-        //        if (angle == 0 &&!(player.CurrentState==State.Attack))
-        //        {
-        //            angle = temp_angle;
-        //        }
-        //        else if(angle ==0&&(player.CurrentState == State.Attack))
-        //        {
-        //            if (player.CurrentState != State.Idle)
-        //            {
-        //                player.CurrentState = State.Idle;
-        //            }
-        //        }
-        //    }
-        //    temp_angle = angle;
-        //}
+        angle = GetAngle(target2.transform.position, target.transform.position);
     }
     public static float GetAngle(Vector3 Start, Vector3 End)
     {

@@ -17,7 +17,6 @@ public class t_PathFinding : MonoBehaviour
     {
         //GameObject AStar = GameObject.Find("AStar");
         //grid = AStar.transform.GetComponent<t_Grid>();
-        Debug.Log(_AStar);
         grid = _AStar;
 
         grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
