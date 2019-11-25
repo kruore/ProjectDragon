@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Atlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 1
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings: []
+    packingSettings:
+      serializedVersion: 2
+      padding: 4
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 2c55f4efc8adc4f40a504b4bb053a3fa, type: 3}
+    - {fileID: 2800000, guid: ba53d99c1e3b31b44869da31daa047b2, type: 3}
+    - {fileID: 2800000, guid: bbeef8dc7ccf0574480a8bdebbf166a4, type: 3}
+    - {fileID: 2800000, guid: 73f770a23b1aba54492621bfdee90db0, type: 3}
+    - {fileID: 2800000, guid: 6384e0fdd332df54799df030bf977ccf, type: 3}
+    - {fileID: 2800000, guid: 07e5c9ad67cc68141bba316f7377c107, type: 3}
+    - {fileID: 2800000, guid: fc0d06ea5b00935499d8c28116f1cc92, type: 3}
+    - {fileID: 2800000, guid: 5395216f1a492414d89dcd776724630e, type: 3}
+    - {fileID: 2800000, guid: 90635c0eb477e22488cbf2bf14c99aba, type: 3}
+    - {fileID: 2800000, guid: 62ba9894f9a71aa40aa2071043fc9b70, type: 3}
+    - {fileID: 2800000, guid: b875b755df1131e44853f543feeaee73, type: 3}
+    - {fileID: 2800000, guid: 0c17fc662041d8a40b4d640902ba4047, type: 3}
+    - {fileID: 2800000, guid: 009c9bf0f15367247aeb83b11e36216d, type: 3}
+    - {fileID: 2800000, guid: b9e844666f380ad4db8317ba1d0dc376, type: 3}
+    - {fileID: 2800000, guid: 1a24af889d3388549992d56f625649b3, type: 3}
+    - {fileID: 2800000, guid: 9cf00dc9b7be58f4ab66ee8143174ce3, type: 3}
+    - {fileID: 2800000, guid: 7128e33ed6c2f014a964421c1ccd7746, type: 3}
+    - {fileID: 2800000, guid: a53bb62010f23c945a9915b08d601ac3, type: 3}
+    - {fileID: 2800000, guid: 1c215248d45edf545833373d29a4bfa7, type: 3}
+    - {fileID: 2800000, guid: 56487783c5ab3e440857e3e3ec37458e, type: 3}
+    totalSpriteSurfaceArea: 443040
+    bindAsDefault: 1
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: 21300000, guid: a53bb62010f23c945a9915b08d601ac3, type: 3}
+  - {fileID: 21300000, guid: 009c9bf0f15367247aeb83b11e36216d, type: 3}
+  - {fileID: 21300000, guid: 73f770a23b1aba54492621bfdee90db0, type: 3}
+  - {fileID: 21300000, guid: 56487783c5ab3e440857e3e3ec37458e, type: 3}
+  - {fileID: 21300000, guid: 62ba9894f9a71aa40aa2071043fc9b70, type: 3}
+  - {fileID: 21300000, guid: b875b755df1131e44853f543feeaee73, type: 3}
+  - {fileID: 21300000, guid: b9e844666f380ad4db8317ba1d0dc376, type: 3}
+  - {fileID: 21300000, guid: 0c17fc662041d8a40b4d640902ba4047, type: 3}
+  - {fileID: 21300000, guid: 1c215248d45edf545833373d29a4bfa7, type: 3}
+  - {fileID: 21300000, guid: 1a24af889d3388549992d56f625649b3, type: 3}
+  - {fileID: 21300000, guid: 9cf00dc9b7be58f4ab66ee8143174ce3, type: 3}
+  - {fileID: 21300000, guid: fc0d06ea5b00935499d8c28116f1cc92, type: 3}
+  - {fileID: 21300000, guid: ba53d99c1e3b31b44869da31daa047b2, type: 3}
+  - {fileID: 21300000, guid: bbeef8dc7ccf0574480a8bdebbf166a4, type: 3}
+  - {fileID: 21300000, guid: 07e5c9ad67cc68141bba316f7377c107, type: 3}
+  - {fileID: 21300000, guid: 6384e0fdd332df54799df030bf977ccf, type: 3}
+  - {fileID: 21300000, guid: 90635c0eb477e22488cbf2bf14c99aba, type: 3}
+  - {fileID: 21300000, guid: 7128e33ed6c2f014a964421c1ccd7746, type: 3}
+  - {fileID: 21300000, guid: 5395216f1a492414d89dcd776724630e, type: 3}
+  - {fileID: 21300000, guid: 2c55f4efc8adc4f40a504b4bb053a3fa, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - Female_DefaultCloth_Dead_Right_2
+  - Female_DefaultCloth_Dead_Left_2
+  - Female_DefaultCloth_Dead_Back_3
+  - Female_DefaultCloth_Dead_Right_4
+  - Female_DefaultCloth_Dead_Front_4
+  - Female_DefaultCloth_Dead_Left_0
+  - Female_DefaultCloth_Dead_Left_3
+  - Female_DefaultCloth_Dead_Left_1
+  - Female_DefaultCloth_Dead_Right_3
+  - Female_DefaultCloth_Dead_Left_4
+  - Female_DefaultCloth_Dead_Right_0
+  - Female_DefaultCloth_Dead_Front_1
+  - Female_DefaultCloth_Dead_Back_1
+  - Female_DefaultCloth_Dead_Back_2
+  - Female_DefaultCloth_Dead_Front_0
+  - Female_DefaultCloth_Dead_Back_4
+  - Female_DefaultCloth_Dead_Front_3
+  - Female_DefaultCloth_Dead_Right_1
+  - Female_DefaultCloth_Dead_Front_2
+  - Female_DefaultCloth_Dead_Back_0
+  m_Tag: Atlas
+  m_IsVariant: 0
