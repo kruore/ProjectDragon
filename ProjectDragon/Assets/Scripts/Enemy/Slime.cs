@@ -13,7 +13,6 @@ public class Slime : FSM_NormalEnemy
 
     protected override void Start()
     {
-        Time.timeScale = 0.4f;
         base.Start();
         StartCoroutine(Start_On());
     }

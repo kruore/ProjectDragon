@@ -4,16 +4,19 @@ using UnityEngine;
 
 public class t_PathFinding : MonoBehaviour
 {
+    [HideInInspector]
     public t_Grid grid;
+    [HideInInspector]
     public t_Node startNode;
+    [HideInInspector]
     public List<t_Node> finalPath = new List<t_Node>();
     //public Vector3[] findPathNode;
 
 
-    public void Create(float objBoxSizeX, float objBoxSizeY)
+    public void Create(float objBoxSizeX, float objBoxSizeY, t_Grid parentGrid)
     {
-        GameObject AStar = GameObject.Find("AStar");
-        grid = AStar.transform.GetComponent<t_Grid>();
+        //GameObject AStar = GameObject.Find("AStar");
+        grid = parentGrid.transform.GetComponent<t_Grid>();
 
         grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
 

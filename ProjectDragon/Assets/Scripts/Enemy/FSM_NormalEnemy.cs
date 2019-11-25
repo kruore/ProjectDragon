@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FSM_NormalEnemy : Monster
+public class FSM_NormalEnemy : Enemy
 {
 
     [Header(" ")]
@@ -177,7 +177,7 @@ public class FSM_NormalEnemy : Monster
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
-        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y);
+        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y,transform.GetComponentInParent<t_Grid>());
 
         while (CurrentState == State.Walk)
         {
@@ -199,7 +199,10 @@ public class FSM_NormalEnemy : Monster
                 isWalk = true;
                 //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
 
+                //AStar
                 GetComponent<Tracking>().FindPathManager(rb2d,MoveSpeed);
+
+
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
             }
 

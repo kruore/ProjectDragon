@@ -45,14 +45,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayGridGizmos: 1
-  startPos: {fileID: 0}
   wallMask:
     serializedVersion: 2
     m_Bits: 8192
-  gridWorldSize: {x: 20, y: 15}
-  nodeRadius: 0.5
+  gridWorldSize: {x: 21, y: 15}
+  nodeRadius: 0.3
   distance: 0
-  finalPath: []
+  nodeOverlapCountX: 0
+  nodeOverlapCountY: 0
 --- !u!114 &3105858306350656324
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,5 +65,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b49166932b66c1419afdf619498c78b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startPos: {fileID: 0}
-  targetPos: {fileID: 0}
+  grid: {fileID: 0}

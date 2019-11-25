@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RareEnemy : Monster
+public class RareEnemy : Enemy
 {
 
     //// Update is called once per frame
