@@ -68,7 +68,7 @@ public class LobbyManager : MonoBehaviour
         }
         string classname = "null";
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
-        if (item.item_Class.Equals(Item_CLASS.검))
+        if (item.Class.Equals(CLASS.검))
         {
             classname = "Worrior";
             if (Database.Inst.playData.sex.Equals(SEX.Male))
@@ -82,12 +82,12 @@ public class LobbyManager : MonoBehaviour
                 equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
             }
         }
-        else if (item.item_Class.Equals(Item_CLASS.활))
+        else if (item.Class.Equals(CLASS.활))
         {
             classname = "Archer";
 
         }
-        else if (item.item_Class.Equals(Item_CLASS.지팡이))
+        else if (item.Class.Equals(CLASS.지팡이))
         {
             classname = "Wizard";
         }
@@ -238,17 +238,17 @@ public class LobbyManager : MonoBehaviour
     public void ChangeEquip()
     {
         TouchBackButton();
-        if (Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.갑옷))
+        if (Database.Inst.playData.inventory[changeequipdata].Class.Equals(CLASS.갑옷))
         {
             Database.Inst.playData.equiArmor_InventoryNum = changeequipdata;
         }
-        else if (!Database.Inst.playData.inventory[changeequipdata].item_Class.Equals(Item_CLASS.아이템))
-        {
-            Database.Inst.playData.equiWeapon_InventoryNum = changeequipdata;
-        }
+        //else if (!Database.Inst.playData.inventory[changeequipdata].Class.Equals(CLASS.아이템))
+        //{
+        //    Database.Inst.playData.equiWeapon_InventoryNum = changeequipdata;
+        //}
         string classname = "null";
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
-        if (item.item_Class.Equals(Item_CLASS.검))
+        if (item.Class.Equals(CLASS.검))
         {
             classname = "Worrior";
             if (Database.Inst.playData.sex.Equals(SEX.Male))
@@ -262,11 +262,11 @@ public class LobbyManager : MonoBehaviour
                 equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
             }
         }
-        else if (item.item_Class.Equals(Item_CLASS.활))
+        else if (item.Class.Equals(CLASS.활))
         {
             classname = "Archer";
         }
-        else if (item.item_Class.Equals(Item_CLASS.지팡이))
+        else if (item.Class.Equals(CLASS.지팡이))
         {
             classname = "Wizard";
         }
@@ -275,7 +275,7 @@ public class LobbyManager : MonoBehaviour
         equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
         ChangeItemIcon(Currentweapon, item);
-        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
+        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = Database.Inst.weapons[item.DB_Num].damage.ToString();
         playerimg.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
         playerimg.transform.Find("Weapon").GetComponent<UISprite>().spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name;
         equipCharactor.transform.Find("Weapon").GetComponent<UISprite>().atlas = Resources.Load(playerclass + "_Weapon", typeof(NGUIAtlas)) as NGUIAtlas;
@@ -287,53 +287,53 @@ public class LobbyManager : MonoBehaviour
     public void ChangeItemIcon(GameObject Icon, Database.Inventory data)
     {
         Icon.transform.Find("EquipIcon").GetComponent<UISprite>().spriteName = data.name;
-        Icon.transform.Find("EnchantLevel").GetComponent<UISprite>().spriteName = string.Format("강화수치_{0}", data.upgrade_Level.ToString());
+        //Icon.transform.Find("EnchantLevel").GetComponent<UISprite>().spriteName = string.Format("강화수치_{0}", data.upgrade_Level.ToString());
         Icon.transform.Find("Rarity").gameObject.GetComponent<UISprite>().spriteName = string.Format("레어도_{0}", data.rarity.ToString());
-        if (data.isLock)
-        {
-            Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Lock";
-        }
-        else
-        {
-            Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Unlock";
-        }
+        //if (data.isLock)
+        //{
+        //    Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Lock";
+        //}
+        //else
+        //{
+        //    Icon.transform.Find("IsLock").GetComponent<UISprite>().spriteName = "Unlock";
+        //}
     }
     public void CurrentEquipLock()
     {
-        Database.Inst.playData.inventory[currentEquipdata].isLock = !Database.Inst.playData.inventory[currentEquipdata].isLock;
-        if (Database.Inst.playData.inventory[currentEquipdata].isLock)
-        {
-            UIButton.current.normalSprite = "Lock";
-            UIButton.current.hoverSprite = "Lock";
-            UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Lock";
-        }
-        else
-        {
-            UIButton.current.normalSprite = "Unlock";
-            UIButton.current.hoverSprite = "Unlock";
-            UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Unlock";
-        }
+        //Database.Inst.playData.inventory[currentEquipdata].isLock = !Database.Inst.playData.inventory[currentEquipdata].isLock;
+        //if (Database.Inst.playData.inventory[currentEquipdata].isLock)
+        //{
+        //    UIButton.current.normalSprite = "Lock";
+        //    UIButton.current.hoverSprite = "Lock";
+        //    UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Lock";
+        //}
+        //else
+        //{
+        //    UIButton.current.normalSprite = "Unlock";
+        //    UIButton.current.hoverSprite = "Unlock";
+        //    UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Unlock";
+        //}
         ChangeItemIcon(Currentweapon, Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum]);
         UpdateAllScrollview();
         DataTransaction.Inst.SavePlayerData();
     }
     public void ChangeEquipLock()
     {
-        Database.Inst.playData.inventory[changeequipdata].isLock = !Database.Inst.playData.inventory[changeequipdata].isLock;
-        if (Database.Inst.playData.inventory[changeequipdata].isLock)
-        {
-            UIButton.current.normalSprite = "Lock";
-            UIButton.current.hoverSprite = "Lock";
-            UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Lock";
-        }
-        else
-        {
-            UIButton.current.normalSprite = "Unlock";
-            UIButton.current.hoverSprite = "Unlock";
-            UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Unlock";
-        }
-        UpdateAllScrollview();
-        DataTransaction.Inst.SavePlayerData();
+        //Database.Inst.playData.inventory[changeequipdata].isLock = !Database.Inst.playData.inventory[changeequipdata].isLock;
+        //if (Database.Inst.playData.inventory[changeequipdata].isLock)
+        //{
+        //    UIButton.current.normalSprite = "Lock";
+        //    UIButton.current.hoverSprite = "Lock";
+        //    UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Lock";
+        //}
+        //else
+        //{
+        //    UIButton.current.normalSprite = "Unlock";
+        //    UIButton.current.hoverSprite = "Unlock";
+        //    UIButton.current.transform.parent.Find("EquipBGI/IsLock").GetComponent<UISprite>().spriteName = "Unlock";
+        //}
+        //UpdateAllScrollview();
+        //DataTransaction.Inst.SavePlayerData();
     }
     public void UpdateAllScrollview()
     {
@@ -345,15 +345,15 @@ public class LobbyManager : MonoBehaviour
     }
     public void ListLock()
     {
-        foreach (int item in Selecteditem)
-        {
-            Database.Inst.playData.inventory[item].isLock = !Database.Inst.playData.inventory[item].isLock;
-        }
-        Selecteditem.Clear();
-        lobbystate = LobbyState.Nomal;
-        UpdateAllScrollview();
-        TouchBackButton();
-        DataTransaction.Inst.SavePlayerData();
+        //foreach (int item in Selecteditem)
+        //{
+        //    Database.Inst.playData.inventory[item].isLock = !Database.Inst.playData.inventory[item].isLock;
+        //}
+        //Selecteditem.Clear();
+        //lobbystate = LobbyState.Nomal;
+        //UpdateAllScrollview();
+        //TouchBackButton();
+        //DataTransaction.Inst.SavePlayerData();
 
     }
     public void EnchantState()
@@ -362,13 +362,13 @@ public class LobbyManager : MonoBehaviour
         lobbystate = LobbyState.Enchant;
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
-        for (int i = 1; i <= 3; i++)
-        {
-            GameObject jamcount;
-            jamcount = Inventoryback.transform.Find(string.Format("Enchantpanel/Jamcount/Jam{0}", i)).gameObject;
-            jamcount.GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.playData.inventory[i - 1].amount);
-            jamcounts[i - 1] = Database.Inst.playData.inventory[i - 1].amount;
-        }
+        //for (int i = 1; i <= 3; i++)
+        //{
+        //    GameObject jamcount;
+        //    jamcount = Inventoryback.transform.Find(string.Format("Enchantpanel/Jamcount/Jam{0}", i)).gameObject;
+        //    jamcount.GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.playData.inventory[i - 1].amount);
+        //    jamcounts[i - 1] = Database.Inst.playData.inventory[i - 1].amount;
+        //}
     }
     public void DecompositionState()
     {
@@ -376,14 +376,14 @@ public class LobbyManager : MonoBehaviour
         lobbystate = LobbyState.Decomposition;
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
-        for (int i = 1; i <= 3; i++)
-        {
-            GameObject jamcount;
-            jamcount = Inventoryback.transform.Find(string.Format("Decomposition/Jamcount/Jam{0}", i)).gameObject;
-            jamcount.GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.playData.inventory[i - 1].amount);
-            jamcounts[i - 1] = Database.Inst.playData.inventory[i - 1].amount;
-        }
-        Debug.Log(jamcounts[0]);
+        //for (int i = 1; i <= 3; i++)
+        //{
+        //    GameObject jamcount;
+        //    jamcount = Inventoryback.transform.Find(string.Format("Decomposition/Jamcount/Jam{0}", i)).gameObject;
+        //    jamcount.GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.playData.inventory[i - 1].amount);
+        //    jamcounts[i - 1] = Database.Inst.playData.inventory[i - 1].amount;
+        //}
+        //Debug.Log(jamcounts[0]);
     }
     public void NomalState()
     {
@@ -403,11 +403,11 @@ public class LobbyManager : MonoBehaviour
     }
     public void EnchantJamCountPlus()
     {
-        if (Database.Inst.playData.inventory[0].amount > enchantJam)
-        {
-            enchantJam++;
-            Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
-        }
+        //if (Database.Inst.playData.inventory[0].amount > enchantJam)
+        //{
+        //    enchantJam++;
+        //    Inventoryback.transform.Find("EnchantEnter/JamIcon1/CountBGI/Count").GetComponent<UILabel>().text = enchantJam.ToString();
+        //}
     }
     public void EnchantJamCountMax()
     {
@@ -439,11 +439,11 @@ public class LobbyManager : MonoBehaviour
                 }
                 else if (a.rarity.Equals(b.rarity))
                 {
-                    if (a.item_Class > b.item_Class)
+                    if (a.Class > b.Class)
                     {
                         return 1;
                     }
-                    else if (a.item_Class.Equals(b.item_Class))
+                    else if (a.Class.Equals(b.Class))
                     {
                         return a.num.CompareTo(b.num);
                     }
@@ -462,11 +462,11 @@ public class LobbyManager : MonoBehaviour
         {
             Database.Inst.playData.inventory.Sort(delegate (Database.Inventory a, Database.Inventory b)
             {
-                if (a.item_Class > b.item_Class)
+                if (a.Class > b.Class)
                 {
                     return 1;
                 }
-                else if (a.item_Class.Equals(b.item_Class))
+                else if (a.Class.Equals(b.Class))
                 {
                     if (a.rarity > b.rarity)
                     {
@@ -591,12 +591,12 @@ public class LobbyManager : MonoBehaviour
         ButtonManager.TouchBackButton();
         for (int i = 0; i < 3; i++)
         {
-            Database.Inst.playData.inventory[i].amount = jamcounts[i];
+            //Database.Inst.playData.inventory[i].amount = jamcounts[i];
         }
         DataTransaction.Inst.SavePlayerData();
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         ChangeItemIcon(Currentweapon, item);
-        Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
+        //Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
     }
     public void QuitApplicationinlobby()
     {

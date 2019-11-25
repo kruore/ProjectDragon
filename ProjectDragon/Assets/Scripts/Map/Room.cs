@@ -28,7 +28,7 @@ public class Room : MonoBehaviour
     public bool doorTop, doorBot, doorLeft, doorRight;
     public GameObject portal;
 
-    public GameObject[] door_All = new GameObject[4];
+    public GameObject[] door_All = new GameObject[4] { null, null, null, null};
     public List<GameObject> monsters = new List<GameObject>();
 
     public RoomState roomState = RoomState.DeActivate;
@@ -36,7 +36,7 @@ public class Room : MonoBehaviour
     public int enemyCount = 0;
 
     public RoomManager roomManager;
-    public BattleManager battleManager;
+    //public BattleManager battleManager;
 
     public int depth;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class MiniMap : MonoBehaviour
 {
     public RoomManager RoomManager;
-    private GameObject[] room;
+    public GameObject[] room;
     private Transform roomRoot;
     public UIPanel panel;
 

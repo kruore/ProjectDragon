@@ -339,7 +339,7 @@ public class UIReuseScrollView : MonoBehaviour
 
 				float sum = min + max;
 				mIgnoreCallbacks = true;
-				horizontalScrollBar.barSize = 1f - sum;
+				//horizontalScrollBar.barSize = 1f - sum;
 				horizontalScrollBar.value = (sum > 0.001f) ? min / sum : 0f;
 				mIgnoreCallbacks = false;
 			}
@@ -361,7 +361,7 @@ public class UIReuseScrollView : MonoBehaviour
 				float sum = min + max;
 
 				mIgnoreCallbacks = true;
-				verticalScrollBar.barSize = 1f - sum;
+				//verticalScrollBar.barSize = 1f - sum;
 				verticalScrollBar.value = (sum > 0.001f) ? 1f - min / sum : 0f;
 				mIgnoreCallbacks = false;
 			}

@@ -5,8 +5,8 @@ using UnityEngine.EventSystems;
 public class Equipmentcell : UIReuseScrollViewCell
 {
     public UISprite equipIcon, itemIcon;
-    public UISprite rarity;
-    public UILabel Itemname, Itemvalue, Attackpercent, Activemana, Activecooltime, Activetarget, Activerange;
+    public UISprite rarity,activeIcon;
+    public UILabel Itemname, Itemvalue;
     public EuipmentcellData cell;
     float time,myYposition;
     private void Start()
@@ -17,9 +17,17 @@ public class Equipmentcell : UIReuseScrollViewCell
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
         cell = item;
-        rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
-        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+        //rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
+       // gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+       // gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+       if(cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum)|| cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
+        {
+            equipIcon.gameObject.SetActive(true);
+        }
+       else
+        {
+            equipIcon.gameObject.SetActive(false);
+        }
         bool check = true;
         if (LobbyManager.inst.Selecteditem.Count > 0)
         {
@@ -36,40 +44,40 @@ public class Equipmentcell : UIReuseScrollViewCell
             }
             if (check)
             {
-                gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-                gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+                //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+                //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
             }
         }
         else
         {
-            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+            //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+            //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
         }
        
         Itemname.text = item.name;
         itemIcon.spriteName = item.name;
-        if (!item.item_Class.Equals(Item_CLASS.갑옷) && !item.item_Class.Equals(Item_CLASS.아이템))
+        if (!item.Class.Equals(CLASS.갑옷))
         {
             Itemvalue.text = "공격력:" + item.stat.ToString();
-            Attackpercent.text = "공격력:" + Database.Inst.skill[item.skill_index].attack_Power.ToString() + "%";
-            Activemana.text = "소모마나량:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            Activecooltime.text = "쿨타임:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            Activetarget.text = "대상:" + Database.Inst.skill[item.skill_index].attack_Type;
-            Activerange.text = "범위:" + Database.Inst.skill[item.skill_index].attack_Range.ToString();
-            Attackpercent.gameObject.SetActive(true);
-            Activemana.gameObject.SetActive(true);
-            Activecooltime.gameObject.SetActive(true);
-            Activetarget.gameObject.SetActive(true);
-            Activerange.gameObject.SetActive(true);
+            //Attackpercent.text = "공격력:" + Database.Inst.skill[item.skill_index].attack_Power.ToString() + "%";
+            //Activemana.text = "소모마나량:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
+            //Activecooltime.text = "쿨타임:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
+            //Activetarget.text = "대상:" + Database.Inst.skill[item.skill_index].attack_Type;
+            //Activerange.text = "범위:" + Database.Inst.skill[item.skill_index].attack_Range.ToString();
+            //Attackpercent.gameObject.SetActive(true);
+            //Activemana.gameObject.SetActive(true);
+            //Activecooltime.gameObject.SetActive(true);
+            //Activetarget.gameObject.SetActive(true);
+            //Activerange.gameObject.SetActive(true);
         }
-        else if (item.item_Class.Equals(Item_CLASS.갑옷))
+        else if (item.Class.Equals(CLASS.갑옷))
         {
             Itemvalue.text = "체력:\t" + item.stat.ToString();
-            Attackpercent.gameObject.SetActive(false);
-            Activemana.gameObject.SetActive(false);
-            Activecooltime.gameObject.SetActive(false);
-            Activetarget.gameObject.SetActive(false);
-            Activerange.gameObject.SetActive(false);
+            //Attackpercent.gameObject.SetActive(false);
+            //Activemana.gameObject.SetActive(false);
+            //Activecooltime.gameObject.SetActive(false);
+            //Activetarget.gameObject.SetActive(false);
+            //Activerange.gameObject.SetActive(false);
         }
 
         if (item == null)
@@ -78,180 +86,179 @@ public class Equipmentcell : UIReuseScrollViewCell
     }
     private void ChangeEquippanel()
     {
-        LobbyManager.inst.Inventoryback.transform.Find("ChangeEquip").gameObject.SetActive(true);
+        //LobbyManager.inst.Inventoryback.transform.Find("ChangeEquip").gameObject.SetActive(true);
         LobbyManager.inst.BGID.SetActive(true);
     }
     private void CurrentEquippanel()
     {
-        LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(true);
+        //LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(true);
         LobbyManager.inst.BGI.SetActive(true);
     }
-    // private void
     public void ButtonActive()
     {
-        GameObject Equipanel;
-        Database.Inventory Equipdata;
+        Debug.Log("cellclick");
+        
         bool check = true;
         switch (LobbyManager.inst.lobbystate)
         {
             case LobbyState.Nomal:
-                if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum) && !cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
-                {
-                    GameObject changeEquipanel;
-                    Database.Inventory changeEquipdata;
-                    if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum))
-                    {
-                        if (!cell.m_item_Class.Equals(Item_CLASS.갑옷))
-                        {
-                            LobbyManager.inst.BGID.SetActive(true);
-                            GameManager.Inst.Scenestack.Push("ChangeEquip");
-                            Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
-                            changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
-                            Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
-                            ChangeEquippanel();
-                            changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
-                            ChangeEquip(Equipanel, Equipdata, changeEquipdata.stat);
-                            ChangeEquip(changeEquipanel, changeEquipdata, Equipdata.stat);
-                            LobbyManager.inst.changeequipdata = cell.inventoryNum;
-                            LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiWeapon_InventoryNum;
-                        }
-                        else
-                        {
-                            LobbyManager.inst.BGID.SetActive(true);
-                            GameManager.Inst.Scenestack.Push("ChangeEquip");
-                            Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
-                            changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
-                            Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
-                            ChangeEquippanel();
-                            changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
-                            ChangeEquip(Equipanel, Equipdata, changeEquipdata.stat);
-                            ChangeEquip(changeEquipanel, changeEquipdata, Equipdata.stat);
-                            LobbyManager.inst.changeequipdata = cell.inventoryNum;
-                            LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
-                        }
-                    }
-
-                    else
-                    {
-                        LobbyManager.inst.BGID.SetActive(true);
-                        GameManager.Inst.Scenestack.Push("ChangeEquip");
-                        Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
-                        changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
-                        Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
-                        ChangeEquippanel();
-                        changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
-                        ChangeEquip(Equipanel, Equipdata, changeEquipdata.stat);
-                        ChangeEquip(changeEquipanel, changeEquipdata, Equipdata.stat);
-                        LobbyManager.inst.changeequipdata = cell.inventoryNum;
-                        LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
-                    }
-                }
-                else if (cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
-                {
-                    LobbyManager.inst.BGI.SetActive(true);
-                    GameManager.Inst.Scenestack.Push("CurrentEquip");
-                    CurrentEquippanel();
-                    Equipanel = LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip/Equippanel").gameObject;
-                    Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
-                    ChangeEquip(Equipanel, Equipdata, -1);
-                    LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiWeapon_InventoryNum;
-                }
-                else if (cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum))
-                {
-                    LobbyManager.inst.BGI.SetActive(true);
-                    GameManager.Inst.Scenestack.Push("CurrentEquip");
-                    CurrentEquippanel();
-                    Equipanel = LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip/Equippanel").gameObject;
-                    Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
-                    ChangeEquip(Equipanel, Equipdata, -1);
-                    LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
-                }
-                break;
-            case LobbyState.Enchant:
-                LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
-                GameObject EnchantEnter;
-                EnchantEnter = LobbyManager.inst.Inventoryback.transform.Find("EnchantEnter").gameObject;
-                EnchantEnter.SetActive(true);
-                EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIcollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
-                EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIchangecollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
-                for (int i = 0; i < 3; i++)
-                {
-                    EnchantEnter.transform.Find(string.Format("JamIcon{0}/Jamcount", i)).GetComponent<UILabel>().text = string.Format("보유개수: {0}개", Database.Inst.playData.inventory[i - 1].amount);
-
-                }
-                Debug.Log("clickEnchant");
-                break;
-            case LobbyState.Lock:
-                if (LobbyManager.inst.Selecteditem.Count > 0)
-                {
-                    foreach (int Select in LobbyManager.inst.Selecteditem)
-                    {
-                        if (Select.Equals(cell.inventoryNum))
-                        {
-                            LobbyManager.inst.Selecteditem.Remove(Select);
-                            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-                            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-                            LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
-                            check = false;
-                            break;
-
-                        }
-                    }
-                    if (check)
-                    {
-                        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
-                        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
-                        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                        LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
-                    }
-                }
-                else
-                {
-                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
-                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
-                    LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                    LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
-                }
-                break;
-            case LobbyState.Decomposition:
                 
-                if (LobbyManager.inst.Selecteditem.Count > 0)
-                {
-                    foreach (int Select in LobbyManager.inst.Selecteditem)
-                    {
-                        if (Select.Equals(cell.inventoryNum))
-                        {
-                            LobbyManager.inst.Selecteditem.Remove(Select);
-                            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-                            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-                            //LobbyManager.inst.jamcounts[0] -= DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
-                            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
-                            check = false;
-                            break;
-
-                        }
-                    }
-                    if (check)
-                    {
-                        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
-                        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
-                        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                        //LobbyManager.inst.jamcounts[0] += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
-                        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
-                    }
-                }
-                else
-                {
-                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
-                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
-                    LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
-                    //LobbyManager.inst.jamcounts[0] += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
-                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
-                    LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
-                }
                 break;
+            #region delete
+            //    GameObject Equipanel;
+            //    Database.Inventory Equipdata;
+            //    if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum) && !cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
+            //    {
+            //        GameObject changeEquipanel;
+            //        Database.Inventory changeEquipdata;
+            //        if (!cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum))
+            //        {
+            //            if (!cell.m_Class.Equals(CLASS.갑옷))
+            //            {
+            //                LobbyManager.inst.BGID.SetActive(true);
+            //                GameManager.Inst.Scenestack.Push("ChangeEquip");
+            //                Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
+            //                changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
+            //                Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+            //                ChangeEquippanel();
+            //                changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
+            //                ChangeEquip(Equipanel, Equipdata,Database.Inst.weapons[changeEquipdata.DB_Num].damage);
+            //                ChangeEquip(changeEquipanel, changeEquipdata, Database.Inst.weapons[Equipdata.DB_Num].damage);
+            //                LobbyManager.inst.changeequipdata = cell.inventoryNum;
+            //                LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiWeapon_InventoryNum;
+            //            }
+            //            else
+            //            {
+            //                LobbyManager.inst.BGID.SetActive(true);
+            //                GameManager.Inst.Scenestack.Push("ChangeEquip");
+            //                Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
+            //                changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
+            //                Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
+            //                ChangeEquippanel();
+            //                changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
+            //                ChangeEquip(Equipanel, Equipdata, Database.Inst.weapons[changeEquipdata.DB_Num].damage);
+            //                ChangeEquip(changeEquipanel, changeEquipdata, Database.Inst.armors[Equipdata.DB_Num].hp);
+            //                LobbyManager.inst.changeequipdata = cell.inventoryNum;
+            //                LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
+            //            }
+            //        }
+
+            //        else
+            //        {
+            //            LobbyManager.inst.BGID.SetActive(true);
+            //            GameManager.Inst.Scenestack.Push("ChangeEquip");
+            //            Equipanel = LobbyManager.inst.changeEquip.transform.Find("Equippanel").gameObject;
+            //            changeEquipanel = LobbyManager.inst.changeEquip.transform.Find("ChangeItempanel").gameObject;
+            //            Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
+            //            ChangeEquippanel();
+            //            changeEquipdata = Database.Inst.playData.inventory[cell.inventoryNum];
+            //            ChangeEquip(Equipanel, Equipdata, Database.Inst.weapons[changeEquipdata.DB_Num].damage);
+            //            ChangeEquip(changeEquipanel, changeEquipdata, Database.Inst.armors[Equipdata.DB_Num].hp);
+            //            LobbyManager.inst.changeequipdata = cell.inventoryNum;
+            //            LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
+            //        }
+            //    }
+            //    else if (cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
+            //    {
+            //        LobbyManager.inst.BGI.SetActive(true);
+            //        GameManager.Inst.Scenestack.Push("CurrentEquip");
+            //        CurrentEquippanel();
+            //        //Equipanel = LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip/Equippanel").gameObject;
+            //        Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+            //        //ChangeEquip(Equipanel, Equipdata, -1);
+            //        LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiWeapon_InventoryNum;
+            //    }
+            //    else if (cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum))
+            //    {
+            //        LobbyManager.inst.BGI.SetActive(true);
+            //        GameManager.Inst.Scenestack.Push("CurrentEquip");
+            //        CurrentEquippanel();
+            //        Equipanel = LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip/Equippanel").gameObject;
+            //        Equipdata = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
+            //        ChangeEquip(Equipanel, Equipdata, -1);
+            //        LobbyManager.inst.currentEquipdata = Database.Inst.playData.equiArmor_InventoryNum;
+            //    }
+            //    break;
+            //case LobbyState.Enchant:
+            //    LobbyManager.inst.Inventoryback.transform.Find("Enchantpanel").gameObject.SetActive(false);
+            //    GameObject EnchantEnter;
+            //    EnchantEnter = LobbyManager.inst.Inventoryback.transform.Find("EnchantEnter").gameObject;
+            //    EnchantEnter.SetActive(true);
+            //    EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIcollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
+            //    EquipWeaponIcon(EnchantEnter.transform.Find("EquipBGIchangecollection/EquipBGI").gameObject, Database.Inst.playData.inventory[cell.inventoryNum]);
+            //    Debug.Log("clickEnchant");
+            //    break;
+            //case LobbyState.Lock:
+            //    if (LobbyManager.inst.Selecteditem.Count > 0)
+            //    {
+            //        foreach (int Select in LobbyManager.inst.Selecteditem)
+            //        {
+            //            if (Select.Equals(cell.inventoryNum))
+            //            {
+            //                LobbyManager.inst.Selecteditem.Remove(Select);
+            //                gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+            //                gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+            //                LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
+            //                check = false;
+            //                break;
+
+            //            }
+            //        }
+            //        if (check)
+            //        {
+            //            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+            //            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+            //            LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+            //            LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
+            //        }
+            //    }
+            //    else
+            //    {
+            //        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+            //        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+            //        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+            //        LobbyManager.inst.Inventoryback.transform.Find("Lock/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count.ToString());
+            //    }
+            //    break;
+            //case LobbyState.Decomposition:
+
+            //    if (LobbyManager.inst.Selecteditem.Count > 0)
+            //    {
+            //        foreach (int Select in LobbyManager.inst.Selecteditem)
+            //        {
+            //            if (Select.Equals(cell.inventoryNum))
+            //            {
+            //                LobbyManager.inst.Selecteditem.Remove(Select);
+            //                gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
+            //                gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
+            //                //LobbyManager.inst.jamcounts[0] -= DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+            //                LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
+            //                LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
+            //                check = false;
+            //                break;
+
+            //            }
+            //        }
+            //        if (check)
+            //        {
+            //            gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+            //            gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+            //            LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+            //            //LobbyManager.inst.jamcounts[0] += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+            //            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
+            //            LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.grey;
+            //        gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.grey;
+            //        LobbyManager.inst.Selecteditem.Add(cell.inventoryNum);
+            //        //LobbyManager.inst.jamcounts[0] += DataTransaction.Inst.Convert_EquipmenttoJam(Database.Inst.playData.inventory[cell.inventoryNum]);
+            //        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/Jamcount/Jam1").GetComponent<UILabel>().text = LobbyManager.inst.jamcounts[0].ToString();
+            //        LobbyManager.inst.Inventoryback.transform.Find("Decomposition/SelectionCount").GetComponent<UILabel>().text = string.Format("선택 개수 : {0}개", LobbyManager.inst.Selecteditem.Count);
+            //    }
+            #endregion
             default:
                 break;
         }
@@ -264,25 +271,24 @@ public class Equipmentcell : UIReuseScrollViewCell
         //panel.transform.Find("EquipBGI").Find("Rarity").GetComponent<UISprite>().spriteName = string.Format("레어도_{0}", data.rarity.ToString());
         panel.transform.Find("EquipItemname").GetComponent<UILabel>().text = data.name;
         panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().text = data.rarity.ToString();
-        panel.transform.Find("EquipItemclass").GetComponent<UILabel>().text = string.Format("종류: {0}", data.item_Class.ToString());
-        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", data.stat);
-        if (data.item_Class.Equals(Item_CLASS.검) || data.item_Class.Equals(Item_CLASS.활) || data.item_Class.Equals(Item_CLASS.지팡이))
+        panel.transform.Find("EquipItemclass").GetComponent<UILabel>().text = string.Format("종류: {0}", data.Class.ToString());
+        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}",Database.Inst.weapons[data.DB_Num].damage);
+        if (!data.Class.Equals(CLASS.갑옷))
         {
-            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", data.stat);
+            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", Database.Inst.weapons[data.DB_Num].damage);
             GameObject ActiveSkill;
             ActiveSkill = panel.transform.Find("ActiveSkill").gameObject;
             ActiveSkill.SetActive(true);
             ActiveSkill.transform.Find("Activename").GetComponent<UILabel>().text = string.Format("액티브: {0}", Database.Inst.skill[data.skill_Index].name);
             ActiveSkill.transform.Find("ActiveDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}%", Database.Inst.skill[data.skill_Index].attack_Power * 100);
-            ActiveSkill.transform.Find("Activetarget").GetComponent<UILabel>().text = string.Format("대상: {0}", Database.Inst.skill[data.skill_Index].attack_Type);
             ActiveSkill.transform.Find("ActiveRange").GetComponent<UILabel>().text = string.Format("범위: {0}", Database.Inst.skill[data.skill_Index].attack_Range);
             ActiveSkill.transform.Find("Activemana").GetComponent<UILabel>().text = string.Format("마나: {0}", Database.Inst.skill[data.skill_Index].active_Time);
-            ActiveSkill.transform.Find("Activecooltime").GetComponent<UILabel>().text = string.Format("쿨타임: {0}", Database.Inst.skill[data.skill_Index].coolDown);
+            ActiveSkill.transform.Find("Activecooltime").GetComponent<UILabel>().text = string.Format("쿨타임: {0}", Database.Inst.skill[data.skill_Index].coolTime);
             ActiveSkill.transform.Find("ActiveBGI").Find("ActiveIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[data.skill_Index].name;
         }
         else
         {
-            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("체력: {0}", data.stat);
+            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("체력: {0}",Database.Inst.armors[data.DB_Num].hp);
             GameObject ActiveSkill;
             ActiveSkill = panel.transform.Find("ActiveSkill").gameObject;
             ActiveSkill.SetActive(false);
@@ -290,13 +296,13 @@ public class Equipmentcell : UIReuseScrollViewCell
         if (!stat.Equals(-1))
         {
             panel.transform.Find("AttackDamage").Find("StatGap").gameObject.SetActive(true);
-            if (data.stat > stat)
+            if (Database.Inst.weapons[data.DB_Num].damage > stat)
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.blue;
-                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(+{0})", Mathf.Abs(data.stat - stat).ToString());
+                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(+{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].damage - stat).ToString());
 
             }
-            else if (data.stat.Equals(stat))
+            else if (Database.Inst.weapons[data.DB_Num].damage.Equals(stat))
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.gray;
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = "0";
@@ -304,7 +310,7 @@ public class Equipmentcell : UIReuseScrollViewCell
             else
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.red;
-                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(-{0})", Mathf.Abs(data.stat - stat).ToString());
+                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(-{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].damage - stat).ToString());
             }
         }
         else
@@ -345,10 +351,10 @@ public class Equipmentcell : UIReuseScrollViewCell
             if(time>1.5f&&(Mathf.Abs(myYposition-gameObject.transform.position.y)<0.05)&&LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
             {
                 Debug.Log(Mathf.Abs(myYposition - gameObject.transform.position.y));
-                LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
-                LobbyManager.inst.BGID.SetActive(true);
-                GameManager.Inst.Scenestack.Push("Lock");
-                LobbyManager.inst.lobbystate = LobbyState.Lock;
+                //LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
+                //LobbyManager.inst.BGID.SetActive(true);
+                //GameManager.Inst.Scenestack.Push("Lock");
+                //LobbyManager.inst.lobbystate = LobbyState.Lock;
             }
             StopCoroutine("TimeRange");
             Debug.Log(time);
@@ -362,8 +368,12 @@ public class Equipmentcell : UIReuseScrollViewCell
         while(true)
         {
             time += Time.deltaTime;
+            
             yield return new WaitForEndOfFrame();
         }
-        
+    }
+    public void Activefalse()
+    {
+        UIButton.current.gameObject.SetActive(false);
     }
 }
