@@ -231,6 +231,7 @@
     <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\TitleManager.cs" />
+    <Compile Include="Assets\Scripts\Map\Crack.cs" />
     <Compile Include="Assets\Scripts\Map\Door.cs" />
     <Compile Include="Assets\Scripts\Map\Loading.cs" />
     <Compile Include="Assets\Scripts\Map\MapCreator.cs" />
