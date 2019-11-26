@@ -1145,3 +1145,5 @@ E:\GitHub\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.csproj.CoreCompi
 E:\GitHub\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 E:\GitHub\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.dll
 E:\GitHub\ProjectDragon\ProjectDragon\obj\Debug\Assembly-CSharp.pdb
+E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.dll
+E:\GitHub\ProjectDragon\ProjectDragon\Temp\bin\Debug\UnityEngine.SpatialTrackingModule.xml

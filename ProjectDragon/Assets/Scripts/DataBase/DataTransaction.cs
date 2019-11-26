@@ -12,15 +12,15 @@ using Random = UnityEngine.Random;
 
 public class DataTransaction : MonoSingleton<DataTransaction>
 {
-    public Text text;
+    //public Text text;
     //public T Temp_Inventory;
     private Database database;
     public IDbCommand DEB_dbcmd;
 
     private void Awake()
     {
-        text = GameObject.Find("testText").GetComponent<Text>();
-
+        //text = GameObject.Find("testText").GetComponent<Text>();
+        //PlayerPrefs.DeleteAll();
         StartCoroutine(DataPhasing());
         database = gameObject.AddComponent<Database>();
         DataBaseConnecting();
@@ -30,27 +30,27 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     private void Start()
     {
         //text.text = Database.Inst.playData.inventory.Count.ToString();
-        text.text = Database.Inst.playData.inventory.Count.ToString() + "/";
-        text.text += database.playData.currentHp + "/";
-        text.text += database.playData.hp + "/";
-        text.text += database.playData.damage + "/";
-        text.text += database.playData.moveSpeed + "/";
-        text.text += database.playData.attackSpeed + "/";
-        text.text += database.playData.attackRange + "/";
-        text.text += database.playData.nuckBack + "/";
-        text.text += database.playData.currentStage + "/";
-        text.text += database.playData.mp + "/";
-        text.text += database.playData.sex + "/";
-        text.text += database.playData.equiWeapon_InventoryNum + "/";
-        text.text += database.playData.equiArmor_InventoryNum + "/";
-        text.text += database.playData.resist_Fire + "/";
-        text.text += database.playData.resist_Water + "/";
-        text.text += database.playData.resist_Poison + "/";
-        text.text += database.playData.resist_Electric + "/";
-        text.text += database.playData.attackType_Fire + "/";
-        text.text += database.playData.attackType_Water + "/";
-        text.text += database.playData.attackType_Poison + "/";
-        text.text += database.playData.attackType_Electric + "/";
+        //text.text = Database.Inst.playData.inventory.Count.ToString() + "/";
+        //text.text += database.playData.currentHp + "/";
+        //text.text += database.playData.hp + "/";
+        //text.text += database.playData.damage + "/";
+        //text.text += database.playData.moveSpeed + "/";
+        //text.text += database.playData.attackSpeed + "/";
+        //text.text += database.playData.attackRange + "/";
+        //text.text += database.playData.nuckBack + "/";
+        //text.text += database.playData.currentStage + "/";
+        //text.text += database.playData.mp + "/";
+        //text.text += database.playData.sex + "/";
+        //text.text += database.playData.equiWeapon_InventoryNum + "/";
+        //text.text += database.playData.equiArmor_InventoryNum + "/";
+        //text.text += database.playData.resist_Fire + "/";
+        //text.text += database.playData.resist_Water + "/";
+        //text.text += database.playData.resist_Poison + "/";
+        //text.text += database.playData.resist_Electric + "/";
+        //text.text += database.playData.attackType_Fire + "/";
+        //text.text += database.playData.attackType_Water + "/";
+        //text.text += database.playData.attackType_Poison + "/";
+        //text.text += database.playData.attackType_Electric + "/";
     }
 
     #region Database Connecting
@@ -87,9 +87,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
-        text.text = "쓋";
+        //text.text = "쓋";
         dbconn.Open();
-        text.text = "open";
+        //text.text = "open";
         DEB_dbcmd = dbconn.CreateCommand();
     }
 
@@ -99,15 +99,15 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     IEnumerator LoadAllTableData()
     {
         Load_Weapon_Table();
-        text.text = "Load_Weapon_Table";
+        //text.text = "Load_Weapon_Table";
         Load_Armor_Table();
-        text.text = "Load_Armor_Table";
+        //text.text = "Load_Armor_Table";
         Load_ActiveSkill_Table();
-        text.text = "Load_ActiveSkill_Table";
+        //text.text = "Load_ActiveSkill_Table";
         Load_Monster_Table();
-        text.text = "Load_Monster_Table";
+        //text.text = "Load_Monster_Table";
         LoadPlayerData();
-        text.text = "LoadPlayerData";
+        //text.text = "LoadPlayerData";
 
         yield return null;
         StopCoroutine(LoadAllTableData());
@@ -118,13 +118,13 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     {
         //플레이어 테이블 데이터 로드
         Load_Inventory_Table();
-        text.text = "Load_Inventory_Table";
+        //text.text = "Load_Inventory_Table";
         //플레이어의 패시브 데이터를 로드
         Load_Emblem_PlayData();
-        text.text = "Load_Emblem_PlayData";
+        //text.text = "Load_Emblem_PlayData";
         //플레이어 기본 데이터 로드
         Load_PlayerPrefs_Data();
-        text.text = "Load_PlayerPrefs_Data";
+        //text.text = "Load_PlayerPrefs_Data";
     }
 
     public void SavePlayerData()
@@ -439,18 +439,98 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         SavePlayerData();
     }
 
-    #region 공사중
+    //테스트 완료
+    #region Database_Load_Player_Data
+    //플레이어 데이터 로드 함수
+    void Load_Inventory_Table()
+    {
+        string sqlQuery = "SELECT * FROM Inventory";
+        DEB_dbcmd.CommandText = sqlQuery;
+        IDataReader reader = DEB_dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            int count = 0;
+            int Num = reader.GetInt32(count++);
+            int DB_Num = reader.GetInt32(count++);
+            string Name = reader.GetString(count++);
+            RARITY Rarity = (RARITY)(reader.GetInt32(count++));
+            CLASS Class = (CLASS)(reader.GetInt32(count++));
+            int ItemValue = reader.GetInt32(count++);
+            string ImageName = reader.GetString(count++);
+            int skill_Index = reader.GetInt32(count++);
+            int option_Index = reader.GetInt32(count++);
 
+            database.playData.inventory.Add(new Database.Inventory(Num, DB_Num, Name, Rarity, Class, ItemValue, ImageName, skill_Index, option_Index));
+        }
+        reader.Close();
+        reader = null;
+    }
+
+
+    void Load_Emblem_PlayData()
+    {
+        string sqlQuery = "SELECT * FROM Emblem";
+        DEB_dbcmd.CommandText = sqlQuery;
+        IDataReader reader = DEB_dbcmd.ExecuteReader();
+        while (reader.Read())
+        {
+            int count = 0;
+            int Num = reader.GetInt32(count++);
+            string Name = reader.GetString(count++);
+            EMBLEM_STATUS Status = (EMBLEM_STATUS)reader.GetInt32(count++);
+            string Description = reader.GetString(count++);
+            string ImageName = reader.GetString(count++);
+            string MethodName = reader.GetString(count++);
+
+            database.playData.emblem.Add(new Database.Emblem(Num, Name, Status, Description, ImageName, MethodName));
+        }
+        reader.Close();
+        reader = null;
+    }
+
+    void Load_PlayerPrefs_Data()
+    {
+        if (PlayerPrefs.HasKey("save2"))
+        {
+            //text.text = "GetSave";
+            database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
+            database.playData.hp = PlayerPrefs.GetFloat("hp");
+            database.playData.damage = PlayerPrefs.GetFloat("damage");
+            database.playData.moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
+            database.playData.attackSpeed = PlayerPrefs.GetFloat("attackSpeed");
+            database.playData.attackRange = PlayerPrefs.GetFloat("attackRange");
+            database.playData.nuckBack = PlayerPrefs.GetFloat("nuckBack");
+            database.playData.currentStage = PlayerPrefs.GetInt("currentStage");
+            database.playData.mp = PlayerPrefs.GetInt("mp");
+            database.playData.sex = (SEX)PlayerPrefs.GetInt("sex");
+            database.playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
+            database.playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
+            database.playData.resist_Fire = PlayerPrefs.GetInt("resist_Fire").Equals(1) ? true : false;
+            database.playData.resist_Water = PlayerPrefs.GetInt("resist_Water").Equals(1) ? true : false;
+            database.playData.resist_Poison = PlayerPrefs.GetInt("resist_Poison").Equals(1) ? true : false;
+            database.playData.resist_Electric = PlayerPrefs.GetInt("resist_Electric").Equals(1) ? true : false;
+            database.playData.attackType_Fire = PlayerPrefs.GetInt("attackType_Fire").Equals(1) ? true : false;
+            database.playData.attackType_Water = PlayerPrefs.GetInt("attackType_Water").Equals(1) ? true : false;
+            database.playData.attackType_Poison = PlayerPrefs.GetInt("attackType_Poison").Equals(1) ? true : false;
+            database.playData.attackType_Electric = PlayerPrefs.GetInt("attackType_Electric").Equals(1) ? true : false;
+        }
+        else
+        {
+            //text.text = "InitialPlayData_start";
+            InitialPlayData();
+            //text.text = "InitialPlayData_end";
+        }
+    }
     /// <summary>
     /// initialize player data
     /// </summary>
     private void InitialPlayData()
     {
-        text.text = "ResetInventory";
+        //text.text = "ResetInventory";
         ResetInventory();
-        text.text = "ResetInventory -> ResetEmblem";
+        //text.text = "ResetInventory -> ResetEmblem";
         ResetEmblem();
-        text.text = "ResetEmblem";
+        //text.text = "ResetEmblem";
         database.playData.equiWeapon_InventoryNum = 0;
         database.playData.equiArmor_InventoryNum = 1;
 
@@ -460,7 +540,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.mp = 1000;
         InitializePlayerStat();
 
-        database.playData.sex = PlayerPrefs.HasKey("sex") ? (SEX)PlayerPrefs.GetInt("sex") : SEX.None;
+        database.playData.sex = PlayerPrefs.HasKey("sex") ? (SEX)PlayerPrefs.GetInt("sex") : SEX.Female;
         database.playData.resist_Fire = false;
         database.playData.resist_Water = false;
         database.playData.resist_Poison = false;
@@ -511,91 +591,6 @@ public class DataTransaction : MonoSingleton<DataTransaction>
                 Status = 1;
             }
         }
-    }
-    #endregion
-
-    //테스트 완료
-    #region Database_Load_Player_Data
-    //플레이어 데이터 로드 함수
-
-    void Load_PlayerPrefs_Data()
-    {
-        if (PlayerPrefs.HasKey("save1"))
-        {
-            text.text = "GetSave";
-            database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
-            database.playData.hp = PlayerPrefs.GetFloat("hp");
-            database.playData.damage = PlayerPrefs.GetFloat("damage");
-            database.playData.moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
-            database.playData.attackSpeed = PlayerPrefs.GetFloat("attackSpeed");
-            database.playData.attackRange = PlayerPrefs.GetFloat("attackRange");
-            database.playData.nuckBack = PlayerPrefs.GetFloat("nuckBack");
-            database.playData.currentStage = PlayerPrefs.GetInt("currentStage");
-            database.playData.mp = PlayerPrefs.GetInt("mp");
-            database.playData.sex = (SEX)PlayerPrefs.GetInt("sex");
-            database.playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
-            database.playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
-            database.playData.resist_Fire = PlayerPrefs.GetInt("resist_Fire").Equals(1) ? true : false;
-            database.playData.resist_Water = PlayerPrefs.GetInt("resist_Water").Equals(1) ? true : false;
-            database.playData.resist_Poison = PlayerPrefs.GetInt("resist_Poison").Equals(1) ? true : false;
-            database.playData.resist_Electric = PlayerPrefs.GetInt("resist_Electric").Equals(1) ? true : false;
-            database.playData.attackType_Fire = PlayerPrefs.GetInt("attackType_Fire").Equals(1) ? true : false;
-            database.playData.attackType_Water = PlayerPrefs.GetInt("attackType_Water").Equals(1) ? true : false;
-            database.playData.attackType_Poison = PlayerPrefs.GetInt("attackType_Poison").Equals(1) ? true : false;
-            database.playData.attackType_Electric = PlayerPrefs.GetInt("attackType_Electric").Equals(1) ? true : false;
-        }
-        else
-        {
-            text.text = "InitialPlayData_start";
-            InitialPlayData();
-            text.text = "InitialPlayData_end";
-        }
-    }
-
-    void Load_Inventory_Table()
-    {
-        string sqlQuery = "SELECT * FROM Inventory";
-        DEB_dbcmd.CommandText = sqlQuery;
-        IDataReader reader = DEB_dbcmd.ExecuteReader();
-        while (reader.Read())
-        {
-            int count = 0;
-            int Num = reader.GetInt32(count++);
-            int DB_Num = reader.GetInt32(count++);
-            string Name = reader.GetString(count++);
-            RARITY Rarity = (RARITY)(reader.GetInt32(count++));
-            CLASS Class = (CLASS)(reader.GetInt32(count++));
-            int ItemValue = reader.GetInt32(count++);
-            string ImageName = reader.GetString(count++);
-            int skill_Index = reader.GetInt32(count++);
-            int option_Index = reader.GetInt32(count++);
-
-            database.playData.inventory.Add(new Database.Inventory(Num, DB_Num, Name, Rarity, Class, ItemValue, ImageName, skill_Index, option_Index));
-        }
-        reader.Close();
-        reader = null;
-    }
-
-
-    void Load_Emblem_PlayData()
-    {
-        string sqlQuery = "SELECT * FROM Emblem";
-        DEB_dbcmd.CommandText = sqlQuery;
-        IDataReader reader = DEB_dbcmd.ExecuteReader();
-        while (reader.Read())
-        {
-            int count = 0;
-            int Num = reader.GetInt32(count++);
-            string Name = reader.GetString(count++);
-            EMBLEM_STATUS Status = (EMBLEM_STATUS)reader.GetInt32(count++);
-            string Description = reader.GetString(count++);
-            string ImageName = reader.GetString(count++);
-            string MethodName = reader.GetString(count++);
-
-            database.playData.emblem.Add(new Database.Emblem(Num, Name, Status, Description, ImageName, MethodName));
-        }
-        reader.Close();
-        reader = null;
     }
     #endregion
 
