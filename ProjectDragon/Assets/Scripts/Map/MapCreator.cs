@@ -45,6 +45,14 @@ public class MapCreator : MonoBehaviour
     private void Awake()
     {
         ResourceLoadMap("Forest"); // 임시로 숲이라고 함
+        Init();
+    }
+
+    /// <summary>
+    /// Initialized data
+    /// </summary>
+    private void Init()
+    {
         gridSizeX_Cen = (int)(worldSize.x / 2);
         gridSizeY_Cen = (int)(worldSize.y / 2);
         gridSizeX = (int)worldSize.x;
@@ -57,6 +65,10 @@ public class MapCreator : MonoBehaviour
         map_Data = new GameObject[gridSizeX, gridSizeY];
     }
 
+    /// <summary>
+    /// Load All Map Prefabs
+    /// </summary>
+    /// <param name="_mapType"> Type is region type :: 지역명</param>
     void ResourceLoadMap(string _mapType)
     {
         map_Base = Resources.Load("Map/Map_" + _mapType + "_Base") as GameObject;
@@ -81,8 +93,6 @@ public class MapCreator : MonoBehaviour
 
     void Start()
     {
-        //map_Data[player_PosX, player_PosY] = GameObject.Instantiate(map_Base, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-
         CreateRooms(); //lays out the actual map
         SetRoomDoors(); //assigns the doors where rooms would connect
         DrawMap(); //instantiates objects to make up a map
@@ -516,7 +526,7 @@ public class MapCreator : MonoBehaviour
         foreach (GameObject obj in map_Data)
         {
             if (obj == null) continue;
-            if (obj.GetComponent<Room>().depth <= 2) continue;
+            if (obj.GetComponent<Room>().depth < 2) continue;
             if (!obj.GetComponent<Room>().roomType.Equals(RoomType.Normal)) continue;
 
             int i = 0;
