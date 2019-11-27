@@ -12,7 +12,7 @@ using Random = UnityEngine.Random;
 
 public class DataTransaction : MonoSingleton<DataTransaction>
 {
-    public UILabel text;
+    //public UILabel text;
     //public T Temp_Inventory;
     private Database database;
     public IDbCommand DEB_dbcmd;
@@ -30,27 +30,27 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     private void Start()
     {
         //text.text = Database.Inst.playData.inventory.Count.ToString();
-        text.text = Database.Inst.playData.inventory.Count.ToString() + "/";
-        text.text += database.playData.currentHp + "/";
-        text.text += database.playData.hp + "/";
-        text.text += database.playData.damage + "/";
-        text.text += database.playData.moveSpeed + "/";
-        text.text += database.playData.attackSpeed + "/";
-        text.text += database.playData.attackRange + "/";
-        text.text += database.playData.nuckBack + "/";
-        text.text += database.playData.currentStage + "/";
-        text.text += database.playData.mp + "/";
-        text.text += database.playData.sex + "/";
-        text.text += database.playData.equiWeapon_InventoryNum + "/";
-        text.text += database.playData.equiArmor_InventoryNum + "/";
-        text.text += database.playData.resist_Fire + "/";
-        text.text += database.playData.resist_Water + "/";
-        text.text += database.playData.resist_Poison + "/";
-        text.text += database.playData.resist_Electric + "/";
-        text.text += database.playData.attackType_Fire + "/";
-        text.text += database.playData.attackType_Water + "/";
-        text.text += database.playData.attackType_Poison + "/";
-        text.text += database.playData.attackType_Electric + "/";
+        //text.text = Database.Inst.playData.inventory.Count.ToString() + "/";
+        //text.text += database.playData.currentHp + "/";
+        //text.text += database.playData.hp + "/";
+        //text.text += database.playData.damage + "/";
+        //text.text += database.playData.moveSpeed + "/";
+        //text.text += database.playData.attackSpeed + "/";
+        //text.text += database.playData.attackRange + "/";
+        //text.text += database.playData.nuckBack + "/";
+        //text.text += database.playData.currentStage + "/";
+        //text.text += database.playData.mp + "/";
+        //text.text += database.playData.sex + "/";
+        //text.text += database.playData.equiWeapon_InventoryNum + "/";
+        //text.text += database.playData.equiArmor_InventoryNum + "/";
+        //text.text += database.playData.resist_Fire + "/";
+        //text.text += database.playData.resist_Water + "/";
+        //text.text += database.playData.resist_Poison + "/";
+        //text.text += database.playData.resist_Electric + "/";
+        //text.text += database.playData.attackType_Fire + "/";
+        //text.text += database.playData.attackType_Water + "/";
+        //text.text += database.playData.attackType_Poison + "/";
+        //text.text += database.playData.attackType_Electric + "/";
     }
 
     #region Database Connecting
@@ -87,10 +87,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
-        text.text = dbconn.State.ToString();
-        text.text = dbconn.ConnectionString;
+        //text.text = dbconn.State.ToString();
+        //text.text = dbconn.ConnectionString;
         dbconn.Open();
-        text.text = dbconn.State.ToString();
+        //text.text = dbconn.State.ToString();
         //text.text = "open";
         DEB_dbcmd = dbconn.CreateCommand();
     }
@@ -101,15 +101,15 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     IEnumerator LoadAllTableData()
     {
         Load_Weapon_Table();
-        text.text = "Load_Weapon_Table";
+        //text.text = "Load_Weapon_Table";
         Load_Armor_Table();
-        text.text = "Load_Armor_Table";
+        //text.text = "Load_Armor_Table";
         Load_ActiveSkill_Table();
-        text.text = "Load_ActiveSkill_Table";
+        //text.text = "Load_ActiveSkill_Table";
         Load_Monster_Table();
-        text.text = "Load_Monster_Table";
+        //text.text = "Load_Monster_Table";
         LoadPlayerData();
-        text.text = "LoadPlayerData";
+        //text.text = "LoadPlayerData";
 
         yield return null;
         StopCoroutine(LoadAllTableData());
@@ -120,13 +120,13 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     {
         //플레이어 테이블 데이터 로드
         Load_Inventory_Table();
-        text.text = "Load_Inventory_Table";
+        //text.text = "Load_Inventory_Table";
         //플레이어의 패시브 데이터를 로드
         Load_Emblem_PlayData();
-        text.text = "Load_Emblem_PlayData";
+        //text.text = "Load_Emblem_PlayData";
         //플레이어 기본 데이터 로드
         Load_PlayerPrefs_Data();
-        text.text = "Load_PlayerPrefs_Data";
+        //text.text = "Load_PlayerPrefs_Data";
     }
 
     public void SavePlayerData()
@@ -448,11 +448,11 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     /// </summary>
     private void InitialPlayData()
     {
-        text.text = "ResetInventory";
+        //text.text = "ResetInventory";
         ResetInventory();
-        text.text = "ResetInventory -> ResetEmblem";
+        //text.text = "ResetInventory -> ResetEmblem";
         ResetEmblem();
-        text.text = "ResetEmblem";
+        //text.text = "ResetEmblem";
         database.playData.equiWeapon_InventoryNum = 0;
         database.playData.equiArmor_InventoryNum = 1;
 
@@ -524,7 +524,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     {
         if (PlayerPrefs.HasKey("save1"))
         {
-            text.text = "GetSave";
+            //text.text = "GetSave";
             database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
             database.playData.hp = PlayerPrefs.GetFloat("hp");
             database.playData.damage = PlayerPrefs.GetFloat("damage");
@@ -548,9 +548,9 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         else
         {
-            text.text = "InitialPlayData_start";
+            //text.text = "InitialPlayData_start";
             InitialPlayData();
-            text.text = "InitialPlayData_end";
+            //text.text = "InitialPlayData_end";
         }
     }
 

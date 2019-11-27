@@ -36,7 +36,6 @@ public class Monster : Character
     }
 
 
-
     //삭제할것
     //플레이어와 적과의 거리 캐스팅
 

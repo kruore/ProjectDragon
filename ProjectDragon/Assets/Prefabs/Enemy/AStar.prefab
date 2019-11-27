@@ -48,6 +48,9 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 24576
+  objectMask:
+    serializedVersion: 2
+    m_Bits: 32768
   gridWorldSize: {x: 21, y: 15}
   nodeRadius: 0.3
   distance: 0
@@ -66,3 +69,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
+  isObjectCollision: 0

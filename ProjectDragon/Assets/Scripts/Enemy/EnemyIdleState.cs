@@ -13,9 +13,9 @@ public class EnemyIdleState : StateMachineBehaviour
         enemy = animator.gameObject.GetComponent<FSM_NormalEnemy>();
         if (!enemy.isDead)
         {
-            if (enemy.CurrentState != State.None)
+            if (enemy.NEState!= NormalEnemyState.Idle)
             {
-                enemy.CurrentState = State.None;
+                enemy.NEState = NormalEnemyState.Idle;
             }
         }
 

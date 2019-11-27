@@ -8,7 +8,8 @@ public class t_Node : IHeapItem<t_Node>
     public int gridX;
     public int gridY;
 
-    public bool IsWall;
+    public bool Walkable;
+    public bool IsObject = false;
     public Vector3 Pos;
 
     public t_Node Parent;
@@ -18,9 +19,9 @@ public class t_Node : IHeapItem<t_Node>
 
     public int FCost { get { return gCost + hCost; } }
 
-    public t_Node(bool _IsWall,Vector3 _pos,int _gridX,int _gridY)
+    public t_Node(bool _walkable, Vector3 _pos,int _gridX,int _gridY)
     {
-        IsWall = _IsWall;
+        Walkable = _walkable;
         Pos = _pos;
         gridX = _gridX;
         gridY = _gridY;

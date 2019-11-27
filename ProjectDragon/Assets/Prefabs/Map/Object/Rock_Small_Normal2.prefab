@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8367755410942635252}
   - component: {fileID: 8367755410942635255}
-  - component: {fileID: 8367755410942635254}
+  - component: {fileID: 3839775482340103598}
   m_Layer: 13
   m_Name: Rock_Small_Normal2
   m_TagString: Wall
@@ -80,8 +80,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &8367755410942635254
-PolygonCollider2D:
+--- !u!61 &3839775482340103598
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,15 +103,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.03718233, y: 0.3108368}
-      - {x: -0.23462772, y: 0.30124497}
-      - {x: -0.29800797, y: 0.25182796}
-      - {x: -0.31178188, y: -0.14206314}
-      - {x: -0.22621393, y: -0.26365566}
-      - {x: -0.076696396, y: -0.30781984}
-      - {x: 0.24709034, y: -0.32004738}
-      - {x: 0.29417515, y: -0.24255347}
-      - {x: 0.30607462, y: 0.10385442}
-      - {x: 0.19586802, y: 0.26024437}
+  serializedVersion: 2
+  m_Size: {x: 0.6, y: 0.6}
+  m_EdgeRadius: 0

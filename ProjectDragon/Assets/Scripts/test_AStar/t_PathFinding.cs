@@ -11,6 +11,7 @@ public class t_PathFinding : MonoBehaviour
     [HideInInspector]
     public List<t_Node> finalPath = new List<t_Node>();
     //public Vector3[] findPathNode;
+    public bool isObjectCollision=false;
 
 
     public void Create(float objBoxSizeX, float objBoxSizeY, t_Grid _AStar)
@@ -80,7 +81,7 @@ public class t_PathFinding : MonoBehaviour
 
             foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode))
             {
-                if (!NeighborNode.IsWall || ClosedList.Contains(NeighborNode))
+                if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
                 }
