@@ -16,8 +16,8 @@ GameObject:
   - component: {fileID: 2954448563601634514}
   - component: {fileID: 2954448563601634513}
   - component: {fileID: 2954448563601634512}
-  - component: {fileID: 2954448563601634527}
   - component: {fileID: 1642156482}
+  - component: {fileID: 2954448563601634527}
   m_Layer: 10
   m_Name: Slime
   m_TagString: Enemy
@@ -211,6 +211,21 @@ MonoBehaviour:
   disappearTimer: 4
   isVisible: 1
   fadecolor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!114 &1642156482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2954448563601634526}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f943712fa0d246b4db4c0a1442ad1e47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pathFinding: {fileID: 0}
+  currentWaypoint: {x: 0, y: 0, z: 0}
+  targetPos: {fileID: 0}
 --- !u!114 &2954448563601634527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,21 +276,6 @@ MonoBehaviour:
   inAtkDetectionRange: 0
   originOffset: 0
   normalEnemyState: 0
---- !u!114 &1642156482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2954448563601634526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f943712fa0d246b4db4c0a1442ad1e47, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pathFinding: {fileID: 0}
-  currentWaypoint: {x: 0, y: 0, z: 0}
-  targetPos: {fileID: 0}
 --- !u!1 &2954448564663233802
 GameObject:
   m_ObjectHideFlags: 0

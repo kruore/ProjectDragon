@@ -14,11 +14,7 @@ public class Doldori : FSM_NormalEnemy
         childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(Start_On());
-    }
+
 
     void Update()
     {

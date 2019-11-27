@@ -14,7 +14,7 @@ public class Slime : FSM_NormalEnemy
     protected override void Start()
     {
         base.Start();
-        StartCoroutine(Start_On());
+        //StartCoroutine(Start_On());
     }
 
     public void Update()

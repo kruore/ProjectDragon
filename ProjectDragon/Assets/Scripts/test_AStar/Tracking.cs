@@ -76,18 +76,8 @@ public class Tracking : MonoBehaviour
         yield return null;
     }
 
-    //Object 파괴시 FinalPath를 재탐색한다.
-     void RescanPath(Collider2D OverlapCollider)
-    {
-        t_Node objectNode =  pathFinding.grid.NodeFromWorldPosition(OverlapCollider.transform.position);
-        //OverlapCollider에 있는 노드를 읽어온다.
-        objectNode.IsObject = true;
+    
 
-        foreach (t_Node NeighborNode in pathFinding.grid.GetOverlapNodes(objectNode))
-        {
-        }
-
-    }
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
     //    if(collision.gameObject.CompareTag("Object"))

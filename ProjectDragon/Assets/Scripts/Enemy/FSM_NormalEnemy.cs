@@ -51,11 +51,16 @@ public class FSM_NormalEnemy : Enemy
 
     public override IEnumerator Start_On()
     {
+        StartCoroutine(base.Start_On());
+        
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
         NEState = NormalEnemyState.Walk;
+
         //공격감지 체크
         StartCoroutine(AttackRangeCheck());
+
+
         yield return null;
     }
 
@@ -114,7 +119,7 @@ public class FSM_NormalEnemy : Enemy
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
-        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
+        //GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
 
         float currentWalkTime = 0;
         float walkTime = Random.Range(2.0f, 6.0f);

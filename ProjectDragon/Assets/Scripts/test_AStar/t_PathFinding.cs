@@ -4,25 +4,24 @@ using UnityEngine;
 
 public class t_PathFinding : MonoBehaviour
 {
-    [HideInInspector]
-    public t_Grid grid;
-    [HideInInspector]
-    public t_Node startNode;
-    [HideInInspector]
-    public List<t_Node> finalPath = new List<t_Node>();
-    //public Vector3[] findPathNode;
-    public bool isObjectCollision=false;
+    [HideInInspector] public t_Grid grid;
+    [HideInInspector] public t_Node startNode;
+    [HideInInspector] public List<t_Node> finalPath = new List<t_Node>();
 
 
-    public void Create(float objBoxSizeX, float objBoxSizeY, t_Grid _AStar)
+    int nodeOverlapCountX, nodeOverlapCountY;       //오브젝트와 노드가 겹치는 노드갯수
+
+    public void Create(float _objBoxSizeX, float _objBoxSizeY, t_Grid _AStar)
     {
-        //GameObject AStar = GameObject.Find("AStar");
-        //grid = AStar.transform.GetComponent<t_Grid>();
+        //grid = GameObject.Find("AStar").transform.GetComponent<t_Grid>();
         grid = _AStar;
 
-        grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
-
+        //GetOverlapNodeCount
+        nodeOverlapCountX = grid.CalcOverlapNodeCount(_objBoxSizeX);
+        nodeOverlapCountY = grid.CalcOverlapNodeCount(_objBoxSizeY);
+        //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
     }
+
 
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
     {
@@ -58,9 +57,9 @@ public class t_PathFinding : MonoBehaviour
             //ClosedList.Add(currentNode);
 
             //도착했는가?
-            if (grid.nodeOverlapCountX > 0 || grid.nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
+            if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
             {
-                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode))
+                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
                 {
                     if (OverlapNode == targetNode|| currentNode==targetNode)
                     {
@@ -79,7 +78,7 @@ public class t_PathFinding : MonoBehaviour
             }
 
 
-            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode))
+            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
             {
                 if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {

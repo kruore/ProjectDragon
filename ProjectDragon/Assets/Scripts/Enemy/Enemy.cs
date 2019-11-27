@@ -87,6 +87,9 @@ public class Enemy : Monster
 
     public virtual IEnumerator Start_On()
     {
+        //Grid 생성
+        GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
+
         yield return null;
     }
 
@@ -158,7 +161,7 @@ public class Enemy : Monster
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log("collisionStay");
+        //ebug.Log("collisionStay");
         if (collision.gameObject.CompareTag("Player") ||
             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
@@ -167,14 +170,14 @@ public class Enemy : Monster
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
-                Debug.Log("Player collision ? : " + collision.gameObject.CompareTag("Player"));
+                //Debug.Log("Player collision ? : " + collision.gameObject.CompareTag("Player"));
             }
         }
     }
 
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
-        Debug.Log("collisionExit");
+        //Debug.Log("collisionExit");
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
         {
@@ -195,13 +198,13 @@ public class Enemy : Monster
     {
         if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
         {
-            Debug.Log("ignore");
+            //Debug.Log("ignore");
             Physics2D.IgnoreCollision(collision, col);
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("TriggerExit");
+        //Debug.Log("TriggerExit");
         if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
         {
             Physics2D.IgnoreCollision(collision, col, false);
