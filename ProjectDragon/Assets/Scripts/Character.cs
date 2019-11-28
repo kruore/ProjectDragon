@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum State { None = 0, Idle, Walk, Attack, Dead, Skill, Hit }
+public enum State { None = 0, Idel, Walk, Attack, Dead, Skill, Hit }
 public enum AnglePos { None = 0, Front, Right, Back, Left }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 

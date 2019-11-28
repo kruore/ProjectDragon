@@ -22,6 +22,7 @@ public class Player : Character
     //플레이어 세팅
     public SEX sex;
     public IsWear isWear;
+    public AttackType attackType;
 
 
     public GameObject weaponSelection;
@@ -159,9 +160,21 @@ public class Player : Character
                     {
                         if (TempEnemy.GetComponent<Character>().HP > 0)
                         {
-                            AngleisAttack = true;
-                            this.CurrentState = State.Attack;
-                            this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
+                            if (attackType == AttackType.LongRange)
+                            {
+                                if (enemy_angle == 0)
+                                {
+                                    this.CurrentState = State.Attack;
+                                    this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
+                                }
+                            }
+                            if(attackType ==AttackType.ShortRange)
+                            {
+                                AngleisAttack = true;
+                                this.CurrentState = State.Attack;
+                                this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
+                            }
+
                         }
                     }
                     if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) > this.GetComponent<Player>().AtkRange)
@@ -171,7 +184,7 @@ public class Player : Character
                         {
                             if (current_angle == 0)
                             {
-                                this.CurrentState = State.Idle;
+                                this.CurrentState = State.Idel;
                                 isWalk = false;
                             }
                             if (enemy_angle != 0 && isWalk == true)
@@ -192,7 +205,7 @@ public class Player : Character
     public void TempNullSet()
     {
         TempEnemy = null;
-        CurrentState = State.Idle;
+        CurrentState = State.Idel;
         AngleisAttack = false;
     }
     void PlayerPrefDataTrascation()
@@ -206,6 +219,7 @@ public class Player : Character
     // Start is called before the first frame update
     void Awake()
     {
+        attackType = AttackType.LongRange;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
@@ -214,7 +228,7 @@ public class Player : Character
         MoveSpeed = 3.0f;
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
-        CurrentState = State.Idle;
+        CurrentState = State.Idel;
         AtkRangeChanger(4);
     }
     void Start()
@@ -293,7 +307,7 @@ public class Player : Character
             case State.Walk:
                 isWalk = true;
                 break;
-            case State.Idle:
+            case State.Idel:
                 isWalk = false;
                 break;
             case State.Skill:

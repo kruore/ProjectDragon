@@ -4,7 +4,7 @@ using UnityEditor;
 #endif
 #if UNITY_5_6_OR_NEWER && !UNITY_5_6_0
 using UnityEngine;
-using UnityEngine.Store;
+//using UnityEngine.Store;
 
 namespace AppStoresSupport
 {
@@ -25,15 +25,15 @@ namespace AppStoresSupport
 
         public AppStoreSetting XiaomiAppStoreSetting = new AppStoreSetting();
         
-        public AppInfo getAppInfo() {
-            AppInfo appInfo = new AppInfo();
-            appInfo.clientId = UnityClientID;
-            appInfo.clientKey = UnityClientKey;
-            appInfo.appId = XiaomiAppStoreSetting.AppID;
-            appInfo.appKey = XiaomiAppStoreSetting.AppKey;
-            appInfo.debug = XiaomiAppStoreSetting.IsTestMode;
-            return appInfo;
-        }
+        //public AppInfo getAppInfo() {
+        //    AppInfo appInfo = new AppInfo();
+        //    appInfo.clientId = UnityClientID;
+        //    appInfo.clientKey = UnityClientKey;
+        //    appInfo.appId = XiaomiAppStoreSetting.AppID;
+        //    appInfo.appKey = XiaomiAppStoreSetting.AppKey;
+        //    appInfo.debug = XiaomiAppStoreSetting.IsTestMode;
+        //    return appInfo;
+        //}
 
 #if UNITY_EDITOR
         [MenuItem("Assets/Create/App Store Settings", false, 1011)]

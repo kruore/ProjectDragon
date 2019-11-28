@@ -75,7 +75,7 @@ public class JoyPad : MonoBehaviour
     {
         if (pressed == false)
         {
-            player.CurrentState = State.Idle;
+            player.CurrentState = State.Idel;
         }
         if (pressed.Equals(true))
         {
@@ -221,7 +221,7 @@ public class JoyPad : MonoBehaviour
                 }
                 else if (angle == 0)
                 {
-                    player.CurrentState = State.Idle;
+                    player.CurrentState = State.Idel;
                 }
             }
             if (normalize)

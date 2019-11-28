@@ -57,7 +57,7 @@ public class AnimatorControll : MonoBehaviour
     [Tooltip("공격에 관련된 애니메이션")]
     public AnimationClip[] animAttack;
     [Tooltip("대기에 관련된 애니메이션")]
-    public AnimationClip[] animIdle;
+    public AnimationClip[] animIdel;
 
     public string ClearAnimator_Name
     {
@@ -89,7 +89,7 @@ public class AnimatorControll : MonoBehaviour
             my_state = Anim_Master.CurrentState;
             temp_name = clearAnimator_name;
             anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
-            ClearAnimator_Name = "Female_DefaultCloth_ShortRange_" + my_state + "_" + anglepos.ToString();
+            ClearAnimator_Name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+ "_" + my_state + "_" + anglepos.ToString();
         }
         else if (Anim_Master.AngleisAttack == true)
         {
@@ -135,7 +135,7 @@ public class AnimatorControll : MonoBehaviour
             Player_AnimationController_CastingCurrentAnim_Arm(animationValueChanger(my_state), my_state);
             Player_AnimationController_CastingCurrentAnim_Weapon(animationValueChanger(my_state), my_state);
         }
-        my_state = State.Idle;
+        my_state = State.Idel;
     }
     void Player_AnimationController_CastingCurrentAnim(AnimationClip[] animationbundle, State state)
     {
@@ -188,8 +188,8 @@ public class AnimatorControll : MonoBehaviour
     {
         switch (state)
         {
-            case State.Idle:
-                return animIdle = new AnimationClip[4];
+            case State.Idel:
+                return animIdel = new AnimationClip[4];
             case State.Walk:
                 return animWalk = new AnimationClip[4];
             case State.Dead:
@@ -202,7 +202,7 @@ public class AnimatorControll : MonoBehaviour
             case State.Attack:
                 return animAttack = new AnimationClip[4];
         }
-        return animIdle = new AnimationClip[4];
+        return animIdel = new AnimationClip[4];
     }
     void AngleStringCast(string name)
     {
