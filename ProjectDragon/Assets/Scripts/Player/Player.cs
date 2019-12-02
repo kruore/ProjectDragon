@@ -215,7 +215,7 @@ public class Player : Character
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idle;
-        AtkRangeChanger(4);
+        AtkRangeChanger(3);
     }
     void Start()
     {

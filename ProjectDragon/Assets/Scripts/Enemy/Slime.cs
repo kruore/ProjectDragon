@@ -13,6 +13,7 @@ public class Slime : FSM_NormalEnemy
 
     protected override void Start()
     {
+        atk = 0;
         base.Start();
         //StartCoroutine(Start_On());
     }

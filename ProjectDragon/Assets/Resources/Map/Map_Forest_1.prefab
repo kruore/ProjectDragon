@@ -1258,7 +1258,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd97e463ad5a534ba6359823ca0abb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 1
+  displayGridGizmos: 0
   wallMask:
     serializedVersion: 2
     m_Bits: 24576
@@ -1268,8 +1268,6 @@ MonoBehaviour:
   gridWorldSize: {x: 21, y: 15}
   nodeRadius: 0.3
   distance: 0
-  nodeOverlapCountX: 0
-  nodeOverlapCountY: 0
 --- !u!114 &2340072166091738230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1283,7 +1281,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 0}
-  isObjectCollision: 0
 --- !u!1001 &177247779904350266
 PrefabInstance:
   m_ObjectHideFlags: 0

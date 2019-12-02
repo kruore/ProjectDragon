@@ -8,7 +8,9 @@ public class Enemy : Monster
     protected SpriteRenderer spriteRenderer;
     [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected BoxCollider2D col;
-    protected bool isCollision = false;
+    [SerializeField]  protected bool collisionPlayer = false;
+    [SerializeField] protected bool collisionEnemyHit = false;
+   
 
     [Header("[Enemy Attribute]")]
     //public string name;
@@ -157,43 +159,36 @@ public class Enemy : Monster
 
 
 
-
-
     private void OnCollisionStay2D(Collision2D collision)
     {
-        //ebug.Log("collisionStay");
+        //Debug.Log("collisionStay");
+        
+
+        //Walk일때 Player에게 다가가는 무리들에 대한 이동조정..
         if (collision.gameObject.CompareTag("Player") ||
-            (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
+             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().collisionPlayer)))
         {
-            isCollision = true;
-            if (!isHit|| isCollision) //넉백되지 않거나 부딪혀있을때
+            collisionPlayer = true;
+            if (!isHit || collisionPlayer) //넉백되지 않거나 부딪혀있을때
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
-                //Debug.Log("Player collision ? : " + collision.gameObject.CompareTag("Player"));
-            }
+            } 
         }
     }
 
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         //Debug.Log("collisionExit");
+
         if (collision.gameObject.CompareTag("Player") ||
-             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().isCollision)))
+             (collision.gameObject.CompareTag("Enemy") ))
         {
             rb2d.isKinematic = false;
-            isCollision = false;
+            collisionPlayer = false;
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    Debug.Log("TriggerEnter");
-    //    if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
-    //    {
-    //        Debug.Log("ignore");
-    //        Physics2D.IgnoreCollision(collision, col);
-    //    }
-    //}
+
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
@@ -215,6 +210,7 @@ public class Enemy : Monster
     // 방향넉백
     public IEnumerator DirectionKnockBack()
     {
+
         //rb2d.velocity = Vector2.zero;
         rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
 

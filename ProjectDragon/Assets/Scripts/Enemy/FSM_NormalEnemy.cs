@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum NormalEnemyState { Idle, Walk, Attack, Wait }
+public enum NormalEnemyState { Idle, Walk, Attack, Wait, Hit}
 public class FSM_NormalEnemy : Enemy
 {
 
@@ -36,12 +36,13 @@ public class FSM_NormalEnemy : Enemy
         if (!isDead)
         {
             isHit = true;
-
-            //넉백
-            StartCoroutine(DirectionKnockBack());
+            isWalk = false;
 
             //White Shader
             StartCoroutine(flashWhite.Flash());
+            //넉백
+            StartCoroutine(DirectionKnockBack());
+
 
             return base.HPChanged(ATK);
         }
@@ -139,7 +140,7 @@ public class FSM_NormalEnemy : Enemy
             }
 
             //move
-            if (!isHit && !isCollision)
+            if (!isHit && !collisionPlayer)
             {
                 isWalk = true;
                 currentWalkTime += Time.deltaTime;
@@ -158,6 +159,11 @@ public class FSM_NormalEnemy : Enemy
                 //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
             }
+            //else
+            //{
+            //    isWalk = false;
+            //    rb2d.velocity = Vector2.zero;
+            //}
             yield return null;
         }
     }
@@ -172,7 +178,7 @@ public class FSM_NormalEnemy : Enemy
         float current_waitTime = 0;
 
         isWalk = false;
-        rb2d.velocity = Vector2.zero;
+        //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
             //공격감지범위에 들어오면 Attack
@@ -188,6 +194,7 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Walk;             //Wait -> Walk
                 yield break;
             }
+            
             yield return null;
         }
     }
@@ -210,6 +217,10 @@ public class FSM_NormalEnemy : Enemy
         yield return null;
     }
 
+    protected IEnumerator Hit()
+    {
+        yield return null;
+    }
 
     #region 구버전애니메이션 관리
     //    //Attack 애니메이션 1번만 돌리고 -> Idle로

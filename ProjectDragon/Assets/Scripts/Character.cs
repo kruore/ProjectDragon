@@ -60,7 +60,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
     [SerializeField]
     protected bool isWalk;
     [HideInInspector] public bool isDead;
-    protected bool isHit;
+    [SerializeField]  protected bool isHit;
     protected bool isSkillActive;
 
     protected virtual void Awake()
