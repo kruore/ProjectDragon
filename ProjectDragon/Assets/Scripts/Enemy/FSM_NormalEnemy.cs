@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum NormalEnemyState { Idle, Walk, Attack, Wait, Hit}
+public enum NormalEnemyState { Idle, Walk, Attack, Wait}
 public class FSM_NormalEnemy : Enemy
 {
 
@@ -35,15 +35,7 @@ public class FSM_NormalEnemy : Enemy
         //살아 있을때
         if (!isDead)
         {
-            isHit = true;
-            isWalk = false;
-
-            //White Shader
-            StartCoroutine(flashWhite.Flash());
-            //넉백
-            StartCoroutine(DirectionKnockBack());
-
-
+            Hit();
             return base.HPChanged(ATK);
         }
 
@@ -79,6 +71,12 @@ public class FSM_NormalEnemy : Enemy
     {
         while (NEState == NormalEnemyState.Idle&&!isDead)
         {
+            if (isHit)
+            {
+                yield return null;
+                continue;
+            }
+
             //[조건] cooltime > readyTime
             if (Current_cooltime < cooltime)                    //cooltime 전
             {
@@ -127,20 +125,21 @@ public class FSM_NormalEnemy : Enemy
 
         while (NEState == NormalEnemyState.Walk && !isDead)
         {
+            if (isHit)
+            {
+                yield return null;
+                continue;
+            }
             //공격감지범위에 들어오면 Attack
             if (inAtkDetectionRange)
             {
                 isWalk = false;
-                //if(!isHit)
-                //{
-                //rb2d.velocity = Vector2.zero;  //move가 velocity로 하는거라면 넣기
-                //}
                 NEState = NormalEnemyState.Attack;
                 yield break;
             }
 
             //move
-            if (!isHit && !collisionPlayer)
+            if (!collisionPlayer)
             {
                 isWalk = true;
                 currentWalkTime += Time.deltaTime;
@@ -159,11 +158,6 @@ public class FSM_NormalEnemy : Enemy
                 //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
             }
-            //else
-            //{
-            //    isWalk = false;
-            //    rb2d.velocity = Vector2.zero;
-            //}
             yield return null;
         }
     }
@@ -181,6 +175,11 @@ public class FSM_NormalEnemy : Enemy
         //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
+            if (isHit)
+            {
+                yield return null;
+                continue;
+            }
             //공격감지범위에 들어오면 Attack
             if (inAtkDetectionRange)
             {
@@ -194,7 +193,7 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Walk;             //Wait -> Walk
                 yield break;
             }
-            
+            rb2d.velocity = Vector2.zero;
             yield return null;
         }
     }
@@ -217,9 +216,17 @@ public class FSM_NormalEnemy : Enemy
         yield return null;
     }
 
-    protected IEnumerator Hit()
+    protected void Hit()
     {
-        yield return null;
+        isHit = true;
+        isWalk = false;
+
+        //White Shader
+        StartCoroutine(flashWhite.Flash());
+
+        //넉백
+        StartCoroutine(DirectionKnockBack());
+
     }
 
     #region 구버전애니메이션 관리
