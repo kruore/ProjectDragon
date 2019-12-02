@@ -139,7 +139,7 @@ public class FSM_NormalEnemy : Enemy
             }
 
             //move
-            if (!collisionPlayer)
+            if (!collisionPlayer && !collisionEnemyHit)
             {
                 isWalk = true;
                 currentWalkTime += Time.deltaTime;
@@ -158,6 +158,7 @@ public class FSM_NormalEnemy : Enemy
                 //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
                 //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
             }
+            else { isWalk = false; }
             yield return null;
         }
     }
@@ -175,7 +176,7 @@ public class FSM_NormalEnemy : Enemy
         //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
-            if (isHit)
+            if (isHit|| collisionEnemyHit)
             {
                 yield return null;
                 continue;

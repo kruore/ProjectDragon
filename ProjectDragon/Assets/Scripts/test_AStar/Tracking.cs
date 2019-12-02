@@ -59,6 +59,7 @@ public class Tracking : MonoBehaviour
         {
             isArriveStartNode = true;
         }
+     
 
         if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 먼저이동
         {

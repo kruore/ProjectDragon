@@ -162,14 +162,20 @@ public class Enemy : Monster
     private void OnCollisionStay2D(Collision2D collision)
     {
         //Debug.Log("collisionStay");
-        
 
-        //Walk일때 Player에게 다가가는 무리들에 대한 이동조정..
+        if ((collision.gameObject.CompareTag("Enemy") && 
+            ((collision.gameObject.GetComponent<FSM_NormalEnemy>().isHit)||collision.gameObject.GetComponent<FSM_NormalEnemy>().collisionEnemyHit)))
+        {
+            collisionEnemyHit = true;
+        }
+
+        //Player에게 다가가는 무리들에 대한 이동조정.. (walk)
+        //넉백되어 밀리는 적에게 밀릴경우에 대한 이동조정...(hit)
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().collisionPlayer)))
         {
             collisionPlayer = true;
-            if (!isHit || collisionPlayer) //넉백되지 않거나 부딪혀있을때
+            if (/*collisionEnemyHit||*/ collisionPlayer)
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
@@ -181,14 +187,22 @@ public class Enemy : Monster
     {
         //Debug.Log("collisionExit");
 
+        if (collisionEnemyHit)
+        { 
+            rb2d.velocity = Vector2.zero;
+        }
+
+
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") ))
         {
             rb2d.isKinematic = false;
             collisionPlayer = false;
+            collisionEnemyHit = false;
         }
     }
 
+    //Walk이면 Object 충돌무시(Astar)
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
