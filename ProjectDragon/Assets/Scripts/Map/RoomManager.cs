@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviour
     public int gridSizeX, gridSizeY;
     public int playerGridPosX, playerGridPosY;
 
-    public MiniMap miniMap;
+    public MiniMap miniMap; 
 
     private void Awake()
     {
@@ -86,5 +86,38 @@ public class RoomManager : MonoBehaviour
     public bool PlayerIsClearRoom()
     {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomState == RoomState.Clear ? true : false;
+    }
+
+    public int PortalRoomClearCount()
+    {
+        int count = 0;
+
+        foreach(GameObject obj in map_Data)
+        {
+            if (obj == null) continue;
+
+            Room temp = obj.GetComponent<Room>();
+            if (!temp.roomState.Equals(RoomState.Clear) || temp.roomType.Equals(RoomType.Normal)) continue;
+
+            count++;
+        }
+
+        return count;
+    }
+
+    public void PortalOn()
+    {
+        Debug.Log(PortalRoomClearCount());
+        if(PortalRoomClearCount() >= 2)
+        {
+            foreach(GameObject obj in map_Data)
+            {
+                if (obj == null) continue;
+
+                Room temp = obj.GetComponent<Room>();
+                if (temp.portal == null) continue;
+                if (temp.roomState.Equals(RoomState.Clear)) temp.portal.GetComponent<Portal>().IsPortalOn = true;
+            }
+        }
     }
 }

@@ -505,6 +505,7 @@ public class MapCreator : MonoBehaviour
 
     void SetHiddenRoom(Transform _parent)
     {
+        //히든방이 붙어 있을 수 있는 방 선택
         List<GameObject> temp = new List<GameObject>();
         foreach (GameObject obj in map_Data)
         {
@@ -522,9 +523,12 @@ public class MapCreator : MonoBehaviour
             if (!i.Equals(4)) temp.Add(obj);
         }
 
+        //히든방 베이스가 없으면 안만듬
         if (temp.Count.Equals(0))
         {
+#if UNITY_EDITOR
             Debug.Log("Hidden room zero");
+#endif
             return;
         }
 
@@ -536,39 +540,47 @@ public class MapCreator : MonoBehaviour
         int hiddenNum = Random.Range(0, map_Hiddens_Count);
         GameObject hiddenRoom = map_Hiddens[hiddenNum];
 
+        //베이스 룸의 그리드를 mapdata 그리드로 변환
         int x = (int)baseRoom.gridPos.x + gridSizeX_Cen;
         int y = (int)baseRoom.gridPos.y + gridSizeY_Cen;
         Vector3 pos = Vector3.zero;
         bool[] door = new bool[4];
-        if (!baseRoom.doorBot && y - 1 >= 0)
+        //방 생성할 위치 체크
+        do
         {
-            //히든 방 위치
-            baseRoom.doorBot = true;
-            DoorLoad(baseRoom, "South");
-            door = new bool[4] { false, false, false, true };
-            y--;
-        }
-        else if(!baseRoom.doorTop && y + 1 <= gridSizeY - 1)
-        {
-            baseRoom.doorTop = true;
-            DoorLoad(baseRoom, "North");
-            door = new bool[4] { true, false, false, false };
-            y++;
-        }
-        else if(!baseRoom.doorLeft && x - 1 >= 0)
-        {
-            baseRoom.doorLeft = true;
-            DoorLoad(baseRoom, "West");
-            door = new bool[4] { false, false, true, false };
-            x--;
-        }
-        else if(!baseRoom.doorRight && x + 1 <= gridSizeX - 1)
-        {
-            baseRoom.doorRight = true;
-            DoorLoad(baseRoom, "East");
-            door = new bool[4] { false, true, false, false };
-            x++;
-        }
+            if (!baseRoom.doorBot && y - 1 >= 0)
+            {
+                baseRoom.doorBot = true;
+                DoorLoad(baseRoom, "South");
+                door = new bool[4] { false, false, false, true };
+                y--;
+                break;
+            }
+            else if (!baseRoom.doorTop && y + 1 <= gridSizeY - 1)
+            {
+                baseRoom.doorTop = true;
+                DoorLoad(baseRoom, "North");
+                door = new bool[4] { true, false, false, false };
+                y++;
+                break;
+            }
+            else if (!baseRoom.doorLeft && x - 1 >= 0)
+            {
+                baseRoom.doorLeft = true;
+                DoorLoad(baseRoom, "West");
+                door = new bool[4] { false, false, true, false };
+                x--;
+                break;
+            }
+            else if (!baseRoom.doorRight && x + 1 <= gridSizeX - 1)
+            {
+                baseRoom.doorRight = true;
+                DoorLoad(baseRoom, "East");
+                door = new bool[4] { false, true, false, false };
+                x++;
+                break;
+            }
+        } while (false);
         pos = new Vector3((x - gridSizeX_Cen) * 25.0f, (y - gridSizeY_Cen) * 15.0f, 0.0f);
         GameObject hidden = Instantiate(hiddenRoom, pos, Quaternion.identity, _parent);
         Room map = hidden.AddComponent<Room>();
@@ -577,7 +589,8 @@ public class MapCreator : MonoBehaviour
         map_Data[x, y] = hidden;
     }
 
-    void DoorLoad(Room _parent, string _direction)
+    //방에 문을 달아줍니다.
+    private void DoorLoad(Room _parent, string _direction)
     {
         Transform baseDW = _parent.transform.Find("DoorWall");
         GameObject obj = Instantiate(Resources.Load("Object/" + _direction) as GameObject, baseDW);
@@ -587,7 +600,7 @@ public class MapCreator : MonoBehaviour
 
             _parent.door_All[i] = obj;
             _parent.door_All[i].name = _direction;
-            obj.transform.Find("Crack").GetComponent<Crack>().room = _parent;
+            obj.transform.Find("Crack").GetComponent<Crack>().SetRoom(_parent, obj.transform.Find("Door").GetComponent<Door>());
             break;
         }
     }

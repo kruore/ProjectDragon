@@ -105,6 +105,7 @@ public class Player : Character
                 isDead = true;
                 CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
+                
             }
         }
     }
@@ -195,12 +196,19 @@ public class Player : Character
         CurrentState = State.Idle;
         AngleisAttack = false;
     }
+
+    Database.PlayData playData;
+
+    void PlayerPrefData(ref float Damage1)
+    {
+        ATTACKDAMAGE = (int)Damage1;
+        //damage = (int)Damage1;
+        //hp = ref (int)DataTransaction.Inst.CurrentHp;
+    }
     void PlayerPrefDataTrascation()
     {
-        //maxHp = (int)DataTransaction.Inst.MaxHp;
-        //mp = (int)DataTransaction.Inst.Mp;
-        //sex = DataTransaction.Inst.Sex;
-        //ATTACKDAMAGE = (int)DataTransaction.Inst.CurrentDamage;
+        PlayerPrefData(ref Database.Inst.playData.damage);
+        //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
 
     // Start is called before the first frame update
@@ -210,7 +218,7 @@ public class Player : Character
         EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
         playerSex = SEX.Female;
-    //    PlayerPrefDataTrascation();
+        PlayerPrefDataTrascation();
         MoveSpeed = 3.0f;
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
@@ -219,6 +227,7 @@ public class Player : Character
     }
     void Start()
     {
+        //PlayerPrefDataTrascation();
         StartCoroutine(CalculateDistanceWithPlayer());
         //내가 끼고 있는 칼에 대한 정의
         //Database.Inventory myWeapon = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];

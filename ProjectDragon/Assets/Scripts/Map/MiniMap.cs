@@ -10,7 +10,6 @@ public class MiniMap : MonoBehaviour
     public UIPanel panel;
 
     public UIButton button;
-    public bool isMax = false;
     public EventDelegate mini = new EventDelegate();
     public EventDelegate maxi = new EventDelegate();
 
@@ -116,7 +115,6 @@ public class MiniMap : MonoBehaviour
 
         button.onClick.RemoveAt(0);
         StartCoroutine(AddButton(mini));
-        //button.onClick.Add(mini);
     }
 
     public void Minimalize()
@@ -131,8 +129,6 @@ public class MiniMap : MonoBehaviour
 
         button.onClick.RemoveAt(0);
         StartCoroutine(AddButton(maxi));
-        //EventDelegate.Remove(button.onClick, mini);
-        //EventDelegate.Add(button.onClick, maxi);
     }
 
     IEnumerator AddButton(EventDelegate _Event)

@@ -16,15 +16,15 @@ public class Portal : MonoBehaviour
 
     private bool isPortalOn = false;
 
-    private GameObject player;
-
-    private void Awake()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         GetComponent<Animator>().Play("t_PortalCreate");
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
 
-    public void PortalOn()
+    }
+    private void OnTriggerExit2D(Collider2D collision)
     {
 
     }

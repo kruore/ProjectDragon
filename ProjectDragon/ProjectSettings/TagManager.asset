@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - Object
   - Skill
+  - Portal
   layers:
   - Default
   - TransparentFX
@@ -31,7 +32,7 @@ TagManager:
   - Player
   - Wall
   - Cliff
-  - 
+  - Object
   - 
   - 
   - 

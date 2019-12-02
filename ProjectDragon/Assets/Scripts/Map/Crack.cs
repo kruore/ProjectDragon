@@ -4,13 +4,24 @@ using UnityEngine;
 
 public class Crack : MonoBehaviour
 {
-    public Room room;
+    private Room room;
+    private Door door;
 
-    private Sprite sprite;
+    public Sprite sprite;
 
-    private void Awake()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        switch (GetComponentInParent<Door>().Name)
+        if (room.roomState.Equals(RoomState.Clear) && collision.gameObject.CompareTag("Player"))
+        {
+            door.GetComponent<SpriteRenderer>().sprite = sprite;
+            Destroy(gameObject, 0.2f);
+        }
+    }
+    public void SetRoom(Room _room, Door _door)
+    {
+        room = _room;
+        door = _door;
+        switch (door.Name)
         {
             case DoorName.East:
                 sprite = Resources.Load<Sprite>("Object/Door_East");
@@ -24,19 +35,6 @@ public class Crack : MonoBehaviour
             case DoorName.West:
                 sprite = Resources.Load<Sprite>("Object/Door_West");
                 break;
-        }
-
-    }
-    void Start()
-    {
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(room.roomState.Equals(RoomState.Clear) && collision.CompareTag("Skill"))
-        {
-
         }
     }
 }
