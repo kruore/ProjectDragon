@@ -51,6 +51,9 @@ public class MiniMap : MonoBehaviour
             {
                 obj.MiniMapPos.SetActive(true);
                 obj.MiniMapPos.GetComponent<UISprite>().alpha = 0.5f;
+
+                //히든방은 숨깁니다.
+                if (obj.roomType.Equals(RoomType.Hidden)) obj.MiniMapPos.GetComponent<UISprite>().alpha = 0.0f;
             }
         }
     }
@@ -82,6 +85,8 @@ public class MiniMap : MonoBehaviour
                 //포탈 그림 붙이고, 안보이게 하기
                 GameObject portal = Instantiate(portalImage, room[i].transform.localPosition, Quaternion.identity, room[i].transform);
                 portal.transform.localPosition = Vector3.zero;
+                portal.GetComponent<UISprite>().enabled = false;
+                portal.name = "Portal";
             }
 
             temp_room.MiniMapPos = room[i];

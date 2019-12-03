@@ -107,7 +107,10 @@ public class RoomManager : MonoBehaviour
 
     public void PortalOn()
     {
+#if UNITY_EDITOR
         Debug.Log(PortalRoomClearCount());
+        Debug.Log("portal on");
+#endif
         if(PortalRoomClearCount() >= 2)
         {
             foreach(GameObject obj in map_Data)
@@ -115,9 +118,21 @@ public class RoomManager : MonoBehaviour
                 if (obj == null) continue;
 
                 Room temp = obj.GetComponent<Room>();
-                if (temp.portal == null) continue;
+                if (temp.roomType.Equals(RoomType.Normal)) continue;
                 if (temp.roomState.Equals(RoomState.Clear)) temp.portal.GetComponent<Portal>().IsPortalOn = true;
             }
         }
+    }
+
+    public void MiniMapMaximalize()
+    {
+        if(!miniMap.button.onClick[0].methodName.Equals("Minimalize")) miniMap.Maximalize();
+        miniMap.button.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void MiniMapMinimalize()
+    {
+        if(!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();
+        miniMap.button.GetComponent<BoxCollider>().enabled = true;
     }
 }

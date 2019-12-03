@@ -14,18 +14,27 @@ public class Portal : MonoBehaviour
         }
     }
 
+    private RoomManager RoomManager;
     private bool isPortalOn = false;
 
     private void Start()
     {
+        RoomManager = GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>();
         GetComponent<Animator>().Play("t_PortalCreate");
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
+        Debug.Log(isPortalOn);
+        if(collision.CompareTag("Player") && isPortalOn)
+        {
+            RoomManager.MiniMapMaximalize();
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-
+        if (collision.CompareTag("Player") && isPortalOn)
+        {
+            RoomManager.MiniMapMinimalize();
+        }
     }
 }

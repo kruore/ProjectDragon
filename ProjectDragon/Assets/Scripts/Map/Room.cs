@@ -155,8 +155,13 @@ public class Room : MonoBehaviour
     {
         roomState = RoomState.Clear;
         OpenAllDoor();
+
         roomManager.miniMap.gameObject.SetActive(true);
         miniMapPos.GetComponent<UISprite>().alpha = 1.0f;
+        if(!roomType.Equals(RoomType.Normal))
+        {
+            miniMapPos.transform.Find("Portal").GetComponent<UISprite>().enabled = true;
+        }
         switch (roomType)
         {
             case RoomType.Begin:

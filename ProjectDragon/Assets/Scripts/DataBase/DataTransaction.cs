@@ -276,7 +276,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         set
         {
-            float temp = database.playData.currentHp + value;
+            float temp = value;
 
             if (temp <= 0) temp = 0.0f;
             else if (MaxHp <= temp) temp = MaxHp;
@@ -468,7 +468,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.mp = 1000;
         InitializePlayerStat();
 
-        database.playData.sex = PlayerPrefs.HasKey("sex") ? (SEX)PlayerPrefs.GetInt("sex") : SEX.None;
+        //database.playData.sex = PlayerPrefs.HasKey("sex") ? (SEX)PlayerPrefs.GetInt("sex") : SEX.Female;
+        database.playData.sex = SEX.Female;
         database.playData.resist_Fire = false;
         database.playData.resist_Water = false;
         database.playData.resist_Poison = false;

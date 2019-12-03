@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2586455660892562910}
   - component: {fileID: 2586455660892562896}
   - component: {fileID: 2586455660892562911}
+  - component: {fileID: 3074842061897543536}
   m_Layer: 0
   m_Name: Door
   m_TagString: Wall
@@ -106,6 +107,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &3074842061897543536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586455660892562909}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 543bfb8a36d026844a6fcc08cad2623c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: 3
 --- !u!1 &2586455661243391866
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,7 +131,6 @@ GameObject:
   - component: {fileID: 2586455661243391867}
   - component: {fileID: 2586455661243391870}
   - component: {fileID: 2586455661243391868}
-  - component: {fileID: 4710949565924904473}
   m_Layer: 0
   m_Name: East
   m_TagString: Wall
@@ -193,19 +206,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 5}
   m_EdgeRadius: 0
---- !u!114 &4710949565924904473
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2586455661243391866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 543bfb8a36d026844a6fcc08cad2623c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Name: 3
 --- !u!1 &3563150443358576976
 GameObject:
   m_ObjectHideFlags: 0

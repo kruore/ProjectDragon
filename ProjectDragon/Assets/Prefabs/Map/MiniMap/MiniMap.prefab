@@ -83,7 +83,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -170,7 +170,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -257,7 +257,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -344,7 +344,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -431,7 +431,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -518,7 +518,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -605,7 +605,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -696,7 +696,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: red_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -715,7 +715,6 @@ MonoBehaviour:
   RoomManager: {fileID: 0}
   panel: {fileID: 0}
   button: {fileID: 0}
-  isMax: 0
   mini:
     mTarget: {fileID: 0}
     mMethodName: 
@@ -809,7 +808,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: yellow_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -896,7 +895,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -983,7 +982,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1070,7 +1069,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1207,7 +1206,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1294,7 +1293,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1381,7 +1380,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1468,7 +1467,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1672,7 +1671,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3003
+  startingRenderQueue: 3000
   mClipTexture: {fileID: 2800000, guid: 505a4aa2be60a31478dc1897f8d21084, type: 3}
   mAlpha: 1
   mClipping: 3
@@ -1782,7 +1781,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1869,7 +1868,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -1956,7 +1955,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -2043,7 +2042,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -2130,7 +2129,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1
@@ -2217,7 +2216,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: grey_panel
   mFixedAspect: 0
   mFillCenter: 1

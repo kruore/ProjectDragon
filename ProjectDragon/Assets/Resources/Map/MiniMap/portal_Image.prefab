@@ -83,7 +83,7 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 477624266c1902645836f7993f057c46, type: 2}
+  mAtlas: {fileID: 11400000, guid: b4a840f948b54a547b5822602b1819ad, type: 2}
   mSpriteName: Portal
   mFixedAspect: 0
   mFillCenter: 1

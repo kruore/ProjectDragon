@@ -207,7 +207,10 @@ public class Player : Character
     }
     void PlayerPrefDataTrascation()
     {
-        PlayerPrefData(ref Database.Inst.playData.damage);
+        //PlayerPrefData(ref Database.Inst.playData.damage);
+        ATTACKDAMAGE = (int)DataTransaction.Inst.CurrentDamage;
+
+        DataTransaction.Inst.CurrentHp = 20;
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
 
