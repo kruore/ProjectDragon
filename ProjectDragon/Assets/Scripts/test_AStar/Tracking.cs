@@ -68,10 +68,11 @@ public class Tracking : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, _moveSpeed * Time.deltaTime);
-        //Velocity Move
-           // _rb2d.velocity = Vector3.zero;
+            
+            //Velocity Move
+            // _rb2d.velocity = Vector3.zero;
             //Vector3 moveDirection = (currentWaypoint - pathFinding.startNode.Pos).normalized;
-           //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
+            //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
         }
 
         yield return null;

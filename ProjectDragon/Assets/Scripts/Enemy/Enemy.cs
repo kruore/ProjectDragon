@@ -9,7 +9,6 @@ public class Enemy : Monster
     [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected BoxCollider2D col;
     [SerializeField]  protected bool collisionPlayer = false;
-    [SerializeField] protected bool collisionEnemyHit = false;
    
 
     [Header("[Enemy Attribute]")]
@@ -86,11 +85,13 @@ public class Enemy : Monster
     {
         StartCoroutine(_state.ToString());
     }
-
+    RoomManager RoomManager;
     public virtual IEnumerator Start_On()
     {
         //Grid 생성
         GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
+
+         RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
 
         yield return null;
     }
@@ -161,21 +162,12 @@ public class Enemy : Monster
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        //Debug.Log("collisionStay");
-
-        if ((collision.gameObject.CompareTag("Enemy") && 
-            ((collision.gameObject.GetComponent<FSM_NormalEnemy>().isHit)||collision.gameObject.GetComponent<FSM_NormalEnemy>().collisionEnemyHit)))
-        {
-            collisionEnemyHit = true;
-        }
-
         //Player에게 다가가는 무리들에 대한 이동조정.. (walk)
-        //넉백되어 밀리는 적에게 밀릴경우에 대한 이동조정...(hit)
         if (collision.gameObject.CompareTag("Player") ||
-             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<FSM_NormalEnemy>().collisionPlayer)))
+             (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<Enemy>().collisionPlayer)))
         {
             collisionPlayer = true;
-            if (/*collisionEnemyHit||*/ collisionPlayer)
+            if ( collisionPlayer)
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
@@ -185,56 +177,71 @@ public class Enemy : Monster
 
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
-        //Debug.Log("collisionExit");
-
-        if (collisionEnemyHit)
-        { 
-            rb2d.velocity = Vector2.zero;
-        }
-
-
         if (collision.gameObject.CompareTag("Player") ||
-             (collision.gameObject.CompareTag("Enemy") ))
+            collision.gameObject.CompareTag("Enemy"))
         {
             rb2d.isKinematic = false;
             collisionPlayer = false;
-            collisionEnemyHit = false;
         }
     }
 
-    //Walk이면 Object 충돌무시(Astar)
+    public bool EnemeisHit=false;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (isHit)
+            {
+                EnemeisHit = true;
+                Physics2D.IgnoreCollision(collision, col);
+            }
+        }
+    }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        //Walk이면 Object 충돌무시(Astar)
         if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
         {
-            //Debug.Log("ignore");
             Physics2D.IgnoreCollision(collision, col);
+        }
+        //Hit중이면 Enemy 충돌무시
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            if (isHit)
+            {
+                EnemeisHit = true;
+                Physics2D.IgnoreCollision(collision, col);
+            }
+            else
+            {
+                EnemeisHit = false;
+                Physics2D.IgnoreCollision(collision, col, false);
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //Debug.Log("TriggerExit");
-        if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
+        
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
         {
             Physics2D.IgnoreCollision(collision, col, false);
         }
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            EnemeisHit = false;
+            Physics2D.IgnoreCollision(collision, col,false);
+        }
     }
 
-
+    protected IEnumerator KnockBackCor;
     // 방향넉백
     public IEnumerator DirectionKnockBack()
     {
-
-        //rb2d.velocity = Vector2.zero;
         rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
-
         yield return new WaitForSeconds(knockTime);
 
+        rb2d.velocity = Vector2.zero;
         isHit = false;
-        if (!isHit)
-        {
-            rb2d.velocity = Vector2.zero;
-        }
     }
 
     //Dust Particle

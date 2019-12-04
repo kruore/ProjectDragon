@@ -158,7 +158,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.56, y: 0.56}
+  m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &2954448563601634514
 Rigidbody2D:
@@ -256,6 +256,7 @@ MonoBehaviour:
   other: {fileID: 0}
   isWalk: 0
   isDead: 0
+  isHit: 0
   current_Anim_Frame: 0
   enemy_angle: 0
   myAttackType: 0
@@ -266,6 +267,7 @@ MonoBehaviour:
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 0
+  collisionPlayer: 0
   readyTime: 0
   cooltime: 3
   knockTime: 0.3

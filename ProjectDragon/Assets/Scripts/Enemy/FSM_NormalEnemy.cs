@@ -22,6 +22,7 @@ public class FSM_NormalEnemy : Enemy
     }
 
 
+
     protected override void SetState(State newState)
     {
         if (newState == State.Dead)
@@ -113,7 +114,7 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
-
+    IEnumerator PushStopCor;
     protected virtual IEnumerator Walk()
     {
         //Walk Animation parameters
@@ -137,30 +138,39 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Attack;
                 yield break;
             }
-
-            //move
-            if (!collisionPlayer && !collisionEnemyHit)
+            if (rb2d.velocity != Vector2.zero)
             {
-                isWalk = true;
-                currentWalkTime += Time.deltaTime;
-                if (walkTime < currentWalkTime)
-                {
-                    //Wait
-                    NEState = NormalEnemyState.Wait;
-                    yield break;
-
-                }
-                //AStar
-                Debug.Log("Move");
-                GetComponent<Tracking>().FindPathManager(rb2d, MoveSpeed);
-
-
-                //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
-                //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+                PushStopCor = PushStop();
+                StartCoroutine(PushStopCor);
             }
-            else { isWalk = false; }
+            else
+            {
+                //move
+                if (!collisionPlayer)
+                {
+                    isWalk = true;
+                    currentWalkTime += Time.deltaTime;
+                    if (walkTime < currentWalkTime)
+                    {
+                        //Wait
+                        NEState = NormalEnemyState.Wait;
+                        yield break;
+                    }
+                    //AStar
+                    GetComponent<Tracking>().FindPathManager(rb2d, MoveSpeed);
+
+                    //rb2d.velocity = direction * MoveSpeed * 10.0f * Time.deltaTime;
+                    //transform.position = Vector3.MoveTowards(transform.position, other.transform.position, MoveSpeed * Time.deltaTime);
+                }
+                else { isWalk = false; }
+            }
             yield return null;
         }
+    }
+    IEnumerator PushStop() //밀리는 것을 방지
+    {
+        yield return new WaitForSeconds(1.0f);
+        rb2d.velocity = Vector2.zero;
     }
 
     protected IEnumerator Wait()
@@ -169,14 +179,14 @@ public class FSM_NormalEnemy : Enemy
         objectAnimator.SetBool("Wait", true);
         objectAnimator.SetBool("Walk", false);
 
-        float waitTime = Random.Range(3.0f, 5.0f);
+        float waitTime = Random.Range(1.0f, 2.0f);
         float current_waitTime = 0;
 
         isWalk = false;
         //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
-            if (isHit|| collisionEnemyHit)
+            if (isHit)
             {
                 yield return null;
                 continue;
@@ -226,7 +236,9 @@ public class FSM_NormalEnemy : Enemy
         StartCoroutine(flashWhite.Flash());
 
         //넉백
-        StartCoroutine(DirectionKnockBack());
+        KnockBackCor = DirectionKnockBack();
+        StopCoroutine(KnockBackCor);
+        StartCoroutine(KnockBackCor);
 
     }
 

@@ -14,6 +14,7 @@ public class Slime : FSM_NormalEnemy
     protected override void Start()
     {
         atk = 0;
+        //Time.timeScale = 0.2f;
         base.Start();
         //StartCoroutine(Start_On());
     }
@@ -21,7 +22,6 @@ public class Slime : FSM_NormalEnemy
     public void Update()
     {
         DustParticleCheck();
-
     }
 
     //애니메이션 프레임에 넣기
@@ -33,12 +33,11 @@ public class Slime : FSM_NormalEnemy
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
         yield return null;
-
     }
 
     protected override IEnumerator Dead()
     {
-        Color fadeColor=spriteRenderer.color;
+        Color fadeColor = spriteRenderer.color;
         fadeColor.a = 0.0f;
 
         //Dead Animation parameters
