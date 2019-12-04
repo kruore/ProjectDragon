@@ -22,27 +22,25 @@ public class t_PathFinding : MonoBehaviour
         //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
     }
 
-
+    t_Node targetNode, currentNode;
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
     {
 
         startNode = grid.NodeFromWorldPosition(_startPos);
-        t_Node targetNode = grid.NodeFromWorldPosition(_targetPos);
-
-        t_Node currentNode;
+        targetNode = grid.NodeFromWorldPosition(_targetPos);
 
         Heap<t_Node> OpenList = new Heap<t_Node>(grid.MaxSize);
         HashSet<t_Node> ClosedList = new HashSet<t_Node>();
 
         OpenList.Add(startNode);
 
-        while(OpenList.Count>0)
+        while (OpenList.Count > 0)
         {
             currentNode = OpenList.RemoveFirst();
             ClosedList.Add(currentNode);
-            if(OpenList ==null)
+            if (OpenList == null)
             {
-                 break;
+                break;
             }
             //currentNode = OpenList[0];
             //for(int i=1;i<OpenList.Count;i++)
@@ -61,7 +59,7 @@ public class t_PathFinding : MonoBehaviour
             {
                 foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
                 {
-                    if (OverlapNode == targetNode|| currentNode==targetNode)
+                    if (OverlapNode == targetNode || currentNode == targetNode)
                     {
                         GetFinalPath(startNode, currentNode);
                         break;
@@ -71,15 +69,27 @@ public class t_PathFinding : MonoBehaviour
             else
             {
                 if (currentNode == targetNode)
-                { 
+                {
                     GetFinalPath(startNode, targetNode);
                     break;
                 }
             }
-
+            
 
             foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
             {
+                
+                if(GetNotWalkNode(NeighborNode) == targetNode) //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
+                {
+                    NeighborNode.gCost = currentNode.gCost + GetManhattenDistance(currentNode, NeighborNode);
+                    NeighborNode.hCost = GetManhattenDistance(NeighborNode, targetNode);
+                    NeighborNode.Parent = currentNode;
+                    if (!OpenList.Contains(NeighborNode))
+                    {
+                        OpenList.Add(NeighborNode);
+                    }
+                    break;
+                }
                 if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
@@ -104,7 +114,15 @@ public class t_PathFinding : MonoBehaviour
 
 
     }
-
+    t_Node GetNotWalkNode(t_Node NeiNode)
+    {
+        //이웃노드와 타겟노드도 둘다 갈수없다면
+        if (!NeiNode.Walkable && !targetNode.Walkable)
+        {
+            return NeiNode;
+        }
+        return null;
+    }
     void GetFinalPath(t_Node _startingNode,t_Node _endNode)
     {
         List<t_Node> FinalPath = new List<t_Node>();

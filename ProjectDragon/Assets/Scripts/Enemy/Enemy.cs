@@ -221,7 +221,6 @@ public class Enemy : Monster
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        
         if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
         {
             Physics2D.IgnoreCollision(collision, col, false);
