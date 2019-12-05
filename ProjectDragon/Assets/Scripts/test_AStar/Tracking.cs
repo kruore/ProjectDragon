@@ -37,7 +37,6 @@ public class Tracking : MonoBehaviour
             findPathNode = pathFinding.finalPath.ToArray();
             StartCoroutine(Move(_rb2d, _moveSpeed));
         }
-
     }
     bool isArriveStartNode = false;
     IEnumerator Move(Rigidbody2D _rb2d, float _moveSpeed)

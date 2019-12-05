@@ -185,36 +185,47 @@ public class Enemy : Monster
         }
     }
 
-    public bool EnemeisHit=false;
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
             if (isHit)
             {
-                EnemeisHit = true;
                 Physics2D.IgnoreCollision(collision, col);
             }
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        //Walk이면 Object 충돌무시(Astar)
-        if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
         {
-            Physics2D.IgnoreCollision(collision, col);
+            //충돌할때 walk이면 콜라이더끄기
+            if (isWalk)
+            {
+                Physics2D.IgnoreCollision(collision, col);
+            }
+            //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기
+            if (isHit)
+            {
+                Physics2D.IgnoreCollision(collision, col, false);
+            }
         }
+        ////Walk이면 Object 충돌무시(Astar)
+        //if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
+        //{
+        //    Physics2D.IgnoreCollision(collision, col);
+        //}
+
+
         //Hit중이면 Enemy 충돌무시
         if (collision.gameObject.CompareTag("Enemy"))
         {
             if (isHit)
             {
-                EnemeisHit = true;
                 Physics2D.IgnoreCollision(collision, col);
             }
             else
             {
-                EnemeisHit = false;
                 Physics2D.IgnoreCollision(collision, col, false);
             }
         }
@@ -227,7 +238,6 @@ public class Enemy : Monster
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            EnemeisHit = false;
             Physics2D.IgnoreCollision(collision, col,false);
         }
     }

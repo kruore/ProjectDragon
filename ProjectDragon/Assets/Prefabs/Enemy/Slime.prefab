@@ -268,7 +268,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   collisionPlayer: 0
-  readyTime: 0
+  readyTime: 1
   cooltime: 3
   knockTime: 0.3
   knockPower: 1.5
@@ -277,6 +277,7 @@ MonoBehaviour:
   m_bDebugMode: 1
   inAtkDetectionRange: 0
   originOffset: 0
+  attackCount: 2
   normalEnemyState: 0
 --- !u!1 &2954448564663233802
 GameObject:

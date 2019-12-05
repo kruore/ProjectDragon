@@ -8,6 +8,7 @@ public class FSM_NormalEnemy : Enemy
 
     [Header(" ")]
     bool isAttackActive;
+    public int attackCount;
 
     [Header("[Enemy State]")]
     [SerializeField] protected NormalEnemyState normalEnemyState;
@@ -63,7 +64,6 @@ public class FSM_NormalEnemy : Enemy
 
     protected virtual IEnumerator Idle()
     {
-        objectAnimator.SetBool("Attack", false);
         StartCoroutine(CalcCooltime());
         yield return null;
     }
@@ -215,7 +215,7 @@ public class FSM_NormalEnemy : Enemy
         isAttacking = true;
 
         //Attack Animation parameters
-        objectAnimator.SetBool("Attack", true);
+        objectAnimator.SetBool("Attack", isAttacking);
         objectAnimator.SetBool("Walk", false);
         objectAnimator.SetBool("Wait", false);
         objectAnimator.SetBool("isAttackActive", isAttackActive);
@@ -225,7 +225,40 @@ public class FSM_NormalEnemy : Enemy
         Current_cooltime = 0;
 
         yield return null;
+
+        StartCoroutine(AttackEnd());
     }
+
+    
+    #region 구버전애니메이션 관리
+    //Attack 애니메이션 1번만 돌리고 -> Idle로
+    protected IEnumerator AttackEnd()
+    {
+        int count = 0;
+        while (isAttacking)
+        {
+            AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
+            //Debug.Log(clipInfo[0].clip.name);
+
+            float cliptime = clipInfo[0].clip.length;
+            //Debug.Log(cliptime);
+            yield return new WaitForSeconds(cliptime);
+
+            count++;
+            //Debug.Log(count);
+            if (attackCount == count)
+            {
+                isAttacking = false;
+                //Attack Animation parameters
+                objectAnimator.SetBool("Attack", isAttacking);
+                NEState = NormalEnemyState.Idle;
+                break;
+            }
+            yield return null;
+        }
+    }
+
+    #endregion
 
     protected void Hit()
     {
@@ -233,7 +266,9 @@ public class FSM_NormalEnemy : Enemy
         isWalk = false;
 
         //White Shader
-        StartCoroutine(flashWhite.Flash());
+        IEnumerator FlashWhiteCor = flashWhite.Flash();
+        StopCoroutine(FlashWhiteCor);
+        StartCoroutine(FlashWhiteCor);
 
         //넉백
         KnockBackCor = DirectionKnockBack();
@@ -242,26 +277,6 @@ public class FSM_NormalEnemy : Enemy
 
     }
 
-    #region 구버전애니메이션 관리
-    //    //Attack 애니메이션 1번만 돌리고 -> Idle로
-    //    protected virtual IEnumerator AttackEnd()
-    //    {
-
-    //        clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
-    //        Debug.Log(clipInfo[0].clip.name);
-
-
-    //        float cliptime = clipInfo[0].clip.length;
-    //        Debug.Log(cliptime);
-    //        yield return new WaitForSeconds(cliptime-0.1f);
-
-    //        yield return null;
-    //        IsAttacking = false;
-
-
-    //    }
-
-    #endregion
 
     protected virtual IEnumerator Dead()
     {
