@@ -45,6 +45,14 @@ public class MapCreator : MonoBehaviour
     private void Awake()
     {
         ResourceLoadMap("Forest"); // 임시로 숲이라고 함
+        Init();
+    }
+
+    /// <summary>
+    /// Initialized data
+    /// </summary>
+    private void Init()
+    {
         gridSizeX_Cen = (int)(worldSize.x / 2);
         gridSizeY_Cen = (int)(worldSize.y / 2);
         gridSizeX = (int)worldSize.x;
@@ -57,12 +65,16 @@ public class MapCreator : MonoBehaviour
         map_Data = new GameObject[gridSizeX, gridSizeY];
     }
 
+    /// <summary>
+    /// Load All Map Prefabs
+    /// </summary>
+    /// <param name="_mapType"> Type is region type :: 지역명</param>
     void ResourceLoadMap(string _mapType)
     {
         map_Base = Resources.Load("Map/Map_" + _mapType + "_Base") as GameObject;
         map_Stair = Resources.Load("Map/Map_" + _mapType + "_Stair") as GameObject;
         map_Market = Resources.Load("Map/Map_" + _mapType + "_Market") as GameObject;
-        map_Hiddens = new GameObject[map_Hiddens_Count];      
+        map_Hiddens = new GameObject[map_Hiddens_Count];
         map_Prefabs = new GameObject[map_Prefabs_Count];
 
         for (int i = 0; i < map_Hiddens_Count; i++)
@@ -74,15 +86,13 @@ public class MapCreator : MonoBehaviour
         for (int i = 0; i < map_Prefabs_Count; i++)
         {
             string name = "Map/Map_" + _mapType;
-            name += "_" + (i+1).ToString();
+            name += "_" + (i + 1).ToString();
             map_Prefabs[i] = Resources.Load(name) as GameObject;
         }
     }
 
     void Start()
     {
-        //map_Data[player_PosX, player_PosY] = GameObject.Instantiate(map_Base, new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
-
         CreateRooms(); //lays out the actual map
         SetRoomDoors(); //assigns the doors where rooms would connect
         DrawMap(); //instantiates objects to make up a map
@@ -127,7 +137,7 @@ public class MapCreator : MonoBehaviour
         float randomCompare = 0.2f, randomCompareStart = 0.2f, randomCompareEnd = 0.01f;
 
         //add rooms
-        for (int i = 0; i < numberOfRooms - 1; i++)
+        for (int i = 0; i < numberOfRooms - 2; i++)
         {
             float randomPerc = ((float)i) / (((float)numberOfRooms - 1));
 
@@ -160,16 +170,16 @@ public class MapCreator : MonoBehaviour
     {
         List<int> temp = new List<int>();
 
-        if(x + 1 < gridSizeX)
+        if (x + 1 < gridSizeX)
         {
             if (rooms[x + 1, y] != null)
             {
                 temp.Add(rooms[x + 1, y].depth);
             }
         }
-        if(x - 1 >= 0)
+        if (x - 1 >= 0)
         {
-            if(rooms[x - 1, y] != null)
+            if (rooms[x - 1, y] != null)
             {
                 temp.Add(rooms[x - 1, y].depth);
             }
@@ -181,31 +191,14 @@ public class MapCreator : MonoBehaviour
                 temp.Add(rooms[x, y + 1].depth);
             }
         }
-        if(y - 1 >= 0)
+        if (y - 1 >= 0)
         {
-            if(rooms[x, y - 1] != null)
+            if (rooms[x, y - 1] != null)
             {
                 temp.Add(rooms[x, y - 1].depth);
             }
         }
 
-        //if (temp.Count >= 2)
-        //{
-        //    int count = temp.Count - 1;
-        //    do
-        //    {
-        //        for (int j = 0; j < temp.Count - 1; j++)
-        //        {
-        //            if (temp[j] > temp[j + 1])
-        //            {
-        //                int a = temp[j];
-        //                temp[j] = temp[j + 1];
-        //                temp[j + 1] = a;
-        //            }
-        //        }
-        //        count--;
-        //    } while (count > 0);
-        //}
         temp.Sort();
         return temp[0] + 1;
     }
@@ -361,7 +354,7 @@ public class MapCreator : MonoBehaviour
 
             Room roomManager = map.GetComponent<Room>(); //Room
             //방마다 데이터 저장
-            bool[] door_dir  = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop};
+            bool[] door_dir = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop };
             roomManager.SetData(room.gridPos, room.type, Manager, room.depth, door_dir); //Room Data Set
 
             //방의 문 설정
@@ -432,7 +425,7 @@ public class MapCreator : MonoBehaviour
         List<GameObject> temp = new List<GameObject>();
 
         //gathering all room
-        foreach(GameObject obj in map_Data)
+        foreach (GameObject obj in map_Data)
         {
             if (obj == null) continue;
 
@@ -457,11 +450,11 @@ public class MapCreator : MonoBehaviour
             } while (count > 0);
         }
 
-        GameObject stairTemp = GameObject.Instantiate(map_Stair, temp[temp.Count - 1].transform.position, Quaternion.identity, _parent);
+        GameObject stairTemp = Instantiate(map_Stair, temp[temp.Count - 1].transform.position, Quaternion.identity, _parent);
         Room map = stairTemp.AddComponent<Room>();
-
+        temp[temp.Count - 1].GetComponent<Room>().roomType = RoomType.Stair;
         map.SetData(temp[temp.Count - 1].GetComponent<Room>());
-        map.roomType = RoomType.Stair;
+        //map.roomType = RoomType.Stair;
 
         //방의 문 설정
         DoorSetting(map);
@@ -476,7 +469,7 @@ public class MapCreator : MonoBehaviour
     void SetNpcRoom(Transform _parent)
     {
         SetNpc_Market(_parent);
-        
+
         //다른 npc방 추가
     }
 
@@ -486,7 +479,7 @@ public class MapCreator : MonoBehaviour
         foreach (GameObject obj in map_Data)
         {
             if (obj == null) continue;
-            if (obj.GetComponent<Room>().depth <= 2) continue;
+            if (obj.GetComponent<Room>().depth < 1) continue;
             if (!obj.GetComponent<Room>().roomType.Equals(RoomType.Normal)) continue;
 
             temp.Add(obj);
@@ -494,11 +487,12 @@ public class MapCreator : MonoBehaviour
 
         int rand = Random.Range(0, temp.Count);
 
-        GameObject map_MarketTemp = GameObject.Instantiate(map_Market, temp[rand].transform.position, Quaternion.identity, _parent);
+        GameObject map_MarketTemp = Instantiate(map_Market, temp[rand].transform.position, Quaternion.identity, _parent);
         Room map = map_MarketTemp.AddComponent<Room>();
 
+        temp[rand].GetComponent<Room>().roomType = RoomType.NPC;
         map.SetData(temp[rand].GetComponent<Room>());
-        map.roomType = RoomType.NPC;
+        //map.roomType = RoomType.NPC;
 
         //방의 문 설정
         DoorSetting(map);
@@ -512,43 +506,105 @@ public class MapCreator : MonoBehaviour
 
     void SetHiddenRoom(Transform _parent)
     {
+        //히든방이 붙어 있을 수 있는 방 선택
         List<GameObject> temp = new List<GameObject>();
         foreach (GameObject obj in map_Data)
         {
             if (obj == null) continue;
-            if (obj.GetComponent<Room>().depth <= 2) continue;
-            if (!obj.GetComponent<Room>().roomType.Equals(RoomType.Normal)) continue;
+            if (obj.GetComponent<Room>().depth < 2) continue;
+            if (obj.GetComponent<Room>().roomType.Equals(RoomType.NPC)) continue;
 
             int i = 0;
-            foreach(GameObject obj2 in obj.GetComponent<Room>().door_All)
+            foreach (GameObject obj2 in obj.GetComponent<Room>().door_All)
             {
                 if (obj2 == null) continue;
 
                 i++;
             }
-            if (i.Equals(1)) temp.Add(obj);
+            if (!i.Equals(4)) temp.Add(obj);
         }
 
-        if (temp.Count.Equals(0)) return;
+        //히든방 베이스가 없으면 안만듬
+        if (temp.Count.Equals(0))
+        {
+#if UNITY_EDITOR
+            Debug.Log("Hidden room zero");
+#endif
+            return;
+        }
 
-        int rand = Random.Range(0, temp.Count);
-        int rand2 = Random.Range(0, map_Hiddens_Count);
-        GameObject hidden = Instantiate(map_Hiddens[rand2], temp[rand].transform.position, Quaternion.identity, _parent);
+        //어느 방을 기준으로 할지 정함
+        int roomNum = Random.Range(0, temp.Count);
+        Room baseRoom = temp[roomNum].GetComponent<Room>();
+
+        //생성할 프리펩 준비
+        int hiddenNum = Random.Range(0, map_Hiddens_Count);
+        GameObject hiddenRoom = map_Hiddens[hiddenNum];
+
+        //베이스 룸의 그리드를 mapdata 그리드로 변환
+        int x = (int)baseRoom.gridPos.x + gridSizeX_Cen;
+        int y = (int)baseRoom.gridPos.y + gridSizeY_Cen;
+        Vector3 pos = Vector3.zero;
+        bool[] door = new bool[4];
+        //방 생성할 위치 체크
+        do
+        {
+            if (!baseRoom.doorBot && y - 1 >= 0)
+            {
+                baseRoom.doorBot = true;
+                DoorLoad(baseRoom, "South");
+                door = new bool[4] { false, false, false, true };
+                y--;
+                break;
+            }
+            else if (!baseRoom.doorTop && y + 1 <= gridSizeY - 1)
+            {
+                baseRoom.doorTop = true;
+                DoorLoad(baseRoom, "North");
+                door = new bool[4] { true, false, false, false };
+                y++;
+                break;
+            }
+            else if (!baseRoom.doorLeft && x - 1 >= 0)
+            {
+                baseRoom.doorLeft = true;
+                DoorLoad(baseRoom, "West");
+                door = new bool[4] { false, false, true, false };
+                x--;
+                break;
+            }
+            else if (!baseRoom.doorRight && x + 1 <= gridSizeX - 1)
+            {
+                baseRoom.doorRight = true;
+                DoorLoad(baseRoom, "East");
+                door = new bool[4] { false, true, false, false };
+                x++;
+                break;
+            }
+        } while (false);
+        pos = new Vector3((x - gridSizeX_Cen) * 25.0f, (y - gridSizeY_Cen) * 15.0f, 0.0f);
+        GameObject hidden = Instantiate(hiddenRoom, pos, Quaternion.identity, _parent);
         Room map = hidden.AddComponent<Room>();
-
-        map.SetData(temp[rand].GetComponent<Room>());
-        map.roomType = RoomType.Hidden;
-
-        //방의 문 설정
+        map.SetData(new Vector2(x - gridSizeX_Cen, y - gridSizeY_Cen), RoomType.Hidden, _parent.GetComponent<RoomManager>(), -1, door);
         DoorSetting(map);
-
-        //map_Data change
-        int x = (int)map.gridPos.x + gridSizeX_Cen;
-        int y = (int)map.gridPos.y + gridSizeY_Cen;
-        Destroy(map_Data[x, y].gameObject);
         map_Data[x, y] = hidden;
     }
 
+    //방에 문을 달아줍니다.
+    private void DoorLoad(Room _parent, string _direction)
+    {
+        Transform baseDW = _parent.transform.Find("DoorWall");
+        GameObject obj = Instantiate(Resources.Load("Object/" + _direction) as GameObject, baseDW);
+        for(int i = 0; i < 4; i++)
+        {
+            if (_parent.door_All[i] != null) continue;
+
+            _parent.door_All[i] = obj;
+            _parent.door_All[i].name = _direction;
+            obj.transform.Find("Crack").GetComponent<Crack>().SetRoom(_parent, obj.transform.Find("Door").GetComponent<Door>());
+            break;
+        }
+    }
     private void DoorSetting(Room _room)
     {
         //door setting

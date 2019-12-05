@@ -79,12 +79,77 @@ public class RoomManager : MonoBehaviour
     }
 
     public bool PlayerIsNPCRoom()
-    {
+    { 
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;
     }
 
     public bool PlayerIsClearRoom()
     {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomState == RoomState.Clear ? true : false;
+    }
+
+    public int PortalRoomClearCount()
+    {
+        int count = 0;
+
+        foreach(GameObject obj in map_Data)
+        {
+            if (obj == null) continue;
+
+            Room temp = obj.GetComponent<Room>();
+            if (!temp.roomState.Equals(RoomState.Clear) || temp.roomType.Equals(RoomType.Normal)) continue;
+
+            count++;
+        }
+
+        return count;
+    }
+
+    public void PortalOn()
+    {
+#if UNITY_EDITOR
+        Debug.Log(PortalRoomClearCount());
+        Debug.Log("portal on");
+#endif
+        if(PortalRoomClearCount() >= 2)
+        {
+            foreach(GameObject obj in map_Data)
+            {
+                if (obj == null) continue;
+
+                Room temp = obj.GetComponent<Room>();
+                if (temp.roomType.Equals(RoomType.Normal)) continue;
+                if (temp.roomState.Equals(RoomState.Clear)) temp.portal.GetComponent<Portal>().IsPortalOn = true;
+            }
+        }
+    }
+
+    public void PlayerTeleportation(float _x, float _y)
+    {
+        if (_x != player_PosX || _y != player_PosY)
+        {
+            PlayerLocationInMap().gameObject.SetActive(false);
+            player_PosX = (int)_x;
+            player_PosY = (int)_y;
+            playerGridPosX = gridSizeX_Cen + player_PosX;
+            playerGridPosY = gridSizeY_Cen + player_PosY;
+
+            PlayerLocationInMap().gameObject.SetActive(true);
+            miniMap.UpdateMiniMap();
+            MiniMapMinimalize();
+            GameObject.FindGameObjectWithTag("Player").transform.position = PlayerLocationInMap().transform.position;
+        }
+    }
+
+    public void MiniMapMaximalize()
+    {
+        if(!miniMap.button.onClick[0].methodName.Equals("Minimalize")) miniMap.Maximalize();
+        miniMap.button.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void MiniMapMinimalize()
+    {
+        if(!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();
+        miniMap.button.GetComponent<BoxCollider>().enabled = true;
     }
 }

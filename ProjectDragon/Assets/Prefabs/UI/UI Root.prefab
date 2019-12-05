@@ -1460,6 +1460,7 @@ MonoBehaviour:
   target: {fileID: 0}
   target2: {fileID: 0}
   centerOnPress: 1
+  Pressed: 0
   tapCount: 0
   normalize: 1
   position: {x: 0, y: 0}

@@ -23,6 +23,12 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
+
+
+    [Header("LongRangeAttack")]
+    public GameObject attack_Pref;
+    public Vector3 pref_Rot;
+
     private void Awake()
     {
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
@@ -33,18 +39,23 @@ public class ShortRangeAttackArea : MonoBehaviour
     private void Start()
     {
         m_viewRadius = My_Angle.AtkRange - 2f;
+        attack_Pref = Resources.Load<GameObject> ("test");
     }
     public void Update()
     {
-        if (My_Angle.AngleisAttack==true)
+        //if(My_Angle.attackType==AttackType.ShortRange)
         {
-            angle = My_Angle.enemy_angle;
-            m_viewRotateZ = My_Angle.enemy_angle;
-        }
-        else
-        {
-            angle = My_Angle.current_angle;
-            m_viewRotateZ = My_Angle.current_angle;
+            if (My_Angle.AngleisAttack == true)
+            {
+                angle = My_Angle.enemy_angle;
+                m_viewRotateZ = My_Angle.enemy_angle;
+            }
+            else
+            {
+                My_Angle.MoveSpeed = My_Angle.temp_Movespeed;   
+                angle = My_Angle.current_angle;
+                m_viewRotateZ = My_Angle.current_angle;
+            }
         }
     }
     public void AttackOn()
@@ -53,7 +64,8 @@ public class ShortRangeAttackArea : MonoBehaviour
     }
     public void LongAttackOn()
     {
-        //원거리 공격을 만들어서 넣으면 될 것같다.
+        //FindViewTargets();
+        RongAttack_normal();
     }
     private void OnDrawGizmos()
     {
@@ -72,7 +84,7 @@ public class ShortRangeAttackArea : MonoBehaviour
             Debug.DrawRay(originPos, lookDir * m_viewRadius, Color.green);
             Debug.DrawRay(originPos, horizontalRightDir * m_viewRadius, Color.cyan);
 
-            //   FindViewTargets();
+            //FindViewTargets();
         }
     }
 
@@ -128,5 +140,14 @@ public class ShortRangeAttackArea : MonoBehaviour
     {
         float radian = (transform.eulerAngles.z - angleInDegree + 180) * Mathf.Deg2Rad;
         return new Vector3(Mathf.Sin(radian), Mathf.Cos(radian));
+    }
+
+    public void RongAttack_normal()
+    {
+        Transform B = this.gameObject.transform;
+        pref_Rot = new Vector3(0, 0, 0);
+        GameObject A = Instantiate(attack_Pref);
+        A.transform.parent = B;
+        A.transform.localPosition = pref_Rot;
     }
 }

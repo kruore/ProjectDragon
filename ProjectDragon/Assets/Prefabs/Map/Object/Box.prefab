@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4741538162541838858}
   - component: {fileID: 4741538162541838859}
   - component: {fileID: 4741538162541838860}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Box
   m_TagString: Object
   m_Icon: {fileID: 0}
@@ -123,6 +123,7 @@ MonoBehaviour:
   itemDropPercentage: 0
   hp: 1
   party: {fileID: 0}
+  astar: {fileID: 0}
 --- !u!1 &8739668083165525237
 GameObject:
   m_ObjectHideFlags: 0
@@ -134,7 +135,7 @@ GameObject:
   - component: {fileID: 5559218667864223556}
   - component: {fileID: 1438474899577106971}
   - component: {fileID: 4665046603085019703}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}

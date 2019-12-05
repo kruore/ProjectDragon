@@ -68,8 +68,8 @@ public class DamagePopup : MonoBehaviour
 
     }
 
-    float increaseScaleAmount = 1f;
-    float decreaseScaleAmount = 1f;
+    //float increaseScaleAmount = 1f;
+    //float decreaseScaleAmount = 1f;
 
     private void Update()
     {

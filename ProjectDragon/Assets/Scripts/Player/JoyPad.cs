@@ -17,6 +17,7 @@ public class JoyPad : MonoBehaviour
     public Transform target;
     public Transform target2;
     public bool centerOnPress = true; //중앙이 클릭 되었을 때 이걸 이동시킬지 말지에 대해서
+    public bool Pressed;
     Vector3 userInitTouchPos;
 
 
@@ -95,6 +96,7 @@ public class JoyPad : MonoBehaviour
                             ray = UICamera.currentCamera.ScreenPointToRay(touch01.position);
                             if (centerOnPress)
                             {
+
                                 target.transform.position = fingerPoint01;
                                 break;
                             }
@@ -213,7 +215,7 @@ public class JoyPad : MonoBehaviour
                 target2.localPosition = Vector3.ClampMagnitude(target2.localPosition, radius);
                 position = target2.localPosition;
             }
-            if(player.CurrentState!=State.Attack)
+            if (player.CurrentState != State.Attack)
             {
                 if (angle > 0)
                 {
@@ -242,6 +244,20 @@ public class JoyPad : MonoBehaviour
     {
         //각도 구하기
         angle = GetAngle(target2.transform.position, target.transform.position);
+        if (angle == 0)
+        {
+            angle = temp_angle;
+        }
+        temp_angle = angle;
+        if (Input.touchCount < 1)
+        {
+            Pressed = false;
+        }
+        else
+        {
+            Pressed = true;
+        }
+
     }
     public static float GetAngle(Vector3 Start, Vector3 End)
     {

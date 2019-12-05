@@ -29,7 +29,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Female_DefaultCloth_ShortRange_Idle_Front_Arm
+  m_Name: Female_DefaultCloth_ShortRange_Idel_Front_Arm
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -211,7 +211,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Female_DefaultCloth_ShortRange_Idle_Back_Arm
+  m_Name: Female_DefaultCloth_ShortRange_Idel_Back_Arm
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -341,7 +341,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Female_DefaultCloth_ShortRange_Idle_Left_Arm
+  m_Name: Female_DefaultCloth_ShortRange_Idel_Left_Arm
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -497,7 +497,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Female_DefaultCloth_ShortRange_Idle_Right_Arm
+  m_Name: Female_DefaultCloth_ShortRange_Idel_Right_Arm
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

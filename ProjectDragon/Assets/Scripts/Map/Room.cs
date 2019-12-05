@@ -48,18 +48,18 @@ public class Room : MonoBehaviour
         set
         {
             miniMapPos = value;
-            switch (roomType)
-            {
-                case RoomType.Begin:
-                    miniMapPos.GetComponent<UISprite>().color = Color.cyan;
-                    break;
-                case RoomType.NPC:
-                    miniMapPos.GetComponent<UISprite>().color = Color.yellow;
-                    break;
-                case RoomType.Stair:
-                    miniMapPos.GetComponent<UISprite>().color = Color.green;
-                    break;
-            }
+            //switch (roomType)
+            //{
+            //    case RoomType.Begin:
+            //        miniMapPos.GetComponent<UISprite>().color = Color.cyan;
+            //        break;
+            //    case RoomType.NPC:
+            //        miniMapPos.GetComponent<UISprite>().color = Color.yellow;
+            //        break;
+            //    case RoomType.Stair:
+            //        miniMapPos.GetComponent<UISprite>().color = Color.green;
+            //        break;
+            //}
         }
     }
     private GameObject miniMapPos;
@@ -67,7 +67,6 @@ public class Room : MonoBehaviour
     private void Awake()
     {
         InitRoom();
-        playerSet = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     void Update()
@@ -79,6 +78,7 @@ public class Room : MonoBehaviour
     //방의 데이터를 초기화 - 방 생성시 바로 작동합니다.
     private void InitRoom()
     {
+        playerSet = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         //battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
         foreach (Monster obj in temp_monsters)
@@ -155,15 +155,37 @@ public class Room : MonoBehaviour
     {
         roomState = RoomState.Clear;
         OpenAllDoor();
+
         roomManager.miniMap.gameObject.SetActive(true);
-        MiniMapPos.GetComponent<UISprite>().alpha = 1.0f;
+        miniMapPos.GetComponent<UISprite>().alpha = 1.0f;
+        if(!roomType.Equals(RoomType.Normal))
+        {
+            miniMapPos.transform.Find("Portal").GetComponent<UISprite>().enabled = true;
+        }
+        switch (roomType)
+        {
+            case RoomType.Begin:
+                miniMapPos.GetComponent<UISprite>().color = Color.cyan;
+                break;
+            case RoomType.NPC:
+                miniMapPos.GetComponent<UISprite>().color = Color.yellow;
+                break;
+            case RoomType.Stair:
+                miniMapPos.GetComponent<UISprite>().color = Color.green;
+                gameObject.transform.Find("Stair").GetComponent<Stair>().IsOpen = true;
+                break;
+            default:
+                break;
+        }
+
+        roomManager.PortalOn();
         //CollectAll_Items();
 
         //계단방의 경우 문이 열립니다.
-        if (roomType.Equals(RoomType.Stair))
-        {
-            gameObject.transform.Find("Stair").GetComponent<Stair>().IsOpen = true;
-        }
+        //if (!roomType.Equals(RoomType.Normal) && roomManager.PortalRoomClearCount() >= 2)
+        //{
+        //    transform.Find("Portal").GetComponent<Portal>().IsPortalOn = true;
+        //}
     }
 
     /// <summary>
@@ -227,6 +249,13 @@ public class Room : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        if (!roomType.Equals(RoomType.Normal))
+        {
+            portal = transform.GetComponentInChildren<Portal>().gameObject;
+            portal.SetActive(false);
+        }
+        else portal = null;
     }
 
     public void SetData(Room _room)
@@ -243,5 +272,12 @@ public class Room : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+
+        if (!roomType.Equals(RoomType.Normal))
+        {
+            portal = transform.GetComponentInChildren<Portal>().gameObject;
+            portal.SetActive(false);
+        }
+        else portal = null;
     }
 }

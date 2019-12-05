@@ -8,6 +8,7 @@ public class Player : Character
 {
     //템프 앵글
     public float temp_angle;
+    public float temp_Movespeed;
 
     //코루틴 제어 함수
     public bool isActive;
@@ -17,7 +18,7 @@ public class Player : Character
     public bool AngleisAttack;
 
 
-  //  public UILabel CheckAngleLabel;
+    //  public UILabel CheckAngleLabel;
 
     //플레이어 세팅
     public SEX sex;
@@ -87,7 +88,6 @@ public class Player : Character
         return HP;
     }
     //MP 임시 사용
-
     public override int HP
     {
         get { return (int)DataTransaction.Inst.CurrentHp; }
@@ -125,13 +125,11 @@ public class Player : Character
             }
         }
     }
-
     public virtual int MPChanged(int Cost)
     {
         MP = MP - Cost;
         return MP;
     }
-
     public IEnumerator CalculateDistanceWithPlayer()
     {
         // 적이 하나라도 있으면
@@ -160,15 +158,20 @@ public class Player : Character
                     {
                         if (TempEnemy.GetComponent<Character>().HP > 0)
                         {
-                            if (attackType == AttackType.LongRange)
+                            if (attackType == AttackType.LongRange && joyPad.Pressed == false)
                             {
-                                if (enemy_angle == 0)
-                                {
-                                    this.CurrentState = State.Attack;
-                                    this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
-                                }
+                                AngleisAttack = true;
+                                moveSpeed = 0;
+                                this.CurrentState = State.Attack;
+                                this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
-                            if(attackType ==AttackType.ShortRange)
+                            if(attackType == AttackType.LongRange && joyPad.Pressed == true)
+                            {
+                                 moveSpeed = temp_Movespeed;
+                                this.CurrentState = State.Idel;
+                                AngleisAttack = false;
+                            }
+                            if (attackType == AttackType.ShortRange)
                             {
                                 AngleisAttack = true;
                                 this.CurrentState = State.Attack;
@@ -182,7 +185,11 @@ public class Player : Character
                         AngleisAttack = false;
                         if (AngleisAttack == false)
                         {
-                            if (current_angle == 0)
+                            if (attackType == AttackType.LongRange)
+                            {
+                                moveSpeed = temp_Movespeed;
+                            }
+                            if (joyPad.Pressed == false)
                             {
                                 this.CurrentState = State.Idel;
                                 isWalk = false;
@@ -208,23 +215,29 @@ public class Player : Character
         CurrentState = State.Idel;
         AngleisAttack = false;
     }
+    void PlayerPrefData(ref float Damage1)
+    {
+        ATTACKDAMAGE = (int)Damage1;
+        //damage = (int)Damage1;
+        //hp = ref (int)DataTransaction.Inst.CurrentHp;
+    }
     void PlayerPrefDataTrascation()
     {
-        //maxHp = (int)DataTransaction.Inst.MaxHp;
-        //mp = (int)DataTransaction.Inst.Mp;
-        //sex = DataTransaction.Inst.Sex;
-        //ATTACKDAMAGE = (int)DataTransaction.Inst.CurrentDamage;
+        PlayerPrefData(ref Database.Inst.playData.damage);
+        //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
-
     // Start is called before the first frame update
     void Awake()
     {
+        //근거리일때
+        //attackType = AttackType.ShortRange;
+        //원거리일때
         attackType = AttackType.LongRange;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
         playerSex = SEX.Female;
-    //    PlayerPrefDataTrascation();
+        PlayerPrefDataTrascation();
         MoveSpeed = 3.0f;
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
@@ -242,6 +255,7 @@ public class Player : Character
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
         hpBar = GameObject.Find("UI Root/PlayerHPBGI/PlayerHP").GetComponent<UISprite>();
+        temp_Movespeed = moveSpeed;
     }
     // Update is called once per frame
     void FixedUpdate()
@@ -271,10 +285,7 @@ public class Player : Character
                 StopTime = 0;
             }
         }
-
-
     }
-
     public static float GetAngle(Vector3 Start, Vector3 End)
     {
         Vector3 v = End - Start;

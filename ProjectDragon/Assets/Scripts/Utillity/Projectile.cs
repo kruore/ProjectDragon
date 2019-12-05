@@ -47,9 +47,6 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-
-
-
     //Create Projectile 
     public Projectile Create(float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
     {
@@ -63,7 +60,6 @@ public class Projectile : MonoBehaviour
         //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
-
     /// <summary>
     /// 투사체 초기화
     /// </summary>

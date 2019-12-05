@@ -426,7 +426,7 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1278
+  mWidth: 1277
   mHeight: 166
   mDepth: 0
   mMat: {fileID: 0}
@@ -10195,7 +10195,7 @@ MonoBehaviour:
   mClipTexture: {fileID: 2800000, guid: 11b54d7977e031f4d8a373bfc28c13a8, type: 3}
   mAlpha: 1
   mClipping: 1
-  mClipRange: {x: -0.4998474, y: 1.2666473, z: 800.3332, w: 749.9999}
+  mClipRange: {x: -0.74432373, y: 1.2666473, z: 799.8572, w: 749.9999}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 1
   mSortingOrder: 0
@@ -11663,7 +11663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617714387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 91, z: 0}
+  m_LocalPosition: {x: 0, y: 91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1782623143}
@@ -14394,7 +14394,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcb9256a419181f4dbc63639790d70bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 2117717484}
 --- !u!4 &2040113881
 Transform:
   m_ObjectHideFlags: 0

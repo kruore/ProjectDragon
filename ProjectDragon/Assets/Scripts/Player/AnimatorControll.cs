@@ -97,7 +97,7 @@ public class AnimatorControll : MonoBehaviour
             temp_name = clearAnimator_name;
             anglepos = Anim_Master.Enemy_AngleCaseString(Anim_Master.enemy_angle);
             temp_name = AttackName;
-            AttackName = "Female_DefaultCloth_ShortRange_" + my_state + "_" + anglepos.ToString();
+            AttackName = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+"_" + my_state + "_" + anglepos.ToString();
             AngleStringCast(AttackName);
         }
 
@@ -129,7 +129,7 @@ public class AnimatorControll : MonoBehaviour
         for (int i = 1; i <= State.Hit.GetHashCode(); i++)
         {
             my_state++;
-            clearAnimator_name = "Female_DefaultCloth_ShortRange_" + my_state.ToString();
+            clearAnimator_name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+"_" + my_state.ToString();
             temp_name = clearAnimator_name;
             Player_AnimationController_CastingCurrentAnim(animationValueChanger(my_state), my_state);
             Player_AnimationController_CastingCurrentAnim_Arm(animationValueChanger(my_state), my_state);
@@ -143,7 +143,7 @@ public class AnimatorControll : MonoBehaviour
         for (int i = 0; i < animationbundle.Length; i++)
         {
             anglepos++;
-            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/ShortRange/" + state.ToString() + "/" + temp_name + "_" + anglepos.ToString());
+            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/"+ Anim_Master.attackType.ToString()+"/" + state.ToString() + "/" + temp_name + "_" + anglepos.ToString());
             overrideController[temp_name + "_" + anglepos.ToString()] = animationbundle[i];
             playeranim.runtimeAnimatorController = overrideController;
         }
@@ -159,7 +159,7 @@ public class AnimatorControll : MonoBehaviour
         for (int i = 0; i < animationbundle.Length; i++)
         {
             anglepos++;
-            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/ShortRange/" + state.ToString() + "/" + temp_name + "_" + anglepos.ToString() + "_Arm");
+            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/" + Anim_Master.attackType.ToString() + "/" + state.ToString() + "/" + temp_name + "_" + anglepos.ToString() + "_Arm");
             overrideController[temp_name + "_" + anglepos.ToString() + "_Arm"] = animationbundle[i];
             playeranim.runtimeAnimatorController = overrideController;
         }
@@ -175,7 +175,7 @@ public class AnimatorControll : MonoBehaviour
         {
             //앵글 각도를 0으로 찍고 각 스트링에 따라 애니메이션 결합(Resoures.Load를 통함)
             anglepos++;
-            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/ShortRange/" + state.ToString() + "/" + temp_name + anglepos.ToString() + "_Weapon");
+            animationbundle[i] = Resources.Load<AnimationClip>("Animation/Player/Female/DefaultCloth/" + Anim_Master.attackType.ToString() + "/" + state.ToString() + "/" + temp_name + "_" + anglepos.ToString() + "_Weapon");
             overrideController[temp_name + "_" + anglepos.ToString() + "_Weapon"] = animationbundle[i];
             playeranim.runtimeAnimatorController = overrideController;
         }
