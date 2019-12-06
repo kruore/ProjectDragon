@@ -80,29 +80,29 @@ public class SoundManager : MonoSingleton<SoundManager>
         }
         Ds_efxSource.Stop();
     }
-    
-    public void SoundSet(params int[] _indexes)
-    {
-        if(_indexes.Length>0)
-        {
-            for(int i=0;i< _indexes.Length;i++)
-            {
-                SoundTable(_indexes[i]);
-            }
-        }
-    }
-
-    public void SoundTable(int _index)
-    {
-        AudioClip soundclip;
-        switch (_index)
-        {
-            case 1:
-            //                soundclip = Resources.Load<AudioClip>("Sound/");
-            default:
-                break;
-        }
-    }
+    //ERROR
+    //public void SoundSet(params int[] _indexes)
+    //{
+    //    if(_indexes.Length>0)
+    //    {
+    //        for(int i=0;i< _indexes.Length;i++)
+    //        {
+    //            SoundTable(_indexes[i]);
+    //        }
+    //    }
+    //}
+    //ERROR
+    //public void SoundTable(int _index)
+    //{
+    //    AudioClip soundclip;
+    //    switch (_index)
+    //    {
+    //        case 1:
+    //        //                soundclip = Resources.Load<AudioClip>("Sound/");
+    //        default:
+    //            break;
+    //    }
+    //}
     private void OnLevelWasLoaded(int level)
     {
         Clips.Clear();

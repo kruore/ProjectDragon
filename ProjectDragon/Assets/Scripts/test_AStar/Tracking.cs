@@ -37,7 +37,6 @@ public class Tracking : MonoBehaviour
             findPathNode = pathFinding.finalPath.ToArray();
             StartCoroutine(Move(_rb2d, _moveSpeed));
         }
-
     }
     bool isArriveStartNode = false;
     IEnumerator Move(Rigidbody2D _rb2d, float _moveSpeed)
@@ -59,6 +58,7 @@ public class Tracking : MonoBehaviour
         {
             isArriveStartNode = true;
         }
+     
 
         if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 먼저이동
         {
@@ -67,13 +67,32 @@ public class Tracking : MonoBehaviour
         else
         {
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, _moveSpeed * Time.deltaTime);
-        //Velocity Move
-           // _rb2d.velocity = Vector3.zero;
+            
+            //Velocity Move
+            // _rb2d.velocity = Vector3.zero;
             //Vector3 moveDirection = (currentWaypoint - pathFinding.startNode.Pos).normalized;
-           //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
+            //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
         }
 
         yield return null;
-
     }
+
+    
+
+    //private void OnTriggerEnter2D(Collider2D collision)
+    //{
+    //    if(collision.gameObject.CompareTag("Object"))
+    //    {
+    //        RescanPath(collision);
+    //    }
+    //}
+    //IsObject = false; 를 언제 할것인가가 문제로다!
+    //private void OnTriggerExit2D(Collider2D collision)
+    //{
+    //    if (collision.gameObject.CompareTag("Object"))
+    //    {
+    //        pathFinding.grid.NodeFromWorldPosition(collision.transform.position).IsObject = false;
+    //    }
+    //}
+
 }

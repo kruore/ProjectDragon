@@ -4,45 +4,43 @@ using UnityEngine;
 
 public class t_PathFinding : MonoBehaviour
 {
-    [HideInInspector]
-    public t_Grid grid;
-    [HideInInspector]
-    public t_Node startNode;
-    [HideInInspector]
-    public List<t_Node> finalPath = new List<t_Node>();
-    //public Vector3[] findPathNode;
+    [HideInInspector] public t_Grid grid;
+    [HideInInspector] public t_Node startNode;
+    [HideInInspector] public List<t_Node> finalPath = new List<t_Node>();
 
 
-    public void Create(float objBoxSizeX, float objBoxSizeY, t_Grid _AStar)
+    int nodeOverlapCountX, nodeOverlapCountY;       //오브젝트와 노드가 겹치는 노드갯수
+
+    public void Create(float _objBoxSizeX, float _objBoxSizeY, t_Grid _AStar)
     {
-        //GameObject AStar = GameObject.Find("AStar");
-        //grid = AStar.transform.GetComponent<t_Grid>();
+        //grid = GameObject.Find("AStar").transform.GetComponent<t_Grid>();
         grid = _AStar;
 
-        grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
-
+        //GetOverlapNodeCount
+        nodeOverlapCountX = grid.CalcOverlapNodeCount(_objBoxSizeX);
+        nodeOverlapCountY = grid.CalcOverlapNodeCount(_objBoxSizeY);
+        //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
     }
 
+    t_Node targetNode, currentNode;
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
     {
 
         startNode = grid.NodeFromWorldPosition(_startPos);
-        t_Node targetNode = grid.NodeFromWorldPosition(_targetPos);
-
-        t_Node currentNode;
+        targetNode = grid.NodeFromWorldPosition(_targetPos);
 
         Heap<t_Node> OpenList = new Heap<t_Node>(grid.MaxSize);
         HashSet<t_Node> ClosedList = new HashSet<t_Node>();
 
         OpenList.Add(startNode);
 
-        while(OpenList.Count>0)
+        while (OpenList.Count > 0)
         {
             currentNode = OpenList.RemoveFirst();
             ClosedList.Add(currentNode);
-            if(OpenList ==null)
+            if (OpenList == null)
             {
-                 break;
+                break;
             }
             //currentNode = OpenList[0];
             //for(int i=1;i<OpenList.Count;i++)
@@ -57,11 +55,11 @@ public class t_PathFinding : MonoBehaviour
             //ClosedList.Add(currentNode);
 
             //도착했는가?
-            if (grid.nodeOverlapCountX > 0 || grid.nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
+            if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
             {
-                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode))
+                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
                 {
-                    if (OverlapNode == targetNode|| currentNode==targetNode)
+                    if (OverlapNode == targetNode || currentNode == targetNode)
                     {
                         GetFinalPath(startNode, currentNode);
                         break;
@@ -71,16 +69,28 @@ public class t_PathFinding : MonoBehaviour
             else
             {
                 if (currentNode == targetNode)
-                { 
+                {
                     GetFinalPath(startNode, targetNode);
                     break;
                 }
             }
+            
 
-
-            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode))
+            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
             {
-                if (!NeighborNode.IsWall || ClosedList.Contains(NeighborNode))
+                
+                if(GetNotWalkNode(NeighborNode) == targetNode) //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
+                {
+                    NeighborNode.gCost = currentNode.gCost + GetManhattenDistance(currentNode, NeighborNode);
+                    NeighborNode.hCost = GetManhattenDistance(NeighborNode, targetNode);
+                    NeighborNode.Parent = currentNode;
+                    if (!OpenList.Contains(NeighborNode))
+                    {
+                        OpenList.Add(NeighborNode);
+                    }
+                    break;
+                }
+                if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
                 }
@@ -104,7 +114,15 @@ public class t_PathFinding : MonoBehaviour
 
 
     }
-
+    t_Node GetNotWalkNode(t_Node NeiNode)
+    {
+        //이웃노드와 타겟노드도 둘다 갈수없다면
+        if (!NeiNode.Walkable && !targetNode.Walkable)
+        {
+            return NeiNode;
+        }
+        return null;
+    }
     void GetFinalPath(t_Node _startingNode,t_Node _endNode)
     {
         List<t_Node> FinalPath = new List<t_Node>();
@@ -117,25 +135,8 @@ public class t_PathFinding : MonoBehaviour
         }
         FinalPath.Reverse();
         finalPath = FinalPath;
-        //findPathNode = SimplifyPath(FinalPath);
-
     }
-    //Vector3[] SimplifyPath(List<t_Node> path)
-    //{
-    //    List<Vector3> waypoints = new List<Vector3>();
-    //    Vector2 directionOld = Vector2.zero;
-
-    //    for (int i = 1; i < path.Count; i++)
-    //    {
-    //        Vector2 directionNew = new Vector2(path[i - 1].gridX - path[i].gridX, path[i - 1].gridY - path[i].gridY);
-    //        if (directionNew != directionOld)
-    //        {
-    //            waypoints.Add(path[i].Pos);
-    //        }
-    //        directionOld = directionNew;
-    //    }
-    //    return waypoints.ToArray();
-    //}
+    
 
 
     int GetManhattenDistance(t_Node _nodeA, t_Node _nodeB)

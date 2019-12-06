@@ -64,8 +64,8 @@ public class ShortRangeAttackArea : MonoBehaviour
     }
     public void LongAttackOn()
     {
-        //FindViewTargets();
-        RongAttack_normal();
+        FindViewTargets();
+        //RongAttack_normal();
     }
     private void OnDrawGizmos()
     {

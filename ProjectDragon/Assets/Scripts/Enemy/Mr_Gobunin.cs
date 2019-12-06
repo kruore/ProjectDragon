@@ -12,11 +12,6 @@ public class Mr_Gobunin : FSM_NormalEnemy
         projectile = new Projectile();
     }
 
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(Start_On());
-    }
 
 
     ////Create Projectile 

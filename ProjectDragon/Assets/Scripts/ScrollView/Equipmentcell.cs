@@ -8,15 +8,22 @@ public class Equipmentcell : UIReuseScrollViewCell
     public UISprite rarity,activeIcon;
     public UILabel Itemname, Itemvalue;
     public EuipmentcellData cell;
+    public IEnumerator timeco;
     float time,myYposition;
+    GameObject click;
     private void Start()
     {
         UIEventListener.Get(gameObject).onPress += Buttonpress;
+        timeco = TimeRange();
     }
     public override void UpdateData(IReuseCellData _CellData)
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
         cell = item;
+        if(time < Time.time + 2)
+        {
+
+        }
         //rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
        // gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
        // gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
@@ -341,45 +348,85 @@ public class Equipmentcell : UIReuseScrollViewCell
     }
     public void Buttonpress(GameObject sender, bool state)
     {
-        if(sender.Equals(gameObject)&& state)
+        if(sender.Equals(gameObject)&&state)
         {
-            Debug.Log("Press");
-            //StartCoroutine("TimeRange");
-            time = Time.time;
+            if(time!=0)
+            {
+                if(time<2)
+                {
+                    
+                }
+            }
+            
             myYposition = transform.position.y;
         }
-        else if(sender.Equals(gameObject) && !state)
+        if (sender.Equals(gameObject) && state)
         {
-            if((Time.time - time) >1.5f&&(Mathf.Abs(myYposition-gameObject.transform.position.y)<0.05)&&LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
+            Debug.Log("start");
+            StartCoroutine(timeco);
+            myYposition = transform.position.y;
+        }
+        else if (sender.Equals(gameObject) && !state)
+        {
+            if ((time) >=2.0f && (Mathf.Abs(myYposition - gameObject.transform.position.y) < 0.05) && LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
             {
                 Debug.Log(Mathf.Abs(myYposition - gameObject.transform.position.y));
-                if(!cell.m_Class.Equals(CLASS.갑옷))
+                if (!cell.m_Class.Equals(CLASS.갑옷))
                 {
                     Database.Inst.playData.equiWeapon_InventoryNum = cell.inventoryNum;
                     LobbyManager.inst.SetWeapon();
+                    Debug.Log(cell.m_Class);
                     DataTransaction.Inst.SavePlayerData();
                 }
-                
+                else
+                {
+                    Database.Inst.playData.equiArmor_InventoryNum = cell.inventoryNum;
+                    
+                    Debug.Log(cell.m_Class);
+                    LobbyManager.inst.SetArmor();
+                    DataTransaction.Inst.SavePlayerData();
+                }
                 //LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
                 //LobbyManager.inst.BGID.SetActive(true);
                 //GameManager.Inst.Scenestack.Push("Lock");
                 //LobbyManager.inst.lobbystate = LobbyState.Lock;
             }
-            StopCoroutine("TimeRange");
-            Debug.Log(Time.time - time);
-            Debug.Log("Presscancle");
+            ChangeReset();
         }
     }
     public IEnumerator TimeRange()
     {
+        
         time = 0;
-        myYposition=transform.position.y;
-        while(true)
+        myYposition = transform.position.y;
+        click = Instantiate<GameObject>(Resources.Load<GameObject>("UI/ClickAnim"));
+        click.transform.SetParent(GameObject.Find("UI Root/EquipPanel/Inventoryback/ItemWindow/ScrollView/ViewRect").transform);
+        click.GetComponent<UISprite>().fillAmount = time;
+        Vector3 wp = UICamera.currentCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -1));
+        click.transform.position = wp;
+        click.transform.localScale = Vector3.one;
+        while ((Mathf.Abs(myYposition - gameObject.transform.position.y) < 0.05))
         {
-            time += Time.deltaTime;
-            
-            yield return new WaitForEndOfFrame();
+            if (time < 2)
+            {
+                time += Time.deltaTime;
+                click.GetComponent<UISprite>().fillAmount = time*0.5f;
+            }
+            else
+            {
+                time = 2;
+                click.GetComponent<UISprite>().fillAmount = time*0.5f;
+            }
+            yield return null;
         }
+        ChangeReset();
+    }
+    public void ChangeReset()
+    {
+        StopCoroutine(timeco);
+        timeco = TimeRange();
+        Destroy(click);
+        click = null;
     }
     public void Activefalse()
     {

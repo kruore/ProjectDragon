@@ -11,11 +11,6 @@ public class Mr_Goburin : FSM_NormalEnemy
     }
 
 
-    protected override void Start()
-    {
-        base.Start();
-        StartCoroutine(Start_On());
-    }
 
     void Update()
     {

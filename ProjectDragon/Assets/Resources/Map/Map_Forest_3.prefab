@@ -50,15 +50,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd97e463ad5a534ba6359823ca0abb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 1
+  displayGridGizmos: 0
   wallMask:
     serializedVersion: 2
     m_Bits: 24576
+  objectMask:
+    serializedVersion: 2
+    m_Bits: 0
   gridWorldSize: {x: 21, y: 15}
   nodeRadius: 0.3
   distance: 0
-  nodeOverlapCountX: 0
-  nodeOverlapCountY: 0
 --- !u!114 &5489867585224985058
 MonoBehaviour:
   m_ObjectHideFlags: 0

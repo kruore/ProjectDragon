@@ -150,7 +150,7 @@ public class LobbyManager : MonoBehaviour
             {
                 Destroy(particle);
             }
-            particle = Instantiate<GameObject>(Resources.Load<GameObject>("Star_A"));
+            particle = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Star_A"));
             particle.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
             particle.transform.parent = GameObject.Find("UI Root/Panel").transform;
             Vector3 wp = UICamera.currentCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -1));
@@ -166,7 +166,7 @@ public class LobbyManager : MonoBehaviour
                 {
                     Destroy(particle);
                 }
-                particle = Instantiate<GameObject>(Resources.Load<GameObject>("Star_A"));
+                particle = Instantiate<GameObject>(Resources.Load<GameObject>("UI/Star_A"));
                 particle.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
                 particle.transform.parent = GameObject.Find("UI Root/Panel").transform;
                 Vector3 wp = UICamera.currentCamera.ScreenToWorldPoint(new Vector3(Input.GetTouch(0).position.x, Input.GetTouch(0).position.y, -1));
@@ -252,7 +252,9 @@ public class LobbyManager : MonoBehaviour
             Statpanel.GetComponent<TweenPosition>().to = Statpanel.transform.localPosition;
             Statpanel.GetComponent<TweenPosition>().to.x = Statpanel.GetComponent<TweenPosition>().to.x + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x - Statpanel.GetComponent<UISprite>().localSize.x;
             Debug.Log(Statpanel.GetComponent<TweenPosition>().from.x + "::" + Statpanel.GetComponent<TweenPosition>().to.x.ToString() + "::" + Statpanel.transform.Find("StatBGI").GetComponent<UISprite>().localSize.x);
+            Debug.Log(Statpanel.GetComponent<TweenPosition>().method.ToString());
             statepanelbutton = false;
+
         }
     }
     public void TouchBackButton()
@@ -718,6 +720,12 @@ public class LobbyManager : MonoBehaviour
             Weapon[i].atlas = weaponatlas;
             Weapon[i].spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
         }
+        UpdateAllScrollview();
+    }
+    public void SetArmor()
+    {
+        Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
+        string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
         UpdateAllScrollview();
     }
     public void Togglebox()
