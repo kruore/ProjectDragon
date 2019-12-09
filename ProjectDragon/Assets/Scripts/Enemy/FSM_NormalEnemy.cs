@@ -7,7 +7,7 @@ public class FSM_NormalEnemy : Enemy
 {
 
     [Header(" ")]
-    bool isAttackActive;
+    protected bool isAttackActive;
     public int attackCount;
 
     [Header("[Enemy State]")]
@@ -34,8 +34,8 @@ public class FSM_NormalEnemy : Enemy
 
     public override int HPChanged(int ATK)
     {
-        //살아 있을때
-        if (!isDead)
+        //살아 있을때 + 무적이 아닐때
+        if (!isDead&&!invincible)
         {
             Hit();
             return base.HPChanged(ATK);

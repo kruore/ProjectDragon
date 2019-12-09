@@ -21,7 +21,8 @@ public class Tracking : MonoBehaviour
 
     private void Awake()
     {
-        pathFinding = new t_PathFinding();
+        pathFinding = this.gameObject.AddComponent<t_PathFinding>();
+        // pathFinding = new t_PathFinding();
 
         //임시
         targetPos = GameObject.FindGameObjectWithTag("Player").transform;

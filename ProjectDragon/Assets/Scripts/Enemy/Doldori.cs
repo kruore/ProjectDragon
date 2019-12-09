@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class Doldori : FSM_NormalEnemy
 {
-    [SerializeField]
-    bool invincible = false;  //무적상태인지
-
 
     protected override void Awake()
     {
@@ -37,8 +34,11 @@ public class Doldori : FSM_NormalEnemy
         }
     }
 
+
     protected override IEnumerator Attack()
     {
+        //무적
+        invincible = true;
         //플레이어 방향으로 돌진
         rb2d.AddForce(direction * 3.0f, ForceMode2D.Impulse);
 
@@ -56,9 +56,9 @@ public class Doldori : FSM_NormalEnemy
         yield return null;
     }
     //부딪히면 Attack-> Idle로
-    protected virtual IEnumerator AttackEnd()
+    protected override IEnumerator AttackEnd()
     {
-
+        yield return null;
     }
 
 
@@ -66,13 +66,10 @@ public class Doldori : FSM_NormalEnemy
     {
         if (NEState == NormalEnemyState.Attack)
         {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                isAttacking = false;
-                rb2d.velocity = Vector2.zero;
-            }
+            isAttacking = false;
+            rb2d.velocity = Vector2.zero;
         }
-        //if(collision.gameObject.CompareTag("Wall"))
+       
     }
 
 

@@ -8,8 +8,9 @@ public class Enemy : Monster
     protected SpriteRenderer spriteRenderer;
     [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected BoxCollider2D col;
-    [SerializeField]  protected bool collisionPlayer = false;
-   
+    [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
+    [SerializeField] protected bool invincible = false;       //무적상태인지
+
 
     [Header("[Enemy Attribute]")]
     //public string name;
