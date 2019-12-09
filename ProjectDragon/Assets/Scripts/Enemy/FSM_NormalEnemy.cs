@@ -231,8 +231,8 @@ public class FSM_NormalEnemy : Enemy
 
     
     #region 구버전애니메이션 관리
-    //Attack 애니메이션 1번만 돌리고 -> Idle로
-    protected IEnumerator AttackEnd()
+    //Attack 애니메이션 n번 돌리고 -> Idle로
+    protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
         while (isAttacking)

@@ -36,6 +36,7 @@ public class Doldori : FSM_NormalEnemy
             HPChanged(1);
         }
     }
+
     protected override IEnumerator Attack()
     {
         //플레이어 방향으로 돌진
@@ -44,27 +45,36 @@ public class Doldori : FSM_NormalEnemy
         yield return base.Attack();
     }
 
-
-    //protected override void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    base.OnCollisionEnter2D(collision);
-
-    //    if (CurrentState == State.Attack)
-    //    {
-    //        if (collision.gameObject.CompareTag("Player"))
-    //        {
-    //            isAttacking = false;
-    //            rb2d.velocity = Vector2.zero;
-    //        }
-    //    }
-    //    //if(collision.gameObject.CompareTag("Wall"))
-    //}
-
-
+    //애니메이션 프레임에 넣기
     protected override IEnumerator Attack_On()
     {
+        if (inAtkDetectionRange && !isDead)
+        {
+            //Player hit
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
+        }
         yield return null;
+    }
+    //부딪히면 Attack-> Idle로
+    protected virtual IEnumerator AttackEnd()
+    {
 
     }
+
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (NEState == NormalEnemyState.Attack)
+        {
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                isAttacking = false;
+                rb2d.velocity = Vector2.zero;
+            }
+        }
+        //if(collision.gameObject.CompareTag("Wall"))
+    }
+
+
 
 }

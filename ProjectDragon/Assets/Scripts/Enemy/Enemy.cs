@@ -189,6 +189,7 @@ public class Enemy : Monster
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기 (혹시모를 검사 한번더하기)
             if (isHit)
             {
                 Physics2D.IgnoreCollision(collision, col);

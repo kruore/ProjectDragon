@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 581777204744015374}
   - component: {fileID: 581777204744015361}
   - component: {fileID: 581777204744015360}
+  - component: {fileID: 8884023743751570901}
   - component: {fileID: 581777204744015363}
   - component: {fileID: 581777204744015362}
   - component: {fileID: 581777204744015365}
@@ -131,6 +132,32 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!61 &8884023743751570901
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 581777204744015367}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 3.08, y: 1.49}
+  m_EdgeRadius: 0
 --- !u!50 &581777204744015363
 Rigidbody2D:
   serializedVersion: 4
@@ -195,11 +222,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myState: 0
+  currentHp: 0
   hp: 100
-  maxHp: 100
-  atk: 2
-  atkSpeed: 2
+  damage: 0
   moveSpeed: 2
+  atk: 2
+  attackSpeed: 0
+  attackRange: 0
+  nuckBack: 0
+  maxHp: 100
+  atkSpeed: 2
   atkRange: 4
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
@@ -211,8 +243,14 @@ MonoBehaviour:
   enemy_angle: 0
   myAttackType: 0
   myAnim_AnglePos: 0
-  invincible: 0
-  waitTime: 2
+  distanceOfPlayer: 0
+  angleOfPlayer: 0
+  moveDistance: 0
+  m_viewTargetMask:
+    serializedVersion: 2
+    m_Bits: 0
+  collisionPlayer: 0
+  readyTime: 0
   cooltime: 3
   knockTime: 0.15
   knockPower: 1
@@ -221,14 +259,8 @@ MonoBehaviour:
   m_bDebugMode: 1
   inAtkDetectionRange: 0
   originOffset: 0.3
-  distanceOfPlayer: 0
-  angleOfPlayer: 0
-  moveDistance: 0
-  isAttackActive: 0
-  m_viewTargetMask:
-    serializedVersion: 2
-    m_Bits: 0
-  isCollision: 0
+  attackCount: 0
+  normalEnemyState: 0
 --- !u!1 &581777206034813176
 GameObject:
   m_ObjectHideFlags: 0
