@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8629793387476927242}
   - component: {fileID: 8629793387476927241}
   - component: {fileID: 8629793387476927240}
+  - component: {fileID: 6841066896530343384}
   - component: {fileID: 8629793387476927255}
   - component: {fileID: 8629793387476927254}
   - component: {fileID: 8629793387476927253}
@@ -97,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 8629793387476927251}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: 50f51161f44a5964ebf45b7042909f5a, type: 2}
+  m_Controller: {fileID: 9100000, guid: 8f6cf997e7058494eac4bb9bec46bb9e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -130,7 +131,33 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.55, y: 0.55}
+  m_EdgeRadius: 0
+--- !u!61 &6841066896530343384
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629793387476927251}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 4, y: 4}
+    newSize: {x: 4, y: 4}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.7, y: 0.7}
   m_EdgeRadius: 0
 --- !u!50 &8629793387476927255
 Rigidbody2D:
@@ -214,7 +241,7 @@ MonoBehaviour:
   currentHp: 0
   hp: 100
   damage: 0
-  moveSpeed: 2
+  moveSpeed: 1
   atk: 5
   attackSpeed: 0
   attackRange: 0
@@ -239,18 +266,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   collisionPlayer: 0
-  readyTime: 0
-  cooltime: 3
-  knockTime: 0.15
-  knockPower: 1
+  invincible: 0
+  readyTime: 4
+  cooltime: 5
+  knockTime: 0.3
+  knockPower: 1.5
   skillCooltime: 0
   skillDamage: 0
   m_bDebugMode: 1
   inAtkDetectionRange: 0
-  originOffset: 0.3
+  originOffset: 0
   attackCount: 0
   normalEnemyState: 0
-  invincible: 0
 --- !u!1 &8629793387520205277
 GameObject:
   m_ObjectHideFlags: 0

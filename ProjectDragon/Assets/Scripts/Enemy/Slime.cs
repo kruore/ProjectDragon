@@ -24,14 +24,13 @@ public class Slime : FSM_NormalEnemy
     }
 
     //애니메이션 프레임에 넣기
-    protected override IEnumerator Attack_On()
+    protected override void Attack_On()
     {
         if (inAtkDetectionRange&&!isDead)
         {
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
-        yield return null;
     }
 
     protected override IEnumerator Dead()

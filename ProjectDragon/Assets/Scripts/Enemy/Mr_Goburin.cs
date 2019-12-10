@@ -18,10 +18,7 @@ public class Mr_Goburin : FSM_NormalEnemy
     }
 
     //탄환 공격
-    protected override IEnumerator Attack_On()
+    protected override void Attack_On()
     {
-
-        yield return null;
-
     }
 }

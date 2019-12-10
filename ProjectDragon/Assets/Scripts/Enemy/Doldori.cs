@@ -17,61 +17,110 @@ public class Doldori : FSM_NormalEnemy
     {
         DustParticleCheck();
 
-        if (isAttacking)
-        {
-            //무적상태
-            invincible = true;
-        }
-        else
-        {
-            invincible = false;
-        }
-
-        //test
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            HPChanged(1);
-        }
     }
 
-
+    Vector3 attackDirection;
     protected override IEnumerator Attack()
     {
+        AttackStart();
         //무적
         invincible = true;
-        //플레이어 방향으로 돌진
-        rb2d.AddForce(direction * 3.0f, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(1.5f);
 
-        yield return base.Attack();
+        //Attacking
+        isAttacking = true;
+        objectAnimator.Play("Attacking");
+        attackDirection = direction;
+        while (isAttacking)
+        {
+            rb2d.AddForce(attackDirection * 0.2f, ForceMode2D.Impulse);
+            yield return null;
+        }
     }
 
     //애니메이션 프레임에 넣기
-    protected override IEnumerator Attack_On()
+    protected override void Attack_On()
     {
-        if (inAtkDetectionRange && !isDead)
+        if (!isDead)
         {
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
-        yield return null;
     }
+
+
     //부딪히면 Attack-> Idle로
     protected override IEnumerator AttackEnd()
     {
+        isAttacking = false;
+        invincible = false;
+        rb2d.velocity = Vector2.zero;
+
+        StartCoroutine(DirectionKnockBack(attackDirection, 0.5f, 1.5f));
+
+        //Attack Animation parameters
+        objectAnimator.SetBool("Attack", isAttacking);
+        NEState = NormalEnemyState.Idle;
         yield return null;
+
+        AttackEndCor = null;
     }
 
 
-    protected void OnCollisionEnter2D(Collision2D collision)
+
+    IEnumerator AttackEndCor=null;
+    //벽과 플레이어 부딪히면 그로기 상태
+    //protected void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    //연속으로 될경우 방지 (한번만 돌리게)
+    //    if (NEState == NormalEnemyState.Attack&& AttackEndCor == null)
+    //    {
+    //        if(collision.gameObject.CompareTag("Player")||collision.gameObject.CompareTag("Wall"))
+    //        {
+    //            if (collision.gameObject.CompareTag("Player"))
+    //            {
+    //                Attack_On();
+    //            }
+    //            AttackEndCor = AttackEnd();
+    //            StartCoroutine(AttackEnd());
+    //        }
+    //    }
+    //}
+    protected override void OnCollisionStay2D(Collision2D collision)
     {
-        if (NEState == NormalEnemyState.Attack)
+        base.OnCollisionStay2D(collision);
+
+        //연속으로 될경우 방지 (한번만 돌리게)
+        if (NEState == NormalEnemyState.Attack && AttackEndCor == null)
         {
-            isAttacking = false;
-            rb2d.velocity = Vector2.zero;
+            if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall")
+                || collision.gameObject.CompareTag("Cliff")|| collision.gameObject.CompareTag("Object"))
+            {
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    Attack_On();
+                }
+                //나중에
+                //else if(collision.gameObject.CompareTag("Object")&&collision.gameObject.GetComponent<Box>().hp)
+                //{
+
+                // }
+                AttackEndCor = AttackEnd();
+                StartCoroutine(AttackEnd());
+            }
         }
-       
     }
+    protected override void OnTriggerStay2D(Collider2D collision)
+    {
+        base.OnTriggerEnter2D(collision);
 
-
-
+        if (isAttacking)
+        {
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                //충돌할때 Attack이면 콜라이더끄기
+                Physics2D.IgnoreCollision(collision, col);
+            }
+        }
+    }
 }

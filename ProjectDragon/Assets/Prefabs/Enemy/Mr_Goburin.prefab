@@ -269,14 +269,14 @@ MonoBehaviour:
   invincible: 0
   readyTime: 0
   cooltime: 3
-  knockTime: 0.15
-  knockPower: 1
+  knockTime: 0.3
+  knockPower: 1.5
   skillCooltime: 0
   skillDamage: 0
   m_bDebugMode: 1
   inAtkDetectionRange: 0
-  originOffset: 0.3
-  attackCount: 0
+  originOffset: 0
+  attackCount: 3
   normalEnemyState: 0
 --- !u!1 &581777206034813176
 GameObject:

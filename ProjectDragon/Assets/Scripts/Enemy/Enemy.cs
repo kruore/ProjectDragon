@@ -148,6 +148,67 @@ public class Enemy : Monster
         return inAtkDetectionRange;
     }
 
+    #region Hit
+    public override int HPChanged(int ATK)
+    {
+        //살아 있을때 + 무적이 아닐때
+        if (!isDead && !invincible)
+        {
+            Hit();
+            return base.HPChanged(ATK);
+        }
+
+        return 0;
+    }
+
+    IEnumerator KnockBackCor;
+    protected void Hit()
+    {
+        isHit = true;
+        isWalk = false;
+
+        //White Shader
+        IEnumerator FlashWhiteCor = flashWhite.Flash();
+        StopCoroutine(FlashWhiteCor);
+        StartCoroutine(FlashWhiteCor);
+
+        //넉백
+
+        KnockBackCor = KnockBack();
+        StopCoroutine(KnockBackCor);
+        StartCoroutine(KnockBackCor);
+
+    }
+    IEnumerator KnockBack()
+    {
+        //나중에
+
+        ////스킬로 맞으면
+        //knockTime = 0.3f;
+        //knockPower = 1.5f;
+        //평타로 맞으면
+        knockTime = 0.1f;
+        knockPower = 0.2f;
+
+        DirectionKnockBack(direction, knockTime, knockPower);
+        isHit = false;
+        yield return null;
+    }
+
+    // 방향넉백
+    public IEnumerator DirectionKnockBack(Vector3 _direction, float _knockTime,float _knockPower)
+    {
+        Debug.Log("넉백?");
+        rb2d.AddForce(-_direction * _knockPower, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(_knockTime);
+
+        rb2d.velocity = Vector2.zero;
+    }
+
+    #endregion
+
+
+
     //Draw!!!! 테스트용
     private void OnDrawGizmos()
     {
@@ -160,8 +221,8 @@ public class Enemy : Monster
     //+ Vector2.Dot(directionOriginOffset, direction)
 
 
-
-    private void OnCollisionStay2D(Collision2D collision)
+    #region Player에게 다가가는 무리들에 대한 이동조정
+    protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         //Player에게 다가가는 무리들에 대한 이동조정.. (walk)
         if (collision.gameObject.CompareTag("Player") ||
@@ -175,7 +236,6 @@ public class Enemy : Monster
             } 
         }
     }
-
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player") ||
@@ -185,8 +245,9 @@ public class Enemy : Monster
             collisionPlayer = false;
         }
     }
+    #endregion
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    protected virtual void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -197,13 +258,14 @@ public class Enemy : Monster
             }
         }
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    protected virtual void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
         {
             //충돌할때 walk이면 콜라이더끄기
             if (isWalk)
             {
+                Debug.Log("콜라이더 끄기이이이");
                 Physics2D.IgnoreCollision(collision, col);
             }
             //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기
@@ -212,12 +274,6 @@ public class Enemy : Monster
                 Physics2D.IgnoreCollision(collision, col, false);
             }
         }
-        ////Walk이면 Object 충돌무시(Astar)
-        //if (isWalk && (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")))
-        //{
-        //    Physics2D.IgnoreCollision(collision, col);
-        //}
-
 
         //Hit중이면 Enemy 충돌무시
         if (collision.gameObject.CompareTag("Enemy"))
@@ -232,7 +288,7 @@ public class Enemy : Monster
             }
         }
     }
-    private void OnTriggerExit2D(Collider2D collision)
+    protected virtual void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
         {
@@ -244,17 +300,7 @@ public class Enemy : Monster
         }
     }
 
-    protected IEnumerator KnockBackCor;
-    // 방향넉백
-    public IEnumerator DirectionKnockBack()
-    {
-        rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(knockTime);
-
-        rb2d.velocity = Vector2.zero;
-        isHit = false;
-    }
-
+  
     //Dust Particle
     protected void DustParticleCheck()
     {
