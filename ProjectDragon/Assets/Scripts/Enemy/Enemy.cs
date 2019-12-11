@@ -75,7 +75,11 @@ public class Enemy : Monster
         direction = (other.transform.position - gameObject.transform.position).normalized;
 
         //플레이어를 바라보는 방향에 대한 각도체크
-        if (CurrentState != State.Attack)
+        if(isAttacking)
+        {
+            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(other.transform.position, transform.position);
+        }
+        else if(isWalk)
         {
             Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, GetComponent<Tracking>().currentWaypoint);
         }
@@ -181,7 +185,7 @@ public class Enemy : Monster
     }
     IEnumerator KnockBack()
     {
-        //나중에
+        /////////////////////////////나중에
 
         ////스킬로 맞으면
         //knockTime = 0.3f;
@@ -198,7 +202,6 @@ public class Enemy : Monster
     // 방향넉백
     public IEnumerator DirectionKnockBack(Vector3 _direction, float _knockTime,float _knockPower)
     {
-        Debug.Log("넉백?");
         rb2d.AddForce(-_direction * _knockPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(_knockTime);
 
@@ -265,7 +268,6 @@ public class Enemy : Monster
             //충돌할때 walk이면 콜라이더끄기
             if (isWalk)
             {
-                Debug.Log("콜라이더 끄기이이이");
                 Physics2D.IgnoreCollision(collision, col);
             }
             //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기

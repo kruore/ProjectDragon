@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mr_Goburin : FSM_NormalEnemy
+public class Mr_Gobulhwa : FSM_NormalEnemy
 {
     protected override void Awake()
     {

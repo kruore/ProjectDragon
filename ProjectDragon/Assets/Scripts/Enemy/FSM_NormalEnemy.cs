@@ -222,8 +222,8 @@ public class FSM_NormalEnemy : Enemy
     }
 
     
-    #region 구버전애니메이션 관리
     //Attack 애니메이션 n번 돌리고 -> Idle로
+    #region 애니메이션 관리
     protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
@@ -235,7 +235,6 @@ public class FSM_NormalEnemy : Enemy
             float cliptime = clipInfo[0].clip.length;
             yield return new WaitForSeconds(cliptime);
 
-            count++;
             if (attackCount == count)
             {
                 isAttacking = false;
@@ -244,6 +243,8 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Idle;
                 break;
             }
+            count++;
+
             yield return null;
         }
     }
@@ -269,8 +270,6 @@ public class FSM_NormalEnemy : Enemy
     }
 
 
-    //근거리/애니메이션 프레임에 설정  -->몸과 충돌시
-    //원거리 -->탄환 충돌시
     protected virtual void Attack_On() {}
 
 

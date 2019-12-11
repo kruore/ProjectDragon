@@ -11,8 +11,6 @@ public class Doldori : FSM_NormalEnemy
         childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
-
-
     void Update()
     {
         DustParticleCheck();
@@ -38,7 +36,6 @@ public class Doldori : FSM_NormalEnemy
         }
     }
 
-    //애니메이션 프레임에 넣기
     protected override void Attack_On()
     {
         if (!isDead)
@@ -88,8 +85,6 @@ public class Doldori : FSM_NormalEnemy
     //}
     protected override void OnCollisionStay2D(Collision2D collision)
     {
-        base.OnCollisionStay2D(collision);
-
         //연속으로 될경우 방지 (한번만 돌리게)
         if (NEState == NormalEnemyState.Attack && AttackEndCor == null)
         {
@@ -100,7 +95,7 @@ public class Doldori : FSM_NormalEnemy
                 {
                     Attack_On();
                 }
-                //나중에
+                /////////////////////////////////////////////////////나중에
                 //else if(collision.gameObject.CompareTag("Object")&&collision.gameObject.GetComponent<Box>().hp)
                 //{
 
@@ -110,6 +105,9 @@ public class Doldori : FSM_NormalEnemy
             }
         }
     }
+    protected override void OnCollisionExit2D(Collision2D collision)
+    {
+    } 
     protected override void OnTriggerStay2D(Collider2D collision)
     {
         base.OnTriggerEnter2D(collision);
