@@ -6,7 +6,7 @@ public class Enemy : Monster
 {
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
-    [SerializeField] LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
+    [SerializeField] protected LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected BoxCollider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
@@ -129,8 +129,7 @@ public class Enemy : Monster
         //int layerMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Wall"));
 
         #endregion
-
-
+        //Physics2D.BoxCast(startingPosition, direction, AtkRange - originOffset, 0, m_viewTargetMask);
         hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
         foreach (RaycastHit2D _hit in hit)
@@ -138,7 +137,7 @@ public class Enemy : Monster
             if (_hit.collider != null)
             {
                 //Debug.Log("hit name :" + _hit.collider.gameObject.name);
-                if (_hit.collider.gameObject.CompareTag("Wall"))
+                if (_hit.collider.gameObject.CompareTag("Wall")|| _hit.collider.gameObject.CompareTag("Cliff"))
                 {
                     break;
                 }
@@ -147,6 +146,7 @@ public class Enemy : Monster
                     inAtkDetectionRange = true;
                     break;
                 }
+                
             }
         }
         return inAtkDetectionRange;

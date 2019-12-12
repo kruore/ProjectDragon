@@ -93,7 +93,6 @@ public class Projectile : MonoBehaviour
         gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, m_angle));
 
         rb2d = gameObject.GetComponent<Rigidbody2D>();
-        Debug.Log(m_angle);
         rb2d.velocity = new Vector2(-Mathf.Cos((m_angle - 90) / 360 * 2 * Mathf.PI) * speed, -Mathf.Sin((m_angle - 90) / 360 * 2 * Mathf.PI) * speed);
 
     }

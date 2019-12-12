@@ -7,6 +7,7 @@ public class Slime : FSM_NormalEnemy
     protected override void Awake()
     {
         base.Awake();
+        m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
         childDeadParticle = transform.Find("DeadParticle").gameObject;
     }
