@@ -9,7 +9,7 @@ public class ObjectPool : MonoBehaviour
         get { return instance; }
         set { }
     }
-    private static ObjectPool instance = null;
+    static ObjectPool instance = null;
 
 
     public List<PooledObject> objectPool = new List<PooledObject>();

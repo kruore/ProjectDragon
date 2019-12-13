@@ -177,7 +177,6 @@ public class Enemy : Monster
         StartCoroutine(FlashWhiteCor);
 
         //넉백
-
         KnockBackCor = KnockBack();
         StopCoroutine(KnockBackCor);
         StartCoroutine(KnockBackCor);
@@ -186,7 +185,6 @@ public class Enemy : Monster
     IEnumerator KnockBack()
     {
         /////////////////////////////나중에
-
         ////스킬로 맞으면
         //knockTime = 0.3f;
         //knockPower = 1.5f;
@@ -199,7 +197,7 @@ public class Enemy : Monster
         yield return null;
     }
 
-    // 방향넉백
+    //방향넉백
     public IEnumerator DirectionKnockBack(Vector3 _direction, float _knockTime,float _knockPower)
     {
         rb2d.AddForce(-_direction * _knockPower, ForceMode2D.Impulse);
@@ -207,7 +205,6 @@ public class Enemy : Monster
 
         rb2d.velocity = Vector2.zero;
     }
-
     #endregion
 
 
