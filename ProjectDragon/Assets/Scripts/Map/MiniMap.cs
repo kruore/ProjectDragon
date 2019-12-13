@@ -12,6 +12,7 @@ public class MiniMap : MonoBehaviour
     public UIButton button;
     public EventDelegate mini = new EventDelegate();
     public EventDelegate maxi = new EventDelegate();
+    //public EventDelegate teleport = new EventDelegate();
 
     private void Awake()
     {
@@ -26,6 +27,7 @@ public class MiniMap : MonoBehaviour
     {
         mini = new EventDelegate(GetComponent<MiniMap>(), "Minimalize");
         maxi = new EventDelegate(GetComponent<MiniMap>(), "Maximalize");
+        //teleport = new EventDelegate(GetComponent<MiniMap>(), "Teleport");
 
         button.onClick.Add(maxi);
     }
@@ -80,13 +82,18 @@ public class MiniMap : MonoBehaviour
             //방이 일반 방이 아니면 포탈 이미지 세팅
             if (!temp_room.roomType.Equals(RoomType.Normal))
             {
-                room[i].AddComponent<BoxCollider2D>();
-                room[i].GetComponent<BoxCollider2D>().enabled = false;
+                //room[i].AddComponent<BoxCollider2D>();
+                //room[i].GetComponent<BoxCollider2D>().enabled = false;
                 //포탈 그림 붙이고, 안보이게 하기
                 GameObject portal = Instantiate(portalImage, room[i].transform.localPosition, Quaternion.identity, room[i].transform);
                 portal.transform.localPosition = Vector3.zero;
                 portal.GetComponent<UISprite>().enabled = false;
                 portal.name = "Portal";
+                UIButton button = portal.GetComponent<UIButton>();
+                EventDelegate teleport = new EventDelegate(GetComponent<MiniMap>(), "Teleport");
+                teleport.parameters[0] = new EventDelegate.Parameter(x);
+                teleport.parameters[1] = new EventDelegate.Parameter(y);
+                button.onClick.Add(teleport);
             }
 
             temp_room.MiniMapPos = room[i];
@@ -140,5 +147,10 @@ public class MiniMap : MonoBehaviour
     {
         yield return new WaitForSeconds(0.3f);
         button.onClick.Add(_Event);
+    }
+
+    public void Teleport(float _x, float _y)
+    {
+        RoomManager.PlayerTeleportation(_x, _y);
     }
 }

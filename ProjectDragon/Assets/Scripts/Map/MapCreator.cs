@@ -452,9 +452,9 @@ public class MapCreator : MonoBehaviour
 
         GameObject stairTemp = Instantiate(map_Stair, temp[temp.Count - 1].transform.position, Quaternion.identity, _parent);
         Room map = stairTemp.AddComponent<Room>();
-
+        temp[temp.Count - 1].GetComponent<Room>().roomType = RoomType.Stair;
         map.SetData(temp[temp.Count - 1].GetComponent<Room>());
-        map.roomType = RoomType.Stair;
+        //map.roomType = RoomType.Stair;
 
         //방의 문 설정
         DoorSetting(map);
@@ -490,8 +490,9 @@ public class MapCreator : MonoBehaviour
         GameObject map_MarketTemp = Instantiate(map_Market, temp[rand].transform.position, Quaternion.identity, _parent);
         Room map = map_MarketTemp.AddComponent<Room>();
 
+        temp[rand].GetComponent<Room>().roomType = RoomType.NPC;
         map.SetData(temp[rand].GetComponent<Room>());
-        map.roomType = RoomType.NPC;
+        //map.roomType = RoomType.NPC;
 
         //방의 문 설정
         DoorSetting(map);

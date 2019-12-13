@@ -426,7 +426,7 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: 0, g: 0, b: 0, a: 1}
   mPivot: 4
-  mWidth: 1279
+  mWidth: 1277
   mHeight: 166
   mDepth: 0
   mMat: {fileID: 0}
@@ -10195,7 +10195,7 @@ MonoBehaviour:
   mClipTexture: {fileID: 2800000, guid: 11b54d7977e031f4d8a373bfc28c13a8, type: 3}
   mAlpha: 1
   mClipping: 1
-  mClipRange: {x: -0.79447937, y: 1.2666473, z: 800.92236, w: 749.9999}
+  mClipRange: {x: -0.3300476, y: 1.2666473, z: 799.9936, w: 749.9999}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 1
   mSortingOrder: 0
@@ -10683,14 +10683,14 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 1722
+  mWidth: 1721
   mHeight: 750
   mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 2.296
+  aspectRatio: 2.2946668
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -11663,7 +11663,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617714387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 91, z: 0}
+  m_LocalPosition: {x: 1, y: 91, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1782623143}

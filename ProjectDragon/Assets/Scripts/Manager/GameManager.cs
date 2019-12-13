@@ -9,6 +9,7 @@ public class GameManager : MonoSingleton<GameManager>
     bool quit;
     float quittime;
     public Stack<string> Scenestack = new Stack<string>();
+
     private void Awake()
     {
         ScreensizeReadjust();

@@ -24,7 +24,7 @@ public class RoomManager : MonoBehaviour
     public int gridSizeX, gridSizeY;
     public int playerGridPosX, playerGridPosY;
 
-    public MiniMap miniMap; 
+    public MiniMap miniMap;
 
     private void Awake()
     {
@@ -79,7 +79,7 @@ public class RoomManager : MonoBehaviour
     }
 
     public bool PlayerIsNPCRoom()
-    {
+    { 
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;
     }
 
@@ -121,6 +121,23 @@ public class RoomManager : MonoBehaviour
                 if (temp.roomType.Equals(RoomType.Normal)) continue;
                 if (temp.roomState.Equals(RoomState.Clear)) temp.portal.GetComponent<Portal>().IsPortalOn = true;
             }
+        }
+    }
+
+    public void PlayerTeleportation(float _x, float _y)
+    {
+        if (_x != player_PosX || _y != player_PosY)
+        {
+            PlayerLocationInMap().gameObject.SetActive(false);
+            player_PosX = (int)_x;
+            player_PosY = (int)_y;
+            playerGridPosX = gridSizeX_Cen + player_PosX;
+            playerGridPosY = gridSizeY_Cen + player_PosY;
+
+            PlayerLocationInMap().gameObject.SetActive(true);
+            miniMap.UpdateMiniMap();
+            MiniMapMinimalize();
+            GameObject.FindGameObjectWithTag("Player").transform.position = PlayerLocationInMap().transform.position;
         }
     }
 
