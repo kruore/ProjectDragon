@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Koo KyoSeok///2019-12-16/////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,10 +14,10 @@ public class LobbyManager : MonoBehaviour
     public static LobbyManager inst;
     bool isnight = true;
     GameObject particle;
-    public GameObject fireobject, playeranimation, playerimg, equipCharactor, playerStat;
+    public GameObject fireobject, playeranimation, playerimg, equipCharactor, playerStat, equipanel;
     public GameObject filterobject;
     public AudioClip fire;
-    public GameObject Statpanel;
+    public GameObject Statpanel,EquipStatPanel;
     #region equipobject
     public GameObject changeEquip, BGID, BGI;
     public GameObject Inventoryback, Currentweapon, CurrentArmor, CurrentActive, scrollview, EuiptIcons;
@@ -56,20 +57,118 @@ public class LobbyManager : MonoBehaviour
     {
         GameManager.Inst.name.ToString();
         DataTransaction.Inst.gameObject.ToString();
-        statepanelbutton = true;
+        LobbyObjectSet();
+        LobbyStateInit();
+
         testlabel = GameObject.Find("test").GetComponent<UILabel>();
         testlabel2 = GameObject.Find("test2").GetComponent<UILabel>();
+        SetplayerStat();
         //player 체력,마나,스텟 조정
-        playerStat = GameObject.Find("UI Root/LobbyPanel/IconBackgroundU/Player");
+        //playerStat = GameObject.Find("UI Root/LobbyPanel/IconBackgroundU/Player");
+        //playerStat.transform.Find("HPCountBG/HP").GetComponent<UISprite>().fillAmount = (float)DataTransaction.Inst.CurrentHp / (float)DataTransaction.Inst.MaxHp;
+        //playerStat.transform.Find("HPCountBG/Label").GetComponent<UILabel>().text = string.Format("{0}/{1}", DataTransaction.Inst.CurrentHp, DataTransaction.Inst.MaxHp);
+        //playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
+        //GameManager.Inst.QuitObject = GameObject.Find("UI Root/QuitPanel").transform.Find("QuitBGI").gameObject;
+        //SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
+        //itemclassselect = ItemState.기본;
+        //ItemRarityselect = ItemRarity.기본;
+        //Selecteditem = new List<int>();
+        //EuiptIcons = GameObject.Find(string.Format("UI Root/LobbyPanel/IconBackgroundU/EquipItem/EquipLabel"));
+        //if (isnight)
+        //{
+        //    SoundManager.Inst.Ds_BgmPlayer(fire);
+        //    fireobject.SetActive(true);
+        //}
+        //else
+        //{
+        //}
+
+        //playerimg = GameObject.Find("UI Root/LobbyPanel/Statpanel/Panel/playersizebox/Character");
+        //equipCharactor = GameObject.Find("UI Root").transform.Find("EquipPanel/Charactorpanel/playersizebox/Charactor").gameObject;
+        //Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
+        //Weapon.Add(EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>());
+        ////EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>().spriteName = item.imageName;
+        //if (item.Class.Equals(CLASS.검))
+        //{
+        //    classname = "Worrior";
+        //    if (Database.Inst.playData.sex.Equals(SEX.Male))
+        //    {
+        //        playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+        //        equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+        //    }
+        //    else
+        //    {
+        //        playerimg.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+        //        equipCharactor.transform.Find("Weapon").transform.localPosition = new Vector3(1, -0.7f, 0);
+        //    }
+        //}
+        //else if (item.Class.Equals(CLASS.활))
+        //{
+        //    classname = "Archer";
+
+        //}
+        //else if (item.Class.Equals(CLASS.지팡이))
+        //{
+        //    classname = "Wizard";
+        //}
+
+        //string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
+        //playerimg.GetComponent<UITexture>().mainTexture = Resources.Load<Texture2D>(playerclass);
+        //equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
+        //playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
+        //ChangeItemIcon(Currentweapon, item);
+        ////Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
+        //Weapon.Add(playerimg.transform.Find("Weapon").GetComponent<UISprite>());
+        //Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox/X").GetComponent<UISprite>();
+        //Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox/X").GetComponent<UISprite>();
+        //Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox/X").GetComponent<UISprite>();
+        //Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox/X").GetComponent<UISprite>();
+        //Weapon.Add(equipCharactor.transform.Find("Weapon").GetComponent<UISprite>());
+        //CurrentActive.transform.Find("IconIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].skill_Index].imageName;
+        //GameObject.Find("UI Root/LobbyPanel/Player/HPCountBG/HP").GetComponent<UISprite>().fillAmount =Database.Inst.playData.currentHp/Database.Inst.playData.;
+        //GameObject.Find("UI Root/LobbyPanel/Player/Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text=
+        //SetWeapon();
+
+        ////테스트용 코드
+        ////GameManager.Inst.Scenestack.Push("Enchant");
+        ////lobbystate = LobbyState.Decomposition;
+
+    }
+    /// <summary>
+    /// 로비에서의 오브젝트 관리
+    /// </summary>
+    public void LobbyObjectSet()
+    {
+        fireobject = GameObject.Find(string.Format("UI Root/LobbyPanel/LobbyBGI/Fire"));
+        playeranimation= GameObject.Find(string.Format("UI Root/LobbyPanel/LobbyBGI/PlayerAnimation"));
+        playerimg= GameObject.Find(string.Format("UI Root/LobbyPanel/Statpanel/Panel/playersizebox/Character"));
+        equipanel = equipCharactor = GameObject.Find(string.Format("UI Root")).transform.Find(string.Format("EquipPanel")).gameObject;
+        equipCharactor = equipanel.transform.Find(string.Format("Charactorpanel/playersizebox/Charactor")).gameObject;
+        Statpanel = GameObject.Find(string.Format("UI Root/LobbyPanel/Statpanel/Sprite"));
+        Inventoryback = equipanel.transform.Find(string.Format("Inventoryback")).gameObject;
+        BGID = Inventoryback.transform.Find(string.Format("BGIPanel/Texture")).gameObject;
+        BGI = Inventoryback.transform.Find(string.Format("BGIPanel/BGI")).gameObject;
+        CurrentActive = equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).gameObject;
+        CurrentArmor = equipanel.transform.Find(string.Format("Charactorpanel/ArmorIconBGI")).gameObject;
+        Currentweapon = equipanel.transform.Find(string.Format("Charactorpanel/EquipWeaponIconBGI")).gameObject;
+        scrollview = Inventoryback.transform.Find("ItemWindow/ScrollView").gameObject;
+        EuiptIcons = GameObject.Find(string.Format("UI Root/LobbyPanel/IconBackgroundU/EquipItem/EquipLabel"));
+        playerStat = GameObject.Find(string.Format("UI Root/LobbyPanel/IconBackgroundU/Player"));
+        EquipStatPanel =equipanel.transform.Find(string.Format("StatBGI")).gameObject;
+    }
+    /// <summary>
+    /// 로비 초기화
+    /// </summary>
+    public void LobbyStateInit()
+    {
+        //player 체력,마나,스텟 조정
         playerStat.transform.Find("HPCountBG/HP").GetComponent<UISprite>().fillAmount = (float)DataTransaction.Inst.CurrentHp / (float)DataTransaction.Inst.MaxHp;
         playerStat.transform.Find("HPCountBG/Label").GetComponent<UILabel>().text = string.Format("{0}/{1}", DataTransaction.Inst.CurrentHp, DataTransaction.Inst.MaxHp);
         playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
-        GameManager.Inst.QuitObject = GameObject.Find("UI Root/QuitPanel").transform.Find("QuitBGI").gameObject;
         SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
         Selecteditem = new List<int>();
-        EuiptIcons = GameObject.Find(string.Format("UI Root/LobbyPanel/IconBackgroundU/EquipItem/EquipLabel"));
         if (isnight)
         {
             SoundManager.Inst.Ds_BgmPlayer(fire);
@@ -78,9 +177,6 @@ public class LobbyManager : MonoBehaviour
         else
         {
         }
-
-        playerimg = GameObject.Find("UI Root/LobbyPanel/Statpanel/Panel/playersizebox/Character");
-        equipCharactor = GameObject.Find("UI Root").transform.Find("EquipPanel/Charactorpanel/playersizebox/Charactor").gameObject;
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         Weapon.Add(EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>());
         //EuiptIcons.transform.Find("Equip1/WeaponImg").GetComponent<UISprite>().spriteName = item.imageName;
@@ -107,29 +203,21 @@ public class LobbyManager : MonoBehaviour
         {
             classname = "Wizard";
         }
-
         string playerclass = string.Format("PlayerCharactor/{0}_{1}", Database.Inst.playData.sex.ToString(), classname);
         playerimg.GetComponent<UITexture>().mainTexture = Resources.Load<Texture2D>(playerclass);
         equipCharactor.GetComponent<UITexture>().mainTexture = Resources.Load(playerclass, typeof(Texture2D)) as Texture2D;
         playeranimation.GetComponent<UISprite>().atlas = Resources.Load("Charactormarshmallow/" + Database.Inst.playData.sex.ToString() + "_marshmallow", typeof(NGUIAtlas)) as NGUIAtlas;
         ChangeItemIcon(Currentweapon, item);
-        //Currentweapon.transform.Find("ValueBGI/공격력수치").GetComponent<UILabel>().text = item.stat.ToString();
         Weapon.Add(playerimg.transform.Find("Weapon").GetComponent<UISprite>());
         Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/SwordIcon/ToggleBox/X").GetComponent<UISprite>();
         Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/BowIcon/ToggleBox/X").GetComponent<UISprite>();
         Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/ArmorIcon/ToggleBox/X").GetComponent<UISprite>();
         Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox").GetComponent<UIToggle>().activeSprite = Inventoryback.transform.Find("ArrangementButtons/FilterButtonBGI/OptionPanel/WandIcon/ToggleBox/X").GetComponent<UISprite>();
         Weapon.Add(equipCharactor.transform.Find("Weapon").GetComponent<UISprite>());
-        //CurrentActive.transform.Find("IconIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].skill_Index].imageName;
-        //GameObject.Find("UI Root/LobbyPanel/Player/HPCountBG/HP").GetComponent<UISprite>().fillAmount =Database.Inst.playData.currentHp/Database.Inst.playData.;
-        //GameObject.Find("UI Root/LobbyPanel/Player/Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text=
         SetWeapon();
-
-        ////테스트용 코드
-        ////GameManager.Inst.Scenestack.Push("Enchant");
-        ////lobbystate = LobbyState.Decomposition;
-
+        statepanelbutton = true;
     }
+
     // Update is called once per frame
     void Update()
     {
@@ -240,10 +328,10 @@ public class LobbyManager : MonoBehaviour
         //GameObject.Find("Panel/Label").GetComponent<UILabel>().text = test;
 
     }
-    public void OptionPanel()
-    {
-        UIButton.current.transform.Find("OptionPanel").gameObject.SetActive(true);
-    }
+    //public void OptionPanel()
+    //{
+    //    UIButton.current.transform.Find("OptionPanel").gameObject.SetActive(true);
+    //}
     public void StatpanelSetup()
     {
         if (statepanelbutton)
@@ -679,11 +767,18 @@ public class LobbyManager : MonoBehaviour
     {
         GameObject.Find("UI Root/QuitPanel/Quit").SetActive(false);
     }
+    /// <summary>
+    /// 마나 조작시에 해야할 것
+    /// </summary>
+    /// <param name="_mana"></param>
     public void Manacontrol(int _mana)
     {
         Database.Inst.playData.mp -= _mana;
         playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
     }
+    /// <summary>
+    /// 무기 변경시에 로비에서 바뀌어야 할 것
+    /// </summary>
     public void SetWeapon()
     {
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
@@ -721,7 +816,11 @@ public class LobbyManager : MonoBehaviour
             Weapon[i].spriteName = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].imageName;
         }
         UpdateAllScrollview();
+        SetplayerStat();
     }
+    /// <summary>
+    /// 아머가 바뀌었을 시에 해야할 것
+    /// </summary>
     public void SetArmor()
     {
         Database.Inventory item = Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum];
@@ -757,21 +856,124 @@ public class LobbyManager : MonoBehaviour
             UpdateAllScrollview();
         }
     }
-    public void CurrentWeaponStat()
-    {
-        Database.Weapon currentweapon =DataTransaction.Inst.CurrentEquipWeapon;
-        GameObject optionBGI = UIButton.current.transform.Find("OptionBGI").gameObject;
-        optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.name;
-        optionBGI.transform.Find("Value").GetComponent<UILabel>().text = currentweapon.damage.ToString();
-        optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.optionTableName;
-    }
-    //Statpanel업데이트
+    //public void CurrentWeaponStat()
+    //{
+    //    Database.Weapon currentweapon = DataTransaction.Inst.CurrentEquipWeapon;
+    //    GameObject optionBGI = UIButton.current.transform.Find("OptionBGI").gameObject;
+    //    optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.name;
+    //    optionBGI.transform.Find("Value").GetComponent<UILabel>().text = currentweapon.damage.ToString();
+    //    optionBGI.transform.Find("Name").GetComponent<UILabel>().text = currentweapon.optionTableName;
+    //}
+
+    /// <summary>
+    /// Statpanel업데이트
+    /// </summary>
     public void SetplayerStat()
     {
-        GameObject StatBanel = GameObject.Find("UI Root/LobbyPanel/Statpanel/Sprite/StatBGI");
+        Statpanel.transform.Find(string.Format("StatBGI/Damage")).GetComponent<UILabel>().text = string.Format("공격력 : {0}",Database.Inst.playData.damage);
+        Statpanel.transform.Find(string.Format("StatBGI/HP")).GetComponent<UILabel>().text = string.Format("체력 :{0}",Database.Inst.playData.hp);
+        Statpanel.transform.Find(string.Format("StatBGI/Defence")).GetComponent<UILabel>().text = string.Format("피해감소량 : {0}",Database.Inst.playData.mp);
+        Statpanel.transform.Find(string.Format("StatBGI/AttackSpeed")).GetComponent<UILabel>().text = string.Format("공격속도:{0}",Database.Inst.playData.attackSpeed);
+
+        GameObject EquipItem=GameObject.Find("UI Root/LobbyPanel/IconBackgroundU/EquipItem/EquipLabel");
+        EquipItem.transform.Find(string.Format("Equip1/OptionBGI/Name")).GetComponent<UILabel>().text= string.Format("{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name);
+        EquipItem.transform.Find(string.Format("Equip1/OptionBGI/Value")).GetComponent<UILabel>().text= string.Format("공격력:{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].itemValue);
+        EquipItem.transform.Find(string.Format("Equip1/OptionBGI/Option")).GetComponent<UILabel>().text= string.Format("옵션:{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].option_Index);
+
+        EquipItem.transform.Find(string.Format("Equip2/OptionBGI/Name")).GetComponent<UILabel>().text= string.Format("{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].name);
+        EquipItem.transform.Find(string.Format("Equip2/OptionBGI/Value")).GetComponent<UILabel>().text= string.Format("체력:{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].itemValue);
+
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/Name")).GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].name);
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/Power")).GetComponent<UILabel>().text = string.Format("공격력:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].attack_Power.ToString());
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/Mana")).GetComponent<UILabel>().text = string.Format("마나:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].mpCost.ToString());
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/CoolTime")).GetComponent<UILabel>().text = string.Format("쿨타임:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].coolTime.ToString());
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/Target")).GetComponent<UILabel>().text = string.Format("대상:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].attack_Range.ToString());
+        EquipItem.transform.Find(string.Format("Equip3/OptionBGI/Discription")).GetComponent<UILabel>().text = string.Format("범위:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].description);
+
+
+        EquipStatPanel.transform.Find("Damage").GetComponent<UILabel>().text = string.Format("공격력 : {0}", Database.Inst.playData.damage);
+        EquipStatPanel.transform.Find("HP").GetComponent<UILabel>().text = string.Format("체력 :{0}", Database.Inst.playData.hp);
+        EquipStatPanel.transform.Find("Defence").GetComponent<UILabel>().text = string.Format("피해감소량 : {0}", Database.Inst.playData.mp);
+        EquipStatPanel.transform.Find("AttackSpeed").GetComponent<UILabel>().text = string.Format("공격속도:{0}", Database.Inst.playData.attackSpeed);
+        
+        equipanel.transform.Find(string.Format("Charactorpanel/EquipWeaponIconBGI")).Find(string.Format("Stat/EquipItemName")).GetComponent<UILabel>().text = string.Format("{0}",Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].name);
+        equipanel.transform.Find(string.Format("Charactorpanel/EquipWeaponIconBGI")).Find(string.Format("Stat/EquipItemStat")).GetComponent<UILabel>().text= string.Format("공격력:{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].itemValue.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ArmorIconBGI")).Find(string.Format("Stat/EquipItemName")).GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiArmor_InventoryNum].name);
+        equipanel.transform.Find(string.Format("Charactorpanel/ArmorIconBGI")).Find(string.Format("Stat/EquipItemStat")).GetComponent<UILabel>().text = string.Format("체력:{0}", Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].itemValue.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActiveName")).GetComponent<UILabel>().text = string.Format("{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].name);
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActivePower")).GetComponent<UILabel>().text = string.Format("공격력:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].attack_Power.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActiveMana")).GetComponent<UILabel>().text = string.Format("마나:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].mpCost.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActiveCoolTime")).GetComponent<UILabel>().text = string.Format("쿨타임:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].coolTime.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActiveTarget")).GetComponent<UILabel>().text = string.Format("대상:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].attack_Range.ToString());
+        equipanel.transform.Find(string.Format("Charactorpanel/ActiveIconBGI")).Find(string.Format("Stat/ActiveDiscription")).GetComponent<UILabel>().text = string.Format("범위:{0}", Database.Inst.skill[Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum].skill_Index].description);
+
     }
     public void GotoBattle()
     {
         SceneManager.LoadScene(BattleScenename);
+    }
+    /// <summary>
+    /// 스킨 움직임 버튼 재생 왼쪽클릭
+    /// </summary>
+    public void SkinLeft()
+    {
+        //애니메이션 재생
+        //슬롯
+        GameObject ItemWindow = GameObject.Find("UI Root/Skin/ItemWindow").gameObject;
+        ItemWindow.GetComponent<Animator>().Play("LeftAnim");
+    }
+    /// <summary>
+    /// 스킨 움직임 버튼 재생 오른쪽클릭
+    /// </summary>
+    public void SkinRight()
+    {
+        GameObject ItemWindow = GameObject.Find("UI Root/Skin/ItemWindow").gameObject;
+        ItemWindow.GetComponent<Animator>().Play("RightAnim");
+    }
+    /// <summary>
+    /// 스킨의 뎁스 원상 복귀
+    /// </summary>
+    public void SkinDepthorder()
+    {
+        GameObject ItemWindow = GameObject.Find("UI Root/Skin/ItemWindow").gameObject;
+
+        for (int i = 0; i < 7; i++)
+        {
+            GameObject Skin = ItemWindow.transform.Find(string.Format("Skin{0}", i)).gameObject;
+            Skin.GetComponent<UISprite>().depth = 6 - (Mathf.Abs(3 - i));
+            Debug.Log(Skin.transform.GetChild(0).GetComponent<Texture>());
+            Skin.transform.GetChild(0).GetComponent<UITexture>().depth = Skin.GetComponent<UISprite>().depth;
+            Debug.Log(string.Format("SkinBGI:{0},Skin:{1},i:{2}", Skin.GetComponent<UISprite>().depth, Skin.GetComponentInChildren<UISprite>().depth, i));
+        }
+        
+    }
+    /// <summary>
+    /// 스킨의 뎁스 좌클릭시 잠시의 조정
+    /// </summary>
+    public void SkinDepthLeftAnim()
+    {
+        GameObject ItemWindow = GameObject.Find("UI Root/Skin/ItemWindow").gameObject;
+        for (int i = 0; i < 7; i++)
+        {
+            GameObject Skin = ItemWindow.transform.Find(string.Format("Skin{0}", i)).gameObject;
+            Skin.GetComponent<UISprite>().depth = 6 - (Mathf.Abs(2 - i));
+            Skin.GetComponentInChildren<UITexture>().depth = Skin.GetComponent<UISprite>().depth;
+            Debug.Log(string.Format("SkinBGI:{0},Skin:{1},i:{2}", Skin.GetComponent<UISprite>().depth, Skin.GetComponentInChildren<UISprite>().depth,i));
+        }
+    }
+    /// <summary>
+    /// 스킨의 뎁스 우클릭시 잠시의 조정
+    /// </summary>
+    public void SkinDepthRightAnim()
+    {
+        GameObject ItemWindow = GameObject.Find("UI Root/Skin/ItemWindow").gameObject;
+
+        for (int i = 0; i < 7; i++)
+        {
+            GameObject Skin = ItemWindow.transform.Find(string.Format("Skin{0}", i)).gameObject;
+            Skin.GetComponent<UISprite>().depth = 6 - (Mathf.Abs(4 - i));
+            Skin.GetComponentInChildren<UITexture>().depth = Skin.GetComponent<UISprite>().depth;
+            Debug.Log(string.Format("SkinBGI:{0},Skin:{1},i:{2}", Skin.GetComponent<UISprite>().depth, Skin.GetComponentInChildren<UISprite>().depth, i));
+        }
     }
 }

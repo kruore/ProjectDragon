@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Koo KyoSeok///2019-12-16/////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,7 +48,18 @@ public class Projectile : MonoBehaviour
             }
         }
     }
-    //Create Projectile 
+    /// <summary>
+    /// 프로젝타일 생성
+    /// </summary>
+    /// <param name="_angle">생성시 각도 아래를 0도로 두며 반시계방향으로 계산</param>
+    /// <param name="_speed">해당 발사체의 속도</param>
+    /// <param name="_damage">해당 발사체의 공격력</param>
+    /// <param name="_projectileAnimator">발사체의 상속된 애니매이터</param>
+    /// <param name="poolItemName"></param>
+    /// <param name="_isplayskill">발사체의 스킬에의한 파괴여부</param>
+    /// <param name="position">발사체 생성위치</param>
+    /// <param name="parent">발사체의 부모</param>
+    /// <returns></returns>
     public Projectile Create(float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
     {
 
@@ -96,6 +108,10 @@ public class Projectile : MonoBehaviour
         rb2d.velocity = new Vector2(-Mathf.Cos((m_angle - 90) / 360 * 2 * Mathf.PI) * speed, -Mathf.Sin((m_angle - 90) / 360 * 2 * Mathf.PI) * speed);
 
     }
+    /// <summary>
+    /// 발사체가 벽에 부딛혔을때 동작할것
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnCollisionEnter2D(Collision2D collision)
     {
 
@@ -104,6 +120,10 @@ public class Projectile : MonoBehaviour
             StartCoroutine(Reset);
         }
     }
+    /// <summary>
+    /// 발사체가 플레이어 에게 부딛혔을때 동작할 것
+    /// </summary>
+    /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag.Equals("Player"))
@@ -136,6 +156,10 @@ public class Projectile : MonoBehaviour
 
     //    }
     //}
+    /// <summary>
+    /// 발사체의 리셋
+    /// </summary>
+    /// <returns></returns>
     IEnumerator ResetProjectile()
     {
         generationtime = 0;

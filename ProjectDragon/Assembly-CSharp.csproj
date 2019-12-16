@@ -199,6 +199,7 @@
     <Compile Include="Assets\NGUI\Scripts\UI\UIViewport.cs" />
     <Compile Include="Assets\NYAN_dots\Scripts\Animator_Test.cs" />
     <Compile Include="Assets\PlayerPrefsEditor\PlayerPrefsMenu.cs" />
+    <Compile Include="Assets\RotateAround.cs" />
     <Compile Include="Assets\Scripts\A_Star\EnemyFollow.cs" />
     <Compile Include="Assets\Scripts\A_Star\FrameChecker.cs" />
     <Compile Include="Assets\Scripts\A_Star\Grid.cs" />

@@ -1,4 +1,7 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Lee Sang Jun///2019-12-13/////////////////////////////////////////////
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,9 +9,17 @@ using UnityEngine;
 public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
+
+    public CameraFollow Player_camera;
+    public IEnumerator P_Camera_Shake;
+
     //템프 앵글
     public float temp_angle;
     public float temp_Movespeed;
+
+    //회피율
+
+    public float invaid;
 
     //코루틴 제어 함수
     public bool isActive;
@@ -83,11 +94,25 @@ public class Player : Character
     {
         DataTransaction.Inst.CurrentHp = HP;
         Debug.Log((float)HP / (float)maxHp);
-        base.HPChanged(ATK);
-        hpBar.fillAmount = (float)HP / (float)maxHp;
+        float currentATK=ATK;
+        if(ATK>0)
+        {
+            float a = Random.Range(0.0f, 100.0f);
+            if (invaid >= a)
+            {
+                currentATK = ATK - (ATK * 0.1f);
+                Debug.Log("회피성공");
+            }
+        }
+        Debug.Log((int)currentATK+"내 체력은 :"+currentHp);
+        hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
+#if UNITY_EDITOR
+        base.HPChanged(0);
+#endif
+        base.HPChanged((int)currentATK);
         return HP;
     }
-    //MP 임시 사용
+    //MP 임시 사용s
     public override int HP
     {
         get { return (int)DataTransaction.Inst.CurrentHp; }
@@ -139,7 +164,6 @@ public class Player : Character
             //동작
             while (isActive)
             {
-                //EnemyArray = EnemyRoom.PlayerLocationRoomMonsterData();
                 if (EnemyArray.Count > 0)
                 {
                     for (int a = 0; a < EnemyArray.Count; a++)
@@ -160,16 +184,14 @@ public class Player : Character
                         {
                             if (attackType == AttackType.LongRange && joyPad.Pressed == false)
                             {
-                                AngleisAttack = true;
                                 moveSpeed = 0;
                                 this.CurrentState = State.Attack;
                                 this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
-                            if(attackType == AttackType.LongRange && joyPad.Pressed == true)
+                            else if(attackType == AttackType.LongRange && joyPad.Pressed == true)
                             {
                                  moveSpeed = temp_Movespeed;
-                                this.CurrentState = State.Idel;
-                                AngleisAttack = false;
+                                 AngleisAttack = false;
                             }
                             if (attackType == AttackType.ShortRange)
                             {
@@ -177,7 +199,6 @@ public class Player : Character
                                 this.CurrentState = State.Attack;
                                 this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
-
                         }
                     }
                     if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) > this.GetComponent<Player>().AtkRange)
@@ -189,14 +210,13 @@ public class Player : Character
                             {
                                 moveSpeed = temp_Movespeed;
                             }
+                            if (enemy_angle != 0 && joyPad.Pressed == true)
+                            {
+                                this.CurrentState = State.Walk;
+                            }
                             if (joyPad.Pressed == false)
                             {
                                 this.CurrentState = State.Idel;
-                                isWalk = false;
-                            }
-                            if (enemy_angle != 0 && isWalk == true)
-                            {
-                                CurrentState = State.Walk;
                             }
                         }
                     }
@@ -218,6 +238,7 @@ public class Player : Character
     void PlayerPrefData(ref float Damage1)
     {
         ATTACKDAMAGE = (int)Damage1;
+        maxHp = (int)DataTransaction.Inst.MaxHp;
         //damage = (int)Damage1;
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
@@ -242,7 +263,10 @@ public class Player : Character
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idel;
-        AtkRangeChanger(4);
+        AtkRangeChanger(6);
+        invaid = 100.0f;
+     //  Database.Inst.playData.hp = 100.0f;
+     //   DataTransaction.Inst.SavePlayerData();
     }
     void Start()
     {
@@ -254,6 +278,7 @@ public class Player : Character
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
+        Player_camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
         hpBar = GameObject.Find("UI Root/PlayerHPBGI/PlayerHP").GetComponent<UISprite>();
         temp_Movespeed = moveSpeed;
     }
@@ -306,41 +331,21 @@ public class Player : Character
             case State.None:
                 break;
             case State.Dead:
-                isAttacking = false;
-                isWalk = false;
-                isDead = true;
-                isHit = false;
-                isSkillActive = false;
                 Time.timeScale = 0;
                 EndPanel.SetActive(true);
-                EndPanel.GetComponentInChildren<UILabel>().text = "사망하셨습니다.";
+                EndPanel.GetComponentInChildren<UILabel>().text = "쓔빠.";
                 break;
             case State.Walk:
-                isWalk = true;
                 break;
             case State.Idel:
-                isWalk = false;
                 break;
             case State.Skill:
-                isAttacking = false;
-                isWalk = false;
-                isDead = false;
-                isHit = false;
-                isSkillActive = true;
                 break;
             case State.Attack:
-                isAttacking = true;
-                isWalk = false;
-                isDead = false;
-                isHit = false;
-                isSkillActive = false;
                 break;
             case State.Hit:
-                isAttacking = false;
-                isWalk = false;
-                isDead = false;
-                isHit = true;
-                isSkillActive = false;
+                break;
+            case State.Get:
                 break;
         }
     }
@@ -416,6 +421,11 @@ public class Player : Character
 
             }
         }
+    }
+    public void CameraShake()
+    {
+        P_Camera_Shake = Player_camera.Shake(1, 1.0f);
+        StartCoroutine(P_Camera_Shake);
     }
 }
 #endregion

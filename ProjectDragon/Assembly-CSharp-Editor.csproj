@@ -408,6 +408,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="ConsolePro.Editor">
+      <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/ConsolePro/Editor/ConsolePro.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Mono.Data.Sqlite">
       <HintPath>C:/Users/epsel/OneDrive/바탕 화면/GitHub/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>

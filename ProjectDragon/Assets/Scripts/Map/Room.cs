@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿
+// ==============================================================
+// Room Object
+//
+//  AUTHOR: Kim Dong Ha
+// CREATED:
+// UPDATED: 2019-12-16
+// ==============================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -18,54 +27,37 @@ public enum RoomState
     Clear
 }
 
-//RoomManager 이름 수정해야함
 public class Room : MonoBehaviour
 {
-    public Vector2 gridPos;
+    public Vector2 gridPos;     //방의 위치를 나타냅니다.
+    public RoomType roomType;   //어떤 방인지를 나타냅니다.
+    public RoomState roomState = RoomState.DeActivate; //현재 방의 상태
+    public int depth; //방이 시작방에서 얼마나 먼 곳에 있는지
 
-    public RoomType roomType;
+    public bool doorTop, doorBot, doorLeft, doorRight; //문이 해당 방향에 있는지 없는지 나타냅니다.
+    public GameObject[] door_All = new GameObject[4] { null, null, null, null}; //문 오브젝트
 
-    public bool doorTop, doorBot, doorLeft, doorRight;
-    public GameObject portal;
+    public GameObject portal; //포탈 오브젝트
 
-    public GameObject[] door_All = new GameObject[4] { null, null, null, null};
-    public List<GameObject> monsters = new List<GameObject>();
+    public List<GameObject> monsters = new List<GameObject>(); //방의 몬스터를 관리하기 위한 리스트
 
-    public RoomState roomState = RoomState.DeActivate;
+    public RoomManager roomManager; 
 
-    public int enemyCount = 0;
+    public Player playerSet; 
 
-    public RoomManager roomManager;
-    //public BattleManager battleManager;
-
-    public int depth;
-
-    public Player playerSet;
-
-    public GameObject MiniMapPos
+    public GameObject MiniMapPos //미니맵 상에서의 방 오브젝트
     {
         get { return miniMapPos; }
         set
         {
             miniMapPos = value;
-            //switch (roomType)
-            //{
-            //    case RoomType.Begin:
-            //        miniMapPos.GetComponent<UISprite>().color = Color.cyan;
-            //        break;
-            //    case RoomType.NPC:
-            //        miniMapPos.GetComponent<UISprite>().color = Color.yellow;
-            //        break;
-            //    case RoomType.Stair:
-            //        miniMapPos.GetComponent<UISprite>().color = Color.green;
-            //        break;
-            //}
         }
     }
     private GameObject miniMapPos;
 
     private void Awake()
     {
+        //데이터 초기화
         InitRoom();
     }
 
@@ -79,13 +71,11 @@ public class Room : MonoBehaviour
     private void InitRoom()
     {
         playerSet = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        //battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
         Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
         foreach (Monster obj in temp_monsters)
         {
             monsters.Add(obj.gameObject);
         }
-        enemyCount = monsters.Count;
     }
 
     //룸의 상태를 확인
@@ -95,7 +85,7 @@ public class Room : MonoBehaviour
         {
             //몬스터 리스트 관리
             MonsterCounting();
-            if (enemyCount == 0 && roomState.Equals(RoomState.Activate))
+            if (monsters.Count == 0 && roomState.Equals(RoomState.Activate))
             {
                 //몬스터가 한 마리도 없다면 클리어입니다.
                 IsClear();
@@ -117,17 +107,18 @@ public class Room : MonoBehaviour
             }
         }
 
-        //테스트 필요
+        //리스트 값 재지정
         monsters.Clear();
         monsters.AddRange(temp_monsters);
-        /////////////
-        enemyCount = monsters.Count;
+
+        //몬스터가 없으면 플레이어에게 Null을 세팅
         if(monsters.Count==0)
         {
             playerSet.TempNullSet();
         }
     }
 
+    //플레이어가 현재 방에 있는게 맞다면 배틀 시작
     void CheckPlayerPos()
     {
         Vector2 PlayerPos = new Vector2(roomManager.player_PosX, roomManager.player_PosY);
@@ -135,18 +126,15 @@ public class Room : MonoBehaviour
         {
             roomState = RoomState.Activate;
 
-            //battleManager.EnemyFinder();
-            //StartCoroutine(battleManager.CalculateDistanceWithPlayer());
-
+            //플레이어 배틀 시작
             playerSet.EnemyArray = monsters;
             StartCoroutine(playerSet.CalculateDistanceWithPlayer());
 
+            //몬스터 배틀 시작
             foreach (GameObject obj in monsters)
             {
-                StartCoroutine(obj.GetComponent<FSM_NormalEnemy>().Start_On());
+                //StartCoroutine(obj.GetComponent<Enemy>().Start_On());
             }
-
-            
         }
     }
 
@@ -154,14 +142,19 @@ public class Room : MonoBehaviour
     void IsClear()
     {
         roomState = RoomState.Clear;
-        OpenAllDoor();
+        OpenAllDoor(); //모든 문 열기
 
-        roomManager.miniMap.gameObject.SetActive(true);
-        miniMapPos.GetComponent<UISprite>().alpha = 1.0f;
-        if(!roomType.Equals(RoomType.Normal))
+        roomManager.miniMap.gameObject.SetActive(true); //미니맵 켜기
+        miniMapPos.GetComponent<UISprite>().alpha = 1.0f; //
+
+        #region 수정 필요 -- 이미지 로드, 포탈 표시 방식
+        //포탈이 있는 방이라면 미니맵 상에서 포탈 표시
+        if (!roomType.Equals(RoomType.Normal))
         {
             miniMapPos.transform.Find("Portal").GetComponent<UISprite>().enabled = true;
         }
+
+        //방이 normal 이 아니라면 미니맵에서 특별한 색으로 표시
         switch (roomType)
         {
             case RoomType.Begin:
@@ -177,15 +170,14 @@ public class Room : MonoBehaviour
             default:
                 break;
         }
+        #endregion
 
+        //포탈 켜기
         roomManager.PortalOn();
+
+        //아이템 획득 - 미구현 상태, 드랍 구현 필요
         //CollectAll_Items();
 
-        //계단방의 경우 문이 열립니다.
-        //if (!roomType.Equals(RoomType.Normal) && roomManager.PortalRoomClearCount() >= 2)
-        //{
-        //    transform.Find("Portal").GetComponent<Portal>().IsPortalOn = true;
-        //}
     }
 
     /// <summary>
@@ -235,6 +227,7 @@ public class Room : MonoBehaviour
         }
     }
 
+ 
     public void SetData(Vector2 _gridPos, RoomType _roomType, RoomManager _roomManager, int _depth, bool[] _door)
     {
         gridPos = _gridPos;

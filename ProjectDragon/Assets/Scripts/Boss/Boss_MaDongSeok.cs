@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Koo KyoSeok///2019-12-16/////////////////////////////////////////////
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 public enum BossState { Ready, Idle, Phase1, Phase2 }
@@ -29,7 +30,7 @@ public class Boss_MaDongSeok : Monster
         HP = maxHp;
         Bossphasechange = BossPhase();
         Debug.Log(HP);
-            
+
         base.Awake();
     }
     protected override void Start()
@@ -56,12 +57,12 @@ public class Boss_MaDongSeok : Monster
         {
             explosion[i].Pause();
         }
-        
+
         base.Start();
     }
     protected override void SetState(State newState)
     {
-        if(newState.Equals(State.Dead))
+        if (newState.Equals(State.Dead))
         {
             objectAnimator.Play("MaDongSeokDead");
             StopCoroutine(PhseState);
@@ -70,14 +71,22 @@ public class Boss_MaDongSeok : Monster
             Explosion();
         }
     }
+    /// <summary>
+    /// 보스시작시 해야할것
+    /// </summary>
     public void StartBoss()
     {
         StartCoroutine(Bossphasechange);
     }
+    /// <summary>
+    /// 보스의 HP가 변할때 콜할것
+    /// </summary>
+    /// <param name="ATK">보스가 공격당함을 기본 상정</param>
+    /// <returns></returns>
     public override int HPChanged(int ATK)
     {
         //damagePopup.Create(transform.position, ATK, false, transform);
-        if (HP < 50&& currentstate.Equals(BossState.Phase1))
+        if (HP < 50 && currentstate.Equals(BossState.Phase1))
         {
 
             currentstate = BossState.Phase2;
@@ -85,7 +94,7 @@ public class Boss_MaDongSeok : Monster
             StopCoroutine(Bossphasechange);
             StartCoroutine(Bossphasechange);
         }
-        if (ATK > 0&&HP>0)
+        if (ATK > 0 && HP > 0)
         {
             IEnumerator flash = GetComponentInChildren<FlashWhite>().Flash();
             StartCoroutine(flash);
@@ -94,7 +103,11 @@ public class Boss_MaDongSeok : Monster
         base.HPChanged(ATK);
         return HP;
     }
-    IEnumerator BossPhase()//보스 패턴이 일어날 phase구현
+    /// <summary>
+    /// 보스 패턴이 일어날 phase구현
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator BossPhase()
     {
         int count = 0;
         if (HP > 0)
@@ -103,7 +116,7 @@ public class Boss_MaDongSeok : Monster
             currentstate++;
             Debug.Log(HP);
             yield return new WaitForSeconds(1f);
-            
+
         }
         while (0 < HP)
         {
@@ -141,6 +154,9 @@ public class Boss_MaDongSeok : Monster
         }
         yield return null;
     }
+    /// <summary>
+    /// 파티클 재생 
+    /// </summary>
     void Explosion()
     {
         for (int i = 0; i < explosion.Length; i++)
@@ -148,8 +164,11 @@ public class Boss_MaDongSeok : Monster
             explosion[i].Play();
         }
     }
-        //내려찍기 구현
-        IEnumerator State1()
+    /// <summary>
+    /// 1번상태
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator State1()
     {
         GameObject arm;
         int random = Random.Range(0, 2);
@@ -165,10 +184,15 @@ public class Boss_MaDongSeok : Monster
         Debug.Log("phase1");
         yield return new WaitForSeconds(Idletime);
     }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="projectileposition"></param>
+    /// <returns></returns>
     IEnumerator State2(Vector3 projectileposition)
     {
 
-        targetpoint.Create(projectilespeed,projectiledamage, "TargetPointObj", projectileposition);
+        targetpoint.Create(projectilespeed, projectiledamage, "TargetPointObj", projectileposition);
         yield return new WaitForSeconds(projectiletime);
 
     }
@@ -227,7 +251,10 @@ public class Boss_MaDongSeok : Monster
         }
 
     }
-    //~투척
+    /// <summary>
+    /// 보스패턴4
+    /// </summary>
+    /// <returns></returns>
     IEnumerator State4()
     {
         objectAnimator.Play("BossSlimePattern");
@@ -259,7 +286,10 @@ public class Boss_MaDongSeok : Monster
         }
         yield return new WaitForSeconds(Idletime);
     }
-    //탄환발사2
+    /// <summary>
+    /// 보스패턴 5
+    /// </summary>
+    /// <returns></returns>
     IEnumerator State5()
     {
         int randomsite = Random.Range(0, 2);

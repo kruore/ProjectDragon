@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Lee Sang Jun///2019-12-13/////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -64,8 +66,8 @@ public class ShortRangeAttackArea : MonoBehaviour
     }
     public void LongAttackOn()
     {
-        FindViewTargets();
-        //RongAttack_normal();
+        //FindViewTargets();
+        RongAttack_normal();
     }
     private void OnDrawGizmos()
     {
@@ -149,5 +151,9 @@ public class ShortRangeAttackArea : MonoBehaviour
         GameObject A = Instantiate(attack_Pref);
         A.transform.parent = B;
         A.transform.localPosition = pref_Rot;
+    }
+    public void AttackCoolDown()
+    {
+        My_Angle.CurrentState = State.Idel;
     }
 }

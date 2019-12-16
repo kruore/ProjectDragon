@@ -1,11 +1,21 @@
-﻿using System.Collections;
+﻿
+// ==============================================================
+// RoomManager
+// Have Map and Minimap data, Almost BattleManager 
+//
+//  AUTHOR: Kim Dong Ha
+// CREATED:
+// UPDATED: 2019-12-16
+// ==============================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//RoomManager 이름 수정해야함
 public class RoomManager : MonoBehaviour
 {
+    //모든 방 모음
     public GameObject[,] Map_Data
     {
         get { return map_Data; }
@@ -13,16 +23,17 @@ public class RoomManager : MonoBehaviour
         {
             //map_Data = new GameObject[gridSizeX, gridSizeY];
             map_Data = value;
+            //map data가 세팅될때 미니맵의 모양도 지정한다.
             miniMap.InitMiniMap();
         }
     }
 
     private GameObject[,] map_Data;
 
-    public int player_PosX, player_PosY;
-    public int gridSizeX_Cen, gridSizeY_Cen;
-    public int gridSizeX, gridSizeY;
-    public int playerGridPosX, playerGridPosY;
+    public int player_PosX, player_PosY; //플레이어의 위치
+    public int gridSizeX_Cen, gridSizeY_Cen; //그리드 중앙
+    public int gridSizeX, gridSizeY; //전체 그리드 크기
+    public int playerGridPosX, playerGridPosY; //플레이어의 그리드 위치
 
     public MiniMap miniMap;
 
@@ -36,6 +47,7 @@ public class RoomManager : MonoBehaviour
         miniMap.RoomManager = GetComponent<RoomManager>();
     }
 
+    //플레이어의 위치를 세팅
     public void SetPlayerPos(int _player_PosX,int _player_PosY)
     {
         player_PosX = _player_PosX;
@@ -45,6 +57,7 @@ public class RoomManager : MonoBehaviour
         miniMap.UpdateMiniMap();
     }
 
+    //그리드 데이터를 세팅
     public void SetGridData(int _gridSizeX_Cen, int _gridSizeY_Cen, int _gridSizeX, int _gridSizeY)
     {
         gridSizeX_Cen = _gridSizeX_Cen;
@@ -55,6 +68,7 @@ public class RoomManager : MonoBehaviour
         playerGridPosY = _gridSizeY_Cen;
     }
 
+    //플레이어 위치에서 주변 모든 방을 검색
     public Room[] PlayerLocationAroundRoomInMap()
     {
         Room[] temp = new Room[4];
@@ -68,26 +82,31 @@ public class RoomManager : MonoBehaviour
         return temp;
     }
 
+    //현재 플레이어가 있는 방을 검색
     public Room PlayerLocationInMap()
     {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>();
     }
 
+    //플레이어가 있는 방의 몬스터 데이터를 검색
     public List<GameObject> PlayerLocationRoomMonsterData()
     {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().monsters;
     }
 
+    //플레이어가 npc방에 있는가?
     public bool PlayerIsNPCRoom()
     { 
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;
     }
 
+    //플레이어가 있는 방이 클리어 상태인가?
     public bool PlayerIsClearRoom()
     {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomState == RoomState.Clear ? true : false;
     }
 
+    //포탈이 있는 방이 몇개나 클리어 됬는지 계산
     public int PortalRoomClearCount()
     {
         int count = 0;
@@ -105,6 +124,7 @@ public class RoomManager : MonoBehaviour
         return count;
     }
 
+    //클리어 된 방의 포탈을 켠다.
     public void PortalOn()
     {
 #if UNITY_EDITOR
@@ -124,6 +144,7 @@ public class RoomManager : MonoBehaviour
         }
     }
 
+    //플레이어의 위치를 x,y로 텔레포트
     public void PlayerTeleportation(float _x, float _y)
     {
         if (_x != player_PosX || _y != player_PosY)
@@ -135,18 +156,22 @@ public class RoomManager : MonoBehaviour
             playerGridPosY = gridSizeY_Cen + player_PosY;
 
             PlayerLocationInMap().gameObject.SetActive(true);
+
+            //미니맵 관리
             miniMap.UpdateMiniMap();
             MiniMapMinimalize();
             GameObject.FindGameObjectWithTag("Player").transform.position = PlayerLocationInMap().transform.position;
         }
     }
 
+    //미니맵의 크기를 키웁니다.
     public void MiniMapMaximalize()
     {
         if(!miniMap.button.onClick[0].methodName.Equals("Minimalize")) miniMap.Maximalize();
         miniMap.button.GetComponent<BoxCollider>().enabled = false;
     }
 
+    //미니맵을 작게 합니다.
     public void MiniMapMinimalize()
     {
         if(!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿//////////////////////////////////////////////////////////MADE BY Lee Sang Jun///2019-12-13/////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -90,6 +92,7 @@ public class AnimatorControll : MonoBehaviour
             temp_name = clearAnimator_name;
             anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
             ClearAnimator_Name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+ "_" + my_state + "_" + anglepos.ToString();
+            AngleStringCast(clearAnimator_name);
         }
         else if (Anim_Master.AngleisAttack == true)
         {
