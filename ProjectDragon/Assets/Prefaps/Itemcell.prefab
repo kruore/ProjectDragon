@@ -1016,7 +1016,6 @@ MonoBehaviour:
   equipIcon: {fileID: 7433667285187460157}
   itemIcon: {fileID: 5986183377322912210}
   rarity: {fileID: 3307908195119698800}
-  Lock: {fileID: 7889452479204001035}
   Itemname: {fileID: 4615419237707071484}
   Itemvalue: {fileID: 7444924560702961074}
   Attackpercent: {fileID: 6822780091229478299}

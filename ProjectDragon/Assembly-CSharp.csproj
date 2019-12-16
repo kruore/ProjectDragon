@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{4AFF48B6-6491-63DF-BF08-210DF2C5B4D9}</ProjectGuid>
+    <ProjectGuid>{D84C003E-C074-E370-F027-1D073BF99516}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -362,19 +362,19 @@
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\ObjectAssets\FreePixelFood\ReadMe.txt" />
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.PackageManagerUI.Editor">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.PackageManagerUI.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.DataPrivacy">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/ScriptAssemblies/Unity.Analytics.DataPrivacy.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -575,28 +575,28 @@
       <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.Sqlite">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.Sqlite.dll</HintPath>
     </Reference>
     <Reference Include="Mono.Data.SqliteClient">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Assets/Plugins/Mono.Data.SqliteClient.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Assets/Plugins/System.Configuration.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Assets/Plugins/System.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System.EnterpriseServices">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Assets/Plugins/System.EnterpriseServices.dll</HintPath>
     </Reference>
     <Reference Include="System.Security">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Assets/Plugins/System.Security.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Assets/Plugins/System.Security.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>D:/카카오톡 받은파일/1024MyProject/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>D:/CCIT_SVN/KooKyoSeok/ProjectDragon/ProjectDragon/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:/Program Files/Unity/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
