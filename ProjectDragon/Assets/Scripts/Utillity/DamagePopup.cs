@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/////////////////////////////////////////////////
+/////////////MADE BY Yang SeEun/////////////////
+/////////////////2019-12-16////////////////////
+//////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -10,7 +15,7 @@ public class DamagePopup : MonoBehaviour
 
     [SerializeField] float moveYSpeed = 2.0f;
     [SerializeField] float disappearSpeed = 7.0f;
-    [SerializeField] float disappearTimer = 0.2f;
+    [SerializeField] float disappearTimer = 0.3f;
 
     Color textColor;
     TextMeshPro textMesh;

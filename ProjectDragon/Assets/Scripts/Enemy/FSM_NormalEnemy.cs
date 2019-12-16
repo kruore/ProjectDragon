@@ -1,4 +1,9 @@
-﻿using System.Collections;
+﻿/////////////////////////////////////////////////
+/////////////MADE BY Yang SeEun/////////////////
+/////////////////2019-12-13////////////////////
+//////////////////////////////////////////////
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +12,7 @@ public class FSM_NormalEnemy : Enemy
 {
 
     [Header(" ")]
-    bool isAttackActive;
+    protected bool isAttackActive;
     public int attackCount;
 
     [Header("[Enemy State]")]
@@ -32,17 +37,6 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
-    public override int HPChanged(int ATK)
-    {
-        //살아 있을때
-        if (!isDead)
-        {
-            Hit();
-            return base.HPChanged(ATK);
-        }
-
-        return 0;
-    }
 
     public override IEnumerator Start_On()
     {
@@ -209,13 +203,10 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
-
-    protected virtual IEnumerator Attack()
+    protected void AttackStart()
     {
-        isAttacking = true;
-
         //Attack Animation parameters
-        objectAnimator.SetBool("Attack", isAttacking);
+        objectAnimator.SetBool("Attack", true);
         objectAnimator.SetBool("Walk", false);
         objectAnimator.SetBool("Wait", false);
         objectAnimator.SetBool("isAttackActive", isAttackActive);
@@ -223,16 +214,22 @@ public class FSM_NormalEnemy : Enemy
         //Cooltime Initialize
         Current_readyTime = 0;
         Current_cooltime = 0;
+    }
 
+    protected virtual IEnumerator Attack()
+    {
+        AttackStart();
+
+        isAttacking = true;
         yield return null;
 
         StartCoroutine(AttackEnd());
     }
 
     
-    #region 구버전애니메이션 관리
-    //Attack 애니메이션 1번만 돌리고 -> Idle로
-    protected IEnumerator AttackEnd()
+    //Attack 애니메이션 n번 돌리고 -> Idle로
+    #region 애니메이션 관리
+    protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
         while (isAttacking)
@@ -241,11 +238,8 @@ public class FSM_NormalEnemy : Enemy
             //Debug.Log(clipInfo[0].clip.name);
 
             float cliptime = clipInfo[0].clip.length;
-            //Debug.Log(cliptime);
             yield return new WaitForSeconds(cliptime);
 
-            count++;
-            //Debug.Log(count);
             if (attackCount == count)
             {
                 isAttacking = false;
@@ -254,28 +248,12 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Idle;
                 break;
             }
+            count++;
+
             yield return null;
         }
     }
-
     #endregion
-
-    protected void Hit()
-    {
-        isHit = true;
-        isWalk = false;
-
-        //White Shader
-        IEnumerator FlashWhiteCor = flashWhite.Flash();
-        StopCoroutine(FlashWhiteCor);
-        StartCoroutine(FlashWhiteCor);
-
-        //넉백
-        KnockBackCor = DirectionKnockBack();
-        StopCoroutine(KnockBackCor);
-        StartCoroutine(KnockBackCor);
-
-    }
 
 
     protected virtual IEnumerator Dead()
@@ -297,9 +275,7 @@ public class FSM_NormalEnemy : Enemy
     }
 
 
-    //근거리/애니메이션 프레임에 설정  -->몸과 충돌시
-    //원거리 -->탄환 충돌시
-    protected virtual IEnumerator Attack_On() { yield return null; }
+    protected virtual void Attack_On() {}
 
 
 

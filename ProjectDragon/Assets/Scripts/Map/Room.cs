@@ -133,7 +133,7 @@ public class Room : MonoBehaviour
             //몬스터 배틀 시작
             foreach (GameObject obj in monsters)
             {
-                //StartCoroutine(obj.GetComponent<Enemy>().Start_On());
+                StartCoroutine(obj.GetComponent<Enemy>().Start_On());
             }
         }
     }
