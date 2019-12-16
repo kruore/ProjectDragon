@@ -1,4 +1,14 @@
-﻿using System.Collections;
+﻿
+// ==============================================================
+// DataTransaction
+// Connect between Database and other Classes.
+//
+//  AUTHOR: Kim Dong Ha
+// CREATED:
+// UPDATED: 2019-12-16
+// ==============================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
@@ -12,45 +22,15 @@ using Random = UnityEngine.Random;
 
 public class DataTransaction : MonoSingleton<DataTransaction>
 {
-    //public UILabel text;
-    //public T Temp_Inventory;
     private Database database;
     public IDbCommand DEB_dbcmd;
 
     private void Awake()
     {
-        //text = GameObject.Find("testText").GetComponent<Text>();
-
         StartCoroutine(DataPhasing());
         database = Database.Inst;
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
-    }
-
-    private void Start()
-    {
-        //text.text = Database.Inst.playData.inventory.Count.ToString();
-        //text.text = Database.Inst.playData.inventory.Count.ToString() + "/";
-        //text.text += database.playData.currentHp + "/";
-        //text.text += database.playData.hp + "/";
-        //text.text += database.playData.damage + "/";
-        //text.text += database.playData.moveSpeed + "/";
-        //text.text += database.playData.attackSpeed + "/";
-        //text.text += database.playData.attackRange + "/";
-        //text.text += database.playData.nuckBack + "/";
-        //text.text += database.playData.currentStage + "/";
-        //text.text += database.playData.mp + "/";
-        //text.text += database.playData.sex + "/";
-        //text.text += database.playData.equiWeapon_InventoryNum + "/";
-        //text.text += database.playData.equiArmor_InventoryNum + "/";
-        //text.text += database.playData.resist_Fire + "/";
-        //text.text += database.playData.resist_Water + "/";
-        //text.text += database.playData.resist_Poison + "/";
-        //text.text += database.playData.resist_Electric + "/";
-        //text.text += database.playData.attackType_Fire + "/";
-        //text.text += database.playData.attackType_Water + "/";
-        //text.text += database.playData.attackType_Poison + "/";
-        //text.text += database.playData.attackType_Electric + "/";
     }
 
     #region Database Connecting
@@ -87,11 +67,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
-        //text.text = dbconn.State.ToString();
-        //text.text = dbconn.ConnectionString;
         dbconn.Open();
-        //text.text = dbconn.State.ToString();
-        //text.text = "open";
         DEB_dbcmd = dbconn.CreateCommand();
     }
 
@@ -101,15 +77,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     IEnumerator LoadAllTableData()
     {
         Load_Weapon_Table();
-        //text.text = "Load_Weapon_Table";
         Load_Armor_Table();
-        //text.text = "Load_Armor_Table";
         Load_ActiveSkill_Table();
-        //text.text = "Load_ActiveSkill_Table";
         Load_Monster_Table();
-        //text.text = "Load_Monster_Table";
         LoadPlayerData();
-        //text.text = "LoadPlayerData";
 
         yield return null;
         StopCoroutine(LoadAllTableData());
@@ -120,13 +91,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     {
         //플레이어 테이블 데이터 로드
         Load_Inventory_Table();
-        //text.text = "Load_Inventory_Table";
         //플레이어의 패시브 데이터를 로드
         Load_Emblem_PlayData();
-        //text.text = "Load_Emblem_PlayData";
         //플레이어 기본 데이터 로드
         Load_PlayerPrefs_Data();
-        //text.text = "Load_PlayerPrefs_Data";
     }
 
     public void SavePlayerData()
@@ -256,6 +224,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
 
 
     #region player data method & property
+    //플레이어의 데이터를 연결해주는 property 들
+
     public Database.PlayData PlayData
     {
         get { return database.playData; }
@@ -335,18 +305,22 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             database.playData.sex = value;
         }
     }
+    //플레이어 현재 스킬
     public Database.Skill CurrentSkill
     {
         get { return database.skill[PlayerEquipWeapon.skill_Index]; }
     }
+    //현재 장착 무기
     public Database.Weapon CurrentEquipWeapon
     {
         get { return database.weapons[PlayerEquipWeapon.DB_Num]; }
     }
+    //현재 장착 방어구
     public Database.Armor CurrentEquipArmor
     {
         get { return database.armors[PlayerEquipArmor.DB_Num]; }
     }
+    //무기 장착 해제
     public Database.Inventory PlayerEquipWeapon
     {
         get
@@ -372,6 +346,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             }
         }
     }
+    //방어구 장착 해제
     public Database.Inventory PlayerEquipArmor
     {
         get
@@ -400,6 +375,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     /// <param name="_optionTableName"></param>
     /// <param name="_num"></param>
     /// <returns></returns>
+    //옵션 데이터 로드
     private Database.OptionTable LoadOptionData(string _optionTableName, int _num)
     {
         string sqlQuery = "SELECT * FROM " + _optionTableName + " WHERE Num = " + _num;
@@ -416,6 +392,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         reader = null;
         return new Database.OptionTable(Num, Parameter, Description, MethodName);
     }
+    //옵션 적용
     private void ApplyOption(Database.OptionTable option)
     {
         Type type = this.GetType();
@@ -425,6 +402,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             method.Invoke(this, new object[] { option.parameter });
         }
     }
+
+    //옵션 함수 모음
     private void IncreaseDamage(float param)
     {
         database.playData.damage += param;
@@ -454,11 +433,8 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     /// </summary>
     private void InitialPlayData()
     {
-        //text.text = "ResetInventory";
         ResetInventory();
-        //text.text = "ResetInventory -> ResetEmblem";
         ResetEmblem();
-        //text.text = "ResetEmblem";
         database.playData.equiWeapon_InventoryNum = 0;
         database.playData.equiArmor_InventoryNum = 1;
 
@@ -468,7 +444,6 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.mp = 1000;
         InitializePlayerStat();
 
-        //database.playData.sex = PlayerPrefs.HasKey("sex") ? (SEX)PlayerPrefs.GetInt("sex") : SEX.Female;
         database.playData.sex = SEX.Female;
         database.playData.resist_Fire = false;
         database.playData.resist_Water = false;
@@ -480,6 +455,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.attackType_Electric = false;
     }
 
+    //아이템에 의한 능력치 조정
     private void InitializePlayerStat()
     {
         Database.Inventory item = database.playData.inventory[0];
@@ -489,11 +465,10 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         database.playData.attackRange = weapon.attack_Range;
         database.playData.nuckBack = weapon.nuckback;
 
-        //item = database.playData.inventory[1];
-        //Database.Armor armor = database.armors[item.DB_Num];
         database.playData.currentHp = MaxHp;
     }
 
+    //죽었을때 인벤토리 초기화
     private void ResetInventory()
     {
         database.playData.inventory.RemoveRange(0, database.playData.inventory.Count);
@@ -505,7 +480,6 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     /// reset emblem table and player data, if unlocked emblemes are retained
     /// </summary>
     /// 
-    // 쿼리 에러 뜸
     private void ResetEmblem()
     {
         List<Database.Emblem> emblem = database.playData.emblem;
@@ -527,11 +501,11 @@ public class DataTransaction : MonoSingleton<DataTransaction>
     #region Database_Load_Player_Data
     //플레이어 데이터 로드 함수
 
+    //플레이어 프리팹 로드
     void Load_PlayerPrefs_Data()
     {
         if (PlayerPrefs.HasKey("save1"))
         {
-            //text.text = "GetSave";
             database.playData.currentHp = PlayerPrefs.GetFloat("currentHp");
             database.playData.hp = PlayerPrefs.GetFloat("hp");
             database.playData.damage = PlayerPrefs.GetFloat("damage");
@@ -555,12 +529,11 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         }
         else
         {
-            //text.text = "InitialPlayData_start";
             InitialPlayData();
-            //text.text = "InitialPlayData_end";
         }
     }
 
+    //인벤토리 테이블 로드
     void Load_Inventory_Table()
     {
         string sqlQuery = "SELECT * FROM Inventory";
@@ -585,7 +558,7 @@ public class DataTransaction : MonoSingleton<DataTransaction>
         reader = null;
     }
 
-
+    //엠블럼 테이블 로드
     void Load_Emblem_PlayData()
     {
         string sqlQuery = "SELECT * FROM Emblem";

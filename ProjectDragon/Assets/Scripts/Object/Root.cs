@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿
+// ==============================================================
+// Root Object
+//
+//  AUTHOR: Kim Dong Ha
+// CREATED:
+// UPDATED: 2019-12-16
+// ==============================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -32,6 +41,7 @@ public class Root : MonoBehaviour
         }
     }
 
+    //깨졌을때의 이미지 로드
     private void ResourceLoad()
     {
         string resourceName = "Object/Sprite/";
@@ -67,6 +77,7 @@ public class Root : MonoBehaviour
         }
     }
 
+    // 밑동이 부서지는 연출
     private void ChangeSprite()
     {
         GetComponent<SpriteRenderer>().sprite = crackedRoot;
@@ -74,6 +85,7 @@ public class Root : MonoBehaviour
         rootState = State.Phase2;
     }
 
+    //계단 열리는 연출
     IEnumerator Effect()
     {
         GetComponent<SpriteRenderer>().enabled = false;
