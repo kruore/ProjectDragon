@@ -278,7 +278,7 @@ MonoBehaviour:
   originOffset: 0
   attackCount: 3
   normalEnemyState: 0
-  projectileAnimator: {fileID: 0}
+  projectileAnimator: {fileID: 22100000, guid: 6eb69141677a6414981b0339384cec3b, type: 2}
 --- !u!1 &581777206034813176
 GameObject:
   m_ObjectHideFlags: 0

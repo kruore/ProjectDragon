@@ -333,7 +333,7 @@ public class Player : Character
             case State.Dead:
                 Time.timeScale = 0;
                 EndPanel.SetActive(true);
-                EndPanel.GetComponentInChildren<UILabel>().text = "쓔빠.";
+                EndPanel.GetComponentInChildren<UILabel>().text = "죽었습니다.";
                 break;
             case State.Walk:
                 break;
