@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2230596931346846138}
   - component: {fileID: 2230596931346846139}
-  - component: {fileID: 2230596931346846136}
   - component: {fileID: 2230596931346846141}
+  - component: {fileID: 1559221524323088830}
   m_Layer: 16
   m_Name: Root_Small
   m_TagString: Object
@@ -81,8 +81,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2230596931346846136
-PolygonCollider2D:
+--- !u!114 &2230596931346846141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2230596931346846137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a11f0c1f69c211479b5a7f8e4f8e5b1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 100
+  rootSize: 0
+  rootState: 0
+  crackedRoot: {fileID: 0}
+--- !u!61 &1559221524323088830
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,31 +120,6 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.31378698, y: -0.10261142}
-      - {x: 0.26208186, y: 0.20763564}
-      - {x: 0.15484476, y: 0.29669702}
-      - {x: -0.0045387745, y: 0.31846976}
-      - {x: -0.13784385, y: 0.28336322}
-      - {x: -0.23305845, y: 0.20660186}
-      - {x: -0.27510858, y: 0.08132231}
-      - {x: -0.2852831, y: -0.19990706}
-      - {x: -0.17938733, y: -0.30450517}
-      - {x: 0.22151661, y: -0.30474}
---- !u!114 &2230596931346846141
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2230596931346846137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a11f0c1f69c211479b5a7f8e4f8e5b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 100
-  rootSize: 0
-  rootState: 0
-  crackedRoot: {fileID: 0}
+  serializedVersion: 2
+  m_Size: {x: 0.55, y: 0.55}
+  m_EdgeRadius: 0

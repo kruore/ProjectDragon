@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2196838489892348887}
   - component: {fileID: 2196838489892348884}
-  - component: {fileID: 2196838489892348885}
+  - component: {fileID: 8889801563818745646}
   - component: {fileID: 2196838489892348886}
   m_Layer: 16
   m_Name: Root_Middle
@@ -81,8 +81,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!60 &2196838489892348885
-PolygonCollider2D:
+--- !u!61 &8889801563818745646
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -104,21 +104,9 @@ PolygonCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.48310798, y: -0.5849285}
-      - {x: 0.6011731, y: -0.20439339}
-      - {x: 0.5961406, y: 0.2636448}
-      - {x: 0.55283445, y: 0.3887387}
-      - {x: 0.43776238, y: 0.49984246}
-      - {x: 0.24514937, y: 0.58277375}
-      - {x: 0.010561466, y: 0.6022262}
-      - {x: -0.23675835, y: 0.5556628}
-      - {x: -0.4538306, y: 0.44485903}
-      - {x: -0.5944778, y: 0.26203442}
-      - {x: -0.59540665, y: -0.21109778}
-      - {x: -0.5551518, y: -0.60683763}
-      - {x: -0.16804063, y: -0.6162007}
+  serializedVersion: 2
+  m_Size: {x: 1.15, y: 1.15}
+  m_EdgeRadius: 0
 --- !u!114 &2196838489892348886
 MonoBehaviour:
   m_ObjectHideFlags: 0

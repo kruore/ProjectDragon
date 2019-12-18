@@ -260,22 +260,27 @@ public class Enemy : Monster
             //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기 (혹시모를 검사 한번더하기)
             if (isHit)
             {
+                isCollision = true;
+
                 Physics2D.IgnoreCollision(collision, col);
             }
         }
     }
+    public bool isCollision = false;
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Cliff"))
         {
             //충돌할때 walk이면 콜라이더끄기
             if (isWalk)
             {
+                isCollision = true;
                 Physics2D.IgnoreCollision(collision, col);
             }
             //콜라이더 꺼져있을때 Hit되면 콜라이더 켜기
             if (isHit)
             {
+                isCollision = false;
                 Physics2D.IgnoreCollision(collision, col, false);
             }
         }
@@ -285,22 +290,26 @@ public class Enemy : Monster
         {
             if (isHit)
             {
+                isCollision = true;
                 Physics2D.IgnoreCollision(collision, col);
             }
             else
             {
+                isCollision = false;
                 Physics2D.IgnoreCollision(collision, col, false);
             }
         }
     }
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Cliff"))
         {
+            isCollision = false;
             Physics2D.IgnoreCollision(collision, col, false);
         }
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            isCollision = false;
             Physics2D.IgnoreCollision(collision, col,false);
         }
     }

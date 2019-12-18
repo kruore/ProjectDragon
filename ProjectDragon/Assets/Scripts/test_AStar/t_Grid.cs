@@ -47,8 +47,9 @@ public class t_Grid : MonoBehaviour
     public void CreateGrid()
     {
         gridNode = new t_Node[gridSizeX, gridSizeY];
+        //Vector3 pivot = new Vector3(0.0f, 0.3f, 0.0f);
         Vector3 BottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
-
+        //BottonLeft -= pivot;
         for (int y = 0; y < gridSizeY; y++)
         {
             for (int x = 0; x < gridSizeX; x++)

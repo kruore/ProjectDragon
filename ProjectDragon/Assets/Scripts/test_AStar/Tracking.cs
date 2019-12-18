@@ -40,17 +40,18 @@ public class Tracking : MonoBehaviour
         pathFinding.FindPath(transform.position, targetPos.position);
         if (pathFinding.grid != null && pathFinding.finalPath.Count > 0)
         {
+            Debug.Log("dddd");
             findPathNode = pathFinding.finalPath.ToArray();
             StartCoroutine(Move(_rb2d, _moveSpeed));
         }
     }
-    bool isArriveStartNode = false;
+   // bool isArriveStartNode = false;
     IEnumerator Move(Rigidbody2D _rb2d, float _moveSpeed)
     {
 
         currentWaypoint = findPathNode[0].Pos;
 
-        if (Vector3.Distance(transform.position, currentWaypoint) == 0.0f)  //오차범위 0.1
+        if (Vector3.Distance(transform.position, currentWaypoint) <= 0.1f)  //오차범위 0.1
         {
             pathNextIndex++;
             if (pathNextIndex >= findPathNode.Length)
@@ -60,25 +61,26 @@ public class Tracking : MonoBehaviour
             currentWaypoint = findPathNode[pathNextIndex].Pos;
         }
 
-        if (transform.position == pathFinding.startNode.Pos)
-        {
-            isArriveStartNode = true;
-        }
-     
+        //if (transform.position == pathFinding.startNode.Pos)
+        //{
+        //    isArriveStartNode = true;
+        //}
 
-        if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 먼저이동
-        {
-            transform.position = Vector3.MoveTowards(transform.position, pathFinding.startNode.Pos, 10.0f * Time.deltaTime);
-        }
-        else
-        {
+
+        //if (!isArriveStartNode) //FianlPath로 이동전에 노드위치로 먼저이동
+        //{
+        //    transform.position = Vector3.MoveTowards(transform.position, pathFinding.startNode.Pos, 10.0f * Time.deltaTime);
+        //}
+        //else
+        //{
+        Debug.Log(currentWaypoint.ToString());
             transform.position = Vector3.MoveTowards(transform.position, currentWaypoint, _moveSpeed * Time.deltaTime);
             
             //Velocity Move
             // _rb2d.velocity = Vector3.zero;
             //Vector3 moveDirection = (currentWaypoint - pathFinding.startNode.Pos).normalized;
             //_rb2d.velocity = moveDirection * _moveSpeed * 10.0f * Time.deltaTime;
-        }
+        //}
 
         yield return null;
     }

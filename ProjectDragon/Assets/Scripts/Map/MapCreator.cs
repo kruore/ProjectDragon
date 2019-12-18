@@ -355,7 +355,7 @@ public class MapCreator : MonoBehaviour
             if (room.type.Equals(RoomType.Begin)) map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Base, drawPos, Quaternion.identity, Map_Root.transform);
             else
             {
-                int rand = Random.Range(0, map_Prefabs_Count - 1);
+                int rand = Random.Range(0, map_Prefabs_Count);
                 map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Prefabs[rand], drawPos, Quaternion.identity, Map_Root.transform);
             }
             map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
