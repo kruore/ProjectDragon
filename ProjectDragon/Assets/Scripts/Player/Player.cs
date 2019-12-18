@@ -93,7 +93,7 @@ public class Player : Character
     public override int HPChanged(int ATK)
     {
         DataTransaction.Inst.CurrentHp = HP;
-        Debug.Log((float)HP / (float)maxHp);
+        //Debug.Log((float)HP / (float)maxHp);
         float currentATK=ATK;
         if(ATK>0)
         {

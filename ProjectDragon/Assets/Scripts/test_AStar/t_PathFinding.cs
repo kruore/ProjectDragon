@@ -83,6 +83,7 @@ public class t_PathFinding : MonoBehaviour
             {
                 break;
             }
+
             //currentNode = OpenList[0];
             //for(int i=1;i<OpenList.Count;i++)
             //{

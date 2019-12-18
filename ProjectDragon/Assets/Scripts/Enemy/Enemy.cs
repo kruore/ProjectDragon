@@ -118,7 +118,10 @@ public class Enemy : Monster
         }
     }
 
-
+    protected virtual RaycastHit2D[] GetRaycastType()
+    {
+        return Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
+    }
     protected bool CheckRaycast()
     {
         inAtkDetectionRange = false;
@@ -135,8 +138,9 @@ public class Enemy : Monster
         //int layerMask = (1 << LayerMask.NameToLayer("Player") | 1 << LayerMask.NameToLayer("Wall"));
 
         #endregion
-        //Physics2D.BoxCast(startingPosition, direction, AtkRange - originOffset, 0, m_viewTargetMask);
-        hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
+
+        hit = GetRaycastType();
+        //hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
         foreach (RaycastHit2D _hit in hit)
         {
@@ -198,7 +202,10 @@ public class Enemy : Monster
         knockTime = 0.1f;
         knockPower = 0.2f;
 
-        DirectionKnockBack(direction, knockTime, knockPower);
+        rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(knockTime);
+
+        rb2d.velocity = Vector2.zero;
         isHit = false;
         yield return null;
     }

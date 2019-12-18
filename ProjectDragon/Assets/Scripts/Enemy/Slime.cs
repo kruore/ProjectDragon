@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////
 /////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
+/////////////////2019-12-18////////////////////
 //////////////////////////////////////////////
 
 using System.Collections;
@@ -9,13 +9,21 @@ using UnityEngine;
 
 public class Slime : FSM_NormalEnemy
 {
+    BoxCollider2D boxCol;
     protected override void Awake()
     {
         base.Awake();
-        col = GetComponent<BoxCollider2D>();
+        boxCol = GetComponent<BoxCollider2D>();
+        col = boxCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
         childDeadParticle = transform.Find("DeadParticle").gameObject;
+    }
+
+    protected override RaycastHit2D[] GetRaycastType()
+    {
+        //BoxCast
+        return Physics2D.BoxCastAll(startingPosition, boxCol.size, 0, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
     protected override void Start()

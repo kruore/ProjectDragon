@@ -47,7 +47,7 @@ public class t_Grid : MonoBehaviour
     public void CreateGrid()
     {
         gridNode = new t_Node[gridSizeX, gridSizeY];
-        Vector3 BottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
+        Vector3 BottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2 /*- new Vector3(0,0.3f,1f)*/;
 
         for (int y = 0; y < gridSizeY; y++)
         {

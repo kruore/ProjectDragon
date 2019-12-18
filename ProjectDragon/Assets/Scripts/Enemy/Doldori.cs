@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////
 /////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-13////////////////////
+/////////////////2019-12-18////////////////////
 //////////////////////////////////////////////
 
 
@@ -10,15 +10,27 @@ using UnityEngine;
 
 public class Doldori : FSM_NormalEnemy
 {
-
+    CapsuleCollider2D capsuleCol;
     protected override void Awake()
     {
         base.Awake();
-        col = GetComponent<CapsuleCollider2D>();
+        capsuleCol = GetComponent<CapsuleCollider2D>();
+        col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall" , "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
+    protected override RaycastHit2D[] GetRaycastType()
+    {
+        //CapsuleCas
+        return Physics2D.CapsuleCastAll(startingPosition, capsuleCol.size, CapsuleDirection2D.Vertical,0, direction,AtkRange - originOffset, m_viewTargetMask);
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+       // Time.timeScale = 0.2f;
+    }
     void Update()
     {
         DustParticleCheck();
@@ -60,15 +72,16 @@ public class Doldori : FSM_NormalEnemy
     {
         isAttacking = false;
         invincible = false;
-        rb2d.velocity = Vector2.zero;
-        
-        //반동
-        StartCoroutine(DirectionKnockBack(attackDirection, 0.5f, 1.5f));
 
+        rb2d.velocity = Vector2.zero;
+
+        //반동
+        rb2d.AddForce(-attackDirection * 1.5f, ForceMode2D.Impulse);
         //Attack Animation parameters
         objectAnimator.SetBool("Attack", isAttacking);
-        //transform.rotation = Quaternion.Euler(0, 0, 0);
         NEState = NormalEnemyState.Idle;
+
+
         yield return null;
 
         AttackEndCor = null;
