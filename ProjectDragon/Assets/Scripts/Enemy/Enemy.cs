@@ -122,6 +122,9 @@ public class Enemy : Monster
     {
         return Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
     }
+
+    bool isRayHit = false;
+    RaycastHit2D HitRay;
     protected bool CheckRaycast()
     {
         inAtkDetectionRange = false;
@@ -139,6 +142,7 @@ public class Enemy : Monster
 
         #endregion
 
+       
         hit = GetRaycastType();
         //hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
@@ -146,6 +150,8 @@ public class Enemy : Monster
         {
             if (_hit.collider != null)
             {
+                isRayHit = _hit;
+                HitRay = _hit;
                 //Debug.Log("hit name :" + _hit.collider.gameObject.name);
                 if (_hit.collider.gameObject.CompareTag("Wall")|| _hit.collider.gameObject.CompareTag("Cliff"))
                 {
@@ -227,8 +233,19 @@ public class Enemy : Monster
     {
         if (m_bDebugMode)
         {
-            Debug.DrawRay(startingPosition, direction * (AtkRange - originOffset), Color.red);
+            //범위
             Gizmos.DrawWireSphere(transform.position, AtkRange);
+
+            //RayCast
+            if (isRayHit)
+            {
+                Debug.DrawRay(startingPosition, direction * HitRay.distance, Color.red);
+                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.275f);
+            }
+            else
+            {
+                Debug.DrawRay(startingPosition, direction * (AtkRange - originOffset), Color.red);
+            }
         }
     }
     //+ Vector2.Dot(directionOriginOffset, direction)

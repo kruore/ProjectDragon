@@ -47,7 +47,6 @@ public class Tracking : MonoBehaviour
     //bool isArriveStartNode = false;
     IEnumerator Move(Rigidbody2D _rb2d, float _moveSpeed)
     {
-
         currentWaypoint = findPathNode[0].Pos;
 
         if (Vector3.Distance(transform.position, currentWaypoint) <= 0.1f)  //오차범위 0.1
@@ -58,6 +57,7 @@ public class Tracking : MonoBehaviour
                 yield break;
             }
             currentWaypoint = findPathNode[pathNextIndex].Pos;
+            pathNextIndex = 0;
         }
 
         //if (transform.position == pathFinding.startNode.Pos)

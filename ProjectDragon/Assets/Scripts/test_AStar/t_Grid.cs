@@ -47,7 +47,7 @@ public class t_Grid : MonoBehaviour
     public void CreateGrid()
     {
         gridNode = new t_Node[gridSizeX, gridSizeY];
-        Vector3 BottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2 /*- new Vector3(0,0.3f,1f)*/;
+        Vector3 BottonLeft = transform.position - Vector3.right * gridWorldSize.x / 2 - Vector3.up * gridWorldSize.y / 2;
 
         for (int y = 0; y < gridSizeY; y++)
         {
@@ -118,8 +118,8 @@ public class t_Grid : MonoBehaviour
 
     public t_Node NodeFromWorldPosition(Vector3 _worldPosition)
     {
-        float xPoint = (((_worldPosition.x - transform.parent.position.x) + gridWorldSize.x / 2) / gridWorldSize.x);
-        float yPoint = (((_worldPosition.y - transform.parent.position.y) + gridWorldSize.y / 2) / gridWorldSize.y);
+        float xPoint = (((_worldPosition.x - transform.parent.position.x + (transform.parent.position.x-transform.position.x)) + gridWorldSize.x / 2) / gridWorldSize.x);
+        float yPoint = (((_worldPosition.y - transform.parent.position.y + (transform.parent.position.y - transform.position.y)) + gridWorldSize.y / 2) / gridWorldSize.y);
 
         xPoint = Mathf.Clamp01(xPoint);
         yPoint = Mathf.Clamp01(yPoint);
