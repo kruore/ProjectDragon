@@ -10,13 +10,13 @@ using UnityEngine;
 public class Mr_Gobulhwa : FSM_NormalEnemy
 {
     public RuntimeAnimatorController projectileAnimator;
-    BoxCollider2D boxCol;
+    CircleCollider2D circleCol;
 
     protected override void Awake()
     {
         base.Awake();
-        boxCol = GetComponent<BoxCollider2D>();
-        col = boxCol;
+        circleCol = GetComponent<CircleCollider2D>();
+        col = circleCol;
         childDustParticle = transform.Find("DustParticle").gameObject;
         projectile = new Projectile();
         //projectile = this.gameObject.AddComponent<Projectile>();
@@ -25,8 +25,8 @@ public class Mr_Gobulhwa : FSM_NormalEnemy
 
     protected override RaycastHit2D[] GetRaycastType()
     {
-        //BoxCast
-        return Physics2D.BoxCastAll(startingPosition, boxCol.size, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+        //CircleCast
+        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
     Projectile projectile;

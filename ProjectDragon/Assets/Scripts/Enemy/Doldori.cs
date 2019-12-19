@@ -29,7 +29,6 @@ public class Doldori : FSM_NormalEnemy
     protected override void Start()
     {
         base.Start();
-       // Time.timeScale = 0.2f;
     }
     void Update()
     {
@@ -41,15 +40,14 @@ public class Doldori : FSM_NormalEnemy
     protected override IEnumerator Attack()
     {
         AttackStart();
-        //무적
-        invincible = true;
+        invincible = true;                             //무적
         yield return new WaitForSeconds(1.5f);
 
         //Attacking
         isAttacking = true;
         objectAnimator.Play("Attacking");
         attackDirection = direction;
-        //transform.rotation = Quaternion.FromToRotation(Vector3.up, attackDirection);
+
         while (isAttacking)
         {
             rb2d.AddForce(attackDirection * 0.2f, ForceMode2D.Impulse);

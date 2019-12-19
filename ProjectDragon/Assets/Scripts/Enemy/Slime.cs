@@ -9,12 +9,12 @@ using UnityEngine;
 
 public class Slime : FSM_NormalEnemy
 {
-    BoxCollider2D boxCol;
+    CircleCollider2D circleCol;
     protected override void Awake()
     {
         base.Awake();
-        boxCol = GetComponent<BoxCollider2D>();
-        col = boxCol;
+        circleCol = GetComponent<CircleCollider2D>();
+        col = circleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
         childDeadParticle = transform.Find("DeadParticle").gameObject;
@@ -22,8 +22,8 @@ public class Slime : FSM_NormalEnemy
 
     protected override RaycastHit2D[] GetRaycastType()
     {
-        //BoxCast
-        return Physics2D.BoxCastAll(startingPosition, boxCol.size, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+        //CircleCast
+        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
     protected override void Start()

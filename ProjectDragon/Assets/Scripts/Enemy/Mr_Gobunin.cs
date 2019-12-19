@@ -9,23 +9,23 @@ using UnityEngine;
 
 public class Mr_Gobunin : FSM_NormalEnemy
 {
-    BoxCollider2D boxCol;
+    CircleCollider2D circleCol;
     Projectile projectile;
     public RuntimeAnimatorController projectileAnimator;
 
     protected override void Awake()
     {
         base.Awake();
-        boxCol = GetComponent<BoxCollider2D>();
-        col = boxCol;
+        circleCol = GetComponent<CircleCollider2D>();
+        col = circleCol;
         childDustParticle = transform.Find("DustParticle").gameObject;
         projectile = new Projectile();
     }
 
     protected override RaycastHit2D[] GetRaycastType()
     {
-        //BoxCast
-        return Physics2D.BoxCastAll(startingPosition, boxCol.size, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+        //CircleCast
+        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
     private void Update()

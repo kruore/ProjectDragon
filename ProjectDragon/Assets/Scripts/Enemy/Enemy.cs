@@ -120,6 +120,13 @@ public class Enemy : Monster
 
     protected virtual RaycastHit2D[] GetRaycastType()
     {
+        ////BoxCast
+        //return Physics2D.BoxCastAll(startingPosition, boxCol.size, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+        ////CircleCast
+        //return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
+        ////CapsuleCas
+        //return Physics2D.CapsuleCastAll(startingPosition, capsuleCol.size, CapsuleDirection2D.Vertical, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+
         return Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
@@ -240,7 +247,7 @@ public class Enemy : Monster
             if (isRayHit)
             {
                 Debug.DrawRay(startingPosition, direction * HitRay.distance, Color.red);
-                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.275f);
+                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);
             }
             else
             {
