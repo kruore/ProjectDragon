@@ -120,7 +120,7 @@ Rigidbody2D:
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
-  m_LinearDrag: 0
+  m_LinearDrag: 1
   m_AngularDrag: 0.05
   m_GravityScale: 0
   m_Material: {fileID: 0}
@@ -215,8 +215,8 @@ MonoBehaviour:
     m_Bits: 0
   collisionPlayer: 0
   invincible: 0
-  readyTime: 4
-  cooltime: 5
+  readyTime: 3
+  cooltime: 6
   knockTime: 0.3
   knockPower: 1.5
   skillCooltime: 0

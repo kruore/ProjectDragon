@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8367755410942635252}
   - component: {fileID: 8367755410942635255}
   - component: {fileID: 8367755410942635254}
+  - component: {fileID: 5994642191068121689}
   m_Layer: 13
   m_Name: Rock_Small_Normal2
   m_TagString: Wall
@@ -115,3 +116,24 @@ PolygonCollider2D:
       - {x: 0.29417515, y: -0.24255347}
       - {x: 0.30607462, y: 0.10385442}
       - {x: 0.19586802, y: 0.26024437}
+--- !u!50 &5994642191068121689
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8367755410942635249}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7

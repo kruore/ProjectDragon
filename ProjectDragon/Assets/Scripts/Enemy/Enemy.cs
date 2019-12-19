@@ -23,8 +23,8 @@ public class Enemy : Monster
     [SerializeField] protected float cooltime;          //Idle ->Attack time
     protected float Current_readyTime = 0;
     protected float Current_cooltime = 0;
-    [SerializeField] protected float knockTime = 0.15f;
-    [SerializeField] protected float knockPower = 1.0f;
+    [SerializeField] protected float knockPower = 0.2f;
+    protected float knockTime = 0.3f;
 
 
     [Header("[Rare Enemy Attribute]")]
@@ -208,12 +208,11 @@ public class Enemy : Monster
     IEnumerator KnockBack()
     {
         /////////////////////////////나중에
-        ////스킬로 맞으면
-        //knockTime = 0.3f;
-        //knockPower = 1.5f;
-        //평타로 맞으면
-        knockTime = 0.1f;
+        //움찔
         knockPower = 0.2f;
+        ////넉백수치
+        ///if(넉백될거면)
+        //knockPower = 넉백수치;     기본 1.0f;
 
         rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockTime);
@@ -247,6 +246,7 @@ public class Enemy : Monster
             if (isRayHit)
             {
                 Debug.DrawRay(startingPosition, direction * HitRay.distance, Color.red);
+                Gizmos.color = Color.red;
                 Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);
             }
             else

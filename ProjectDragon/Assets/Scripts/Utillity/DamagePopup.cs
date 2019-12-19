@@ -13,9 +13,9 @@ public class DamagePopup : MonoBehaviour
 
     public string poolItemName = "DamagePopupObj";
 
-    [SerializeField] float moveYSpeed = 2.0f;
-    [SerializeField] float disappearSpeed = 7.0f;
-    [SerializeField] float disappearTimer = 0.3f;
+    [SerializeField] float moveYSpeed;
+    [SerializeField] float disappearSpeed;
+    [SerializeField] float disappearTimer;
 
     Color textColor;
     TextMeshPro textMesh;
@@ -41,7 +41,7 @@ public class DamagePopup : MonoBehaviour
         _parent = parent;
         GameObject damageObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
         damagePopup = damageObject.transform.GetComponent<DamagePopup>();
-        damagePopup.Initialize();
+        //damagePopup.Initialize();
         damagePopup.transform.position = position;
         damagePopup.Setup(damageAmount,isCriticalHit);
         damageObject.SetActive(true);
