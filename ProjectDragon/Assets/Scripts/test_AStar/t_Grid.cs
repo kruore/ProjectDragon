@@ -119,8 +119,8 @@ public class t_Grid : MonoBehaviour
 
     public t_Node NodeFromWorldPosition(Vector3 _worldPosition)
     {
-        float xPoint = (((_worldPosition.x - transform.parent.position.x) + gridWorldSize.x / 2) / gridWorldSize.x);
-        float yPoint = (((_worldPosition.y - transform.parent.position.y) + gridWorldSize.y / 2) / gridWorldSize.y);
+        float xPoint = (((_worldPosition.x - transform.parent.position.x + (transform.parent.position.x - transform.position.x)) + gridWorldSize.x / 2) / gridWorldSize.x);
+        float yPoint = (((_worldPosition.y - transform.parent.position.y + (transform.parent.position.y - transform.position.y)) + gridWorldSize.y / 2) / gridWorldSize.y);
 
         xPoint = Mathf.Clamp01(xPoint);
         yPoint = Mathf.Clamp01(yPoint);

@@ -59,6 +59,7 @@ public class Tracking : MonoBehaviour
                 yield break;
             }
             currentWaypoint = findPathNode[pathNextIndex].Pos;
+            pathNextIndex = 0;
         }
 
         //if (transform.position == pathFinding.startNode.Pos)

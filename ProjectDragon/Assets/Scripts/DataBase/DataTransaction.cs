@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Linq;
 using System.IO;
 using System.Data;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -44,10 +45,16 @@ public class DataTransaction : MonoSingleton<DataTransaction>
             conn = Application.persistentDataPath + "/DS_Database.sqlite";
             if (!File.Exists(conn))
             {
-                WWW loadDB = new WWW("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
-                loadDB.bytesDownloaded.ToString();
-                while (!loadDB.isDone) { }
-                File.WriteAllBytes(conn, loadDB.bytes);
+                UnityWebRequest unityWebRequest = UnityWebRequest.Get("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
+                unityWebRequest.downloadedBytes.ToString();
+                while(!unityWebRequest.SendWebRequest().isDone) { }
+                File.WriteAllBytes(conn, unityWebRequest.downloadHandler.data);
+
+                //조금 있으면 사라질 코드 형식입니다.
+                //WWW loadDB = new WWW("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
+                //loadDB.bytesDownloaded.ToString();
+                //while (!loadDB.isDone) { }
+                //File.WriteAllBytes(conn, loadDB.bytes);
             }
         }
         yield return null;
