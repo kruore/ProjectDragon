@@ -1,10 +1,4 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
-//////////////////////////////////////////////
-
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,51 +11,16 @@ public class t_PathFinding : MonoBehaviour
 
     int nodeOverlapCountX, nodeOverlapCountY;       //오브젝트와 노드가 겹치는 노드갯수
 
-
-
-    public void Create(Collider2D _collider , t_Grid _AStar)
+    public void Create(float _objBoxSizeX, float _objBoxSizeY, t_Grid _AStar)
     {
+        //grid = GameObject.Find("AStar").transform.GetComponent<t_Grid>();
         grid = _AStar;
 
-        //콜라이더 종류에 따라 겹치는 노드갯수 구하기
-        if (_collider is BoxCollider2D)
-        {
-            BoxCollider2D boxCol = _collider as BoxCollider2D;
-
-            //GetOverlapNodeCount
-            nodeOverlapCountX = grid.CalcOverlapNodeCount(boxCol.size.x);
-            nodeOverlapCountY = grid.CalcOverlapNodeCount(boxCol.size.y);
-        }
-
-        else if (_collider is CapsuleCollider2D)
-        {
-            CapsuleCollider2D capsuleCol = _collider as CapsuleCollider2D;
-
-            //GetOverlapNodeCount
-            nodeOverlapCountX = grid.CalcOverlapNodeCount(capsuleCol.size.x);
-            nodeOverlapCountY = grid.CalcOverlapNodeCount(capsuleCol.size.y);
-
-        }
-
-        else if (_collider is CircleCollider2D)
-        {
-            CircleCollider2D circleCol = _collider as CircleCollider2D;
-
-            //GetOverlapNodeCount
-            nodeOverlapCountY = nodeOverlapCountX = grid.CalcOverlapNodeCount(circleCol.radius*2);
-        }
+        //GetOverlapNodeCount
+        nodeOverlapCountX = grid.CalcOverlapNodeCount(_objBoxSizeX);
+        nodeOverlapCountY = grid.CalcOverlapNodeCount(_objBoxSizeY);
+        //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
     }
-
-    //public void Create(float _objBoxSizeX, float _objBoxSizeY, t_Grid _AStar)
-    //{
-    //    //grid = GameObject.Find("AStar").transform.GetComponent<t_Grid>();
-    //    grid = _AStar;
-
-    //    //GetOverlapNodeCount
-    //    nodeOverlapCountX = grid.CalcOverlapNodeCount(_objBoxSizeX);
-    //    nodeOverlapCountY = grid.CalcOverlapNodeCount(_objBoxSizeY);
-    //    //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
-    //}
 
     t_Node targetNode, currentNode;
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
@@ -96,7 +55,7 @@ public class t_PathFinding : MonoBehaviour
             //ClosedList.Add(currentNode);
 
             //도착했는가?
-            if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //노드크기가 하나 노드보다 큰 경우
+            if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //Grid의 하나 노드보다 큰 경우
             {
                 foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
                 {
@@ -107,7 +66,7 @@ public class t_PathFinding : MonoBehaviour
                     }
                 }
             }
-            else                                                   //노드크기가 하나 노드인 경우
+            else
             {
                 if (currentNode == targetNode)
                 {
@@ -119,8 +78,8 @@ public class t_PathFinding : MonoBehaviour
 
             foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
             {
-                //타겟노드가 갈 수 없는 노드로 되어있다면
-                if (GetNotWalkNode(NeighborNode) == targetNode)  //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
+                
+                if(GetNotWalkNode(NeighborNode) == targetNode) //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
                 {
                     NeighborNode.gCost = currentNode.gCost + GetManhattenDistance(currentNode, NeighborNode);
                     NeighborNode.hCost = GetManhattenDistance(NeighborNode, targetNode);
@@ -131,8 +90,6 @@ public class t_PathFinding : MonoBehaviour
                     }
                     break;
                 }
-
-
                 if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
@@ -159,14 +116,13 @@ public class t_PathFinding : MonoBehaviour
     }
     t_Node GetNotWalkNode(t_Node NeiNode)
     {
-        //이웃노드와 타겟노드 둘다 갈수없다면
+        //이웃노드와 타겟노드도 둘다 갈수없다면
         if (!NeiNode.Walkable && !targetNode.Walkable)
         {
             return NeiNode;
         }
         return null;
     }
-
     void GetFinalPath(t_Node _startingNode,t_Node _endNode)
     {
         List<t_Node> FinalPath = new List<t_Node>();
@@ -181,6 +137,7 @@ public class t_PathFinding : MonoBehaviour
         finalPath = FinalPath;
     }
     
+
 
     int GetManhattenDistance(t_Node _nodeA, t_Node _nodeB)
     {

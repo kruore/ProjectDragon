@@ -1,14 +1,4 @@
-﻿
-// ==============================================================
-// Async Loader
-// Load the map asynchronously.
-//
-//  AUTHOR: Kim Dong Ha
-// CREATED:
-// UPDATED: 2019-12-16
-// ==============================================================
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -35,7 +25,6 @@ public class Stair : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isOpen || collision.gameObject.CompareTag("Player"))

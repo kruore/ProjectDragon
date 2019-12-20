@@ -1,6 +1,4 @@
-﻿//////////////////////////////////////////////////////////MADE BY Lee Sang Jun///2019-12-13/////////////////////////////////////////////
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,4 +14,8 @@ public interface PersonalSpecificational
     int ATTACKDAMAGE { get; set; }
     float MoveSpeed { get; set; }
     int HP { get; set; }
+}
+public interface GameSkill
+{
+
 }

@@ -1,9 +1,4 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
-//////////////////////////////////////////////
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,15 +7,15 @@ public class Slime : FSM_NormalEnemy
     protected override void Awake()
     {
         base.Awake();
-        col = GetComponent<BoxCollider2D>();
-        m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
         childDeadParticle = transform.Find("DeadParticle").gameObject;
     }
 
     protected override void Start()
     {
+        //Time.timeScale = 0.2f;
         base.Start();
+        //StartCoroutine(Start_On());
     }
 
     public void Update()
@@ -29,16 +24,16 @@ public class Slime : FSM_NormalEnemy
     }
 
     //애니메이션 프레임에 넣기
-    protected override void Attack_On()
+    protected override IEnumerator Attack_On()
     {
         if (inAtkDetectionRange&&!isDead)
         {
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
+        yield return null;
     }
 
-    //임시
     protected override IEnumerator Dead()
     {
         Color fadeColor = spriteRenderer.color;

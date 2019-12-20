@@ -1,13 +1,4 @@
-﻿
-// ==============================================================
-// Map Objects parent class
-//
-//  AUTHOR: Kim Dong Ha
-// CREATED:
-// UPDATED: 2019-12-16
-// ==============================================================
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

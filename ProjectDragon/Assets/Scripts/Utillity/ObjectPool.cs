@@ -1,6 +1,4 @@
-﻿
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,7 +9,7 @@ public class ObjectPool : MonoBehaviour
         get { return instance; }
         set { }
     }
-    static ObjectPool instance = null;
+    private static ObjectPool instance = null;
 
 
     public List<PooledObject> objectPool = new List<PooledObject>();

@@ -1,9 +1,4 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-13////////////////////
-//////////////////////////////////////////////
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,21 +8,41 @@ public class Mr_Gobunin : FSM_NormalEnemy
     protected override void Awake()
     {
         base.Awake();
-        col = GetComponent<BoxCollider2D>();
         childDustParticle = transform.Find("DustParticle").gameObject;
         projectile = new Projectile();
     }
 
 
+
+    ////Create Projectile 
+    //protected Projectile Create()
+    //{
+
+    //    projectileObject = ObjectPool.Instance.PopFromPool("ProjectileObj",transform);
+    //    projectile = projectileObject.transform.GetComponent<Projectile>();
+    //    projectile.gameObject.SetActive(true);
+    //    projectile.ProjectileInit(Angle, projectileSpeed, ATTACKDAMAGE, "ProjectileObj", true, transform.position);
+    //    return projectile;
+
+    //    //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
+
+    //}
+
     Projectile projectile;
     private void Update()
     {
         DustParticleCheck();
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            projectile.Create(Angle, 1, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", true, transform.position, transform);
+        }
     }
-    //애니메이션 프레임에 넣기 (탄환 공격)
-    protected override void Attack_On()
+    //탄환 공격
+    protected override IEnumerator Attack_On()
     {
-        projectile.Create(Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position, transform);
+        yield return null;
+
     }
 }
 

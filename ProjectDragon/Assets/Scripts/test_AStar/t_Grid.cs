@@ -1,9 +1,4 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
-//////////////////////////////////////////////
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -71,42 +66,16 @@ public class t_Grid : MonoBehaviour
         }
     }
     //Object 파괴시 FinalPath를 재탐색한다.
-    public void RescanPath(Collider2D _collider)
+    public void RescanPath(BoxCollider2D collider)
     {
+
         //collider에 있는 노드를 읽어온다.
-        NodeFromWorldPosition(_collider.transform.position).IsObject = false;
-
-        //콜라이더 종류에 따른 오버랩된 노드 계산
-        int nodeOverlapCountX = 0, nodeOverlapCountY =0;
-
-        if (_collider is BoxCollider2D)
-        {
-            BoxCollider2D boxCol = _collider as BoxCollider2D;
-            nodeOverlapCountX = CalcOverlapNodeCount(boxCol.size.x);
-            nodeOverlapCountY = CalcOverlapNodeCount(boxCol.size.y);
-        }
-
-        else if (_collider is CapsuleCollider2D)
-        {
-            CapsuleCollider2D capsuleCol = _collider as CapsuleCollider2D;
-
-            //GetOverlapNodeCount
-            nodeOverlapCountX = CalcOverlapNodeCount(capsuleCol.size.x);
-            nodeOverlapCountY = CalcOverlapNodeCount(capsuleCol.size.y);
-
-        }
-
-        else if (_collider is CircleCollider2D)
-        {
-            CircleCollider2D circleCol = _collider as CircleCollider2D;
-
-            //GetOverlapNodeCount
-            nodeOverlapCountY = nodeOverlapCountX = CalcOverlapNodeCount(circleCol.radius * 2);
-        }
-
+        NodeFromWorldPosition(collider.transform.position).IsObject = false;
+        int nodeOverlapCountX = CalcOverlapNodeCount(collider.size.x);
+        int nodeOverlapCountY = CalcOverlapNodeCount(collider.size.y);
 
         //오버된 노드 읽어오기
-        foreach (t_Node OverlapNode in GetOverlapNodes(NodeFromWorldPosition(_collider.transform.position), nodeOverlapCountX+1, nodeOverlapCountY+1))
+        foreach (t_Node OverlapNode in GetOverlapNodes(NodeFromWorldPosition(collider.transform.position), nodeOverlapCountX+1, nodeOverlapCountY+1))
         {
             if (OverlapNode.IsObject)
             {
@@ -130,17 +99,19 @@ public class t_Grid : MonoBehaviour
         return gridNode[x, y];
     }
 
-   
-
-    //오브젝트와 노드가 겹치는 노드갯수 계산
+    //오브젝트와 노드가 겹치는 노드갯수 구하기
     public int CalcOverlapNodeCount(float objBoxSize)
     {
         return Mathf.RoundToInt((objBoxSize - nodeRadius) / nodeDiameter);
     }
 
+    //public void GetOverlapNodeCount(float objBoxSizeX, float objBoxSizeY)
+    //{
+    //    nodeOverlapCountX = CalcOverlapNodeCount(objBoxSizeX);
+    //    nodeOverlapCountY = CalcOverlapNodeCount(objBoxSizeY);
+    //}
 
-    //대각선에 있는 각도 찾기
-    public List<t_Node> GetOverlapNodes(t_Node _Node, int nodeOverlapCountX,int nodeOverlapCountY)  
+    public List<t_Node> GetOverlapNodes(t_Node _Node, int nodeOverlapCountX,int nodeOverlapCountY)
     {
         List<t_Node> OverlapNodes = new List<t_Node>();
         int xCheck, yCheck;
@@ -213,8 +184,7 @@ public class t_Grid : MonoBehaviour
         return OverlapNodes;
     }
 
-    //주변노드만 찾기
-    public List<t_Node> GetNeighboringNodes(t_Node _Node, int nodeOverlapCountX, int nodeOverlapCountY)    
+    public List<t_Node> GetNeighboringNodes(t_Node _Node, int nodeOverlapCountX, int nodeOverlapCountY)
     {
         List<t_Node> NeighboringNodes = new List<t_Node>();
         int xCheck, yCheck;

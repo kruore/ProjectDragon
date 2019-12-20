@@ -19,6 +19,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public void ScreensizeReadjust()
     {
+        DataTransaction.Inst.SavePlayerData();
         Screen.SetResolution(Screen.width * 16 / 9, Screen.width, false);
 
         Screen.orientation = ScreenOrientation.AutoRotation;

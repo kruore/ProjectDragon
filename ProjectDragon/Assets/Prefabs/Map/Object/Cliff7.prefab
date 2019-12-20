@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2414642747319759245}
   m_Layer: 14
   m_Name: Cliff7
-  m_TagString: Cliff
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -58,8 +58,29 @@ public class ComponentSelector : ScriptableWizard
 		if (show) Show<T>(cb);
 		else cb(o);
 	}
+    const string MacroName = "Orpesia";
+    [MenuItem(MacroName + "/ChangeFont")]
+    static void ChangeFont()
+    {
 
-	static public void Draw (string buttonName, INGUIAtlas atlas, OnSelectionCallback cb, bool editButton, params GUILayoutOption[] options)
+        ComponentSelector.Show<Font>(OnDynamicFont);
+    }
+
+    static void OnDynamicFont(Object obj)
+    {
+        Debug.Log(obj.name);
+        foreach (GameObject o in Object.FindObjectsOfType(typeof(GameObject)))
+        {
+            UILabel label = o.GetComponent<UILabel>();
+            if (null == label)
+            {
+                continue;
+            }
+            
+            label.trueTypeFont = (Font)obj;
+        }
+    }
+    static public void Draw (string buttonName, INGUIAtlas atlas, OnSelectionCallback cb, bool editButton, params GUILayoutOption[] options)
 	{
 		if (atlas is UIAtlas) Draw(buttonName, atlas as UIAtlas, cb, editButton, options);
 		else Draw(buttonName, atlas as NGUIAtlas, cb, editButton, options);

@@ -1,13 +1,4 @@
-﻿
-// ==============================================================
-// Minimap Object
-//
-//  AUTHOR: Kim Dong Ha
-// CREATED:
-// UPDATED: 2019-12-16
-// ==============================================================
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -34,7 +25,6 @@ public class MiniMap : MonoBehaviour
 
     private void Start()
     {
-        //미니맵 버튼 이벤트 설정
         mini = new EventDelegate(GetComponent<MiniMap>(), "Minimalize");
         maxi = new EventDelegate(GetComponent<MiniMap>(), "Maximalize");
         //teleport = new EventDelegate(GetComponent<MiniMap>(), "Teleport");
@@ -42,7 +32,6 @@ public class MiniMap : MonoBehaviour
         button.onClick.Add(maxi);
     }
 
-    //미니맵 업데이트
     public void UpdateMiniMap()
     {
         int x = RoomManager.player_PosX;
@@ -71,7 +60,6 @@ public class MiniMap : MonoBehaviour
         }
     }
 
-    //미니맵 초기화
     public void InitMiniMap()
     {
         List<GameObject> temp = new List<GameObject>();
@@ -126,14 +114,12 @@ public class MiniMap : MonoBehaviour
         }
     }
 
-    //미니맵 확장
     public void Maximalize()
     {
         //panel의 위치와 크기 조절
         panel.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
         panel.baseClipRegion = new Vector4(0.0f, 0.0f, 600.0f, 600.0f);
 
-        //미니맵 확대
         GetComponent<UISprite>().SetDimensions(600, 600);
         button.GetComponent<UISprite>().SetDimensions(600, 600);
         transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(60, 60);
@@ -143,14 +129,11 @@ public class MiniMap : MonoBehaviour
         StartCoroutine(AddButton(mini));
     }
 
-    //미니맵 축소
     public void Minimalize()
     {
-        //panel의 위치와 크기 조절
+
         panel.transform.localPosition = new Vector3(-700.0f, 350.0f, 0.0f);
         panel.baseClipRegion = new Vector4(0.0f, 0.0f, 150.0f, 150.0f);
-
-        //미니맵 축소
         GetComponent<UISprite>().SetDimensions(150, 150);
         button.GetComponent<UISprite>().SetDimensions(150, 150);
         transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(30, 30);
@@ -160,14 +143,12 @@ public class MiniMap : MonoBehaviour
         StartCoroutine(AddButton(maxi));
     }
 
-    //클릭 이벤트 바꾸기
     IEnumerator AddButton(EventDelegate _Event)
     {
         yield return new WaitForSeconds(0.3f);
         button.onClick.Add(_Event);
     }
 
-    //플레이어 teleport
     public void Teleport(float _x, float _y)
     {
         RoomManager.PlayerTeleportation(_x, _y);

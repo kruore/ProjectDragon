@@ -1,14 +1,4 @@
-﻿
-// ==============================================================
-// Async Loader
-// Load the map asynchronously.
-//
-//  AUTHOR: Kim Dong Ha
-// CREATED:
-// UPDATED: 2019-12-16
-// ==============================================================
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,7 +14,7 @@ public class Loading : MonoBehaviour
 
     private void Awake()
     {
-        
+        //다음 씬이 뭔지 판단해야 한다.
     }
     void Start()
     {
@@ -32,7 +22,6 @@ public class Loading : MonoBehaviour
         StartCoroutine(LoadSceneAsync(nextScene));
     }
 
-    //asyncload
     IEnumerator LoadSceneAsync(string _sceneName)
     {
         yield return null;

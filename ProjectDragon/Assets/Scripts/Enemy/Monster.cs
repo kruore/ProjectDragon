@@ -1,9 +1,4 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-13////////////////////
-//////////////////////////////////////////////
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,6 +11,7 @@ public class Monster : Character
     //Effect
     protected FlashWhite flashWhite;
     protected DamagePopup damagePopup;
+
 
 
     protected override void Awake()

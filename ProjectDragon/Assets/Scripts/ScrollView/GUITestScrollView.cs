@@ -59,8 +59,7 @@ public class GUITestScrollView : MonoBehaviour
         for (int i = 0; i < count; ++i)
         {
             EuipmentcellData cell = new EuipmentcellData();
-
-            if ((LobbyManager.inst.itemclassselect.Equals(ItemState.기본) || ((int)LobbyManager.inst.itemclassselect).Equals((int)inventories[i].Class + 1)) && (LobbyManager.inst.ItemRarityselect.Equals(ItemRarity.기본) || (((int)LobbyManager.inst.ItemRarityselect).Equals((int)inventories[i].rarity + 1))))
+            if (LobbyManager.inst.itemclassselect.Equals(ItemState.기본)||LobbyManager.inst.itemclassselect.Equals(cell.Class+1))
             {
                 cell.DB_Num = inventories[i].DB_Num;
                 cell.imageName = inventories[i].imageName;

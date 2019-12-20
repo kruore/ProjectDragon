@@ -798,7 +798,7 @@ MonoBehaviour:
   equipIcon: {fileID: 1189467774765440839}
   itemIcon: {fileID: 5349860391110999054}
   rarity: {fileID: 5759330451029859386}
-  activeIcon: {fileID: 404657569624222741}
+  activeIcon: {fileID: 1279272499431130995}
   Itemname: {fileID: 1359243378152292261}
   Itemvalue: {fileID: 717032369830320786}
   cell:
@@ -813,6 +813,7 @@ MonoBehaviour:
     m_Class: 0
     m_imageName: 
     m_skill_index: 0
+  change: 0
 --- !u!114 &5658547998378716138
 MonoBehaviour:
   m_ObjectHideFlags: 0
