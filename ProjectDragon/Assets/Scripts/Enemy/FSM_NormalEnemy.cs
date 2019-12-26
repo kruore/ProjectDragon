@@ -23,22 +23,10 @@ public class FSM_NormalEnemy : Enemy
         set
         {
             normalEnemyState = value;
-            //SetEnemyState(normalEnemyState);
             SetState(normalEnemyState);
 
         }
     }
-
-
-
-    //protected override void SetState(State newState)
-    //{
-    //    if (newState == State.Dead)
-    //    {
-    //        StartCoroutine(Dead());
-    //    }
-    //}
-
 
     public override IEnumerator Start_On()
     {
@@ -50,10 +38,15 @@ public class FSM_NormalEnemy : Enemy
 
         //공격감지 체크
         StartCoroutine(AttackRangeCheck());
-
-
         yield return null;
     }
+
+    public override void Dead()
+    {
+        base.Dead();
+        StartCoroutine(EnemyDead());
+    }
+
 
 
 
@@ -99,10 +92,10 @@ public class FSM_NormalEnemy : Enemy
             }
             else                                                 //cooltime 후
             {
-                if (NEState == NormalEnemyState.Idle)     //Idle->Attack
+                if (NEState == NormalEnemyState.Idle)    
                 {
                     isAttackActive = true;
-                    NEState = NormalEnemyState.Attack;
+                    NEState = NormalEnemyState.Attack;          //Idle->Attack
                     yield break;
                 }
             }
@@ -110,12 +103,10 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
-    IEnumerator PushStopCor;
     protected virtual IEnumerator Walk()
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
-        //GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
 
         float currentWalkTime = 0;
         float walkTime = Random.Range(2.0f, 6.0f);
@@ -163,12 +154,7 @@ public class FSM_NormalEnemy : Enemy
             yield return null;
         }
     }
-    IEnumerator PushStop() //밀리는 것을 방지
-    {
-        yield return new WaitForSeconds(1.0f);
-        rb2d.velocity = Vector2.zero;
-    }
-
+   
     protected IEnumerator Wait()
     {
         //Walk Animation parameters
@@ -205,6 +191,16 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
+    protected virtual IEnumerator Attack()
+    {
+        AttackStart();
+
+        isAttacking = true;
+        yield return null;
+
+        StartCoroutine(AttackEnd());
+    }
+
     protected void AttackStart()
     {
         //Attack Animation parameters
@@ -218,19 +214,8 @@ public class FSM_NormalEnemy : Enemy
         Current_cooltime = 0;
     }
 
-    protected virtual IEnumerator Attack()
-    {
-        AttackStart();
-
-        isAttacking = true;
-        yield return null;
-
-        StartCoroutine(AttackEnd());
-    }
-
-    
-    //Attack 애니메이션 n번 돌리고 -> Idle로
-    #region 애니메이션 관리
+    //애니메이션 n번 돌리고 -> Idle로
+    #region Attack 공격 횟수 관리
     protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
@@ -257,11 +242,7 @@ public class FSM_NormalEnemy : Enemy
     }
     #endregion
 
-    public override void Dead()
-    {
-        base.Dead();
-        StartCoroutine(EnemyDead());
-    }
+
     protected virtual IEnumerator EnemyDead()
     {
         //Dead Animation parameters

@@ -15,6 +15,7 @@ public class Enemy : Monster
     protected Collider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
+    protected bool isFix = false;                            //고정
 
 
     [Header("[Enemy Attribute]")]
@@ -96,10 +97,6 @@ public class Enemy : Monster
         StartCoroutine(newState.ToString());
     }
 
-    //protected void SetEnemyState<T>(T _state)
-    //{
-    //    StartCoroutine(_state.ToString());
-    //}
 
     RoomManager RoomManager;
     public virtual IEnumerator Start_On()
@@ -182,20 +179,20 @@ public class Enemy : Monster
     }
 
     #region Hit
-    public override int HPChanged(int ATK)
+    public override int HPChanged(int ATK, int NukBack, bool isNukBack)
     {
         //살아 있을때 + 무적이 아닐때
         if (!isDead && !invincible)
         {
-            Hit();
-            return base.HPChanged(ATK);
+            Hit(NukBack,isNukBack);
+            return base.HPChanged(ATK,NukBack,isNukBack);
         }
 
         return 0;
     }
 
     IEnumerator KnockBackCor;
-    protected void Hit()
+    protected void Hit(int NukBack, bool isNukBack)
     {
         isHit = true;
         isWalk = false;
@@ -205,37 +202,33 @@ public class Enemy : Monster
         StopCoroutine(FlashWhiteCor);
         StartCoroutine(FlashWhiteCor);
 
-        //넉백
-        KnockBackCor = KnockBack();
-        StopCoroutine(KnockBackCor);
-        StartCoroutine(KnockBackCor);
+        if (!isFix)
+        {
+            //넉백수치조정
+            if (isNukBack)
+            {
+                knockPower = NukBack;    //기본 1.0f;
+            }
+            else   //움찔
+            {
+                knockPower = 0.2f;
+            }
 
+            KnockBackCor = KnockBack();
+            StopCoroutine(KnockBackCor);
+            StartCoroutine(KnockBackCor);
+        }
     }
     IEnumerator KnockBack()
     {
-        /////////////////////////////나중에
-        //움찔
-        knockPower = 0.2f;
-        ////넉백수치
-        ///if(넉백될거면)
-        //knockPower = 넉백수치;     기본 1.0f;
-
         rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockTime);
 
         rb2d.velocity = Vector2.zero;
         isHit = false;
-        yield return null;
+       // yield return null;
     }
 
-    //방향넉백
-    public IEnumerator DirectionKnockBack(Vector3 _direction, float _knockTime,float _knockPower)
-    {
-        rb2d.AddForce(-_direction * _knockPower, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(_knockTime);
-
-        rb2d.velocity = Vector2.zero;
-    }
     #endregion
 
 
@@ -341,8 +334,18 @@ public class Enemy : Monster
             Physics2D.IgnoreCollision(collision, col,false);
         }
     }
+    protected IEnumerator PushStopCor;
+    /// <summary>
+    /// 밀리는 것을 방지
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator PushStop() 
+    {
+        yield return new WaitForSeconds(1.0f);
+        rb2d.velocity = Vector2.zero;
+    }
 
-  
+
     //Dust Particle
     protected void DustParticleCheck()
     {

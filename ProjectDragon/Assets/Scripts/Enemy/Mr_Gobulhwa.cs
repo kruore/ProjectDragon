@@ -34,7 +34,10 @@ public class Mr_Gobulhwa : FSM_NormalEnemy
     {
         DustParticleCheck();
     }
-    //애니메이션 프레임에 넣기 (탄환 공격)
+
+    /// <summary>
+    /// 탄환 공격 (애니메이션 프레임에 넣기)
+    /// </summary>
     protected override void Attack_On()
     {
         projectile.Create(Angle-30, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position, transform);

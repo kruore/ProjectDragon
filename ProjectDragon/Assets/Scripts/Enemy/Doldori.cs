@@ -11,6 +11,8 @@ using UnityEngine;
 public class Doldori : FSM_NormalEnemy
 {
     CapsuleCollider2D capsuleCol;
+    Vector3 attackDirection;
+
     protected override void Awake()
     {
         base.Awake();
@@ -35,13 +37,20 @@ public class Doldori : FSM_NormalEnemy
         DustParticleCheck();
 
     }
+    protected override void Attack_On()
+    {
+        if (!isDead)
+        {
+            //Player hit
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
+        }
+    }
 
-    Vector3 attackDirection;
     protected override IEnumerator Attack()
     {
         AttackStart();
         invincible = true;                             //무적
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);         //대기
 
         //Attacking
         isAttacking = true;
@@ -52,15 +61,6 @@ public class Doldori : FSM_NormalEnemy
         {
             rb2d.AddForce(attackDirection * 0.2f, ForceMode2D.Impulse);
             yield return null;
-        }
-    }
-
-    protected override void Attack_On()
-    {
-        if (!isDead)
-        {
-            //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
     }
 

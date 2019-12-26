@@ -61,7 +61,7 @@ public class Targetpoint : MonoBehaviour
         {
            if(player!=null)
             {
-                player.GetComponent<Character>().HPChanged(25);
+                player.GetComponent<Character>().HPChanged(25,2,false);
             }
         }
     }
