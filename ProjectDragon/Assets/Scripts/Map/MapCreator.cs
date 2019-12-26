@@ -32,6 +32,9 @@ public class room
 
 public class MapCreator : MonoBehaviour
 {
+    //load
+    public string mapType;
+    public string bossName;
     //map grid data
     public GameObject[,] map_Data;
     //prefabs data
@@ -54,8 +57,44 @@ public class MapCreator : MonoBehaviour
 
     private void Awake()
     {
+        SettingCreateRegion();
         ResourceLoadMap("Forest"); // 임시로 숲이라고 함
         Init();
+    }
+
+    //수정 필요함
+    private void SettingCreateRegion()
+    {
+        int curStage = GameManager.Inst.CurrentStage;
+#if UNITY_EDITOR
+        Debug.Log(curStage % 4);
+#endif
+        if (curStage % 4 == 0)
+        {
+            int region = curStage / 4;
+#if UNITY_EDITOR
+            Debug.Log(region);
+#endif
+            switch (region)
+            {
+                case 1:
+                    bossName = "MaDongSeok";
+                    break;
+                case 2:
+                    bossName = "MaDongSeok";
+                    break;
+                case 3:
+                    bossName = "MaDongSeok";
+                    break;
+                case 4:
+                    bossName = "MaDongSeok";
+                    break;
+            }
+        }
+        else
+        {
+            mapType = "Map_Generator";
+        }
     }
 
     /// <summary>

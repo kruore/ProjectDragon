@@ -371,7 +371,12 @@ public class Database : MonoSingleton<Database>
         }
     }
 
+    #endregion
+
+
     //플레이 데이터 집합소
+    #region Data_Variable
+
     [System.Serializable]
     public class PlayData
     {
@@ -413,11 +418,6 @@ public class Database : MonoSingleton<Database>
         public int equiWeapon_InventoryNum;
         public int equiArmor_InventoryNum;
     }
-
-    #endregion
-
-    //변수 모음
-    #region Data_Variable
 
     //Tables - Just Read
 

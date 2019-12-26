@@ -2,9 +2,11 @@
 // ==============================================================
 // Room Object
 //
+// 2019-12-27: Responding to the boss
+//
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2019-12-27
 // ==============================================================
 
 using System.Collections;
@@ -17,7 +19,8 @@ public enum RoomType
     Normal,
     Stair,
     NPC,
-    Hidden
+    Hidden,
+    Boss
 }
 
 public enum RoomState
@@ -35,15 +38,15 @@ public class Room : MonoBehaviour
     public int depth; //방이 시작방에서 얼마나 먼 곳에 있는지
 
     public bool doorTop, doorBot, doorLeft, doorRight; //문이 해당 방향에 있는지 없는지 나타냅니다.
-    public GameObject[] door_All = new GameObject[4] { null, null, null, null}; //문 오브젝트
+    public GameObject[] door_All = new GameObject[4] { null, null, null, null }; //문 오브젝트
 
     public GameObject portal; //포탈 오브젝트
 
     public List<GameObject> monsters = new List<GameObject>(); //방의 몬스터를 관리하기 위한 리스트
 
-    public RoomManager roomManager; 
+    public RoomManager roomManager;
 
-    public Player playerSet; 
+    public Player playerSet;
 
     public GameObject MiniMapPos //미니맵 상에서의 방 오브젝트
     {
@@ -85,19 +88,21 @@ public class Room : MonoBehaviour
         {
             //몬스터 리스트 관리
             MonsterCounting();
+
             if (monsters.Count == 0 && roomState.Equals(RoomState.Activate))
             {
                 //몬스터가 한 마리도 없다면 클리어입니다.
                 IsClear();
             }
             else if (!roomState.Equals(RoomState.Activate)) CheckPlayerPos();
+
         }
     }
 
     //몬스터 리스트 관리
     void MonsterCounting()
     {
-         List<GameObject> temp_monsters = new List<GameObject>();
+        List<GameObject> temp_monsters = new List<GameObject>();
         foreach (GameObject obj in monsters)
         {
             if (obj.GetComponent<Monster>().isDead) continue;
@@ -112,9 +117,21 @@ public class Room : MonoBehaviour
         monsters.AddRange(temp_monsters);
 
         //몬스터가 없으면 플레이어에게 Null을 세팅
-        if(monsters.Count==0)
+        if (monsters.Count == 0)
         {
             playerSet.TempNullSet();
+        }
+    }
+
+    /// <summary>
+    /// 전투 도중에 몬스터를 추가 하기 위한 함수입니다. 예시) 보스
+    /// </summary>
+    /// <param name="_monsters"></param>
+    public void AddMonsters(List<GameObject> _monsters)
+    {
+        if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
+        {
+            monsters.AddRange(_monsters);
         }
     }
 
@@ -133,6 +150,7 @@ public class Room : MonoBehaviour
             //몬스터 배틀 시작
             foreach (GameObject obj in monsters)
             {
+                //보스를 위해 Enemy를 Monster로 바꿔야한다.
                 StartCoroutine(obj.GetComponent<Enemy>().Start_On());
             }
         }
@@ -147,7 +165,7 @@ public class Room : MonoBehaviour
         roomManager.miniMap.gameObject.SetActive(true); //미니맵 켜기
         miniMapPos.GetComponent<UISprite>().alpha = 1.0f; //
 
-        #region 수정 필요 -- 이미지 로드, 포탈 표시 방식
+        #region 수정 필요 -- 이미지 로드, 포탈 표시 방식 -- 미니맵
         //포탈이 있는 방이라면 미니맵 상에서 포탈 표시
         if (!roomType.Equals(RoomType.Normal))
         {
@@ -165,6 +183,11 @@ public class Room : MonoBehaviour
                 break;
             case RoomType.Stair:
                 miniMapPos.GetComponent<UISprite>().color = Color.green;
+                gameObject.transform.Find("Stair").GetComponent<Stair>().IsOpen = true;
+                break;
+            case RoomType.Boss:
+                miniMapPos.GetComponent<UISprite>().color = Color.red;
+                //다음으로 넘어가는 문이 열려야 함
                 gameObject.transform.Find("Stair").GetComponent<Stair>().IsOpen = true;
                 break;
             default:
@@ -227,7 +250,7 @@ public class Room : MonoBehaviour
         }
     }
 
- 
+
     public void SetData(Vector2 _gridPos, RoomType _roomType, RoomManager _roomManager, int _depth, bool[] _door)
     {
         gridPos = _gridPos;

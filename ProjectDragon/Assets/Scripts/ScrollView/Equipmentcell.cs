@@ -279,17 +279,17 @@ public class Equipmentcell : UIReuseScrollViewCell
         panel.transform.Find("EquipItemname").GetComponent<UILabel>().text = data.name;
         panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().text = data.rarity.ToString();
         panel.transform.Find("EquipItemclass").GetComponent<UILabel>().text = string.Format("종류: {0}", data.Class.ToString());
-        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}",Database.Inst.weapons[data.DB_Num].damage);
+        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}",Database.Inst.weapons[data.DB_Num].atk_Max);
         if (!data.Class.Equals(CLASS.갑옷))
         {
-            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", Database.Inst.weapons[data.DB_Num].damage);
+            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", Database.Inst.weapons[data.DB_Num].atk_Max);
             GameObject ActiveSkill;
             ActiveSkill = panel.transform.Find("ActiveSkill").gameObject;
             ActiveSkill.SetActive(true);
             ActiveSkill.transform.Find("Activename").GetComponent<UILabel>().text = string.Format("액티브: {0}", Database.Inst.skill[data.skill_Index].name);
-            ActiveSkill.transform.Find("ActiveDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}%", Database.Inst.skill[data.skill_Index].attack_Power * 100);
-            ActiveSkill.transform.Find("ActiveRange").GetComponent<UILabel>().text = string.Format("범위: {0}", Database.Inst.skill[data.skill_Index].attack_Range);
-            ActiveSkill.transform.Find("Activemana").GetComponent<UILabel>().text = string.Format("마나: {0}", Database.Inst.skill[data.skill_Index].active_Time);
+            ActiveSkill.transform.Find("ActiveDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}%", Database.Inst.skill[data.skill_Index].atk * 100);
+            ActiveSkill.transform.Find("ActiveRange").GetComponent<UILabel>().text = string.Format("범위: {0}", Database.Inst.skill[data.skill_Index].skill_Range);
+            ActiveSkill.transform.Find("Activemana").GetComponent<UILabel>().text = string.Format("마나: {0}", Database.Inst.skill[data.skill_Index].skill_Duration);
             ActiveSkill.transform.Find("Activecooltime").GetComponent<UILabel>().text = string.Format("쿨타임: {0}", Database.Inst.skill[data.skill_Index].coolTime);
             ActiveSkill.transform.Find("ActiveBGI").Find("ActiveIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[data.skill_Index].name;
         }
@@ -303,13 +303,13 @@ public class Equipmentcell : UIReuseScrollViewCell
         if (!stat.Equals(-1))
         {
             panel.transform.Find("AttackDamage").Find("StatGap").gameObject.SetActive(true);
-            if (Database.Inst.weapons[data.DB_Num].damage > stat)
+            if (Database.Inst.weapons[data.DB_Num].atk_Max > stat)
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.blue;
-                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(+{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].damage - stat).ToString());
+                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(+{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].atk_Max - stat).ToString());
 
             }
-            else if (Database.Inst.weapons[data.DB_Num].damage.Equals(stat))
+            else if (Database.Inst.weapons[data.DB_Num].atk_Max.Equals(stat))
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.gray;
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = "0";
@@ -317,7 +317,7 @@ public class Equipmentcell : UIReuseScrollViewCell
             else
             {
                 panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().color = Color.red;
-                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(-{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].damage - stat).ToString());
+                panel.transform.Find("AttackDamage").Find("StatGap").GetComponent<UILabel>().text = string.Format("(-{0})", Mathf.Abs(Database.Inst.weapons[data.DB_Num].atk_Max - stat).ToString());
             }
         }
         else
@@ -329,9 +329,9 @@ public class Equipmentcell : UIReuseScrollViewCell
             case RARITY.노말:
                 panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().color = Color.gray;
                 break;
-            case RARITY.레어:
-                panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().color = Color.blue;
-                break;
+            //case RARITY.레어:
+            //    panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().color = Color.blue;
+            //    break;
             case RARITY.유니크:
                 panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().color = new Color(156, 91, 025);
                 break;
@@ -376,7 +376,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                     Database.Inst.playData.equiWeapon_InventoryNum = cell.inventoryNum;
                     LobbyManager.inst.SetWeapon();
                     Debug.Log(cell.m_Class);
-                    DataTransaction.Inst.SavePlayerData();
+                    GameManager.Inst.SavePlayerData();
                 }
                 else
                 {
@@ -384,7 +384,7 @@ public class Equipmentcell : UIReuseScrollViewCell
                     
                     Debug.Log(cell.m_Class);
                     LobbyManager.inst.SetArmor();
-                    DataTransaction.Inst.SavePlayerData();
+                    GameManager.Inst.SavePlayerData();
                 }
                 //LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
                 //LobbyManager.inst.BGID.SetActive(true);

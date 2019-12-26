@@ -114,7 +114,7 @@ public class GameManager : MonoSingleton<GameManager>
             {
                 UnityWebRequest unityWebRequest = UnityWebRequest.Get("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
                 unityWebRequest.downloadedBytes.ToString();
-                while(!unityWebRequest.SendWebRequest().isDone) { }
+                while (!unityWebRequest.SendWebRequest().isDone) { }
                 File.WriteAllBytes(conn, unityWebRequest.downloadHandler.data);
 
                 //조금 있으면 사라질 코드 형식입니다.
@@ -153,7 +153,8 @@ public class GameManager : MonoSingleton<GameManager>
         Load_Weapon_Table();
         Load_Armor_Table();
         Load_ActiveSkill_Table();
-        Load_Monster_Table();
+        Load_Normal_Monster_Table();
+        Load_Rare_Monster_Table();
         LoadPlayerData();
 
         yield return null;
@@ -181,7 +182,18 @@ public class GameManager : MonoSingleton<GameManager>
 
         //플레이어의 패시브를 저장
         Save_Emblem_PlayData();
+#if UNITY_EDITOR
         Debug.Log("Save Player Data Complete");
+#endif
+    }
+
+    public void ResetPlayerData()
+    {
+        ResetInventory();
+        Save_Inventory_Table();
+        ResetEmblem();
+        Save_Emblem_PlayData();
+        PlayerPrefs.DeleteAll();
     }
 
     //구글 데이터베이스 연결 함수
@@ -318,17 +330,26 @@ public class GameManager : MonoSingleton<GameManager>
         get { return database.playData.currentHp; }
         set
         {
-            int temp = value;
+            database.playData.currentHp = value;
 
-            if (temp <= 0) temp = 0;
-            else if (MaxHp <= temp) temp = MaxHp;
+            if (CurrentHp <= 0)
+            {
+                //die
+                InitializePlayData();
+                //죽는 씬전환
+                StartCoroutine(GameEnd());
+            }
+            else if (MaxHp <= CurrentHp) CurrentHp = MaxHp;
 
-            database.playData.currentHp = temp;
         }
     }
-    public float CurrentDamage
+    public float Atk_Min
     {
-        get { return database.playData.damage; }
+        get { return database.playData.atk_Min; }
+    }
+    public float Atk_Max
+    {
+        get { return database.playData.atk_Max; }
     }
     public float MoveSpeed
     {
@@ -336,15 +357,19 @@ public class GameManager : MonoSingleton<GameManager>
     }
     public float AttackSpeed
     {
-        get { return database.playData.attackSpeed; }
+        get { return database.playData.atk_Speed; }
     }
     public float AttackRange
     {
-        get { return database.playData.attackRange; }
+        get { return database.playData.atk_Range; }
     }
-    public float NuckBack
+    public float NuckBack_Power
     {
-        get { return database.playData.nuckBack; }
+        get { return database.playData.nuckBack_Power; }
+    }
+    public float NuckBack_Percentage
+    {
+        get { return database.playData.nuckBack_Percentage; }
     }
     public int CurrentStage
     {
@@ -364,11 +389,10 @@ public class GameManager : MonoSingleton<GameManager>
         get { return database.playData.mp; }
         set
         {
-            int temp = value;
-            if (temp < 0) temp = 0;
-            else if (9999999 < temp) temp = 9999999;
-
             database.playData.mp = value;
+
+            if (Mp < 0) Mp = 0;
+            else if (9999999 < Mp) Mp = 9999999;
         }
     }
     public SEX Sex
@@ -508,7 +532,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     private void IncreaseMoveSpeed(int param)
     {
-        database.playData.moveSpeed += database.playData.moveSpeed * ((float)param/100.0f);
+        database.playData.moveSpeed += database.playData.moveSpeed * ((float)param / 100.0f);
     }
     private void IncreaseDamageDecrement(int param)
     {
@@ -527,7 +551,10 @@ public class GameManager : MonoSingleton<GameManager>
         InitialPlayData();
         SavePlayerData();
     }
-
+    IEnumerator GameEnd()
+    {
+        yield return null;
+    }
     #region 공사중 - 초기화 구조 바꿔야 함
 
     /// <summary>
@@ -535,17 +562,25 @@ public class GameManager : MonoSingleton<GameManager>
     /// </summary>
     private void InitialPlayData()
     {
-        ResetInventory();
-        ResetEmblem();
+        //ResetInventory();
+        //ResetEmblem();
         database.playData.equiWeapon_InventoryNum = 0;
         database.playData.equiArmor_InventoryNum = 1;
 
         database.playData.maxHp = BaseHp;
+        database.playData.currentHp = BaseHp;
         database.playData.moveSpeed = 1.0f;
         database.playData.currentStage = 0;
         database.playData.mp = 1000;
         database.playData.sex = SEX.Female;
-        InitializePlayerStat();
+
+        database.playData.atk_Max = 0;
+        database.playData.atk_Min = 0;
+        database.playData.atk_Range = 0.0f;
+        database.playData.atk_Speed = 0.0f;
+        database.playData.nuckBack_Percentage = 0.0f;
+        database.playData.nuckBack_Power = 0.0f;
+        //InitializePlayerStat();
 
         database.playData.resist_Fire = false;
         database.playData.resist_Water = false;
@@ -555,6 +590,7 @@ public class GameManager : MonoSingleton<GameManager>
         database.playData.attackType_Water = false;
         database.playData.attackType_Poison = false;
         database.playData.attackType_Electric = false;
+        database.playData.damage_Reduction = 0.0f;
     }
 
     //아이템에 의한 능력치 조정
@@ -571,16 +607,6 @@ public class GameManager : MonoSingleton<GameManager>
         //database.playData.inventory.Add(new Database.Inventory(database.weapons[0]));
         //database.playData.inventory.Add(new Database.Inventory(database.armors[0]));
     }
-
-    /// <summary>
-    /// give Basic weapon and armor
-    /// </summary>
-    public void GivePlayerBasicItem()
-    {
-        database.playData.inventory.Add(new Database.Inventory(database.weapons[0]));
-        database.playData.inventory.Add(new Database.Inventory(database.armors[0]));
-    }
-
     /// <summary>
     /// reset emblem table and player data, if unlocked emblemes are retained
     /// </summary>
@@ -598,6 +624,15 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
     }
+
+    /// <summary>
+    /// give Basic weapon and armor
+    /// </summary>
+    public void GivePlayerBasicItem()
+    {
+        database.playData.inventory.Add(new Database.Inventory(database.weapons[0]));
+        database.playData.inventory.Add(new Database.Inventory(database.armors[0]));
+    }
     #endregion
 
     //테스트 완료
@@ -609,6 +644,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         if (PlayerPrefs.HasKey("save"))
         {
+            InitialPlayData();
+
             database.playData.currentHp = PlayerPrefs.GetInt("currentHp");
             database.playData.mp = PlayerPrefs.GetInt("mp");
             database.playData.sex = (SEX)PlayerPrefs.GetInt("sex");
@@ -616,11 +653,13 @@ public class GameManager : MonoSingleton<GameManager>
             database.playData.currentStage = PlayerPrefs.GetInt("currentStage");
             database.playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
             database.playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
+
+            InitializePlayerStat();
             //database.playData.maxHp = PlayerPrefs.GetFloat("hp");
             //database.playData.damage = PlayerPrefs.GetFloat("damage");
             //database.playData.attackSpeed = PlayerPrefs.GetFloat("attackSpeed");
             //database.playData.attackRange = PlayerPrefs.GetFloat("attackRange");
-           // database.playData.nuckBack = PlayerPrefs.GetFloat("nuckBack");
+            // database.playData.nuckBack = PlayerPrefs.GetFloat("nuckBack");
             //database.playData.resist_Fire = PlayerPrefs.GetInt("resist_Fire").Equals(1) ? true : false;
             //database.playData.resist_Water = PlayerPrefs.GetInt("resist_Water").Equals(1) ? true : false;
             //database.playData.resist_Poison = PlayerPrefs.GetInt("resist_Poison").Equals(1) ? true : false;
@@ -910,7 +949,7 @@ public class GameManager : MonoSingleton<GameManager>
             string Description = reader.GetString(count++);
             string ImageName = reader.GetString(count++);
 
-            database.normal_Monsters.Add(new Database.Normal_Monster(Num, Name, monster_Rarity, Hp, Move_Speed, Atk, Atk_Speed, Atk_Range, Ready_Time, 
+            database.normal_Monsters.Add(new Database.Normal_Monster(Num, Name, monster_Rarity, Hp, Move_Speed, Atk, Atk_Speed, Atk_Range, Ready_Time,
                 Cooltime, Knock_Resist, Atk_Count, Drop_Mana_Min, Drop_Mana_Max, Description, ImageName));
         }
         reader.Close();
@@ -945,7 +984,7 @@ public class GameManager : MonoSingleton<GameManager>
             string Description = reader.GetString(count++);
             string ImageName = reader.GetString(count++);
 
-            database.rare_Monsters.Add(new Database.Rare_Monster(Num, Name, monster_Rarity, Hp, Move_Speed, Atk, Atk_Speed, Atk_Range, Ready_Time, 
+            database.rare_Monsters.Add(new Database.Rare_Monster(Num, Name, monster_Rarity, Hp, Move_Speed, Atk, Atk_Speed, Atk_Range, Ready_Time,
                 Cooltime, Knock_Resist, Atk_Count1, Atk_Count2, Skill_Cooltime, Skill_Damage, Drop_Mana_Min, Drop_Mana_Max, Description, ImageName));
         }
         reader.Close();

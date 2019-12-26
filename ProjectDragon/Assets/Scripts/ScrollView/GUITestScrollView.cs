@@ -42,7 +42,7 @@ public class GUITestScrollView : MonoBehaviour
             //cell.isLock = inventories[i].isLock;
             if (!cell.Class.Equals(CLASS.갑옷))
             {
-                cell.stat = Database.Inst.weapons[cell.DB_Num].damage;
+                cell.stat = Database.Inst.weapons[cell.DB_Num].atk_Max;
             }
             else
             {
@@ -72,7 +72,7 @@ public class GUITestScrollView : MonoBehaviour
                 //cell.isLock = inventories[i].isLock;
                 if (!cell.Class.Equals(CLASS.갑옷))
                 {
-                    cell.stat = Database.Inst.weapons[cell.DB_Num].damage;
+                    cell.stat = Database.Inst.weapons[cell.DB_Num].atk_Max;
                 }
                 else
                 {

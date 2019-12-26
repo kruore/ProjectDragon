@@ -11,7 +11,7 @@ public class TitleManager : MonoBehaviour
     {
         SoundManager.Inst.Ds_BgmPlayer(TitleBGM);
         GameManager.Inst.ScreensizeReadjust();
-        DataTransaction.Inst.ToString();
+        GameManager.Inst.ToString();
         //효과음
         //SoundManager.Inst.Ds_PlaySingle();
     }

@@ -105,7 +105,7 @@ public class Player : Character
 
     public override int HPChanged(int ATK)
     {
-        DataTransaction.Inst.CurrentHp = HP;
+        GameManager.Inst.CurrentHp = HP;
         Debug.Log((float)HP / (float)maxHp);
         float currentATK=ATK;
         if(ATK>0)
@@ -128,19 +128,19 @@ public class Player : Character
     //MP 임시 사용s
     public override int HP
     {
-        get { return (int)DataTransaction.Inst.CurrentHp; }
+        get { return (int)GameManager.Inst.CurrentHp; }
         set
         {
             if (value > 0)
             {
-                DataTransaction.Inst.CurrentHp = value;
-                hp = (int)DataTransaction.Inst.CurrentHp;
-                DataTransaction.Inst.CurrentHp = Mathf.Clamp(value, 0, maxHp);
+                GameManager.Inst.CurrentHp = value;
+                hp = (int)GameManager.Inst.CurrentHp;
+                GameManager.Inst.CurrentHp = Mathf.Clamp(value, 0, maxHp);
             }
             else if (!isDead)
             {
                 hp = -1;
-                DataTransaction.Inst.CurrentHp = maxHp;
+                GameManager.Inst.CurrentHp = maxHp;
                 isDead = true;
                 CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
@@ -260,13 +260,13 @@ public class Player : Character
     void PlayerPrefData(ref float Damage1)
     {
         ATTACKDAMAGE = (int)Damage1;
-        maxHp = (int)DataTransaction.Inst.MaxHp;
+        maxHp = (int)GameManager.Inst.MaxHp;
         //damage = (int)Damage1;
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
     void PlayerPrefDataTrascation()
     {
-        PlayerPrefData(ref Database.Inst.playData.damage);
+        //PlayerPrefData(ref Database.Inst.playData.damage);
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
     // Start is called before the first frame update

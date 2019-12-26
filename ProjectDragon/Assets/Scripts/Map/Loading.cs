@@ -52,11 +52,11 @@ public class Loading : MonoBehaviour
     void CalculateSceneName()
     {
 #if UNITY_EDITOR
-        Debug.Log(DataTransaction.Inst.CurrentStage % 4);
+        Debug.Log(GameManager.Inst.CurrentStage % 4);
 #endif
-        if (DataTransaction.Inst.CurrentStage % 4 == 0)
+        if (GameManager.Inst.CurrentStage % 4 == 0)
         {
-            int region = DataTransaction.Inst.CurrentStage / 4;
+            int region = GameManager.Inst.CurrentStage / 4;
 #if UNITY_EDITOR
             Debug.Log(region);
 #endif
