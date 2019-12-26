@@ -55,7 +55,7 @@ public class Skill : MonoBehaviour
     }
     IEnumerator Object_LifeTime(float cool)
     {
-        print("쿨타임 코루틴");
+       // print("쿨타임 코루틴");
         float i = 0;
         while (cool > i)
         {

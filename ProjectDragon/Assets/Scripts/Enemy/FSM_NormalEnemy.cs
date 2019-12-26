@@ -219,14 +219,21 @@ public class FSM_NormalEnemy : Enemy
     protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
-        while (isAttacking)
+        while (isAttacking&&!isDead)
         {
             AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
+
+            if (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                yield return null;
+                continue;
+            }
             //Debug.Log(clipInfo[0].clip.name);
 
             float cliptime = clipInfo[0].clip.length;
-            yield return new WaitForSeconds(cliptime);
+            yield return new WaitForSeconds(cliptime / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
+            count++;
             if (attackCount == count)
             {
                 isAttacking = false;
@@ -235,7 +242,6 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Idle;
                 break;
             }
-            count++;
 
             yield return null;
         }

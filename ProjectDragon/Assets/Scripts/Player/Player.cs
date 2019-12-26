@@ -106,7 +106,7 @@ public class Player : Character
     public override int HPChanged(int ATK)
     {
         DataTransaction.Inst.CurrentHp = HP;
-        Debug.Log((float)HP / (float)maxHp);
+        //Debug.Log((float)HP / (float)maxHp);
         float currentATK=ATK;
         if(ATK>0)
         {
@@ -114,10 +114,10 @@ public class Player : Character
             if (invaid >= a)
             {
                 currentATK = ATK - (ATK * 0.1f);
-                Debug.Log("회피성공");
+               // Debug.Log("회피성공");
             }
         }
-        Debug.Log((int)currentATK+"내 체력은 :"+currentHp);
+        //Debug.Log((int)currentATK+"내 체력은 :"+currentHp);
         hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
 #if UNITY_EDITOR
         base.HPChanged(0);

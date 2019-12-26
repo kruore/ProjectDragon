@@ -26,6 +26,7 @@ public class Rimmotal : Enemy
         col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
+        thornTargeting = new ThornTargeting();
     }
     protected override RaycastHit2D[] GetRaycastType()
     {
@@ -37,6 +38,7 @@ public class Rimmotal : Enemy
     protected override void Start()
     {
         base.Start();
+        //Time.timeScale = 0.2f;
         //StartCoroutine(Start_On());
     }
 
@@ -56,6 +58,11 @@ public class Rimmotal : Enemy
     public override void Dead()
     {
         base.Dead();
+
+    }
+    IEnumerator Idle()
+    {
+        yield return null;
 
     }
 
@@ -118,21 +125,22 @@ public class Rimmotal : Enemy
 
     IEnumerator Attack1()
     {
-        yield return null;
-
         //Attack Animation parameters
         objectAnimator.SetBool("Attack1", true);
         objectAnimator.SetBool("Walk", false);
 
-        AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
-        //Debug.Log(clipInfo[0].clip.name);
+        while(!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
+        {
+            yield return null;
+        }
 
+        isAttacking = true;
+
+        AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
         float cliptime = clipInfo[0].clip.length;
-        yield return new WaitForSeconds(cliptime);
+        yield return new WaitForSeconds(cliptime / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
         REState = RimmotalEnemyState.Attack2;
-        yield return null;
-
 
     }
 
@@ -140,20 +148,53 @@ public class Rimmotal : Enemy
     {
         //Attack Animation parameters
         objectAnimator.SetBool("Attack2", true);
-        isFix = true;
-        rb2d.constraints = RigidbodyConstraints2D.FreezePositionX; //밀림방지
-        float cliptime=objectAnimator.GetCurrentAnimatorStateInfo(0).length;
-        yield return new WaitForSeconds(cliptime);
+        IsFix = true;
+      
+        while (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Rimmotal_Burrow"))
+        {
+            yield return null;
+        }
 
-        ThornAttack();
+        float cliptime = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(cliptime/ objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
-        yield return null;
+        StartCoroutine(TimeCheck());
+        yield return StartCoroutine(ThornAttack());
+        objectAnimator.SetBool("Attack2", false);
+
+        while (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Rimmotal_Restore"))
+        {
+            yield return null;
+        }
+        float cliptime1 = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSeconds(cliptime1 / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
+
+        REState = RimmotalEnemyState.Idle;
+
     }
+
+    ThornTargeting thornTargeting;
+    bool _thorn_attacking = true;
+
     /// <summary>
     /// 가시공격
     /// </summary>
-    void ThornAttack()
+    IEnumerator ThornAttack()
     {
+        Debug.Log("Thorn Create Ready");
+        while (_thorn_attacking)
+        {
+            Debug.Log("Thorn Create");
+
+            thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+    IEnumerator TimeCheck()
+    {
+        yield return new WaitForSeconds(6.0f);
+        _thorn_attacking = false;
 
     }
 

@@ -15,7 +15,17 @@ public class Enemy : Monster
     protected Collider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
-    protected bool isFix = false;                            //고정
+    private bool isFix = false;
+    protected bool IsFix                              //고정
+    {
+        get { return isFix; }
+        set
+        {
+            isFix = value;
+            rb2d.constraints =
+                isFix ? rb2d.constraints = RigidbodyConstraints2D.FreezeAll : rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    }                         
 
 
     [Header("[Enemy Attribute]")]
@@ -202,7 +212,7 @@ public class Enemy : Monster
         StopCoroutine(FlashWhiteCor);
         StartCoroutine(FlashWhiteCor);
 
-        if (!isFix)
+        if (!IsFix)
         {
             //넉백수치조정
             if (isNukBack)
@@ -226,7 +236,6 @@ public class Enemy : Monster
 
         rb2d.velocity = Vector2.zero;
         isHit = false;
-       // yield return null;
     }
 
     #endregion

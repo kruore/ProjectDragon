@@ -56,14 +56,14 @@ public class CameraFollow : MonoBehaviour
             if (isdoor)
             {
                 transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(posX, posY, transform.localPosition.z), lerpSpeed);
-                Debug.Log("Lerp");
+                //Debug.Log("Lerp");
             }
             else transform.localPosition = new Vector3(posX, posY, transform.localPosition.z);
 
         }
         if(isShake==true)
         {
-            Debug.Log("됐서");
+           // Debug.Log("됐서");
         }
         origin_Pos = this.transform.position;
 
