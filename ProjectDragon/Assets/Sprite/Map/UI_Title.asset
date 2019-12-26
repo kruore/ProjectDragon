@@ -15,8 +15,8 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 67b28a0e1dc02af45a53f7f88f5dc8bf, type: 2}
   mSprites:
   - name: blue_boxCheckmark
-    x: 342
-    y: 779
+    x: 533
+    y: 244
     width: 38
     height: 36
     borderLeft: 0
@@ -28,8 +28,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_boxCross
-    x: 342
-    y: 853
+    x: 572
+    y: 318
     width: 38
     height: 36
     borderLeft: 0
@@ -41,8 +41,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_boxTick
-    x: 342
-    y: 594
+    x: 583
+    y: 429
     width: 36
     height: 36
     borderLeft: 0
@@ -54,8 +54,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button00
-    x: 191
-    y: 168
+    x: 196
+    y: 56
     width: 190
     height: 49
     borderLeft: 0
@@ -67,8 +67,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button01
-    x: 101
-    y: 697
+    x: 292
+    y: 347
     width: 190
     height: 45
     borderLeft: 0
@@ -80,8 +80,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button02
-    x: 191
-    y: 18
+    x: 101
+    y: 156
     width: 190
     height: 49
     borderLeft: 0
@@ -93,8 +93,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button03
-    x: 101
-    y: 651
+    x: 292
+    y: 255
     width: 190
     height: 45
     borderLeft: 0
@@ -106,8 +106,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button04
-    x: 382
-    y: 168
+    x: 101
+    y: 256
     width: 190
     height: 49
     borderLeft: 0
@@ -119,8 +119,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button05
-    x: 101
-    y: 605
+    x: 292
+    y: 301
     width: 190
     height: 45
     borderLeft: 0
@@ -132,8 +132,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button06
-    x: 673
-    y: 225
+    x: 483
+    y: 576
     width: 49
     height: 49
     borderLeft: 0
@@ -145,8 +145,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button07
-    x: 673
-    y: 175
+    x: 483
+    y: 526
     width: 49
     height: 49
     borderLeft: 0
@@ -158,7 +158,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button08
-    x: 292
+    x: 569
     y: 651
     width: 49
     height: 45
@@ -171,8 +171,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button09
-    x: 673
-    y: 25
+    x: 537
+    y: 126
     width: 49
     height: 49
     borderLeft: 0
@@ -184,8 +184,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button10
-    x: 292
-    y: 697
+    x: 533
+    y: 530
     width: 49
     height: 45
     borderLeft: 0
@@ -197,8 +197,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button11
-    x: 723
-    y: 275
+    x: 574
+    y: 26
     width: 49
     height: 49
     borderLeft: 0
@@ -210,8 +210,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_button12
-    x: 292
-    y: 743
+    x: 533
+    y: 484
     width: 49
     height: 45
     borderLeft: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: blue_button13
     x: 192
-    y: 368
+    y: 1
     width: 190
     height: 49
     borderLeft: 0
@@ -236,8 +236,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_checkmark
-    x: 387
-    y: 425
+    x: 492
+    y: 155
     width: 21
     height: 20
     borderLeft: 0
@@ -249,8 +249,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_circle
-    x: 387
-    y: 483
+    x: 583
+    y: 540
     width: 36
     height: 36
     borderLeft: 0
@@ -262,8 +262,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_cross
-    x: 426
-    y: 922
+    x: 656
+    y: 10
     width: 18
     height: 18
     borderLeft: 0
@@ -276,7 +276,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: blue_panel
     x: 0
-    y: 569
+    y: 202
     width: 100
     height: 100
     borderLeft: 0
@@ -288,8 +288,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_sliderDown
-    x: 445
-    y: 596
+    x: 653
+    y: 29
     width: 28
     height: 42
     borderLeft: 0
@@ -301,8 +301,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_sliderLeft
-    x: 381
-    y: 703
+    x: 611
+    y: 360
     width: 39
     height: 31
     borderLeft: 0
@@ -314,8 +314,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_sliderRight
-    x: 416
-    y: 639
+    x: 611
+    y: 328
     width: 39
     height: 31
     borderLeft: 0
@@ -327,8 +327,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_sliderUp
-    x: 416
-    y: 553
+    x: 619
+    y: 672
     width: 28
     height: 42
     borderLeft: 0
@@ -340,8 +340,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: blue_tick
-    x: 421
-    y: 767
+    x: 625
+    y: 611
     width: 17
     height: 17
     borderLeft: 0
@@ -353,8 +353,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: dropdownBottom
-    x: 573
-    y: 325
+    x: 292
+    y: 205
     width: 190
     height: 24
     borderLeft: 0
@@ -366,8 +366,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: dropdownMid
-    x: 573
-    y: 350
+    x: 292
+    y: 230
     width: 190
     height: 24
     borderLeft: 0
@@ -379,8 +379,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: dropdownTop
-    x: 382
-    y: 1
+    x: 378
+    y: 626
     width: 190
     height: 24
     borderLeft: 0
@@ -392,8 +392,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_boxCheckmark
-    x: 140
-    y: 476
+    x: 342
+    y: 118
     width: 38
     height: 36
     borderLeft: 0
@@ -405,8 +405,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_boxCross
-    x: 342
-    y: 890
+    x: 533
+    y: 355
     width: 38
     height: 36
     borderLeft: 0
@@ -418,8 +418,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_boxTick
-    x: 379
-    y: 557
+    x: 583
+    y: 614
     width: 36
     height: 36
     borderLeft: 0
@@ -431,8 +431,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button00
-    x: 191
-    y: 118
+    x: 101
+    y: 506
     width: 190
     height: 49
     borderLeft: 0
@@ -444,8 +444,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button01
-    x: 383
-    y: 375
+    x: 292
+    y: 393
     width: 190
     height: 45
     borderLeft: 0
@@ -457,8 +457,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button02
-    x: 382
-    y: 118
+    x: 101
+    y: 556
     width: 190
     height: 49
     borderLeft: 0
@@ -470,33 +470,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button03
-    x: 101
-    y: 789
-    width: 190
-    height: 45
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: green_button04
-    x: 0
-    y: 318
-    width: 190
-    height: 49
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: green_button05
-    x: 101
+    x: 378
     y: 835
     width: 190
     height: 45
@@ -508,9 +482,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: green_button04
+    x: 187
+    y: 873
+    width: 190
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: green_button05
+    x: 378
+    y: 789
+    width: 190
+    height: 45
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: green_button06
-    x: 673
-    y: 75
+    x: 483
+    y: 326
     width: 49
     height: 49
     borderLeft: 0
@@ -522,8 +522,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button07
-    x: 673
-    y: 125
+    x: 483
+    y: 376
     width: 49
     height: 49
     borderLeft: 0
@@ -535,8 +535,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button08
-    x: 723
-    y: 87
+    x: 533
+    y: 438
     width: 49
     height: 45
     borderLeft: 0
@@ -548,8 +548,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button09
-    x: 673
-    y: 275
+    x: 483
+    y: 426
     width: 49
     height: 49
     borderLeft: 0
@@ -561,8 +561,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button10
-    x: 723
-    y: 133
+    x: 569
+    y: 697
     width: 49
     height: 45
     borderLeft: 0
@@ -574,8 +574,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button11
-    x: 723
-    y: 225
+    x: 483
+    y: 476
     width: 49
     height: 49
     borderLeft: 0
@@ -587,8 +587,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button12
-    x: 292
-    y: 927
+    x: 533
+    y: 392
     width: 49
     height: 45
     borderLeft: 0
@@ -600,8 +600,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_button13
-    x: 382
-    y: 318
+    x: 101
+    y: 306
     width: 190
     height: 49
     borderLeft: 0
@@ -613,8 +613,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_checkmark
-    x: 573
-    y: 4
+    x: 542
+    y: 186
     width: 21
     height: 20
     borderLeft: 0
@@ -626,8 +626,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_circle
-    x: 379
-    y: 520
+    x: 583
+    y: 577
     width: 36
     height: 36
     borderLeft: 0
@@ -639,8 +639,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_cross
-    x: 432
-    y: 954
+    x: 637
+    y: 10
     width: 18
     height: 18
     borderLeft: 0
@@ -653,7 +653,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: green_panel
     x: 0
-    y: 670
+    y: 303
     width: 100
     height: 100
     borderLeft: 0
@@ -665,8 +665,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_sliderDown
-    x: 453
-    y: 424
+    x: 619
+    y: 801
     width: 28
     height: 42
     borderLeft: 0
@@ -678,8 +678,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_sliderLeft
-    x: 381
-    y: 735
+    x: 624
+    y: 104
     width: 39
     height: 31
     borderLeft: 0
@@ -691,8 +691,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_sliderRight
-    x: 381
-    y: 831
+    x: 624
+    y: 72
     width: 39
     height: 31
     borderLeft: 0
@@ -704,8 +704,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_sliderUp
-    x: 416
-    y: 596
+    x: 620
+    y: 629
     width: 28
     height: 42
     borderLeft: 0
@@ -717,8 +717,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: green_tick
-    x: 426
-    y: 885
+    x: 625
+    y: 593
     width: 17
     height: 17
     borderLeft: 0
@@ -730,8 +730,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_arrowDownGrey
-    x: 392
-    y: 930
+    x: 203
+    y: 612
     width: 15
     height: 10
     borderLeft: 0
@@ -743,8 +743,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_arrowDownWhite
-    x: 179
-    y: 491
+    x: 187
+    y: 612
     width: 15
     height: 10
     borderLeft: 0
@@ -756,8 +756,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_arrowUpGrey
-    x: 179
-    y: 502
+    x: 358
+    y: 107
     width: 15
     height: 10
     borderLeft: 0
@@ -769,8 +769,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_arrowUpWhite
-    x: 179
-    y: 480
+    x: 342
+    y: 107
     width: 15
     height: 10
     borderLeft: 0
@@ -782,8 +782,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_box
-    x: 342
-    y: 742
+    x: 572
+    y: 281
     width: 38
     height: 36
     borderLeft: 0
@@ -795,8 +795,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_boxCheckmark
-    x: 342
-    y: 705
+    x: 581
+    y: 207
     width: 38
     height: 36
     borderLeft: 0
@@ -808,8 +808,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_boxCross
-    x: 342
-    y: 668
+    x: 572
+    y: 244
     width: 38
     height: 36
     borderLeft: 0
@@ -821,8 +821,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_boxTick
-    x: 342
-    y: 520
+    x: 583
+    y: 503
     width: 36
     height: 36
     borderLeft: 0
@@ -834,8 +834,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button00
-    x: 101
-    y: 743
+    x: 292
+    y: 531
     width: 190
     height: 45
     borderLeft: 0
@@ -847,8 +847,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button01
-    x: 0
-    y: 268
+    x: 187
+    y: 623
     width: 190
     height: 49
     borderLeft: 0
@@ -860,8 +860,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button02
-    x: 101
-    y: 927
+    x: 292
+    y: 485
     width: 190
     height: 45
     borderLeft: 0
@@ -873,8 +873,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button03
-    x: 191
-    y: 68
+    x: 101
+    y: 456
     width: 190
     height: 49
     borderLeft: 0
@@ -886,8 +886,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button04
-    x: 382
-    y: 26
+    x: 292
+    y: 439
     width: 190
     height: 45
     borderLeft: 0
@@ -900,7 +900,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: grey_button05
     x: 0
-    y: 418
+    y: 51
     width: 195
     height: 49
     borderLeft: 0
@@ -913,7 +913,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: grey_button06
     x: 0
-    y: 368
+    y: 1
     width: 191
     height: 49
     borderLeft: 0
@@ -925,8 +925,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button07
-    x: 623
-    y: 125
+    x: 342
+    y: 155
     width: 49
     height: 49
     borderLeft: 0
@@ -938,8 +938,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button08
-    x: 573
-    y: 75
+    x: 392
+    y: 155
     width: 49
     height: 49
     borderLeft: 0
@@ -951,8 +951,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button09
-    x: 292
-    y: 789
+    x: 569
+    y: 743
     width: 49
     height: 45
     borderLeft: 0
@@ -964,8 +964,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button10
-    x: 623
-    y: 25
+    x: 442
+    y: 155
     width: 49
     height: 49
     borderLeft: 0
@@ -977,8 +977,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button11
-    x: 292
-    y: 835
+    x: 569
+    y: 789
     width: 49
     height: 45
     borderLeft: 0
@@ -990,8 +990,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button12
-    x: 573
-    y: 25
+    x: 483
+    y: 276
     width: 49
     height: 49
     borderLeft: 0
@@ -1003,8 +1003,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button13
-    x: 292
-    y: 881
+    x: 387
+    y: 59
     width: 49
     height: 45
     borderLeft: 0
@@ -1016,8 +1016,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button14
-    x: 382
-    y: 268
+    x: 187
+    y: 723
     width: 190
     height: 49
     borderLeft: 0
@@ -1029,8 +1029,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_button15
-    x: 191
-    y: 268
+    x: 187
+    y: 773
     width: 190
     height: 49
     borderLeft: 0
@@ -1042,8 +1042,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_checkmarkGrey
-    x: 617
-    y: 4
+    x: 514
+    y: 155
     width: 21
     height: 20
     borderLeft: 0
@@ -1055,8 +1055,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_checkmarkWhite
-    x: 639
-    y: 4
+    x: 574
+    y: 5
     width: 21
     height: 20
     borderLeft: 0
@@ -1068,8 +1068,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_circle
-    x: 379
-    y: 594
+    x: 587
+    y: 133
     width: 36
     height: 36
     borderLeft: 0
@@ -1081,8 +1081,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_crossGrey
-    x: 421
-    y: 821
+    x: 537
+    y: 57
     width: 18
     height: 18
     borderLeft: 0
@@ -1094,8 +1094,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_crossWhite
-    x: 702
-    y: 6
+    x: 587
+    y: 77
     width: 18
     height: 18
     borderLeft: 0
@@ -1108,7 +1108,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: grey_panel
     x: 0
-    y: 468
+    y: 404
     width: 100
     height: 100
     borderLeft: 0
@@ -1120,8 +1120,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderDown
-    x: 453
-    y: 467
+    x: 619
+    y: 887
     width: 28
     height: 42
     borderLeft: 0
@@ -1133,8 +1133,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderEnd
-    x: 408
-    y: 930
+    x: 374
+    y: 107
     width: 8
     height: 10
     borderLeft: 0
@@ -1146,8 +1146,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderHorizontal
-    x: 0
-    y: 13
+    x: 383
+    y: 1
     width: 190
     height: 4
     borderLeft: 0
@@ -1159,8 +1159,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderLeft
-    x: 381
-    y: 863
+    x: 611
+    y: 264
     width: 39
     height: 31
     borderLeft: 0
@@ -1172,8 +1172,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderRight
-    x: 381
-    y: 895
+    x: 624
+    y: 168
     width: 39
     height: 31
     borderLeft: 0
@@ -1185,8 +1185,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderUp
-    x: 424
-    y: 467
+    x: 624
+    y: 29
     width: 28
     height: 42
     borderLeft: 0
@@ -1198,8 +1198,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_sliderVertical
-    x: 421
-    y: 840
+    x: 620
+    y: 528
     width: 4
     height: 100
     borderLeft: 0
@@ -1211,8 +1211,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_tickGrey
-    x: 426
-    y: 849
+    x: 556
+    y: 58
     width: 17
     height: 17
     borderLeft: 0
@@ -1224,8 +1224,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: grey_tickWhite
-    x: 426
-    y: 867
+    x: 606
+    y: 78
     width: 17
     height: 17
     borderLeft: 0
@@ -1236,9 +1236,22 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: Loading
+    x: 0
+    y: 606
+    width: 186
+    height: 366
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: red_boxCheckmark
-    x: 342
-    y: 816
+    x: 572
+    y: 355
     width: 38
     height: 36
     borderLeft: 0
@@ -1250,8 +1263,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_boxCross
-    x: 101
-    y: 476
+    x: 542
+    y: 207
     width: 38
     height: 36
     borderLeft: 0
@@ -1263,8 +1276,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_boxTick
-    x: 342
-    y: 557
+    x: 583
+    y: 392
     width: 36
     height: 36
     borderLeft: 0
@@ -1276,33 +1289,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button00
-    x: 382
-    y: 72
-    width: 190
-    height: 45
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: red_button01
-    x: 0
-    y: 218
-    width: 190
-    height: 49
-    borderLeft: 0
-    borderRight: 0
-    borderTop: 0
-    borderBottom: 0
-    paddingLeft: 0
-    paddingRight: 0
-    paddingTop: 0
-    paddingBottom: 0
-  - name: red_button02
-    x: 101
+    x: 378
     y: 881
     width: 190
     height: 45
@@ -1314,9 +1301,35 @@ MonoBehaviour:
     paddingRight: 0
     paddingTop: 0
     paddingBottom: 0
+  - name: red_button01
+    x: 187
+    y: 673
+    width: 190
+    height: 49
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: red_button02
+    x: 292
+    y: 577
+    width: 190
+    height: 45
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
   - name: red_button03
-    x: 623
-    y: 275
+    x: 387
+    y: 105
     width: 49
     height: 49
     borderLeft: 0
@@ -1328,8 +1341,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button04
-    x: 623
-    y: 75
+    x: 292
+    y: 155
     width: 49
     height: 49
     borderLeft: 0
@@ -1341,8 +1354,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button05
-    x: 723
-    y: 179
+    x: 569
+    y: 881
     width: 49
     height: 45
     borderLeft: 0
@@ -1354,8 +1367,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button06
-    x: 623
-    y: 175
+    x: 437
+    y: 105
     width: 49
     height: 49
     borderLeft: 0
@@ -1367,8 +1380,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button07
-    x: 723
-    y: 41
+    x: 487
+    y: 59
     width: 49
     height: 45
     borderLeft: 0
@@ -1380,8 +1393,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button08
-    x: 623
-    y: 225
+    x: 487
+    y: 105
     width: 49
     height: 49
     borderLeft: 0
@@ -1393,7 +1406,7 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button09
-    x: 342
+    x: 569
     y: 927
     width: 49
     height: 45
@@ -1406,8 +1419,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button10
-    x: 0
-    y: 168
+    x: 101
+    y: 106
     width: 190
     height: 49
     borderLeft: 0
@@ -1419,8 +1432,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button11
-    x: 0
-    y: 118
+    x: 101
+    y: 206
     width: 190
     height: 49
     borderLeft: 0
@@ -1432,8 +1445,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button12
-    x: 101
-    y: 559
+    x: 378
+    y: 927
     width: 190
     height: 45
     borderLeft: 0
@@ -1445,8 +1458,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_button13
-    x: 0
-    y: 68
+    x: 101
+    y: 356
     width: 190
     height: 49
     borderLeft: 0
@@ -1458,8 +1471,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_checkmark
-    x: 661
-    y: 4
+    x: 564
+    y: 186
     width: 21
     height: 20
     borderLeft: 0
@@ -1471,8 +1484,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_circle
-    x: 379
-    y: 631
+    x: 587
+    y: 170
     width: 36
     height: 36
     borderLeft: 0
@@ -1484,8 +1497,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_cross
-    x: 426
-    y: 903
+    x: 618
+    y: 7
     width: 18
     height: 18
     borderLeft: 0
@@ -1498,7 +1511,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: red_panel
     x: 0
-    y: 771
+    y: 101
     width: 100
     height: 100
     borderLeft: 0
@@ -1510,8 +1523,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_sliderDown
-    x: 445
-    y: 553
+    x: 619
+    y: 844
     width: 28
     height: 42
     borderLeft: 0
@@ -1523,8 +1536,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_sliderLeft
-    x: 392
-    y: 941
+    x: 620
+    y: 232
     width: 39
     height: 31
     borderLeft: 0
@@ -1536,8 +1549,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_sliderRight
-    x: 381
-    y: 671
+    x: 624
+    y: 136
     width: 39
     height: 31
     borderLeft: 0
@@ -1549,8 +1562,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_sliderUp
-    x: 424
-    y: 424
+    x: 619
+    y: 758
     width: 28
     height: 42
     borderLeft: 0
@@ -1562,8 +1575,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: red_tick
-    x: 421
-    y: 803
+    x: 625
+    y: 575
     width: 17
     height: 17
     borderLeft: 0
@@ -1575,8 +1588,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_boxCheckmark
-    x: 723
-    y: 4
+    x: 533
+    y: 281
     width: 38
     height: 36
     borderLeft: 0
@@ -1588,8 +1601,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_boxCross
-    x: 762
-    y: 4
+    x: 533
+    y: 318
     width: 38
     height: 36
     borderLeft: 0
@@ -1601,8 +1614,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_boxTick
-    x: 387
-    y: 446
+    x: 587
+    y: 96
     width: 36
     height: 36
     borderLeft: 0
@@ -1614,8 +1627,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button00
-    x: 0
-    y: 18
+    x: 383
+    y: 6
     width: 190
     height: 49
     borderLeft: 0
@@ -1627,8 +1640,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button01
-    x: 101
-    y: 513
+    x: 378
+    y: 697
     width: 190
     height: 45
     borderLeft: 0
@@ -1640,8 +1653,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button02
-    x: 191
-    y: 318
+    x: 187
+    y: 923
     width: 190
     height: 49
     borderLeft: 0
@@ -1653,8 +1666,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button03
-    x: 196
-    y: 467
+    x: 378
+    y: 743
     width: 190
     height: 45
     borderLeft: 0
@@ -1666,8 +1679,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button04
-    x: 382
-    y: 218
+    x: 187
+    y: 823
     width: 190
     height: 49
     borderLeft: 0
@@ -1679,8 +1692,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button05
-    x: 196
-    y: 421
+    x: 378
+    y: 651
     width: 190
     height: 45
     borderLeft: 0
@@ -1692,8 +1705,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button06
-    x: 573
-    y: 125
+    x: 483
+    y: 226
     width: 49
     height: 49
     borderLeft: 0
@@ -1705,8 +1718,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button07
-    x: 573
-    y: 175
+    x: 492
+    y: 176
     width: 49
     height: 49
     borderLeft: 0
@@ -1718,8 +1731,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button08
-    x: 292
-    y: 605
+    x: 437
+    y: 59
     width: 49
     height: 45
     borderLeft: 0
@@ -1731,8 +1744,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button09
-    x: 573
-    y: 225
+    x: 537
+    y: 76
     width: 49
     height: 49
     borderLeft: 0
@@ -1744,8 +1757,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button10
-    x: 292
-    y: 559
+    x: 569
+    y: 835
     width: 49
     height: 45
     borderLeft: 0
@@ -1757,8 +1770,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button11
-    x: 573
-    y: 275
+    x: 533
+    y: 576
     width: 49
     height: 49
     borderLeft: 0
@@ -1771,7 +1784,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: yellow_button12
     x: 292
-    y: 513
+    y: 109
     width: 49
     height: 45
     borderLeft: 0
@@ -1783,8 +1796,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_button13
-    x: 191
-    y: 218
+    x: 101
+    y: 406
     width: 190
     height: 49
     borderLeft: 0
@@ -1796,8 +1809,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_checkmark
-    x: 595
-    y: 4
+    x: 596
+    y: 5
     width: 21
     height: 20
     borderLeft: 0
@@ -1809,8 +1822,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_circle
-    x: 342
-    y: 631
+    x: 583
+    y: 466
     width: 36
     height: 36
     borderLeft: 0
@@ -1822,8 +1835,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_cross
-    x: 683
-    y: 6
+    x: 675
+    y: 10
     width: 18
     height: 18
     borderLeft: 0
@@ -1836,7 +1849,7 @@ MonoBehaviour:
     paddingBottom: 0
   - name: yellow_panel
     x: 0
-    y: 872
+    y: 505
     width: 100
     height: 100
     borderLeft: 0
@@ -1848,8 +1861,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_sliderDown
-    x: 453
-    y: 510
+    x: 619
+    y: 930
     width: 28
     height: 42
     borderLeft: 0
@@ -1861,8 +1874,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_sliderLeft
-    x: 381
-    y: 799
+    x: 611
+    y: 296
     width: 39
     height: 31
     borderLeft: 0
@@ -1874,8 +1887,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_sliderRight
-    x: 381
-    y: 767
+    x: 624
+    y: 200
     width: 39
     height: 31
     borderLeft: 0
@@ -1887,8 +1900,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_sliderUp
-    x: 424
-    y: 510
+    x: 619
+    y: 715
     width: 28
     height: 42
     borderLeft: 0
@@ -1900,8 +1913,8 @@ MonoBehaviour:
     paddingTop: 0
     paddingBottom: 0
   - name: yellow_tick
-    x: 421
-    y: 785
+    x: 620
+    y: 510
     width: 17
     height: 17
     borderLeft: 0

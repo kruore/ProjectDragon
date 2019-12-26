@@ -212,7 +212,7 @@
     <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\DataBase\Database.cs" />
-    <Compile Include="Assets\Scripts\DataBase\DataTransaction.cs" />
+    <Compile Include="Assets\Scripts\DataBase\GameManager.cs" />
     <Compile Include="Assets\Scripts\DataBase\MonoSingleton.cs" />
     <Compile Include="Assets\Scripts\Enemy\Doldori.cs" />
     <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
@@ -227,7 +227,6 @@
     <Compile Include="Assets\Scripts\Lobby\SetActiveObject.cs" />
     <Compile Include="Assets\Scripts\Manager\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Manager\ButtonManager.cs" />
-    <Compile Include="Assets\Scripts\Manager\GameManager.cs" />
     <Compile Include="Assets\Scripts\Manager\LobbyManager.cs" />
     <Compile Include="Assets\Scripts\Manager\SoundManager.cs" />
     <Compile Include="Assets\Scripts\Manager\TitleManager.cs" />
@@ -311,6 +310,7 @@
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
     <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
     <Compile Include="Assets\UIpack_Sample\Lightingparticle\HPParticle.cs" />
+    <Compile Include="Assets\ZBlue Cartoon UI\Demo_Assets\scripts\GUI_Demo.cs" />
     <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
     <None Include="Assets\UIpack_Sample\license.txt" />
