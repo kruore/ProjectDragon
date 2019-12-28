@@ -3,9 +3,11 @@
 // Map Creater
 // Create all map data and object
 //
+// 2019-12-27: BossMap create method
+//
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2019-12-27
 // ==============================================================
 
 using System.Collections;
@@ -34,7 +36,7 @@ public class MapCreator : MonoBehaviour
 {
     //load
     public string mapType;
-    public string bossName;
+    public bool isBossMap;
     //map grid data
     public GameObject[,] map_Data;
     //prefabs data
@@ -58,7 +60,7 @@ public class MapCreator : MonoBehaviour
     private void Awake()
     {
         SettingCreateRegion();
-        ResourceLoadMap("Forest"); // 임시로 숲이라고 함
+        ResourceLoadMap(); // 임시로 숲이라고 함
         Init();
     }
 
@@ -66,34 +68,33 @@ public class MapCreator : MonoBehaviour
     private void SettingCreateRegion()
     {
         int curStage = GameManager.Inst.CurrentStage;
-#if UNITY_EDITOR
+        curStage = 1;
         Debug.Log(curStage % 4);
-#endif
-        if (curStage % 4 == 0)
+        Debug.Log(curStage / 4);
+        if(curStage % 4 == 0)
         {
-            int region = curStage / 4;
-#if UNITY_EDITOR
-            Debug.Log(region);
-#endif
-            switch (region)
-            {
-                case 1:
-                    bossName = "MaDongSeok";
-                    break;
-                case 2:
-                    bossName = "MaDongSeok";
-                    break;
-                case 3:
-                    bossName = "MaDongSeok";
-                    break;
-                case 4:
-                    bossName = "MaDongSeok";
-                    break;
-            }
+            //보스 맵
+            isBossMap = true;
         }
         else
         {
-            mapType = "Map_Generator";
+            //일반 맵
+            isBossMap = false;
+        }
+
+        switch(curStage / 4)
+        {
+            case 0:
+                mapType = "Forest";
+                break;
+            case 1:
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
         }
     }
 
@@ -118,33 +119,54 @@ public class MapCreator : MonoBehaviour
     /// Load All Map Prefabs
     /// </summary>
     /// <param name="_mapType"> Type is region type :: 지역명</param>
-    void ResourceLoadMap(string _mapType)
+    void ResourceLoadMap()
     {
-        map_Base = Resources.Load("Map/Map_" + _mapType + "_Base") as GameObject;
-        map_Stair = Resources.Load("Map/Map_" + _mapType + "_Stair") as GameObject;
-        map_Market = Resources.Load("Map/Map_" + _mapType + "_Market") as GameObject;
+        if (isBossMap) ResourceLoadBossMap();
+        else ResourceLoadNormalMap();
+    }
+
+    private void ResourceLoadNormalMap()
+    {
+        map_Base = Resources.Load("Map/" + mapType + "/Base") as GameObject;
+        map_Stair = Resources.Load("Map/" + mapType + "/Stair") as GameObject;
+        map_Market = Resources.Load("Map/" + mapType + "/Market") as GameObject;
         map_Hiddens = new GameObject[map_Hiddens_Count];
         map_Prefabs = new GameObject[map_Prefabs_Count];
 
         for (int i = 0; i < map_Hiddens_Count; i++)
         {
-            string name = "Map/Map_" + _mapType + "_Hidden";
+            string name = "Map/" + mapType + "/Hidden";
             name += (i + 1).ToString();
             map_Hiddens[i] = Resources.Load(name) as GameObject;
         }
         for (int i = 0; i < map_Prefabs_Count; i++)
         {
-            string name = "Map/Map_" + _mapType;
-            name += "_" + (i + 1).ToString();
+            string name = "Map/" + mapType + "/Normal";
+            name += (i + 1).ToString();
             map_Prefabs[i] = Resources.Load(name) as GameObject;
         }
     }
 
+    private void ResourceLoadBossMap()
+    {
+        map_Base = Resources.Load("Map/" + mapType + "/Boss/Base") as GameObject;
+        map_Stair = Resources.Load("Map/" + mapType + "/Boss/Boss") as GameObject;
+    }
+
     void Start()
     {
-        CreateRooms(); //lays out the actual map
-        SetRoomDoors(); //assigns the doors where rooms would connect
-        DrawMap(); //instantiates objects to make up a map
+        if (isBossMap)
+        {
+            CreateBossMap();
+            SetRoomDoors();
+            DrawBossMap();
+        }
+        else
+        {
+            CreateNormalMap(); //lays out the actual map
+            SetRoomDoors(); //assigns the doors where rooms would connect
+            DrawMap(); //instantiates objects to make up a map
+        }
     }
 
     /// <summary>
@@ -168,7 +190,15 @@ public class MapCreator : MonoBehaviour
         return temp;
     }
 
-    void CreateRooms()
+    private void CreateBossMap()
+    {
+        int depth = 0;
+        rooms = new room[gridSizeX, gridSizeY];
+        rooms[gridSizeX_Cen, gridSizeY_Cen] = new room(Vector2.zero, RoomType.Begin, depth);
+        rooms[gridSizeX_Cen, gridSizeY_Cen + 1] = new room(Vector2.up, RoomType.Boss, depth);
+    }
+    
+    private void CreateNormalMap()
     {
         int depth = 0;
         //setup
@@ -367,6 +397,11 @@ public class MapCreator : MonoBehaviour
             ret++;
         }
         return ret;
+    }
+
+    private void DrawBossMap()
+    {
+
     }
 
     void DrawMap()
