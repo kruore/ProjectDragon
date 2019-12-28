@@ -972,7 +972,7 @@ public class GameManager : MonoSingleton<GameManager>
             int Atk = reader.GetInt32(count++);
             float Atk_Speed = reader.GetFloat(count++);
             float Atk_Range = reader.GetFloat(count++);
-            int Ready_Time = reader.GetInt32(count++);
+            float Ready_Time = reader.GetFloat(count++);
             int Cooltime = reader.GetInt32(count++);
             int Knock_Resist = reader.GetInt32(count++);
             int Atk_Count1 = reader.GetInt32(count++);

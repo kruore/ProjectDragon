@@ -273,7 +273,7 @@ public class Database : MonoSingleton<Database>
         public readonly string imageName;
 
         public Rare_Monster(int num, string name, Monster_Rarity monster_Rarity, int hp, float move_Speed, int atk, float atk_Speed, float atk_Range, 
-                            int ready_Time, int coolTime, int knock_Resist, int atk_Count1, int atk_Count2, int skill_Cooltime, int skill_Damage, 
+                            float ready_Time, int coolTime, int knock_Resist, int atk_Count1, int atk_Count2, int skill_Cooltime, int skill_Damage, 
                             int drop_Mana_Min, int drop_Mana_Max, string description, string imageName)
         {
             this.num = num;

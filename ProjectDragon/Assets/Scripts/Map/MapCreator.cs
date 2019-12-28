@@ -35,7 +35,7 @@ public class room
 public class MapCreator : MonoBehaviour
 {
     //load
-    public string mapType;
+    public string mapType = string.Empty;
     public bool isBossMap;
     //map grid data
     public GameObject[,] map_Data;
@@ -68,7 +68,7 @@ public class MapCreator : MonoBehaviour
     private void SettingCreateRegion()
     {
         int curStage = GameManager.Inst.CurrentStage;
-        curStage = 1;
+        curStage = 4;
         Debug.Log(curStage % 4);
         Debug.Log(curStage / 4);
         if(curStage % 4 == 0)
@@ -82,19 +82,14 @@ public class MapCreator : MonoBehaviour
             isBossMap = false;
         }
 
-        switch(curStage / 4)
+        if(0 < curStage && curStage <= 4)
         {
-            case 0:
-                mapType = "Forest";
-                break;
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
+            //숲
+            mapType = "Forest";
+        }
+        else if(4 < curStage && curStage <= 8)
+        {
+            //스테이지 추가시 추가
         }
     }
 
@@ -121,8 +116,17 @@ public class MapCreator : MonoBehaviour
     /// <param name="_mapType"> Type is region type :: 지역명</param>
     void ResourceLoadMap()
     {
-        if (isBossMap) ResourceLoadBossMap();
-        else ResourceLoadNormalMap();
+        if (!mapType.Equals(string.Empty))
+        {
+            if (isBossMap) ResourceLoadBossMap();
+            else ResourceLoadNormalMap();
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log("Load Failed MapData");
+#endif
+        }
     }
 
     private void ResourceLoadNormalMap()
@@ -401,8 +405,42 @@ public class MapCreator : MonoBehaviour
 
     private void DrawBossMap()
     {
+        GameObject Map_Root = new GameObject("Map_Root", typeof(RoomManager));
+        Map_Root.tag = "RoomManager";
+        RoomManager Manager = Map_Root.GetComponent<RoomManager>();
+        Map_Root.transform.SetPositionAndRotation(new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        Manager.SetGridData(gridSizeX_Cen, gridSizeY_Cen, gridSizeX, gridSizeY);
 
+        foreach(room room in rooms)
+        {
+            if(room == null)
+            {
+                continue;
+            }
+
+            Vector2 drawPos = room.gridPos;
+            drawPos.x *= 25f;//aspect ratio of map sprite
+            drawPos.y *= 15f;
+            int x = (int)room.gridPos.x;
+            int y = (int)room.gridPos.y;
+
+            if (room.type.Equals(RoomType.Begin)) map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Base, drawPos, Quaternion.identity, Map_Root.transform);
+            else map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Stair, drawPos, Quaternion.identity, Map_Root.transform);
+
+            Room roomManager = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
+
+            //방마다 데이터 저장
+            bool[] door_dir = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop };
+            roomManager.SetData(room.gridPos, room.type, Manager, room.depth, door_dir); //Room Data Set
+
+            //방의 문 설정
+            DoorSetting(roomManager);
+        }
+
+        Manager.Map_Data = map_Data;
+        Manager.SetPlayerPos(0, 0);
     }
+    
 
     void DrawMap()
     {
@@ -432,11 +470,8 @@ public class MapCreator : MonoBehaviour
                 int rand = Random.Range(0, map_Prefabs_Count);
                 map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Prefabs[rand], drawPos, Quaternion.identity, Map_Root.transform);
             }
-            map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
+            Room roomManager = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
 
-            GameObject map = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen];
-
-            Room roomManager = map.GetComponent<Room>(); //Room
             //방마다 데이터 저장
             bool[] door_dir = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop };
             roomManager.SetData(room.gridPos, room.type, Manager, room.depth, door_dir); //Room Data Set
