@@ -11,7 +11,9 @@ public class Player : Character
 {
        [SerializeField]
     protected State myState;
-   
+
+    // HP GAUGE
+    public HPGauge HPBar;
 
     public State CurrentState
     {
@@ -31,7 +33,6 @@ public class Player : Character
     public float temp_Movespeed;
 
     //회피율
-
     public float invaid;
 
     //코루틴 제어 함수
@@ -52,7 +53,6 @@ public class Player : Character
 
     public GameObject weaponSelection;
     private Animator weaponAnimator;
-    public UISprite hpBar;
 
     //플레이어 정지
 
@@ -107,6 +107,7 @@ public class Player : Character
     {
         DataTransaction.Inst.CurrentHp = HP;
         Debug.Log((float)HP / (float)maxHp);
+        HPBar.Player_HP_Changed(HP,maxHp);
         float currentATK=ATK;
         if(ATK>0)
         {
@@ -117,8 +118,8 @@ public class Player : Character
                 Debug.Log("회피성공");
             }
         }
-        Debug.Log((int)currentATK+"내 체력은 :"+currentHp);
-        hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
+        Debug.Log((int)currentATK+"내 체력은 :"+HP);
+      //  hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
 #if UNITY_EDITOR
         base.HPChanged(0);
 #endif
@@ -207,11 +208,13 @@ public class Player : Character
                             if (attackType == AttackType.LongRange && joyPad.Pressed == false)
                             {
                                 moveSpeed = 0;
+                                AngleisAttack = true;
                                 this.CurrentState = State.Attack;
                                 this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
                             else if(attackType == AttackType.LongRange && joyPad.Pressed == true)
                             {
+
                                  moveSpeed = temp_Movespeed;
                                  AngleisAttack = false;
                             }
@@ -301,7 +304,7 @@ public class Player : Character
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
         Player_camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
-        hpBar = GameObject.Find("UI Root/PlayerHPBGI/PlayerHP").GetComponent<UISprite>();
+        HPBar = GameObject.Find("UI Root/HPBar").GetComponent<HPGauge>();
         temp_Movespeed = moveSpeed;
     }
     // Update is called once per frame

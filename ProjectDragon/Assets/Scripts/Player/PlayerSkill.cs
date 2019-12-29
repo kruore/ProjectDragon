@@ -64,6 +64,13 @@ public class PlayerSkill : MonoBehaviour
             gameObject.GetComponent<BoxCollider>().enabled = false;
         }
     }
+    public void OnPress(bool isPressed)
+    {
+       if(isPressed)
+        {
+            Debug.Log("TMLQM");
+        }
+    }
 
     IEnumerator SkillDamaged()
     {

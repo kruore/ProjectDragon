@@ -79,9 +79,16 @@ public class JoyPad : MonoBehaviour
         if (pressed == false)
         {
             player.CurrentState = State.Idel;
+            target.GetComponent<UISprite>().enabled = false;
+            target2.GetComponent<UISprite>().enabled = false;
+            target2.GetComponent<UISprite>().spriteName = "ingameui_43";
         }
         if (pressed.Equals(true))
         {
+            target.GetComponent<UISprite>().enabled = true;
+            target2.GetComponent<UISprite>().enabled = true;
+            target2.GetComponent<UISprite>().depth = target.GetComponent<UISprite>().depth + 1;
+            target2.GetComponent<UISprite>().spriteName = "ingameui_40";
             if (Input.touchCount == 1)
             {
                 touch01 = Input.GetTouch(0);
