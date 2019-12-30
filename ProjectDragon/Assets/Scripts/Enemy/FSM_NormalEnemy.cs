@@ -123,6 +123,7 @@ public class FSM_NormalEnemy : Enemy
             {
                 isWalk = false;
                 NEState = NormalEnemyState.Attack;
+                objectAnimator.SetBool("Walk", false);
                 yield break;
             }
             if (rb2d.velocity != Vector2.zero)
@@ -141,6 +142,7 @@ public class FSM_NormalEnemy : Enemy
                     {
                         //Wait
                         NEState = NormalEnemyState.Wait;
+                        objectAnimator.SetBool("Walk", false);
                         yield break;
                     }
                     //AStar
@@ -159,7 +161,6 @@ public class FSM_NormalEnemy : Enemy
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Wait", true);
-        objectAnimator.SetBool("Walk", false);
 
         float waitTime = Random.Range(1.0f, 2.0f);
         float current_waitTime = 0;
@@ -177,13 +178,14 @@ public class FSM_NormalEnemy : Enemy
             if (inAtkDetectionRange)
             {
                 NEState = NormalEnemyState.Attack;           //Wait -> Attack
+                objectAnimator.SetBool("Wait", false);
                 yield break;
             }
             current_waitTime += Time.deltaTime;
             if (waitTime < current_waitTime)
             {
-                objectAnimator.SetBool("Wait", false);
                 NEState = NormalEnemyState.Walk;             //Wait -> Walk
+                objectAnimator.SetBool("Wait", false);
                 yield break;
             }
             rb2d.velocity = Vector2.zero;
@@ -205,8 +207,6 @@ public class FSM_NormalEnemy : Enemy
     {
         //Attack Animation parameters
         objectAnimator.SetBool("Attack", true);
-        objectAnimator.SetBool("Walk", false);
-        objectAnimator.SetBool("Wait", false);
         objectAnimator.SetBool("isAttackActive", isAttackActive);
 
         //Cooltime Initialize

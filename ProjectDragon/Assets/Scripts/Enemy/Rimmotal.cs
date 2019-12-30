@@ -62,6 +62,11 @@ public class Rimmotal : Enemy
     }
     IEnumerator Idle()
     {
+
+        yield return new WaitForSeconds(1.0f);
+        REState = RimmotalEnemyState.Walk;
+
+
         yield return null;
 
     }
@@ -83,6 +88,7 @@ public class Rimmotal : Enemy
             {
                 isWalk = false;
                 REState = RimmotalEnemyState.Attack1;
+                objectAnimator.SetBool("Walk", false);
                 yield break;
             }
 
@@ -127,7 +133,6 @@ public class Rimmotal : Enemy
     {
         //Attack Animation parameters
         objectAnimator.SetBool("Attack1", true);
-        objectAnimator.SetBool("Walk", false);
 
         while(!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack1"))
         {
@@ -141,7 +146,7 @@ public class Rimmotal : Enemy
         yield return new WaitForSeconds(cliptime / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
         REState = RimmotalEnemyState.Attack2;
-
+        objectAnimator.SetBool("Attack1", false);
     }
 
     IEnumerator Attack2()
@@ -158,7 +163,7 @@ public class Rimmotal : Enemy
         float cliptime = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(cliptime/ objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
-        StartCoroutine(TimeCheck());
+        StartCoroutine(CoolTimeCheck());
         yield return StartCoroutine(ThornAttack());
         objectAnimator.SetBool("Attack2", false);
 
@@ -184,14 +189,15 @@ public class Rimmotal : Enemy
         Debug.Log("Thorn Create Ready");
         while (_thorn_attacking)
         {
-            Debug.Log("Thorn Create");
-
             thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
             yield return new WaitForSeconds(2.0f);
         }
     }
-
-    IEnumerator TimeCheck()
+    /// <summary>
+    /// 공격2 쿨타임 검사
+    /// </summary>
+    /// <returns></returns>
+    IEnumerator CoolTimeCheck()
     {
         yield return new WaitForSeconds(6.0f);
         _thorn_attacking = false;
