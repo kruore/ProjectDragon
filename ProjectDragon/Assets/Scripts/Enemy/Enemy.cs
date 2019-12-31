@@ -28,14 +28,14 @@ public class Enemy : Monster
     }                         
 
 
+
+    protected float knockPower = 0.2f;
+    protected const float knockTime = 0.3f;
+
     [Header("[Enemy Attribute]")]
-    //public string name;
-    [SerializeField] protected float readyTime;          //Idle->Walk time
-    [SerializeField] protected float cooltime;          //Idle ->Attack time
-    protected float Current_readyTime = 0;
-    protected float Current_cooltime = 0;
-    [SerializeField] protected float knockPower = 0.2f;
-    protected float knockTime = 0.3f;
+    protected int knock_Resist;
+    protected int dropMana_Min;
+    protected int dropMana_Max;
 
 
     [Header("[Rare Enemy Attribute]")]
@@ -108,15 +108,11 @@ public class Enemy : Monster
     }
 
 
-    RoomManager RoomManager;
-    public virtual IEnumerator Start_On()
+    public override IEnumerator Start_On()
     {
         
         //Grid 생성
         GetComponent<Tracking>().pathFinding.Create(col, transform.GetComponentInParent<t_Grid>());
-
-         RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
-
         yield return null;
     }
 

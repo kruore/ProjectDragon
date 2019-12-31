@@ -16,13 +16,14 @@ public class Monster : Character
     //Effect
     protected FlashWhite flashWhite;
     protected DamagePopup damagePopup;
-
+    IEnumerator StartOnCor;
 
     protected override void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
         damagePopup = new DamagePopup();
         flashWhite = GetComponent<FlashWhite>();
+        StartOnCor = Start_On();
 
         base.Awake();
 
@@ -37,6 +38,16 @@ public class Monster : Character
             return base.HPChanged(ATK, NukBack, isNukBack);
         }
         return 0;
+    }
+
+    public virtual IEnumerator Start_On()
+    {
+        yield return null;
+    }
+
+    public void StartOn()
+    {
+        StartCoroutine(StartOnCor);
     }
 
 

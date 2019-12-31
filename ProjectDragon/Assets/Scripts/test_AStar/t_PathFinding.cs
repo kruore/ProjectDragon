@@ -52,16 +52,6 @@ public class t_PathFinding : MonoBehaviour
         }
     }
 
-    //public void Create(float _objBoxSizeX, float _objBoxSizeY, t_Grid _AStar)
-    //{
-    //    //grid = GameObject.Find("AStar").transform.GetComponent<t_Grid>();
-    //    grid = _AStar;
-
-    //    //GetOverlapNodeCount
-    //    nodeOverlapCountX = grid.CalcOverlapNodeCount(_objBoxSizeX);
-    //    nodeOverlapCountY = grid.CalcOverlapNodeCount(_objBoxSizeY);
-    //    //grid.GetOverlapNodeCount(objBoxSizeX, objBoxSizeY);
-    //}
 
     t_Node targetNode, currentNode;
     public void FindPath(Vector3 _startPos,Vector3 _targetPos)
@@ -96,29 +86,37 @@ public class t_PathFinding : MonoBehaviour
             //OpenList.Remove(currentNode);
             //ClosedList.Add(currentNode);
 
-            //도착했는가?
-            if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //노드크기가 하나 노드보다 큰 경우
-            {
-                foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
-                {
-                    if (OverlapNode == targetNode || currentNode == targetNode)
-                    {
-                        GetFinalPath(startNode, currentNode);
-                        break;
-                    }
-                }
-            }
-            else                                                   //노드크기가 하나 노드인 경우
-            {
+            //도착했는가 ?
+            //if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //노드크기가 하나 노드보다 큰 경우
+            //{
+            //    if (!targetNode.Walkable)
+            //    {
+
+            //    }
+            //    else
+            //    {
+
+            //    }
+            //    foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
+            //    {
+            //        if (OverlapNode == targetNode || currentNode == targetNode)
+            //        {
+            //            GetFinalPath(startNode, currentNode);
+            //            break;
+            //        }
+            //    }
+            //}
+            //else                                                   //노드크기가 하나 노드인 경우
+            //{
                 if (currentNode == targetNode)
                 {
                     GetFinalPath(startNode, targetNode);
                     break;
                 }
-            }
+            //}
             
 
-            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
+            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, 0, 0))
             {
                 //타겟노드가 갈 수 없는 노드로 되어있다면
                 if (GetNotWalkNode(NeighborNode) == targetNode)  //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
@@ -132,8 +130,7 @@ public class t_PathFinding : MonoBehaviour
                     }
                     break;
                 }
-
-
+               
                 if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
@@ -144,6 +141,17 @@ public class t_PathFinding : MonoBehaviour
                 //moveCost's F value < NeighborNode's F value 
                 if (moveCost < NeighborNode.gCost || !OpenList.Contains(NeighborNode))
                 {
+
+                    if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)
+                    {
+                        t_Node outNode = grid.GetDirectionNode(currentNode, NeighborNode, nodeOverlapCountX, nodeOverlapCountY); 
+                        if (!outNode.Walkable||outNode.IsObject|| ClosedList.Contains(outNode))
+                        {
+                            continue;
+                        }
+                    }
+
+
                     NeighborNode.gCost = moveCost;
                     NeighborNode.hCost = GetManhattenDistance(NeighborNode, targetNode);
                     NeighborNode.Parent = currentNode;

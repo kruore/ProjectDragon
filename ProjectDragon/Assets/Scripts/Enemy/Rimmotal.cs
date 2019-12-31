@@ -38,8 +38,6 @@ public class Rimmotal : Enemy
     protected override void Start()
     {
         base.Start();
-        //Time.timeScale = 0.2f;
-        //StartCoroutine(Start_On());
     }
 
     public override IEnumerator Start_On()
@@ -58,21 +56,26 @@ public class Rimmotal : Enemy
     public override void Dead()
     {
         base.Dead();
-
     }
     IEnumerator Idle()
     {
+        Debug.Log("Idle");
 
         yield return new WaitForSeconds(1.0f);
-        REState = RimmotalEnemyState.Walk;
-
-
-        yield return null;
+        if (inAtkDetectionRange)
+        {
+            REState = RimmotalEnemyState.Attack1;
+        }
+        else
+        {
+            REState = RimmotalEnemyState.Walk;
+        }
 
     }
 
     IEnumerator Walk()
     {
+        Debug.Log("Walk");
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
         while (REState == RimmotalEnemyState.Walk && !isDead)
@@ -131,6 +134,8 @@ public class Rimmotal : Enemy
 
     IEnumerator Attack1()
     {
+        Debug.Log("Attack1");
+
         //Attack Animation parameters
         objectAnimator.SetBool("Attack1", true);
 
@@ -151,6 +156,8 @@ public class Rimmotal : Enemy
 
     IEnumerator Attack2()
     {
+        Debug.Log("Attack2");
+
         //Attack Animation parameters
         objectAnimator.SetBool("Attack2", true);
         IsFix = true;
@@ -171,6 +178,7 @@ public class Rimmotal : Enemy
         {
             yield return null;
         }
+
         float cliptime1 = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(cliptime1 / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
@@ -187,6 +195,8 @@ public class Rimmotal : Enemy
     IEnumerator ThornAttack()
     {
         Debug.Log("Thorn Create Ready");
+        _thorn_attacking = true;
+
         while (_thorn_attacking)
         {
             thornTargeting.Create(skillDamage, "ThornTargeting", other.position);

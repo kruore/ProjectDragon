@@ -213,6 +213,41 @@ public class t_Grid : MonoBehaviour
         return OverlapNodes;
     }
 
+    public t_Node GetDirectionNode(t_Node _currentNode, t_Node _neighboringNode, int nodeOverlapCountX, int nodeOverlapCountY)
+    {
+        Vector3 direction = (_neighboringNode.Pos - _currentNode.Pos).normalized;
+
+        int xCheck = 0, yCheck = 0;
+        t_Node node = null;
+        if (direction == Vector3.up)
+        {
+            xCheck = _neighboringNode.gridX;
+            yCheck = _neighboringNode.gridY + nodeOverlapCountY;
+
+        }
+        else if (direction == Vector3.down)
+        {
+            xCheck = _neighboringNode.gridX;
+            yCheck = _neighboringNode.gridY - nodeOverlapCountY;
+        }
+        else if (direction == Vector3.right)
+        {
+            xCheck = _neighboringNode.gridX + nodeOverlapCountX;
+            yCheck = _neighboringNode.gridY;
+        }
+        else if (direction == Vector3.left)
+        {
+            xCheck = _neighboringNode.gridX - nodeOverlapCountX;
+            yCheck = _neighboringNode.gridY;
+        }
+
+        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+        {
+            node = gridNode[xCheck, yCheck];
+        }
+        return node;
+    }
+
     //주변노드만 찾기
     public List<t_Node> GetNeighboringNodes(t_Node _Node, int nodeOverlapCountX, int nodeOverlapCountY)    
     {

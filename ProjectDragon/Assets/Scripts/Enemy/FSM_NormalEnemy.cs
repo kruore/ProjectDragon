@@ -11,9 +11,13 @@ public enum NormalEnemyState { Idle, Walk, Attack, Wait}
 public class FSM_NormalEnemy : Enemy
 {
 
-    [Header(" ")]
-    protected bool isAttackActive;
+    [Header("[NormalEnemy Attribute]")]
+    public float readyTime;          //Idle->Walk time
+    public float cooltime;          //Idle ->Attack time
     public int attackCount;
+    protected float Current_readyTime = 0;
+    protected float Current_cooltime = 0;
+    protected bool isAttackActive;
 
     [Header("[Enemy State]")]
     [SerializeField] protected NormalEnemyState normalEnemyState;

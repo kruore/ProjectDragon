@@ -2002,6 +2002,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Slime (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2954448563601634526, guid: b7ae067acff73b945a41221c4c3d497b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2954448563601634518, guid: b7ae067acff73b945a41221c4c3d497b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2376,6 +2381,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Mr_Gobulhwa
+      objectReference: {fileID: 0}
+    - target: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 581777204744015375, guid: b28443e03dfbb064a911d73419a8089e,
         type: 3}
@@ -3802,6 +3812,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 'Doldori '
       objectReference: {fileID: 0}
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927243, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5001,6 +5016,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Slime (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2954448563601634526, guid: b7ae067acff73b945a41221c4c3d497b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2954448563601634518, guid: b7ae067acff73b945a41221c4c3d497b,
         type: 3}

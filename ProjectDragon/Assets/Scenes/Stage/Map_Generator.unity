@@ -359,11 +359,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: mWidth
-      value: 1876
+      value: 1878
       objectReference: {fileID: 0}
     - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: aspectRatio
-      value: 4.168889
+      value: 4.173333
       objectReference: {fileID: 0}
     - target: {fileID: 1099074029, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: onClick.Array.size
@@ -600,11 +600,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rimmotal
       objectReference: {fileID: 0}
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -658,6 +653,11 @@ PrefabInstance:
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 597733603165426381, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_SpriteSortPoint
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1220,6 +1220,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ThornTargeting
+      objectReference: {fileID: 0}
+    - target: {fileID: 4056905740517401205, guid: 482f1c6daceb57042a793b34120305c2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4056905740517401201, guid: 482f1c6daceb57042a793b34120305c2,
         type: 3}
