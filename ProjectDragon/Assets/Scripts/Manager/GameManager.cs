@@ -339,7 +339,7 @@ public class GameManager : MonoSingleton<GameManager>
                 //죽는 씬전환
                 StartCoroutine(GameEnd());
             }
-            else if (MaxHp <= CurrentHp) CurrentHp = MaxHp;
+            else if (MaxHp < CurrentHp) CurrentHp = MaxHp;
 
         }
     }
@@ -406,28 +406,65 @@ public class GameManager : MonoSingleton<GameManager>
     //플레이어 현재 스킬
     public Database.Skill CurrentSkill
     {
-        get { return database.skill[PlayerEquipWeapon.skill_Index]; }
+        get
+        {
+            if (PlayerEquipWeapon == null)
+            {
+#if UNITY_EDITOR
+                Debug.Log("장착중인 무기가 없습니다.");
+#endif
+                return null;
+            }
+            return database.skill[PlayerEquipWeapon.skill_Index];
+        }
     }
     //현재 장착 무기
     public Database.Weapon CurrentEquipWeapon
     {
-        get { return database.weapons[PlayerEquipWeapon.DB_Num]; }
+        get
+        {
+            if (PlayerEquipWeapon == null)
+            {
+#if UNITY_EDITOR
+                Debug.Log("장착중인 무기가 없습니다.");
+#endif
+                return null;
+            }
+            return database.weapons[PlayerEquipWeapon.DB_Num];
+        }
     }
     //현재 장착 방어구
     public Database.Armor CurrentEquipArmor
     {
-        get { return database.armors[PlayerEquipArmor.DB_Num]; }
+        get
+        {
+            if (PlayerEquipArmor == null)
+            {
+#if UNITY_EDITOR
+                Debug.Log("장착중인 무기가 없습니다.");
+#endif
+                return null;
+            }
+            return database.armors[PlayerEquipArmor.DB_Num];
+        }
     }
     //무기 장착 해제
     public Database.Inventory PlayerEquipWeapon
     {
         get
         {
+            if (database.playData.equiWeapon_InventoryNum.Equals(-1))
+            {
+#if UNITY_EDITOR
+                Debug.Log("장착중인 방어구가 없습니다.");
+#endif
+                return null;
+            }
             return database.playData.inventory[database.playData.equiWeapon_InventoryNum];
         }
         set
         {
-            if (!value.Class.Equals(CLASS.갑옷))
+            if (value != null && !value.Class.Equals(CLASS.갑옷))
             {
                 Database.Weapon weapon = database.weapons[value.DB_Num];
                 database.playData.equiWeapon_InventoryNum = value.num;
@@ -452,11 +489,18 @@ public class GameManager : MonoSingleton<GameManager>
     {
         get
         {
+            if(database.playData.equiArmor_InventoryNum.Equals(-1))
+            {
+#if UNITY_EDITOR
+                Debug.Log("장착중인 방어구가 없습니다.");
+#endif
+                return null;
+            }
             return database.playData.inventory[database.playData.equiArmor_InventoryNum];
         }
         set
         {
-            if (value.Class.Equals(CLASS.갑옷))
+            if (value != null && value.Class.Equals(CLASS.갑옷))
             {
                 Database.Armor armor = database.armors[value.DB_Num];
                 database.playData.equiArmor_InventoryNum = value.num;
@@ -553,6 +597,7 @@ public class GameManager : MonoSingleton<GameManager>
     }
     IEnumerator GameEnd()
     {
+        GameObject.FindGameObjectWithTag("Player").SetActive(false);
         yield return null;
     }
     #region 공사중 - 초기화 구조 바꿔야 함
@@ -564,8 +609,8 @@ public class GameManager : MonoSingleton<GameManager>
     {
         //ResetInventory();
         //ResetEmblem();
-        database.playData.equiWeapon_InventoryNum = 0;
-        database.playData.equiArmor_InventoryNum = 1;
+        database.playData.equiWeapon_InventoryNum = -1;
+        database.playData.equiArmor_InventoryNum = -1;
 
         database.playData.maxHp = BaseHp;
         database.playData.currentHp = BaseHp;

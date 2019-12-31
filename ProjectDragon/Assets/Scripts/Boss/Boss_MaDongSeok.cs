@@ -33,6 +33,7 @@ public class Boss_MaDongSeok : Monster
 
         base.Awake();
     }
+
     protected override void Start()
     {
         damagePopup = new DamagePopup();
@@ -60,17 +61,22 @@ public class Boss_MaDongSeok : Monster
 
         base.Start();
     }
-    public override void Dead()
+    public override IEnumerator Start_On()
     {
-        base.Dead();
-
-        objectAnimator.Play("MaDongSeokDead");
-        StopCoroutine(PhseState);
-        StopCoroutine(Bossphasechange);
-        EndSprite.SetActive(true);
-        Explosion();
+        StartBoss();
+        yield return null;
     }
-
+    protected override void SetState<T>(T newState)
+    {
+        if (newState.Equals(State.Dead))
+        {
+            objectAnimator.Play("MaDongSeokDead");
+            StopCoroutine(PhseState);
+            StopCoroutine(Bossphasechange);
+            EndSprite.SetActive(true);
+            Explosion();
+        }
+    }
     /// <summary>
     /// 보스시작시 해야할것
     /// </summary>

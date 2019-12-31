@@ -3,10 +3,11 @@
 // Room Object
 //
 // 2019-12-27: Responding to the boss
+// 2019-12-31: change Boss monster counting and add plus monster method  
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-27
+// UPDATED: 2019-12-31
 // ==============================================================
 
 using System.Collections;
@@ -41,7 +42,7 @@ public class Room : MonoBehaviour
     public GameObject[] door_All = new GameObject[4] { null, null, null, null }; //문 오브젝트
 
     public GameObject portal; //포탈 오브젝트
-
+    public List<GameObject> Enemies = new List<GameObject>();
     public List<GameObject> monsters = new List<GameObject>(); //방의 몬스터를 관리하기 위한 리스트
 
     public RoomManager roomManager;
@@ -78,6 +79,10 @@ public class Room : MonoBehaviour
         foreach (Monster obj in temp_monsters)
         {
             monsters.Add(obj.gameObject);
+            if (obj.GetComponent<Enemy>() != null)
+            {
+                Enemies.Add(obj.gameObject);
+            }
         }
     }
 
@@ -103,18 +108,25 @@ public class Room : MonoBehaviour
     void MonsterCounting()
     {
         List<GameObject> temp_monsters = new List<GameObject>();
+        List<GameObject> temp_enemies = new List<GameObject>();
         foreach (GameObject obj in monsters)
         {
             if (obj.GetComponent<Monster>().isDead) continue;
             else
             {
                 temp_monsters.Add(obj);
+                if (obj.GetComponent<Enemy>() != null)
+                {
+                    temp_enemies.Add(obj);
+                }
             }
         }
 
         //리스트 값 재지정
         monsters.Clear();
         monsters.AddRange(temp_monsters);
+        Enemies.Clear();
+        Enemies.AddRange(temp_enemies);
 
         //몬스터가 없으면 플레이어에게 Null을 세팅
         if (monsters.Count == 0)
@@ -123,6 +135,8 @@ public class Room : MonoBehaviour
         }
     }
 
+    //몬스터 추가되는 기능이 있으면 필요함
+    #region 공사중
     /// <summary>
     /// 전투 도중에 몬스터를 추가 하기 위한 함수입니다. 예시) 보스
     /// </summary>
@@ -132,6 +146,26 @@ public class Room : MonoBehaviour
         if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
         {
             monsters.AddRange(_monsters);
+
+            //몬스터와 플레이어 계산 다시 해야 하나?
+        }
+    }
+    #endregion
+    /// <summary>
+    /// 전투 도중에 몬스터를 추가 하기 위한 함수입니다. 예시) 보스
+    /// </summary>
+    /// <param name="_monsters"></param>
+    public void AddMonsters(GameObject _monster)
+    {
+        if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
+        {
+            monsters.Add(_monster);
+
+            if (_monster.GetComponent<Enemy>() != null)
+            {
+                Enemies.Add(_monster);
+                _monster.GetComponent<Monster>().Starton();
+            }
         }
     }
 
@@ -144,14 +178,14 @@ public class Room : MonoBehaviour
             roomState = RoomState.Activate;
 
             //플레이어 배틀 시작
-            playerSet.EnemyArray = monsters;
+            playerSet.EnemyArray = Enemies;
             StartCoroutine(playerSet.CalculateDistanceWithPlayer());
 
             //몬스터 배틀 시작
             foreach (GameObject obj in monsters)
             {
                 //보스를 위해 Enemy를 Monster로 바꿔야한다.
-                StartCoroutine(obj.GetComponent<Enemy>().Start_On());
+                obj.GetComponent<Monster>().Starton();
             }
         }
     }
@@ -230,23 +264,23 @@ public class Room : MonoBehaviour
         {
             if (obj == null) continue;
 
-            switch (obj.name)
+            switch (obj.GetComponent<Door>().Name)
             {
-                case "North":
+                case DoorName.North:
                     Destroy(North);
                     break;
-                case "South":
+                case DoorName.South:
                     Destroy(South);
                     break;
-                case "West":
+                case DoorName.West:
                     Destroy(West);
                     break;
-                case "East":
+                case DoorName.East:
                     Destroy(East);
                     break;
             }
 
-            obj.SetActive(true);
+            obj.GetComponent<Animator>().SetBool("isClear", true);
         }
     }
 
@@ -266,7 +300,7 @@ public class Room : MonoBehaviour
             gameObject.SetActive(false);
         }
 
-        if (!roomType.Equals(RoomType.Normal))
+        if (!roomType.Equals(RoomType.Normal) && !roomType.Equals(RoomType.Boss))
         {
             portal = transform.GetComponentInChildren<Portal>().gameObject;
             portal.SetActive(false);

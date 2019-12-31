@@ -1,10 +1,11 @@
 ﻿
 // ==============================================================
 // Map Objects parent class
-//
+// The parent of the interactive map object
+// 
 //  AUTHOR: Kim Dong Ha
-// CREATED:
-// UPDATED: 2019-12-16
+// CREATED: 2019-12-31
+// UPDATED: 2019-12-31
 // ==============================================================
 
 using System.Collections;

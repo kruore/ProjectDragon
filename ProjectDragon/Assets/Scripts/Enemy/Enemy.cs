@@ -102,7 +102,7 @@ public class Enemy : Monster
     //}
 
     RoomManager RoomManager;
-    public virtual IEnumerator Start_On()
+    public override IEnumerator Start_On()
     {
         
         //Grid 생성

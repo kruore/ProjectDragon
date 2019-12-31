@@ -4,10 +4,11 @@
 // Create all map data and object
 //
 // 2019-12-27: BossMap create method
+// 2019-12-31: modify DoorSetting method
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-27
+// UPDATED: 2019-12-31
 // ==============================================================
 
 using System.Collections;
@@ -68,7 +69,7 @@ public class MapCreator : MonoBehaviour
     private void SettingCreateRegion()
     {
         int curStage = GameManager.Inst.CurrentStage;
-        curStage = 4;
+        curStage = 1;
         Debug.Log(curStage % 4);
         Debug.Log(curStage / 4);
         if(curStage % 4 == 0)
@@ -737,33 +738,29 @@ public class MapCreator : MonoBehaviour
         if (!_room.doorTop) Destroy(North);
         else
         {
-            _room.door_All[i] = North;
-            North.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.North;
-            North.SetActive(false);
+            _room.door_All[i] = North.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.North;
             i++;
         }
         if (!_room.doorBot) Destroy(South);
         else
         {
-            _room.door_All[i] = South;
-            South.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.South;
-            South.SetActive(false);
+            _room.door_All[i] = South.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.South;
             i++;
         }
         if (!_room.doorLeft) Destroy(West);
         else
         {
-            _room.door_All[i] = West;
-            West.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.West;
-            West.SetActive(false);
+            _room.door_All[i] = West.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.West;
             i++;
         }
         if (!_room.doorRight) Destroy(East);
         else
         {
-            _room.door_All[i] = East;
-            East.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.East;
-            East.SetActive(false);
+            _room.door_All[i] = East.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.East;
             i++;
         }
     }

@@ -16,17 +16,28 @@ public class Monster : Character
     //Effect
     protected FlashWhite flashWhite;
     protected DamagePopup damagePopup;
-
+    IEnumerator StartONE;
+    public virtual IEnumerator Start_On()
+    {
+        yield return null;
+    }
 
     protected override void Awake()
     {
         objectAnimator = gameObject.GetComponent<Animator>();
         damagePopup = new DamagePopup();
         flashWhite = GetComponent<FlashWhite>();
-
+        StartONE = Start_On();
         base.Awake();
-
      //   Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
+    }
+    public void Starton()
+    {
+        StartCoroutine(StartONE);
+    }
+    public void StartonStop()
+    {
+        StopCoroutine(StartONE);
     }
     public override int HPChanged(int ATK)
     {

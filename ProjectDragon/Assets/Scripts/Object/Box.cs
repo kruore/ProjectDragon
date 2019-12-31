@@ -16,17 +16,11 @@ public class Box : MonoBehaviour
     public float itemDropPercentage = 0.0f;
     public float hp = 1;
     public GameObject party;
-    public t_Grid astar;
 
     private void Awake()
     {
         party = GetComponentInChildren<ParticleSystem>().gameObject;
         party.SetActive(false);
-    }
-
-    private void Start()
-    {
-        astar = transform.parent.GetComponentInChildren<t_Grid>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
