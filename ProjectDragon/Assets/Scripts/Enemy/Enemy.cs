@@ -301,7 +301,7 @@ public class Enemy : Monster
     }
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Cliff"))
         {
             //충돌할때 walk이면 콜라이더끄기
             if (isWalk)
@@ -330,7 +330,7 @@ public class Enemy : Monster
     }
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Cliff"))
         {
             Physics2D.IgnoreCollision(collision, col, false);
         }

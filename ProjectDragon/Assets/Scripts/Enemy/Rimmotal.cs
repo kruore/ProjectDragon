@@ -30,8 +30,10 @@ public class Rimmotal : Enemy
     }
     protected override RaycastHit2D[] GetRaycastType()
     {
+        //float maxSizeAxis = capsuleCol.size.x < capsuleCol.size.y ? capsuleCol.size.y : capsuleCol.size.x;
+
         //CapsuleCas
-        return Physics2D.CapsuleCastAll(startingPosition, capsuleCol.size, CapsuleDirection2D.Vertical, 0, direction, AtkRange - originOffset, m_viewTargetMask);
+        return Physics2D.CapsuleCastAll(startingPosition, capsuleCol.size, CapsuleDirection2D.Vertical, 0, direction, AtkRange - originOffset/*- (maxSizeAxis*0.5f)*/, m_viewTargetMask);
     }
 
 
@@ -57,6 +59,12 @@ public class Rimmotal : Enemy
     {
         base.Dead();
     }
+
+
+
+    /********************************************************************/
+
+
     IEnumerator Idle()
     {
         Debug.Log("Idle");
@@ -117,19 +125,14 @@ public class Rimmotal : Enemy
 
      void Attack1_On()
     {
-        if (!isDead)
-        {
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,0,false);
-        }
     }
     void Attack2_On()
     {
-        if (!isDead)
-        {
+
             //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,1,true);
-        }
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 1, true);
     }
 
     IEnumerator Attack1()
@@ -199,7 +202,10 @@ public class Rimmotal : Enemy
 
         while (_thorn_attacking)
         {
-            thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
+            if (inAtkDetectionRange)
+            {
+                thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
+            }
             yield return new WaitForSeconds(2.0f);
         }
     }

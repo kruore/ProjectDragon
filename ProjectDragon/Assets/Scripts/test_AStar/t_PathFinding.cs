@@ -29,8 +29,8 @@ public class t_PathFinding : MonoBehaviour
             BoxCollider2D boxCol = _collider as BoxCollider2D;
 
             //GetOverlapNodeCount
-            nodeOverlapCountX = grid.CalcOverlapNodeCount(boxCol.size.x);
-            nodeOverlapCountY = grid.CalcOverlapNodeCount(boxCol.size.y);
+            nodeOverlapCountX = grid.CalcOverlapNodeCount(boxCol.size.x * 0.5f);
+            nodeOverlapCountY = grid.CalcOverlapNodeCount(boxCol.size.y * 0.5f);
         }
 
         else if (_collider is CapsuleCollider2D)
@@ -38,8 +38,8 @@ public class t_PathFinding : MonoBehaviour
             CapsuleCollider2D capsuleCol = _collider as CapsuleCollider2D;
 
             //GetOverlapNodeCount
-            nodeOverlapCountX = grid.CalcOverlapNodeCount(capsuleCol.size.x);
-            nodeOverlapCountY = grid.CalcOverlapNodeCount(capsuleCol.size.y);
+            nodeOverlapCountX = grid.CalcOverlapNodeCount(capsuleCol.size.x * 0.5f);
+            nodeOverlapCountY = grid.CalcOverlapNodeCount(capsuleCol.size.y * 0.5f);
 
         }
 
@@ -48,8 +48,9 @@ public class t_PathFinding : MonoBehaviour
             CircleCollider2D circleCol = _collider as CircleCollider2D;
 
             //GetOverlapNodeCount
-            nodeOverlapCountY = nodeOverlapCountX = grid.CalcOverlapNodeCount(circleCol.radius*2);
+            nodeOverlapCountY = nodeOverlapCountX = grid.CalcOverlapNodeCount(circleCol.radius);
         }
+        Debug.Log(nodeOverlapCountX + "    " + nodeOverlapCountY);
     }
 
 
@@ -69,6 +70,7 @@ public class t_PathFinding : MonoBehaviour
         {
             currentNode = OpenList.RemoveFirst();
             ClosedList.Add(currentNode);
+
             if (OpenList == null)
             {
                 break;
@@ -116,7 +118,7 @@ public class t_PathFinding : MonoBehaviour
             //}
             
 
-            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, 0, 0))
+            foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, 0, 0, false))
             {
                 //타겟노드가 갈 수 없는 노드로 되어있다면
                 if (GetNotWalkNode(NeighborNode) == targetNode)  //갈수없는 곳인 이웃노드와 갈수없는 곳인 타겟노드가 같다면
@@ -130,37 +132,54 @@ public class t_PathFinding : MonoBehaviour
                     }
                     break;
                 }
-               
+
+
                 if (!NeighborNode.Walkable || NeighborNode.IsObject || ClosedList.Contains(NeighborNode))
                 {
                     continue;
                 }
+
+                // n*n 크기인 오브젝트라면 (n<=3)
+                if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)
+                {
+                    bool walkable = false;
+                    foreach (t_Node LineNode in grid.GetNeighboringLineNode(currentNode, NeighborNode, nodeOverlapCountX, nodeOverlapCountY))
+                    {
+
+                        if (!LineNode.Walkable || LineNode.IsObject||ClosedList.Contains(LineNode))
+                        {
+                            walkable = true;
+                            break;
+                        }
+                    }
+
+                    if (walkable)
+                    {
+                        walkable = false;
+                        continue;
+                    }
+
+                }
+
                 int moveCost = currentNode.gCost + GetManhattenDistance(currentNode, NeighborNode);
 
                 //NeighborNode are In an OpenList 
                 //moveCost's F value < NeighborNode's F value 
                 if (moveCost < NeighborNode.gCost || !OpenList.Contains(NeighborNode))
                 {
-
-                    if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)
-                    {
-                        t_Node outNode = grid.GetDirectionNode(currentNode, NeighborNode, nodeOverlapCountX, nodeOverlapCountY); 
-                        if (!outNode.Walkable||outNode.IsObject|| ClosedList.Contains(outNode))
-                        {
-                            continue;
-                        }
-                    }
-
-
                     NeighborNode.gCost = moveCost;
                     NeighborNode.hCost = GetManhattenDistance(NeighborNode, targetNode);
                     NeighborNode.Parent = currentNode;
 
-                    if(!OpenList.Contains(NeighborNode))
+                    if (!OpenList.Contains(NeighborNode))
                     {
                         OpenList.Add(NeighborNode);
+
                     }
                 }
+
+
+
             }
         }
 

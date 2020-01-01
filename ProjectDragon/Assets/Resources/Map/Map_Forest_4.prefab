@@ -1282,7 +1282,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cd97e463ad5a534ba6359823ca0abb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  displayGridGizmos: 0
+  displayGridGizmos: 1
   wallMask:
     serializedVersion: 2
     m_Bits: 24576
@@ -1312,11 +1312,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock_Middle_Normal1 (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 3800568560897856216, guid: 946c732320e1b1e44a321d5ba893316e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1371,6 +1366,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock_Middle_Normal1 (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946c732320e1b1e44a321d5ba893316e, type: 3}
@@ -2302,11 +2302,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 2196838489892348882, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
-        type: 3}
-      propertyPath: m_Name
-      value: Root_Middle (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 2196838489892348887, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2362,6 +2357,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2196838489892348882, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
+        type: 3}
+      propertyPath: m_Name
+      value: Root_Middle (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed01a0944e2c0b643ae3aa14e5b97ff0, type: 3}
 --- !u!4 &841992037916054226 stripped
@@ -2377,16 +2377,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7107104450802350180}
     m_Modifications:
-    - target: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
-        type: 3}
-      propertyPath: m_Name
-      value: Mr_Gobulhwa
-      objectReference: {fileID: 0}
-    - target: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 581777204744015375, guid: b28443e03dfbb064a911d73419a8089e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2440,6 +2430,16 @@ PrefabInstance:
     - target: {fileID: 581777204744015375, guid: b28443e03dfbb064a911d73419a8089e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
+        type: 3}
+      propertyPath: m_Name
+      value: Mr_Gobulhwa
+      objectReference: {fileID: 0}
+    - target: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2982,11 +2982,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock_Middle_Normal1 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 3800568560897856216, guid: 946c732320e1b1e44a321d5ba893316e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3041,6 +3036,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock_Middle_Normal1 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946c732320e1b1e44a321d5ba893316e, type: 3}
@@ -3207,11 +3207,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7107104450802350180}
     m_Modifications:
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rimmotal
-      objectReference: {fileID: 0}
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3267,6 +3262,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rimmotal
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ce63458e9fe70e499413c11f01e8b7e, type: 3}
 --- !u!4 &754492478632692220 stripped
@@ -3282,11 +3282,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
-        type: 3}
-      propertyPath: m_Name
-      value: Cliff3 (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 5300935928675168133, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3341,6 +3336,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
+        type: 3}
+      propertyPath: m_Name
+      value: Cliff3 (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b419f2f41a1b04d9cf11bbf0ad1074, type: 3}
@@ -3432,11 +3432,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
-        type: 3}
-      propertyPath: m_Name
-      value: Cliff3 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 5300935928675168133, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3491,6 +3486,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
+        type: 3}
+      propertyPath: m_Name
+      value: Cliff3 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b419f2f41a1b04d9cf11bbf0ad1074, type: 3}
@@ -3807,16 +3807,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7107104450802350180}
     m_Modifications:
-    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
-        type: 3}
-      propertyPath: m_Name
-      value: 'Doldori '
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927243, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3870,6 +3860,16 @@ PrefabInstance:
     - target: {fileID: 8629793387476927243, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_Name
+      value: 'Doldori '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4562,11 +4562,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock_Middle_Normal1
-      objectReference: {fileID: 0}
     - target: {fileID: 3800568560897856216, guid: 946c732320e1b1e44a321d5ba893316e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4621,6 +4616,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock_Middle_Normal1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946c732320e1b1e44a321d5ba893316e, type: 3}
@@ -5397,11 +5397,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
-        type: 3}
-      propertyPath: m_Name
-      value: Cliff3 (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 5300935928675168133, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5456,6 +5451,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
+        type: 3}
+      propertyPath: m_Name
+      value: Cliff3 (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b419f2f41a1b04d9cf11bbf0ad1074, type: 3}
@@ -5622,11 +5622,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
-        type: 3}
-      propertyPath: m_Name
-      value: Cliff3
-      objectReference: {fileID: 0}
     - target: {fileID: 5300935928675168133, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5681,6 +5676,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5300935928675168128, guid: 88b419f2f41a1b04d9cf11bbf0ad1074,
+        type: 3}
+      propertyPath: m_Name
+      value: Cliff3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b419f2f41a1b04d9cf11bbf0ad1074, type: 3}
@@ -5847,11 +5847,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock_Middle_Normal1 (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 3800568560897856216, guid: 946c732320e1b1e44a321d5ba893316e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5907,6 +5902,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock_Middle_Normal1 (2)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946c732320e1b1e44a321d5ba893316e, type: 3}
 --- !u!4 &5716529549089599584 stripped
@@ -5922,11 +5922,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rock_Middle_Normal1 (4)
-      objectReference: {fileID: 0}
     - target: {fileID: 3800568560897856216, guid: 946c732320e1b1e44a321d5ba893316e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5982,6 +5977,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3800568560897856213, guid: 946c732320e1b1e44a321d5ba893316e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rock_Middle_Normal1 (4)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 946c732320e1b1e44a321d5ba893316e, type: 3}
 --- !u!4 &5209149997302068205 stripped
@@ -5997,11 +5997,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6772136883347326002}
     m_Modifications:
-    - target: {fileID: 2196838489892348882, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
-        type: 3}
-      propertyPath: m_Name
-      value: Root_Middle
-      objectReference: {fileID: 0}
     - target: {fileID: 2196838489892348887, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6056,6 +6051,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2196838489892348882, guid: ed01a0944e2c0b643ae3aa14e5b97ff0,
+        type: 3}
+      propertyPath: m_Name
+      value: Root_Middle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed01a0944e2c0b643ae3aa14e5b97ff0, type: 3}

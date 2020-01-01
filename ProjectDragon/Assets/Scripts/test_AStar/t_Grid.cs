@@ -77,7 +77,7 @@ public class t_Grid : MonoBehaviour
         NodeFromWorldPosition(_collider.transform.position).IsObject = false;
 
         //콜라이더 종류에 따른 오버랩된 노드 계산
-        int nodeOverlapCountX = 0, nodeOverlapCountY =0;
+        int nodeOverlapCountX = 0, nodeOverlapCountY = 0;
 
         if (_collider is BoxCollider2D)
         {
@@ -105,17 +105,24 @@ public class t_Grid : MonoBehaviour
         }
 
 
-        //오버된 노드 읽어오기
-        foreach (t_Node OverlapNode in GetOverlapNodes(NodeFromWorldPosition(_collider.transform.position), nodeOverlapCountX+1, nodeOverlapCountY+1))
+        if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)
         {
-            if (OverlapNode.IsObject)
+            //겹친 노드 읽어오기
+            foreach (t_Node OverlapNode in GetNeighboringNodes(NodeFromWorldPosition(_collider.transform.position), nodeOverlapCountX, nodeOverlapCountY, true))
             {
-                OverlapNode.IsObject = false;
-                //objectNodes.Add(OverlapNode);
+                if (OverlapNode.IsObject)
+                {
+                    OverlapNode.IsObject = false;
+                }
             }
         }
     }
 
+    /// <summary>
+    /// 월드위치를 노드정보로 읽어오기
+    /// </summary>
+    /// <param name="_worldPosition"></param>
+    /// <returns></returns>
     public t_Node NodeFromWorldPosition(Vector3 _worldPosition)
     {
         float xPoint = (((_worldPosition.x - transform.parent.position.x + (transform.parent.position.x-transform.position.x)) + gridWorldSize.x / 2) / gridWorldSize.x);
@@ -139,153 +146,114 @@ public class t_Grid : MonoBehaviour
     }
 
 
-    //대각선에 있는 각도 찾기
-    public List<t_Node> GetOverlapNodes(t_Node _Node, int nodeOverlapCountX,int nodeOverlapCountY)  
+    //           / / / @ / 
+    //           / - / @ / 
+    //           / / / @ / 
+    //           / / / / / 
+    //@ 노드 찾기
+    public List<t_Node> GetNeighboringLineNode(t_Node _currentNode, t_Node _neighboringNode, int nodeOverlapCountX, int nodeOverlapCountY)
     {
-        List<t_Node> OverlapNodes = new List<t_Node>();
-        int xCheck, yCheck;
-        
-        //Right Side
-        xCheck = _Node.gridX + nodeOverlapCountX;
-        yCheck = _Node.gridY;
+        List<t_Node> NeighboringLineNode = new List<t_Node>();
 
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Left Side
-        xCheck = _Node.gridX - nodeOverlapCountX;
-        yCheck = _Node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Top Side
-        xCheck = _Node.gridX;
-        yCheck = _Node.gridY + nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Bottom Side
-        xCheck = _Node.gridX;
-        yCheck = _Node.gridY - nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Right TopSide
-        xCheck = _Node.gridX + nodeOverlapCountX;
-        yCheck = _Node.gridY + nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Left TopSide
-        xCheck = _Node.gridX - nodeOverlapCountX;
-        yCheck = _Node.gridY + nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Right BottomSide
-        xCheck = _Node.gridX + nodeOverlapCountX;
-        yCheck = _Node.gridY - nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        //Left BottomSide
-        xCheck = _Node.gridX - nodeOverlapCountX;
-        yCheck = _Node.gridY - nodeOverlapCountY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            OverlapNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
-        return OverlapNodes;
-    }
-
-    public t_Node GetDirectionNode(t_Node _currentNode, t_Node _neighboringNode, int nodeOverlapCountX, int nodeOverlapCountY)
-    {
         Vector3 direction = (_neighboringNode.Pos - _currentNode.Pos).normalized;
 
         int xCheck = 0, yCheck = 0;
-        t_Node node = null;
+
         if (direction == Vector3.up)
         {
             xCheck = _neighboringNode.gridX;
             yCheck = _neighboringNode.gridY + nodeOverlapCountY;
+
+            if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+            {
+                for (int i = -nodeOverlapCountX; i <= nodeOverlapCountX; i++)
+                {
+                    NeighboringLineNode.Add(gridNode[xCheck + i, yCheck]);
+
+                }
+            }
 
         }
         else if (direction == Vector3.down)
         {
             xCheck = _neighboringNode.gridX;
             yCheck = _neighboringNode.gridY - nodeOverlapCountY;
+
+            if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+            {
+                for (int i = -nodeOverlapCountX; i <= nodeOverlapCountX; i++)
+                {
+                    NeighboringLineNode.Add(gridNode[xCheck + i, yCheck]);
+
+                }
+            }
         }
         else if (direction == Vector3.right)
         {
             xCheck = _neighboringNode.gridX + nodeOverlapCountX;
             yCheck = _neighboringNode.gridY;
+
+            if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+            {
+                for (int i = -nodeOverlapCountY; i <= nodeOverlapCountY; i++)
+                {
+                    NeighboringLineNode.Add(gridNode[xCheck, yCheck + i]);
+
+                }
+            }
         }
         else if (direction == Vector3.left)
         {
             xCheck = _neighboringNode.gridX - nodeOverlapCountX;
             yCheck = _neighboringNode.gridY;
+
+            if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+            {
+                for (int i = -nodeOverlapCountY; i <= nodeOverlapCountY; i++)
+                {
+                    NeighboringLineNode.Add(gridNode[xCheck, yCheck + i]);
+
+                }
+            }
         }
 
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            node = gridNode[xCheck, yCheck];
-        }
-        return node;
+        //if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+        //{
+        //    NeighboringLineNode.Add(gridNode[xCheck, yCheck]);
+        //}
+        return NeighboringLineNode;
     }
 
     //주변노드만 찾기
-    public List<t_Node> GetNeighboringNodes(t_Node _Node, int nodeOverlapCountX, int nodeOverlapCountY)    
+    public List<t_Node> GetNeighboringNodes(t_Node _Node, int nodeOverlapCountX, int nodeOverlapCountY, bool isDiagonal)
     {
         List<t_Node> NeighboringNodes = new List<t_Node>();
-        int xCheck, yCheck;
 
-        //Right Side
-        xCheck = _Node.gridX + nodeOverlapCountX + 1;
-        yCheck = _Node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
+        //default value : nodeOverlapCountX,nodeOverlapCountY = 0
+        for (int x = -nodeOverlapCountX - 1; x <= nodeOverlapCountX + 1; x++)
         {
-            NeighboringNodes.Add(gridNode[xCheck, yCheck]);
-        }
+            for (int y = -nodeOverlapCountY - 1; y <= nodeOverlapCountY + 1; y++)
+            {
+                if (isDiagonal)
+                {
+                    if (x == 0 && y == 0)
+                        continue;
+                }
+                else
+                {
+                    if ((x == 0 && y == 0) || (x != 0 && y != 0))
+                        continue;
+                }
 
-        //Left Side
-        xCheck = _Node.gridX - nodeOverlapCountX - 1;
-        yCheck = _Node.gridY;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            NeighboringNodes.Add(gridNode[xCheck, yCheck]);
-        }
+                int checkX = _Node.gridX + x + (x * nodeOverlapCountX);
+                int checkY = _Node.gridY + y + (y * nodeOverlapCountY);
 
-        //Top Side
-        xCheck = _Node.gridX;
-        yCheck = _Node.gridY + nodeOverlapCountY + 1;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            NeighboringNodes.Add(gridNode[xCheck, yCheck]);
+                if (checkX >= 0 && checkX < gridSizeX && checkY >= 0 && checkY < gridSizeY)
+                {
+                    NeighboringNodes.Add(gridNode[checkX, checkY]);
+                }
+            }
         }
-
-        //Bottom Side
-        xCheck = _Node.gridX;
-        yCheck = _Node.gridY - nodeOverlapCountY - 1;
-        if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        {
-            NeighboringNodes.Add(gridNode[xCheck, yCheck]);
-        }
-
         return NeighboringNodes;
     }
     
