@@ -4,55 +4,53 @@
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2020-01-02
 // ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Box : MonoBehaviour
+public class Box : MapObject
 {
-    public float itemDropPercentage = 0.0f;
-    public float hp = 1;
-    public GameObject party;
-
-    private void Awake()
+    protected override int Hp
     {
-        party = GetComponentInChildren<ParticleSystem>().gameObject;
-        party.SetActive(false);
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        GameObject obj = collision.gameObject;
-        if (obj.CompareTag("Player"))
+        get => base.Hp;
+        set
         {
-            hp--;
-            if (hp < 1)
+            base.Hp = value;
+            if(hp <= 0)
             {
-                //astar.RescanPath(GetComponent<BoxCollider2D>());
-                StartCoroutine(Effect());
                 DropItem();
             }
         }
     }
+    public float itemDropPercentage = 0.0f;
+    public GameObject particle;
 
-    //public void HPChanged(float _damage)
-    //{
-    //    hp--;
-    //    if (hp < 1)
-    //    {
-    //        StartCoroutine(Effect());
-    //        DropItem();
-    //    }
-    //}
+    protected override void Awake()
+    {
+        base.Awake();
+        objName = "Box";
 
-    IEnumerator Effect()
+        particle = GetComponentInChildren<ParticleSystem>().gameObject;
+        particle.SetActive(false);
+    }
+
+    protected void OnCollisionEnter2D(Collision2D collision)
+    {
+        GameObject obj = collision.gameObject;
+        if (obj.CompareTag("Player"))
+        {
+            Hp--;
+        }
+    }
+
+    protected override IEnumerator Effect()
     {
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
-        party.SetActive(true);
+        particle.SetActive(true);
         yield return new WaitForSeconds(1.0f);
         Destroy(gameObject);
     }

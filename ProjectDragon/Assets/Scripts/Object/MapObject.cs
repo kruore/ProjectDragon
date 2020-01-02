@@ -5,7 +5,7 @@
 // 
 //  AUTHOR: Kim Dong Ha
 // CREATED: 2019-12-31
-// UPDATED: 2019-12-31
+// UPDATED: 2020-01-02
 // ==============================================================
 
 using System.Collections;
@@ -14,11 +14,32 @@ using UnityEngine;
 
 public class MapObject : MonoBehaviour
 {
-    public float hp = 1;
-   
-    protected virtual void HPChanged(float _damage)
+    protected virtual int Hp
     {
-        hp -= _damage;
+        get { return hp; }
+        set
+        {
+            hp = value;
+            if (hp <= 0)
+            {
+                //astar.RescanPath(GetComponent<BoxCollider2D>());
+                StartCoroutine(vfx);
+            }
+        }
+    }
+    protected int hp = 1;
+
+    public string objName = string.Empty;
+    protected IEnumerator vfx;
+
+    protected virtual void Awake()
+    {
+        vfx = Effect();
+    }
+
+    public virtual void HpChanged(int _damage)
+    {
+        Hp -= _damage;
     }
 
     protected virtual IEnumerator Effect()

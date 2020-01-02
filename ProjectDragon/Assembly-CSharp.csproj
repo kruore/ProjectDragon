@@ -273,6 +273,7 @@
     <Compile Include="Assets\Scripts\Utillity\ObjectPool.cs" />
     <Compile Include="Assets\Scripts\Utillity\PooledObject.cs" />
     <Compile Include="Assets\Scripts\Utillity\Projectile.cs" />
+    <Compile Include="Assets\Scripts\Utillity\ScreenTransitions.cs" />
     <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
     <Compile Include="Assets\Scripts\Utillity\Targetpoint.cs" />
     <Compile Include="Assets\test.cs" />
@@ -335,6 +336,7 @@
     <None Include="Assets\Resources\Effect\Materials\PaintWhite.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 3.shader" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
+    <None Include="Assets\Resources\Effect\Materials\ScreenTransitions.shader" />
     <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />

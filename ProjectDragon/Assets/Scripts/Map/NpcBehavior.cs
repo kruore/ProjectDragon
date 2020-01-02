@@ -17,15 +17,17 @@ public class NpcBehavior : MonoBehaviour
 {
     public float aniWait_Min = 1.0f, aniWait_Max = 2.0f;
     private Animator animator;
+    private IEnumerator ani;
 
     public void Awake()
     {
         animator = GetComponent<Animator>();
+        ani = Animation();
     }
 
     public void Start()
     {
-        StartCoroutine(Animation());
+        StartCoroutine(ani);
     }
 
     IEnumerator Animation()
@@ -45,6 +47,6 @@ public class NpcBehavior : MonoBehaviour
 
     private void OnDestroy()
     {
-        StopCoroutine(Animation());
+        StopCoroutine(ani);
     }
 }

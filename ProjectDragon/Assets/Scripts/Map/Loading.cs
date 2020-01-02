@@ -27,26 +27,58 @@ public class Loading : MonoBehaviour
     public UIProgressBar loadingBar;
     public UILabel loadingLabel;
 
+    //로딩창 이미지
+    public Sprite[] bg_image;
+
+    //지역 이동 연출 관련
+    public GameObject regionObj;
+    public TweenTransform player;
+    public Transform[] points = new Transform[3];
+
     private void Awake()
     {
+        sceneName = "Map_Generator";
+        ResourceLoad();
+
         loadingBar = GameObject.Find("ProgressBar").GetComponent<UIProgressBar>();
         loadingLabel = loadingBar.GetComponent<UILabel>();
 
         nextButton = GameObject.Find("NextButton");
         nextButton.GetComponent<BoxCollider>().enabled = false;
+
+        regionObj = GameObject.Find("Region");
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<TweenTransform>();
+        //player.enabled = false;
+
+        for(int i = 1; i <= 3; i++)
+        {
+            points[i - 1] = GameObject.Find("Point" + i).transform;
+        }
+    }
+
+    void ResourceLoad()
+    {
+        bg_image = Resources.LoadAll<Sprite>("Loading");
     }
 
     void Start()
     {
         StartCoroutine(RegionRepresentation());
-        StartCoroutine(LoadSceneAsync());
+        //StartCoroutine(LoadSceneAsync());
     }
 
     //지역 넘어가는 연출
     IEnumerator RegionRepresentation()
     {
-
-        yield return null;
+        yield return new WaitForSeconds(2.0f);
+        player.to = points[0];
+        player.PlayForward();
+        yield return new WaitForSeconds(2.0f);
+        player.to = points[1];
+        player.PlayForward();
+        yield return new WaitForSeconds(2.0f);
+        player.to = points[2];
+        player.PlayForward();
     }
 
     void CalculateSceneName()
@@ -94,7 +126,7 @@ public class Loading : MonoBehaviour
         asyncOperation = SceneManager.LoadSceneAsync(sceneName);
         asyncOperation.allowSceneActivation = false;
 
-        while(!asyncOperation.isDone)
+        while (!asyncOperation.isDone)
         {
             percent = asyncOperation.progress;
             ProgressBar(percent);
