@@ -88,36 +88,17 @@ public class t_PathFinding : MonoBehaviour
             //OpenList.Remove(currentNode);
             //ClosedList.Add(currentNode);
 
-            //도착했는가 ?
-            //if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)    //노드크기가 하나 노드보다 큰 경우
-            //{
-            //    if (!targetNode.Walkable)
-            //    {
 
-            //    }
-            //    else
-            //    {
+                //노드크기가 하나 노드인 경우
 
-            //    }
-            //    foreach (t_Node OverlapNode in grid.GetOverlapNodes(currentNode, nodeOverlapCountX, nodeOverlapCountY))
-            //    {
-            //        if (OverlapNode == targetNode || currentNode == targetNode)
-            //        {
-            //            GetFinalPath(startNode, currentNode);
-            //            break;
-            //        }
-            //    }
-            //}
-            //else                                                   //노드크기가 하나 노드인 경우
-            //{
                 if (currentNode == targetNode)
                 {
                     GetFinalPath(startNode, targetNode);
                     break;
                 }
-            //}
-            
 
+
+            bool walkable = false;
             foreach (t_Node NeighborNode in grid.GetNeighboringNodes(currentNode, 0, 0, false))
             {
                 //타겟노드가 갈 수 없는 노드로 되어있다면
@@ -142,20 +123,19 @@ public class t_PathFinding : MonoBehaviour
                 // n*n 크기인 오브젝트라면 (n<=3)
                 if (nodeOverlapCountX > 0 || nodeOverlapCountY > 0)
                 {
-                    bool walkable = false;
+                    walkable = true;
                     foreach (t_Node LineNode in grid.GetNeighboringLineNode(currentNode, NeighborNode, nodeOverlapCountX, nodeOverlapCountY))
                     {
 
                         if (!LineNode.Walkable || LineNode.IsObject||ClosedList.Contains(LineNode))
                         {
-                            walkable = true;
+                            walkable = false;
                             break;
                         }
                     }
 
-                    if (walkable)
+                    if (!walkable)
                     {
-                        walkable = false;
                         continue;
                     }
 
@@ -181,6 +161,8 @@ public class t_PathFinding : MonoBehaviour
 
 
             }
+
+           
         }
 
 

@@ -205,8 +205,9 @@ public class Rimmotal : Enemy
             if (inAtkDetectionRange)
             {
                 thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
+                yield return new WaitForSeconds(2.0f);
             }
-            yield return new WaitForSeconds(2.0f);
+            yield return null;
         }
     }
     /// <summary>

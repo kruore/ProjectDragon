@@ -97,7 +97,7 @@ public class Enemy : Monster
         }
         else if(isWalk)
         {
-            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, GetComponent<Tracking>().currentWaypoint);
+            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(GetComponent<Tracking>().currentWaypoint, transform.position);
         }
     }
 
@@ -110,7 +110,6 @@ public class Enemy : Monster
 
     public override IEnumerator Start_On()
     {
-        
         //Grid 생성
         GetComponent<Tracking>().pathFinding.Create(col, transform.GetComponentInParent<t_Grid>());
         yield return null;

@@ -45,7 +45,7 @@ public class Skill : MonoBehaviour
         if (collision.tag.Equals("Enemy"))
         {
             Handheld.Vibrate();
-            collision.GetComponent<Character>().HPChanged(10,2,false);
+            collision.GetComponent<Character>().HPChanged(10,1,true);
             Destroy(this.gameObject);
         }
         if (collision.tag.Equals("Wall"))
