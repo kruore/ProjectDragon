@@ -595,6 +595,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_Name
+      value: 'Doldori '
+      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927243, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -650,11 +655,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
-        type: 3}
-      propertyPath: m_Name
-      value: 'Doldori '
-      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927242, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_Sprite
@@ -670,6 +670,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rimmotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -723,16 +733,6 @@ PrefabInstance:
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rimmotal
-      objectReference: {fileID: 0}
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
