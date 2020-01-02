@@ -662,6 +662,7 @@
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\ReliableChannel.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SequencedChannel.cs" />
     <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SimpleChannel.cs" />
+    <Compile Include="Assets\HPGauge.cs" />
     <Compile Include="Assets\monsterAi.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\EnvelopContent.cs" />
     <Compile Include="Assets\NGUI\Scripts\Interaction\LanguageSelection.cs" />

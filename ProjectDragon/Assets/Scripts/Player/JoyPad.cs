@@ -51,6 +51,8 @@ public class JoyPad : MonoBehaviour
     }
     void Start()
     {
+        target.GetComponent<UISprite>().enabled = false;
+        target2.GetComponent<UISprite>().enabled = false;
     }
     IEnumerator fadeOutJoystick()
     {
@@ -74,14 +76,24 @@ public class JoyPad : MonoBehaviour
             //  TweenColor.Begin(widget.gameObject, 0.5f, newColor).method = UITweener.Method.EaseOut;
         }
     }
+    IEnumerator fadeJoyStick()
+    {
+        yield return new WaitForSeconds(0.3f);
+        if(Pressed==false)
+        {
+            target2.GetComponent<UISprite>().spriteName = "ingameui_43";
+            yield return new WaitForSeconds(0.2f);
+            target.GetComponent<UISprite>().enabled = false;
+            target2.GetComponent<UISprite>().enabled = false;
+        }
+
+    }
     public void OnPress(bool pressed)
     {
         if (pressed == false)
         {
             player.CurrentState = State.Idel;
-            target.GetComponent<UISprite>().enabled = false;
-            target2.GetComponent<UISprite>().enabled = false;
-            target2.GetComponent<UISprite>().spriteName = "ingameui_43";
+            StartCoroutine("fadeJoyStick");
         }
         if (pressed.Equals(true))
         {

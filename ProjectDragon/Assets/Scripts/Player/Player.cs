@@ -14,6 +14,7 @@ public class Player : Character
 
     // HP GAUGE
     public HPGauge HPBar;
+    public MPGauge MPBar;
 
     public State CurrentState
     {
@@ -80,7 +81,6 @@ public class Player : Character
     protected JoyPad joyPad;
     public GameObject joypadinput;
     public Vector3 joystickPos;
-    public Vector3 normalVec = new Vector3(0.0f, 0.0f, 0.0f);
     private Transform m_EnemyPos;
 
     //Check JoyStick
@@ -100,7 +100,7 @@ public class Player : Character
     public GameObject TempEnemy;
 
     //MP 임시사용용 변수
-    public int mp;
+    public int mp= 100;
     public int maxMp = 100;
 
     public override int HPChanged(int ATK)
@@ -120,9 +120,6 @@ public class Player : Character
         }
         Debug.Log((int)currentATK+"내 체력은 :"+HP);
       //  hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
-#if UNITY_EDITOR
-        base.HPChanged(0);
-#endif
         base.HPChanged((int)currentATK);
         return HP;
     }
@@ -158,10 +155,12 @@ public class Player : Character
             if (value > 0)
             {
                 mp = value;
-                mp = Mathf.Clamp(value, 0, maxMp);
+                MPBar.MP_slot_Counter();
+                //mp = Mathf.Clamp(value, 0, maxMp);
             }
             else
             {
+                Debug.Log("마나가 없습니다.");
                 mp = -1;
             }
         }
@@ -269,21 +268,20 @@ public class Player : Character
     }
     void PlayerPrefDataTrascation()
     {
-        PlayerPrefData(ref Database.Inst.playData.damage);
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
     // Start is called before the first frame update
     void Awake()
     {
         //근거리일때
-        //attackType = AttackType.ShortRange;
+        attackType = AttackType.ShortRange;
         //원거리일때
-        attackType = AttackType.LongRange;
+        //attackType = AttackType.LongRange;
         //TODO: 뒤에 로비 완성되면 무기 합칠것, 스테이터스를 DB에서 받아오기
         EndPanel.SetActive(false);
         isWear = IsWear.DefaultCloth;
         playerSex = SEX.Female;
-        PlayerPrefDataTrascation();
+        initializePlayerConverter();
         MoveSpeed = 3.0f;
         ATKChanger(0);
         ATKSpeedChanger(1.0f);
@@ -427,5 +425,11 @@ public class Player : Character
         P_Camera_Shake = Player_camera.Shake(1, 1.0f);
         StartCoroutine(P_Camera_Shake);
     }
-}
 #endregion
+
+    public void initializePlayerConverter()
+    {
+        PlayerPrefData(ref Database.Inst.playData.damage);
+
+    }
+}

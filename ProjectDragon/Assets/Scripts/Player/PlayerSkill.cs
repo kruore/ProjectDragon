@@ -10,7 +10,6 @@ public class PlayerSkill : MonoBehaviour
     public UIButton My_button;
     public UILabel My_Label;
     public Player My_Player;
-    public UISprite My_MpBar;
     public GameObject skill;
     Ray ray;
     RaycastHit raycastHit;
@@ -85,7 +84,6 @@ public class PlayerSkill : MonoBehaviour
         float maxMp = My_Player.maxMp;
         float myMp = My_Player.mp;
         float Per = myMp / maxMp;
-        My_MpBar.fillAmount = Per;
         Debug.Log(myMp+">>>"+maxMp+":"+Per);
     }
 }

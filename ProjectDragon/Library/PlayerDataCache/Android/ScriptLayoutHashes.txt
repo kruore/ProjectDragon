@@ -247,7 +247,7 @@ cd67f3e1e9ccac6db86c1564cea5a827 Vuforia.UnityExtensions.dll:Vuforia.VuforiaConf
 fbbf64dcbe0662e3eda1dec45ea8f895 Vuforia.UnityExtensions.dll:Vuforia.WireframeBehaviour
 71bb6a6b6c8f052f948db64c7dd3ca4f Vuforia.UnityExtensions.dll:Vuforia.WireframeTrackableEventHandler
 726c2d80203503d04d711808c415de8d Assembly-CSharp.dll:.UICenterOnChild
-6b4c6cbbdd46f21537f7ac9d31971acc Assembly-CSharp.dll:.Player
+b18f0f7213fc6607222a3819c8166002 Assembly-CSharp.dll:.Player
 5850a2fd96525aa47d41b9e5c04f3cfd Assembly-CSharp.dll:.Boss_MaDongSeok
 c7b555b8d038b947c91b47bd6dca5a16 Assembly-CSharp.dll:.t_Grid
 46b014cc0442c1021c122c23eef297fe Assembly-CSharp.dll:.UIRoot
@@ -304,6 +304,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 9b895dcabbc1faf095c000c32d471fd0 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformChild
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 f6aa0d4f3b3f51d1798618823dbbfa8f Assembly-CSharp.dll:.Loading
+94b4a981628d8e8d4a4dfdd57d4b9fdf Assembly-CSharp.dll:.HPGauge
 be8632d08f8a541899fe6a0057586b0f Assembly-CSharp.dll:.Grid
 c845d81dd997d5094da7cdf0cc923eb4 Assembly-CSharp.dll:.TweenRotation
 b59f38ab014a54c116e38ae639afe09d Assembly-CSharp.dll:.UIPopupList
