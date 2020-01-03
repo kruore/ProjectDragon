@@ -20,7 +20,7 @@ public class DamagePopup : MonoBehaviour
     Color textColor;
     TextMeshPro textMesh;
     DamagePopup damagePopup;
-
+    VertexGradient v;
     Transform _parent;
 
     void Initialize()
@@ -52,16 +52,23 @@ public class DamagePopup : MonoBehaviour
     private void Awake()
     {
         textMesh = transform.GetComponent<TextMeshPro>();
+        v = textMesh.colorGradient;
+        v.bottomRight = new Color32(255, 255, 0, 255);
     }
 
     public void Setup(int damageAmount,bool isCriticalHit)
     {
+     
         textMesh.SetText(damageAmount.ToString());
         if (!isCriticalHit)
         {
             //Normal Hit
+            
+            textMesh.colorGradient = v;
+            
+            textMesh.color = Color.white;
+
             textMesh.fontSize = textMesh.fontSize;
-            textColor = textMesh.color;  //예시
         }
         else
         {
@@ -69,7 +76,7 @@ public class DamagePopup : MonoBehaviour
             textMesh.fontSize += 3;
             textColor = textMesh.color;  //예시
         }
-        textMesh.color = textColor;
+        //textMesh.color = textColor;
 
     }
 

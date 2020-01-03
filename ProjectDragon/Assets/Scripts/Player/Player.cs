@@ -123,6 +123,9 @@ public class Player : Character
         base.HPChanged(0);
 #endif
         base.HPChanged((int)currentATK);
+        Time.timeScale = 0.1f;
+        Debug.Log("Current ATK" + currentATK);
+
         return HP;
     }
     //MP 임시 사용s

@@ -12,12 +12,13 @@ public class Slime : FSM_NormalEnemy
     CircleCollider2D circleCol;
     protected override void Awake()
     {
+
         base.Awake();
         circleCol = GetComponent<CircleCollider2D>();
         col = circleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
-        childDeadParticle = transform.Find("DeadParticle").gameObject;
+        childDeadParticle = transform.Find("SlimeDead_Particle").gameObject;
     }
 
     protected override RaycastHit2D[] GetRaycastType()
@@ -45,6 +46,11 @@ public class Slime : FSM_NormalEnemy
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
     }
+    protected override IEnumerator Attack()
+    {
+        StartCoroutine(base.Attack());
+        yield return null;
+    }
 
     //임시
     protected override IEnumerator EnemyDead()
@@ -56,11 +62,11 @@ public class Slime : FSM_NormalEnemy
         objectAnimator.SetTrigger("Dead");
 
         col.enabled = false;
+        DeadParticle();
 
         //애니메이션 시간때문에..대략
         yield return new WaitForSeconds(2.0f);
 
-        DeadParticle();
         spriteRenderer.color = fadeColor;  
 
         Destroy(gameObject, 5.0f);
@@ -68,9 +74,28 @@ public class Slime : FSM_NormalEnemy
         yield return null;
     }
 
+
+    //Vector3 PosBeforeAttack;
+    //IEnumerator RushAttack()
+    //{
+    //    PosBeforeAttack = transform.position;
+    //    rb2d.AddForce(direction * 1.0f, ForceMode2D.Impulse);
+    //    yield return new WaitForSeconds(0.3f);
+
+    //    rb2d.velocity = Vector2.zero;
+
+    //    yield return null;
+
+    //}
+
+    //void AttackEndFrame()
+    //{
+    //    transform.position = PosBeforeAttack;
+    //}
     void DeadParticle()
     {
         childDeadParticle.SetActive(true);
+        childDeadParticle.GetComponent<ParticleSystem>().Play();
     }
 
 }

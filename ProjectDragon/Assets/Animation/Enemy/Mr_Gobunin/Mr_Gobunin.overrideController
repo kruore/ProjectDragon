@@ -9,11 +9,15 @@ AnimatorOverrideController:
   m_Name: Mr_Gobunin
   m_Controller: {fileID: 9100000, guid: 96c4828cc4993384585b2ea0a4a92afb, type: 2}
   m_Clips:
-  - m_OriginalClip: {fileID: 7400000, guid: ec2cc2a41bf694648a1863782378bdf7, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 2ca659cbd959f1947b06b889508437f3, type: 2}
   - m_OriginalClip: {fileID: 7400000, guid: c3f814c62094b474bab2d003efaf75a7, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: a31c4f903514642409b8aa80e5746940, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 210da675484ab814ba0bdec0cf982ad7, type: 2}
-    m_OverrideClip: {fileID: 7400000, guid: 3dd36d4b2a2a82e40a53f2b5a45b3b07, type: 2}
-  - m_OriginalClip: {fileID: 7400000, guid: 7e5e37ee6077a7a48b676d6230daee49, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 05a7f04bf8953334d8040fa0a79c0f99, type: 2}
     m_OverrideClip: {fileID: 7400000, guid: abc3e835c2cd06a46801c1988d1dd749, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: f6e294b612c058842819ef704671f15b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: abc3e835c2cd06a46801c1988d1dd749, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8a512e560b058e3419a51a08baf322ed, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: abc3e835c2cd06a46801c1988d1dd749, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 9c9d2f0ee77c99144815ede3e3f8dde6, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: abc3e835c2cd06a46801c1988d1dd749, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8ec40077a88d0c145b23146e4bdafaa2, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2ca659cbd959f1947b06b889508437f3, type: 2}

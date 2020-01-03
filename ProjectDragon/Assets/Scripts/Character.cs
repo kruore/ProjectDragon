@@ -9,7 +9,7 @@ public enum AnglePos { None = 0, Front, Right, Back, Left }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 
 
-public class Character : MonoBehaviour, PersonalSpecificational
+public class Character : MonoBehaviour
 {
     [Header("스테이터스")]
     [SerializeField] protected int currentHp;
