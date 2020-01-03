@@ -50,8 +50,13 @@ public class Character : MonoBehaviour, PersonalSpecificational
     protected bool isHit;
     protected bool isSkillActive;
 
+/// <summary>
+/// 데미지 팝업 변수
+/// </summary>
+    protected DamagePopup damagePopup;
     protected virtual void Awake()
     {
+        damagePopup = new DamagePopup();
     }
     protected virtual void Start()
     {
@@ -117,13 +122,13 @@ public class Character : MonoBehaviour, PersonalSpecificational
         }
     }
     /// <summary>
-    /// 
+    /// 공격력 / 크리티컬 / 넉백 수치 / 회피율
     /// </summary>
     /// <param name="ATK"></param> : ATK = 공격력
     /// <param name="NukBack"></param> NukBack = 뒤로 얼마나 넉백할건지
     /// <param name="isNukBack"></param> isNukBack = 넉백을 시킬건지?
     /// <returns></returns>
-    public virtual int HPChanged(int ATK, int NukBack, bool isNukBack)
+    public virtual int HPChanged(int ATK,bool isCritical, int NukBack, bool isInvaid)
     {
         HP = HP - ATK;
         return HP;

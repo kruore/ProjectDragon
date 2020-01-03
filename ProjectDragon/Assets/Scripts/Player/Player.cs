@@ -12,6 +12,10 @@ public class Player : Character
        [SerializeField]
     protected State myState;
 
+    //flash white material damaged of player
+    public FlashWhite damaged_flash;
+    public IEnumerator damaged_flash_corrutine;
+
     // HP GAUGE
     public HPGauge HPBar;
     public MPGauge MPBar;
@@ -105,6 +109,8 @@ public class Player : Character
 
     public override int HPChanged(int ATK)
     {
+        bool isInvaid =false;
+        int original_HP = HP;
         DataTransaction.Inst.CurrentHp = HP;
         Debug.Log((float)HP / (float)maxHp);
         HPBar.Player_HP_Changed(HP,maxHp);
@@ -116,11 +122,30 @@ public class Player : Character
             {
                 currentATK = ATK - (ATK * 0.1f);
                 Debug.Log("회피성공");
+                isInvaid = true;
+            }
+            else{
+                isInvaid = false;
             }
         }
         Debug.Log((int)currentATK+"내 체력은 :"+HP);
       //  hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
         base.HPChanged((int)currentATK);
+        if(original_HP>=HP)
+        {
+            Debug.Log("Damaged!!!!! and Flash"+"HP : "+ HP+ "original_HP" + original_HP);
+            damaged_flash_corrutine = damaged_flash.Flash();
+            IEnumerator A=transform.GetChild(0).GetComponent<FlashWhite>().Flash();
+            IEnumerator B=transform.GetChild(1).GetComponent<FlashWhite>().Flash();
+            StopCoroutine(A);
+            StopCoroutine(B);
+            StopCoroutine(damaged_flash_corrutine);
+            StartCoroutine(A);
+            StartCoroutine(B);
+            StartCoroutine(damaged_flash_corrutine);
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false, isInvaid, transform);
+            original_HP=HP;
+        }
         return HP;
     }
     //MP 임시 사용s
@@ -271,7 +296,7 @@ public class Player : Character
         //hp = ref (int)DataTransaction.Inst.CurrentHp;
     }
     // Start is called before the first frame update
-    void Awake()
+    protected override void Awake()
     {
         //근거리일때
         attackType = AttackType.ShortRange;
@@ -288,21 +313,18 @@ public class Player : Character
         CurrentState = State.Idel;
         AtkRangeChanger(6);
         invaid = 100.0f;
+        base.Awake();
      //  Database.Inst.playData.hp = 100.0f;
      //   DataTransaction.Inst.SavePlayerData();
     }
-    void Start()
+    protected override void Start()
     {
         StartCoroutine(CalculateDistanceWithPlayer());
         //내가 끼고 있는 칼에 대한 정의
         //Database.Inventory myWeapon = Database.Inst.playData.inventory[Database.Inst.playData.equiWeapon_InventoryNum];
         joypadinput = GameObject.Find("UI Root/GameObject");
         //CheckAngleLabel = GameObject.Find("UI Root/CurrentAngle").GetComponent<UILabel>();
-        joyPad = FindObjectOfType<JoyPad>();
-        rigidbody2d = GetComponent<Rigidbody2D>();
-        playerAnimationStateChanger = GetComponent<Animator>();
-        Player_camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
-        HPBar = GameObject.Find("UI Root/HPBar").GetComponent<HPGauge>();
+        initalize_Player_Link();
         temp_Movespeed = moveSpeed;
     }
     // Update is called once per frame
@@ -431,5 +453,17 @@ public class Player : Character
     {
         PlayerPrefData(ref Database.Inst.playData.damage);
 
+    }
+
+    public void initalize_Player_Link()
+    {
+        damaged_flash = gameObject.GetComponent<FlashWhite>();
+
+        joyPad = FindObjectOfType<JoyPad>();
+        rigidbody2d = GetComponent<Rigidbody2D>();
+        playerAnimationStateChanger = GetComponent<Animator>();
+        Player_camera = GameObject.Find("Main Camera").GetComponent<CameraFollow>();
+        HPBar = GameObject.Find("UI Root/HPBar").GetComponent<HPGauge>();
+        base.Start();
     }
 }
