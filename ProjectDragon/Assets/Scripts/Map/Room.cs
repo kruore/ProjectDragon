@@ -280,7 +280,7 @@ public class Room : MonoBehaviour
                     break;
             }
 
-            obj.GetComponent<Animator>().SetBool("isClear", true);
+            obj.GetComponent<Door>().OpenDoor();
         }
     }
 

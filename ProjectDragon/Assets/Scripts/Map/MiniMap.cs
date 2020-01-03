@@ -86,8 +86,8 @@ public class MiniMap : MonoBehaviour
             //포탈 이미지 로드
             //방의 정보
             Room temp_room = obj.GetComponent<Room>();
-            float x = temp_room.gridPos.x;
-            float y = temp_room.gridPos.y;
+            int x = (int)temp_room.gridPos.x;
+            int y = (int)temp_room.gridPos.y;
 
             //미니맵 위치 세팅
             room[i].transform.localPosition = new Vector3(x * 32.0f, y * 32.0f, 0.0f);
@@ -168,7 +168,7 @@ public class MiniMap : MonoBehaviour
     }
 
     //플레이어 teleport
-    public void Teleport(float _x, float _y)
+    public void Teleport(int _x, int _y)
     {
         RoomManager.PlayerTeleportation(_x, _y);
     }

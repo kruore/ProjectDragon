@@ -20,51 +20,71 @@ public class Loading : MonoBehaviour
 {
     public string sceneName = string.Empty;
     AsyncOperation asyncOperation;
-    public UILabel label;
-    public GameObject nextButton;
+    public UILabel TouchToStart;
+    public bool changedRegion;
 
     //프로그레스 바
     public UIProgressBar loadingBar;
     public UILabel loadingLabel;
 
-    //로딩창 이미지
-    public Sprite[] bg_image;
+    //로딩 이미지 총개
+    public int imageCount = 0;
 
     //지역 이동 연출 관련
     public GameObject regionObj;
     public TweenTransform player;
     public Transform[] points = new Transform[3];
 
+    //페이드 아웃
+    public ScreenTransitions screenTransitions;
+
     private void Awake()
     {
         sceneName = "Map_Generator";
-        ResourceLoad();
+        GameManager.Inst.CurrentStage++;
+        changedRegion = (GameManager.Inst.CurrentStage % 4 == 1) ? true : false;
 
+        Init();
+    }
+
+    private void Init()
+    {
+        if (imageCount != 0)
+        {
+            int rand = Random.Range(0, imageCount);
+            GetComponent<UISprite>().spriteName = "bg" + (rand + 1);
+        }
         loadingBar = GameObject.Find("ProgressBar").GetComponent<UIProgressBar>();
         loadingLabel = loadingBar.GetComponent<UILabel>();
 
-        nextButton = GameObject.Find("NextButton");
-        nextButton.GetComponent<BoxCollider>().enabled = false;
+        TouchToStart = GameObject.Find("TouchToStart").GetComponent<UILabel>();
+        TouchToStart.gameObject.SetActive(false);
+
+        screenTransitions = GameObject.FindGameObjectWithTag("Object").GetComponent<ScreenTransitions>();
 
         regionObj = GameObject.Find("Region");
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<TweenTransform>();
-        //player.enabled = false;
-
-        for(int i = 1; i <= 3; i++)
+        if (changedRegion)
         {
-            points[i - 1] = GameObject.Find("Point" + i).transform;
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<TweenTransform>();
+            player.enabled = false;
+            for (int i = 1; i <= 3; i++)
+            {
+                points[i - 1] = GameObject.Find("Point" + i).transform;
+            }
         }
-    }
-
-    void ResourceLoad()
-    {
-        bg_image = Resources.LoadAll<Sprite>("Loading");
+        else
+        {
+            //regionObj.SetActive(false);
+        }
     }
 
     void Start()
     {
-        StartCoroutine(RegionRepresentation());
-        //StartCoroutine(LoadSceneAsync());
+        if (changedRegion)
+        {
+            StartCoroutine(RegionRepresentation());
+        }
+        StartCoroutine(LoadSceneAsync());
     }
 
     //지역 넘어가는 연출
@@ -76,42 +96,11 @@ public class Loading : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         player.to = points[1];
         player.PlayForward();
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         player.to = points[2];
         player.PlayForward();
-    }
-
-    void CalculateSceneName()
-    {
-#if UNITY_EDITOR
-        Debug.Log(GameManager.Inst.CurrentStage % 4);
-#endif
-        if (GameManager.Inst.CurrentStage % 4 == 0)
-        {
-            int region = GameManager.Inst.CurrentStage / 4;
-#if UNITY_EDITOR
-            Debug.Log(region);
-#endif
-            switch (region)
-            {
-                case 1:
-                    sceneName = "MaDongSeok";
-                    break;
-                case 2:
-                    sceneName = "MaDongSeok";
-                    break;
-                case 3:
-                    sceneName = "MaDongSeok";
-                    break;
-                case 4:
-                    sceneName = "MaDongSeok";
-                    break;
-            }
-        }
-        else
-        {
-            sceneName = "Map_Generator";
-        }
+        yield return new WaitForSeconds(1.0f);
+        regionObj.GetComponent<TweenAlpha>().enabled = true;
     }
 
     //AsyncLoad
@@ -138,7 +127,7 @@ public class Loading : MonoBehaviour
                 yield return new WaitForSeconds(1.0f);
                 //Load Complete
                 ProgressBar(1.0f);
-                nextButton.GetComponent<BoxCollider>().enabled = true;
+                TouchToStart.gameObject.SetActive(true);
                 break;
             }
         }
@@ -152,6 +141,12 @@ public class Loading : MonoBehaviour
     }
 
     public void Button_NextScene()
+    {
+        StartCoroutine(screenTransitions.Fade(1.0f, true));
+        Invoke("NextScene", 1.1f);
+    }
+
+    public void NextScene()
     {
         asyncOperation.allowSceneActivation = true;
     }

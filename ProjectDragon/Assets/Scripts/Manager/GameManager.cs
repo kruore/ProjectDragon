@@ -306,6 +306,37 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    //public void ParticlePlay(string _path, Vector2 _pos)
+    //{
+    //    GameObject particle = Resources.Load(_path) as GameObject;
+    //    Instantiate(particle, _pos, Quaternion.identity);
+    //}
+    public IEnumerator ParticlePlay(string _path, Vector2 _pos)
+    {
+        GameObject particle = Resources.Load(_path) as GameObject;
+        Instantiate(particle, _pos, Quaternion.identity);
+
+        ParticleSystem particleSystem = particle.GetComponent<ParticleSystem>();
+        if(!particleSystem.main.loop)
+        {
+            float time = 0.0f;
+            while(time <= particleSystem.main.startLifetime.constant)
+            {
+                time += Time.deltaTime;
+                yield return null;
+            }
+#if UNITY_EDITOR
+            Debug.Log("destroy");
+#endif
+            //Destroy(particle);
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log("particle is looping");
+#endif
+        }
+    }
     #endregion
 
 

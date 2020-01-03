@@ -22,14 +22,48 @@ public class ScreenTransitions : MonoBehaviour
             Graphics.Blit(src, dst, TransitionMaterial);
     }
 
-    private void Start()
+    private void Awake()
     {
-        StartCoroutine(Play("Textures/criss_cross_pattern",1.5f, false));
+        //Assets / Resources / Effect / Materials / ScreenTransitions.mat
+        TransitionMaterial = Resources.Load<Material>("Effect/Materials/ScreenTransitions");
+        InitTransitionMaterial();
+    }
+
+    public void InitTransitionMaterial(bool isWhite = true)
+    {
+        if(isWhite)
+        {
+            TransitionMaterial.SetFloat("_Cutoff", 0.0f);
+            TransitionMaterial.SetFloat("_Fade", 0.0f);
+        }
+        else
+        {
+            TransitionMaterial.SetFloat("_Cutoff", 1.0f);
+            TransitionMaterial.SetFloat("_Fade", 1.0f);
+        }
     }
 
     public void SetTransitionMaterial(string path)
     {
         TransitionMaterial.SetTexture("_TransitionTex", Resources.Load<Texture>(path));
+    }
+
+    public IEnumerator Fade(float fadeTime, bool isIn)
+    {
+        TransitionMaterial.SetFloat("_Cutoff", 1.0f);
+
+        float fade = 0;
+        float time = 0;
+
+        while (time <= fadeTime)
+        {
+            time += Time.deltaTime;
+            if (isIn) fade = Mathf.Lerp(0.0f, 1.0f, time / fadeTime);
+            else fade = Mathf.Lerp(0.0f, 1.0f, 1 - time / fadeTime);
+            TransitionMaterial.SetFloat("_Fade", fade);
+
+            yield return null;
+        }
     }
 
     public IEnumerator Play(string path, float transitionTime, bool isReverse)
@@ -42,13 +76,12 @@ public class ScreenTransitions : MonoBehaviour
         while (time <= transitionTime)
         {
             time += Time.deltaTime;
-            if(!isReverse) cutoff = Mathf.Lerp(0.0f, 1.0f, time / transitionTime);
+            if (!isReverse) cutoff = Mathf.Lerp(0.0f, 1.0f, time / transitionTime);
             else cutoff = Mathf.Lerp(0.0f, 1.0f, 1 - time / transitionTime);
             TransitionMaterial.SetFloat("_Cutoff", cutoff);
 
             yield return null;
         }
-
     }
 
     public IEnumerator Play(float transitionTime, bool isReverse)
@@ -65,6 +98,5 @@ public class ScreenTransitions : MonoBehaviour
 
             yield return null;
         }
-
     }
 }

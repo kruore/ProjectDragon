@@ -70,8 +70,10 @@ public class MapCreator : MonoBehaviour
     {
         int curStage = GameManager.Inst.CurrentStage;
         curStage = 1;
+#if UNITY_EDITOR
         Debug.Log(curStage % 4);
         Debug.Log(curStage / 4);
+#endif
         if(curStage % 4 == 0)
         {
             //보스 맵

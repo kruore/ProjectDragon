@@ -16,8 +16,8 @@ using UnityEngine;
 public class NpcBehavior : MonoBehaviour
 {
     public float aniWait_Min = 1.0f, aniWait_Max = 2.0f;
-    private Animator animator;
-    private IEnumerator ani;
+    public Animator animator;
+    public IEnumerator ani;
 
     public void Awake()
     {
@@ -41,7 +41,6 @@ public class NpcBehavior : MonoBehaviour
             waitTime = Random.Range(aniWait_Min, aniWait_Max);
             yield return new WaitForSeconds(waitTime);
             animator.Play("Npc_Trader_Idle");
-            Debug.Log("asdfasdf");
         }
     }
 

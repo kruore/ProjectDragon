@@ -37,6 +37,10 @@ public class RoomManager : MonoBehaviour
 
     public MiniMap miniMap;
 
+    public ScreenTransitions screenTransitions;
+
+    public GameObject player;
+
     private void Awake()
     {
         player_PosX = 0;
@@ -45,18 +49,55 @@ public class RoomManager : MonoBehaviour
         playerGridPosY = 0;
         miniMap = GameObject.FindGameObjectWithTag("MiniMap").GetComponent<MiniMap>();
         miniMap.RoomManager = GetComponent<RoomManager>();
+        screenTransitions = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<ScreenTransitions>();
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<BoxCollider2D>().enabled = false;
+    }
+
+    private void Start()
+    {
+        StartCoroutine(PlayStart());
+    }
+
+    private IEnumerator PlayStart()
+    {
+        Camera.main.GetComponent<CameraFollow>().enabled = false;
+        player.transform.position = new Vector3(0.0f, 10.0f, 0.0f);
+        StartCoroutine(Fade());
+        float time = 0.0f;
+        float y = 0.0f;
+        int count = 0;
+        while (time <= 2.0f)
+        {
+            if (time >= 0.5f && count == 0)
+            {
+                count++;
+                StartCoroutine(GameManager.Inst.ParticlePlay("Effect/Particles/DustExplosion", new Vector2(0.0f, -0.5f)));
+            }
+            time += Time.deltaTime;
+            y = Mathf.Lerp(player.transform.position.y, 0.0f, time * 0.5f);
+            player.transform.position = new Vector3(0.0f, y, 0.0f);
+            yield return null;
+        }
+        player.GetComponent<BoxCollider2D>().enabled = true;
+        Camera.main.GetComponent<CameraFollow>().enabled = true;
     }
 
     //플레이어의 위치를 세팅
-    public void SetPlayerPos(int _player_PosX,int _player_PosY)
+    public void SetPlayerPos(int _player_PosX, int _player_PosY)
     {
         player_PosX = _player_PosX;
         player_PosY = _player_PosY;
         playerGridPosX = gridSizeX_Cen + player_PosX;
         playerGridPosY = gridSizeY_Cen + player_PosY;
         miniMap.UpdateMiniMap();
-    }
 
+    }
+    public IEnumerator Fade()
+    {
+        StartCoroutine(screenTransitions.Fade(0.5f, false));
+        yield return null;
+    }
     //그리드 데이터를 세팅
     public void SetGridData(int _gridSizeX_Cen, int _gridSizeY_Cen, int _gridSizeX, int _gridSizeY)
     {
@@ -96,7 +137,7 @@ public class RoomManager : MonoBehaviour
 
     //플레이어가 npc방에 있는가?
     public bool PlayerIsNPCRoom()
-    { 
+    {
         return Map_Data[playerGridPosX, playerGridPosY].GetComponent<Room>().roomType == RoomType.NPC ? true : false;
     }
 
@@ -111,7 +152,7 @@ public class RoomManager : MonoBehaviour
     {
         int count = 0;
 
-        foreach(GameObject obj in map_Data)
+        foreach (GameObject obj in map_Data)
         {
             if (obj == null) continue;
 
@@ -131,9 +172,9 @@ public class RoomManager : MonoBehaviour
         Debug.Log(PortalRoomClearCount());
         Debug.Log("portal on");
 #endif
-        if(PortalRoomClearCount() >= 2)
+        if (PortalRoomClearCount() >= 2)
         {
-            foreach(GameObject obj in map_Data)
+            foreach (GameObject obj in map_Data)
             {
                 if (obj == null) continue;
 
@@ -145,20 +186,21 @@ public class RoomManager : MonoBehaviour
     }
 
     //플레이어의 위치를 x,y로 텔레포트
-    public void PlayerTeleportation(float _x, float _y)
+    public void PlayerTeleportation(int _x, int _y)
     {
         if (_x != player_PosX || _y != player_PosY)
         {
             PlayerLocationInMap().gameObject.SetActive(false);
-            player_PosX = (int)_x;
-            player_PosY = (int)_y;
-            playerGridPosX = gridSizeX_Cen + player_PosX;
-            playerGridPosY = gridSizeY_Cen + player_PosY;
+            SetPlayerPos(_x, _y);
+            //player_PosX = (int)_x;
+            //player_PosY = (int)_y;
+            //playerGridPosX = gridSizeX_Cen + player_PosX;
+            //playerGridPosY = gridSizeY_Cen + player_PosY;
 
             PlayerLocationInMap().gameObject.SetActive(true);
 
             //미니맵 관리
-            miniMap.UpdateMiniMap();
+            //miniMap.UpdateMiniMap();
             MiniMapMinimalize();
             GameObject.FindGameObjectWithTag("Player").transform.position = PlayerLocationInMap().transform.position;
         }
@@ -167,14 +209,14 @@ public class RoomManager : MonoBehaviour
     //미니맵의 크기를 키웁니다.
     public void MiniMapMaximalize()
     {
-        if(!miniMap.button.onClick[0].methodName.Equals("Minimalize")) miniMap.Maximalize();
+        if (!miniMap.button.onClick[0].methodName.Equals("Minimalize")) miniMap.Maximalize();
         miniMap.button.GetComponent<BoxCollider>().enabled = false;
     }
 
     //미니맵을 작게 합니다.
     public void MiniMapMinimalize()
     {
-        if(!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();
+        if (!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();
         miniMap.button.GetComponent<BoxCollider>().enabled = true;
     }
 }
