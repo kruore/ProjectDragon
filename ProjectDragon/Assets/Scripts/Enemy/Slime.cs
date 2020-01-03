@@ -45,6 +45,7 @@ public class Slime : FSM_NormalEnemy
             //Player hit
             other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
+            Debug.Log("Enemy Attack_On");
     }
     protected override IEnumerator Attack()
     {
