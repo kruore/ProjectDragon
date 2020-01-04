@@ -62,11 +62,10 @@ public class ShortRangeAttackArea : MonoBehaviour
     }
     public void AttackOn()
     {
-        FindViewTargets();
+            FindViewTargets();
     }
     public void LongAttackOn()
     {
-        //FindViewTargets();
         RongAttack_normal();
     }
     private void OnDrawGizmos()
@@ -89,9 +88,29 @@ public class ShortRangeAttackArea : MonoBehaviour
             //FindViewTargets();
         }
     }
+    public int Take_Current_Damage()
+    {
+        int critical_Per = (int)My_Angle.critical;
+        float a = Random.Range(0.0f, 100.0f);
+        int Damage;
+        Damage = My_Angle.ATTACKDAMAGE;
+        if (critical_Per >= a)
+        {
+            My_Angle.isCriticalHit =true;
+            Damage += (int)(Damage * 0.5f);
+            return Damage;
+        }
+        else
+        {
+            My_Angle.isCriticalHit =false;
+            My_Angle.ATTACKDAMAGE = My_Angle.ATTACKDAMAGE;
+            return My_Angle.ATTACKDAMAGE;
+        }
+    }
 
     public Collider2D[] FindViewTargets()
     {
+        
         hitedTargetContainer.Clear();
 
         Vector2 originPos = transform.position;
@@ -125,9 +144,19 @@ public class ShortRangeAttackArea : MonoBehaviour
                         Debug.DrawLine(originPos, targetPos, Color.red);
                     if (hitedTarget.CompareTag("Enemy") || hitedTarget.isActiveAndEnabled == true)
                     {
-                        hitedTarget.GetComponent<Character>().HPChanged(My_Angle.ATTACKDAMAGE);
-                        //임시 버젼
-                        //hitedTarget.GetComponent<SpriteRenderer>().color = Color.red;
+                        if (My_Angle.isAttack)
+                        //Player hit
+                        {
+                            hitedTarget.GetComponent<Character>().HPChanged(Take_Current_Damage());
+                            My_Angle.isAttack = false;
+                        }
+                        else
+                        {
+                            My_Angle.isAttack = true;
+                        }
+                  //      hitedTarget.GetComponent<Character>().HPChanged(Take_Current_Damage());
+                       // 임시 버젼
+                     //   hitedTarget.GetComponent<SpriteRenderer>().color = Color.red;
                     }
                 }
             }
@@ -146,6 +175,7 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     public void RongAttack_normal()
     {
+        Time.timeScale=0.2f;
         Transform B = this.gameObject.transform;
         pref_Rot = new Vector3(0, 0, 0);
         GameObject A = Instantiate(attack_Pref);
@@ -155,5 +185,9 @@ public class ShortRangeAttackArea : MonoBehaviour
     public void AttackCoolDown()
     {
         My_Angle.CurrentState = State.Idel;
+    }
+    IEnumerator AttackDamaged()
+    {
+        yield return new WaitForFixedUpdate();
     }
 }

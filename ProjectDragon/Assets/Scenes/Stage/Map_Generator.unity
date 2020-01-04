@@ -2381,6 +2381,11 @@ PrefabInstance:
       propertyPath: attackType
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 2844523809845417481, guid: 41560e8add85e3e47840185a0b6fffbb,
+        type: 3}
+      propertyPath: atk
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2844523811675965163, guid: 41560e8add85e3e47840185a0b6fffbb,
         type: 3}
       propertyPath: m_LocalPosition.x

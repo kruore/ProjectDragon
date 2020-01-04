@@ -40,6 +40,8 @@ public class Player : Character
     //회피율
     public float invaid;
 
+    public float critical;
+
     //코루틴 제어 함수
     public bool isActive;
     // 플레이어 캐릭터 스테이터스
@@ -91,7 +93,8 @@ public class Player : Character
     public float h;
     public float v;
 
-
+    public bool isInvaid =false;
+    public bool isCriticalHit = false;
     public Transform EnemyPos { get { return m_EnemyPos; } set { m_EnemyPos = value; } }
 
     //죽었을때 패널
@@ -109,11 +112,8 @@ public class Player : Character
 
     public override int HPChanged(int ATK)
     {
-        bool isInvaid =false;
         int original_HP = HP;
-        DataTransaction.Inst.CurrentHp = HP;
-        Debug.Log((float)HP / (float)maxHp);
-        HPBar.Player_HP_Changed(HP,maxHp);
+        // DataTransaction.Inst.CurrentHp = HP;
         float currentATK=ATK;
         if(ATK>0)
         {
@@ -121,7 +121,7 @@ public class Player : Character
             if (invaid >= a)
             {
                 currentATK = ATK - (ATK * 0.1f);
-                Debug.Log("회피성공");
+                // Debug.Log("회피성공");
                 isInvaid = true;
             }
             else{
@@ -129,11 +129,10 @@ public class Player : Character
             }
         }
         Debug.Log((int)currentATK+"내 체력은 :"+HP);
-      //  hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
-        base.HPChanged((int)currentATK);
+        //hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
         if(original_HP>=HP)
         {
-            Debug.Log("Damaged!!!!! and Flash"+"HP : "+ HP+ "original_HP" + original_HP);
+            // Debug.Log("Damaged!!!!! and Flash"+"HP : "+ HP+ "original_HP" + original_HP);
             damaged_flash_corrutine = damaged_flash.Flash();
             IEnumerator A=transform.GetChild(0).GetComponent<FlashWhite>().Flash();
             IEnumerator B=transform.GetChild(1).GetComponent<FlashWhite>().Flash();
@@ -143,12 +142,16 @@ public class Player : Character
             StartCoroutine(A);
             StartCoroutine(B);
             StartCoroutine(damaged_flash_corrutine);
-            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false, isInvaid, transform);
-            original_HP=HP;
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), (int)currentATK, false, isInvaid, transform);
+            Debug.Log("Damage:   " + currentATK);
+            original_HP = HP;
         }
+        base.HPChanged((int)currentATK);
+        HPBar.Player_HP_Changed(HP,maxHp);
+        Debug.Log((float)HP / (float)maxHp);
         return HP;
     }
-    //MP 임시 사용s
+    //MP 임시 사용
     public override int HP
     {
         get { return (int)DataTransaction.Inst.CurrentHp; }
@@ -312,7 +315,7 @@ public class Player : Character
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idel;
         AtkRangeChanger(6);
-        invaid = 100.0f;
+        mp= 300;
         base.Awake();
      //  Database.Inst.playData.hp = 100.0f;
      //   DataTransaction.Inst.SavePlayerData();
@@ -452,13 +455,14 @@ public class Player : Character
     public void initializePlayerConverter()
     {
         PlayerPrefData(ref Database.Inst.playData.damage);
-
+        HP= (int)DataTransaction.Inst.CurrentHp;
+        critical = 50f;
+        invaid = 30f;
     }
 
     public void initalize_Player_Link()
     {
         damaged_flash = gameObject.GetComponent<FlashWhite>();
-
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();

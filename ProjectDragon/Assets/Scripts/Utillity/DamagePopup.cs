@@ -62,6 +62,7 @@ public class DamagePopup : MonoBehaviour
     }
     public void Setup(int damageAmount, bool isCriticalHit, bool isInvaid)
     {
+        textMesh.fontSize =Origin_fontSize;
         textMesh.SetText(damageAmount.ToString());
         if (!isCriticalHit && !isInvaid)
         {

@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class AnimatorControll : MonoBehaviour
 {
+    int counter;
     [Tooltip("재생할 오브젝트를 받아옵니다.")]
     public Player Anim_Master;
     public GameObject Arm;
@@ -69,10 +70,10 @@ public class AnimatorControll : MonoBehaviour
         }
         set
         {
-            if (!value.Equals(clearAnimator_name))
+            if (!value.Equals(temp_name))
             {
-                AngleStringCast(value);
                 clearAnimator_name = value;
+                AngleStringCast(clearAnimator_name);
             }
         }
     }
@@ -84,24 +85,24 @@ public class AnimatorControll : MonoBehaviour
     //public Animation animation;
     //public RuntimeAnimatorController controller;
     //public AnimationClip animationClip;
-    public void Update()
+    public void LateUpdate()
     {
         if (Anim_Master.AngleisAttack == false)
         {
-            my_state = Anim_Master.CurrentState;
             temp_name = clearAnimator_name;
+            my_state = Anim_Master.CurrentState;
             anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
             ClearAnimator_Name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+ "_" + my_state + "_" + anglepos.ToString();
-            AngleStringCast(clearAnimator_name);
+            //AngleStringCast(clearAnimator_name);
         }
         else if (Anim_Master.AngleisAttack == true)
         {
-            my_state = Anim_Master.CurrentState;
             temp_name = clearAnimator_name;
+            my_state = Anim_Master.CurrentState;
             anglepos = Anim_Master.Enemy_AngleCaseString(Anim_Master.enemy_angle);
-            temp_name = AttackName;
             AttackName = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+"_" + my_state + "_" + anglepos.ToString();
-            AngleStringCast(AttackName);
+            ClearAnimator_Name = AttackName;
+           // AngleStringCast(AttackName);
         }
 
     }

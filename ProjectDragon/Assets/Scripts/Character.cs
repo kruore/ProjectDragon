@@ -9,7 +9,7 @@ public enum AnglePos { None = 0, Front, Right, Back, Left }
 public enum AttackType { None = 0, LongRange, MiddleRange, ShortRange }
 
 
-public class Character : MonoBehaviour, PersonalSpecificational
+public class Character : MonoBehaviour
 {
     [Header("스테이터스")]
     [SerializeField] protected int currentHp;
@@ -42,6 +42,10 @@ public class Character : MonoBehaviour, PersonalSpecificational
 
     public Transform other;
 
+    // public bool flag_invincibility;
+    // public float 
+
+    public bool isAttack=true;
 
     protected bool isAttacking;
     [SerializeField]
@@ -128,7 +132,7 @@ public class Character : MonoBehaviour, PersonalSpecificational
     /// <param name="NukBack"></param> NukBack = 뒤로 얼마나 넉백할건지
     /// <param name="isNukBack"></param> isNukBack = 넉백을 시킬건지?
     /// <returns></returns>
-    public virtual int HPChanged(int ATK,bool isCritical, int NukBack, bool isInvaid)
+    public virtual int HPChanged(int ATK, bool isCritical, int NukBack, bool isInvaid)
     {
         HP = HP - ATK;
         return HP;

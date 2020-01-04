@@ -11,7 +11,6 @@ using UnityEngine;
 
 public class Monster : Character
 {
-
     protected Animator objectAnimator;
     //Effect
     protected FlashWhite flashWhite;
@@ -31,8 +30,9 @@ public class Monster : Character
         if (!isDead)
         {
             //데미지 띄우기
-            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false,false, transform);
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, other.GetComponent<Player>().isCriticalHit,false, transform);
             return base.HPChanged(ATK);
+            //return HP-ATK;
         }
         return 0;
     }

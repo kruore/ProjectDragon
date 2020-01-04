@@ -23,10 +23,6 @@ public class FlashWhite : MonoBehaviour
 
     public IEnumerator Flash()
     {
-        if(this.gameObject== GameObject.FindGameObjectWithTag("Player"))
-        {
-            Debug.Log("플레이어 코루틴 진입");
-        }
         render.material = effectMaterial;
         yield return new WaitForSeconds(delay);
         render.material = originalMaterial;

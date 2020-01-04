@@ -34,6 +34,7 @@ public class HPGauge : MonoBehaviour
         Damaged_HPGauge = GameObject.Find("UI Root/HPBar/HP_Damaged").GetComponent<UISprite>();
       //  Third_Block_HPGauge.transform.localPosition = Minimal_Transform_Position;
         record_HPBar = Current_player.HP;
+        record_HP.text = record_HPBar.ToString();
     }
 
     public void Player_HP_Changed(float playerHP, float playerMaxHP)

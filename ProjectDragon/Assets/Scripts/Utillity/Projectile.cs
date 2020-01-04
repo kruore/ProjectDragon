@@ -128,7 +128,16 @@ public class Projectile : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            collision.GetComponent<Player>().HPChanged(damage);
+            if (collision.GetComponent<Player>().isAttack)
+            //Player hit
+            {
+                collision.GetComponent<Player>().isAttack = false;
+                collision.GetComponent<Player>().HPChanged(damage);
+            }
+            else
+            {
+                collision.GetComponent<Player>().isAttack = true;
+            }
             if (Reset != null)
             {
                 StartCoroutine(Reset);
