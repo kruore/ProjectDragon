@@ -37,20 +37,49 @@ public class Slime : FSM_NormalEnemy
         DustParticleCheck();
     }
 
-    //애니메이션 프레임에 넣기
-    protected override void Attack_On()
+
+    // In this case you choose event based on the clip weight
+    public void Attack_On(AnimationEvent evt)
     {
-        if (inAtkDetectionRange&&!isDead)
+        if (evt.animatorClipInfo.weight > 0.5f)
         {
-            //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
+            // Do handle animation event
+            if (inAtkDetectionRange && !isDead)
+            {
+                //Player hit
+                other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
+            }
         }
-            Debug.Log("Enemy Attack_On");
     }
+    Vector3 previousAttackPos;
+    // In this case you choose event based on the clip weight
+    public void AttackEndFrame(AnimationEvent evt)
+    {
+        if (evt.animatorClipInfo.weight > 0.5f)
+        {
+            transform.position = previousAttackPos;
+        }
+    }
+
     protected override IEnumerator Attack()
     {
+        previousAttackPos = transform.position;
+        StartCoroutine(RushAttack());
+        isNuckback = false;
+
         StartCoroutine(base.Attack());
         yield return null;
+    }
+    IEnumerator RushAttack()
+    {
+        Debug.Log("Slime RushAttack");
+        rb2d.AddForce(direction * 1000.0f, ForceMode2D.Impulse);
+        yield return new WaitForSeconds(0.3f);
+
+        rb2d.velocity = Vector2.zero;
+        isNuckback = true;
+        yield return null;
+
     }
 
     //임시

@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////
 /////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-13////////////////////
+/////////////////2020-01-04////////////////////
 //////////////////////////////////////////////
 
 using System.Collections;
@@ -38,6 +38,7 @@ public class FSM_NormalEnemy : Enemy
         
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
+        isIdle = false;
         NEState = NormalEnemyState.Walk;
 
         //공격감지 체크
@@ -57,6 +58,7 @@ public class FSM_NormalEnemy : Enemy
 
     protected virtual IEnumerator Idle()
     {
+        isIdle = true;
         StartCoroutine(CalcCooltime());
         yield return null;
     }
@@ -85,6 +87,7 @@ public class FSM_NormalEnemy : Enemy
                     if (!inAtkDetectionRange)
                     {
                         isAttackActive = false;
+                        isIdle = false;
                         NEState = NormalEnemyState.Walk;   //Idle->Walk
                         yield break;
                     }
@@ -99,6 +102,7 @@ public class FSM_NormalEnemy : Enemy
                 if (NEState == NormalEnemyState.Idle)    
                 {
                     isAttackActive = true;
+                    isIdle = false;
                     NEState = NormalEnemyState.Attack;          //Idle->Attack
                     yield break;
                 }
@@ -145,6 +149,7 @@ public class FSM_NormalEnemy : Enemy
                     if (walkTime < currentWalkTime)
                     {
                         //Wait
+                        isWalk = false;
                         NEState = NormalEnemyState.Wait;
                         objectAnimator.SetBool("Walk", false);
                         yield break;
@@ -169,7 +174,7 @@ public class FSM_NormalEnemy : Enemy
         float waitTime = Random.Range(1.0f, 2.0f);
         float current_waitTime = 0;
 
-        isWalk = false;
+        isIdle = true;
         //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
@@ -181,6 +186,7 @@ public class FSM_NormalEnemy : Enemy
             //공격감지범위에 들어오면 Attack
             if (inAtkDetectionRange)
             {
+                isIdle = false;
                 NEState = NormalEnemyState.Attack;           //Wait -> Attack
                 objectAnimator.SetBool("Wait", false);
                 yield break;
@@ -188,6 +194,7 @@ public class FSM_NormalEnemy : Enemy
             current_waitTime += Time.deltaTime;
             if (waitTime < current_waitTime)
             {
+                isIdle = false;
                 NEState = NormalEnemyState.Walk;             //Wait -> Walk
                 objectAnimator.SetBool("Wait", false);
                 yield break;
@@ -272,8 +279,6 @@ public class FSM_NormalEnemy : Enemy
     }
 
 
-    protected virtual void Attack_On() {}
-
-
+    
 
 }

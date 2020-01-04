@@ -81,7 +81,16 @@ AnimationClip:
   - time: 0.5
     functionName: Attack_On
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 2954448563601634526, guid: b7ae067acff73b945a41221c4c3d497b,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.6666667
+    functionName: AttackEndFrame
+    data: 
+    objectReferenceParameter: {fileID: 2954448563601634526, guid: b7ae067acff73b945a41221c4c3d497b,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

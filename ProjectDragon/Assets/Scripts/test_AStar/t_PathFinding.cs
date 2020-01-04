@@ -50,7 +50,6 @@ public class t_PathFinding : MonoBehaviour
             //GetOverlapNodeCount
             nodeOverlapCountY = nodeOverlapCountX = grid.CalcOverlapNodeCount(circleCol.radius);
         }
-        Debug.Log(nodeOverlapCountX + "    " + nodeOverlapCountY);
     }
 
 

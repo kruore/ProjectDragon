@@ -37,7 +37,8 @@ public class Doldori : FSM_NormalEnemy
         DustParticleCheck();
 
     }
-    protected override void Attack_On()
+
+    void Attack_On()
     {
         if (!isDead)
         {

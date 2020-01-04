@@ -1,6 +1,6 @@
 ﻿/////////////////////////////////////////////////
 /////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
+/////////////////2020-01-04////////////////////
 //////////////////////////////////////////////
 
 using System.Collections;
@@ -9,14 +9,17 @@ using UnityEngine;
 
 public class Enemy : Monster
 {
+    [SerializeField]
+    protected bool isIdle = true;
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     [SerializeField] protected LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected Collider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
+    protected bool isNuckback=true;                          //넉백할수있는지
     private bool isFix = false;
-    protected bool IsFix                              //고정
+    protected bool IsFix                              //고정 
     {
         get { return isFix; }
         set
@@ -25,7 +28,8 @@ public class Enemy : Monster
             rb2d.constraints =
                 isFix ? rb2d.constraints = RigidbodyConstraints2D.FreezeAll : rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
         }
-    }                         
+    } 
+    
 
 
 
@@ -91,7 +95,7 @@ public class Enemy : Monster
         direction = (other.transform.position - gameObject.transform.position).normalized;
 
         //플레이어를 바라보는 방향에 대한 각도체크
-        if(isAttacking)
+        if(isAttacking || isIdle)
         {
             Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(other.transform.position, transform.position);
         }
@@ -184,20 +188,20 @@ public class Enemy : Monster
     }
 
     #region Hit
-    public override int HPChanged(int ATK, int NukBack, bool isNukBack)
+    public override int HPChanged(int ATK, int NukBack, bool isCritical)
     {
         //살아 있을때 + 무적이 아닐때
         if (!isDead && !invincible)
         {
-            Hit(NukBack,isNukBack);
-            return base.HPChanged(ATK,NukBack,isNukBack);
+            Hit(NukBack, isCritical);
+            return base.HPChanged(ATK,NukBack, isCritical);
         }
 
         return 0;
     }
 
     IEnumerator KnockBackCor;
-    protected void Hit(int NukBack, bool isNukBack)
+    protected void Hit(int NukBack, bool isCritical)
     {
         isHit = true;
         isWalk = false;
@@ -207,10 +211,10 @@ public class Enemy : Monster
         StopCoroutine(FlashWhiteCor);
         StartCoroutine(FlashWhiteCor);
 
-        if (!IsFix)
+        if (!IsFix|| isNuckback)
         {
             //넉백수치조정
-            if (isNukBack)
+            if (isCritical)
             {
                 knockPower = NukBack;    //기본 1.0f;
             }
@@ -265,16 +269,18 @@ public class Enemy : Monster
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         //Player에게 다가가는 무리들에 대한 이동조정.. (walk)
+
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<Enemy>().collisionPlayer)))
         {
             collisionPlayer = true;
-            if ( collisionPlayer)
+            if (collisionPlayer)
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
-            } 
+            }
         }
+
     }
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {

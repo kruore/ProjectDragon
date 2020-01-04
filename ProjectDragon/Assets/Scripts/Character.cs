@@ -42,12 +42,14 @@ public class Character : MonoBehaviour
 
     public Transform other;
 
-
+    [SerializeField]
     protected bool isAttacking;
     [SerializeField]
     protected bool isWalk;
-    [HideInInspector] public bool isDead;
+    public bool isDead;
+    [SerializeField]
     protected bool isHit;
+    [SerializeField]
     protected bool isSkillActive;
 
     protected virtual void Awake()
@@ -123,7 +125,7 @@ public class Character : MonoBehaviour
     /// <param name="NukBack"></param> NukBack = 뒤로 얼마나 넉백할건지
     /// <param name="isNukBack"></param> isNukBack = 넉백을 시킬건지?
     /// <returns></returns>
-    public virtual int HPChanged(int ATK, int NukBack, bool isNukBack)
+    public virtual int HPChanged(int ATK, int NukBack, bool isCritical)
     {
         HP = HP - ATK;
         return HP;

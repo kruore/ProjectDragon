@@ -35,9 +35,13 @@ public class Mr_Gobunin : FSM_NormalEnemy
     /// <summary>
     /// 탄환 공격 (애니메이션 프레임에 넣기)
     /// </summary>
-    protected override void Attack_On()
+    public void Attack_On(AnimationEvent evt)
     {
-        projectile.Create(Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position, transform);
+        if (evt.animatorClipInfo.weight > 0.5f)
+        {
+            projectile.Create(Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
+        }
     }
+    
 }
 

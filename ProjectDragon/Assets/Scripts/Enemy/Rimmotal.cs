@@ -64,6 +64,18 @@ public class Rimmotal : Enemy
 
     /********************************************************************/
 
+    void Attack1_On()
+    {
+        //Player hit
+        other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 0, false);
+    }
+
+
+    void Attack2_On()
+    {
+        //Player hit
+        other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 1, true);
+    }
 
     IEnumerator Idle()
     {
@@ -123,18 +135,7 @@ public class Rimmotal : Enemy
         }
     }
 
-     void Attack1_On()
-    {
-            //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,0,false);
-    }
-    void Attack2_On()
-    {
-
-            //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 1, true);
-    }
-
+  
     IEnumerator Attack1()
     {
         Debug.Log("Attack1");
@@ -184,7 +185,7 @@ public class Rimmotal : Enemy
 
         float cliptime1 = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(cliptime1 / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
-
+        IsFix = false;
         REState = RimmotalEnemyState.Idle;
 
     }
