@@ -217,10 +217,7 @@ public class t_Grid : MonoBehaviour
             }
         }
 
-        //if (xCheck >= 0 && xCheck < gridSizeX && yCheck >= 0 && yCheck < gridSizeY)
-        //{
-        //    NeighboringLineNode.Add(gridNode[xCheck, yCheck]);
-        //}
+       
         return NeighboringLineNode;
     }
 

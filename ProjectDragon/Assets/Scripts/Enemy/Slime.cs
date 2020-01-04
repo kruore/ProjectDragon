@@ -24,7 +24,7 @@ public class Slime : FSM_NormalEnemy
     protected override RaycastHit2D[] GetRaycastType()
     {
         //CircleCast
-        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
+        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset- circleCol.radius, m_viewTargetMask);
     }
 
     protected override void Start()
@@ -43,28 +43,31 @@ public class Slime : FSM_NormalEnemy
     {
         if (evt.animatorClipInfo.weight > 0.5f)
         {
-            // Do handle animation event
+            rb2d.velocity = Vector2.zero;
+            isNuckback = true;
+
             if (inAtkDetectionRange && !isDead)
             {
                 //Player hit
-                other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
+                //other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
             }
         }
     }
-    Vector3 previousAttackPos;
+    public Vector3 previousAttackPos;
     // In this case you choose event based on the clip weight
     public void AttackEndFrame(AnimationEvent evt)
     {
         if (evt.animatorClipInfo.weight > 0.5f)
         {
-            transform.position = previousAttackPos;
+            //transform.position = previousAttackPos;
         }
     }
 
     protected override IEnumerator Attack()
     {
         previousAttackPos = transform.position;
-        StartCoroutine(RushAttack());
+        Debug.Log("previousAttackPos    " +  previousAttackPos.ToString());
+        //StartCoroutine(RushAttack());
         isNuckback = false;
 
         StartCoroutine(base.Attack());
@@ -73,11 +76,7 @@ public class Slime : FSM_NormalEnemy
     IEnumerator RushAttack()
     {
         Debug.Log("Slime RushAttack");
-        rb2d.AddForce(direction * 1000.0f, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(0.3f);
-
-        rb2d.velocity = Vector2.zero;
-        isNuckback = true;
+        rb2d.AddForce(direction * 3.0f, ForceMode2D.Impulse);
         yield return null;
 
     }

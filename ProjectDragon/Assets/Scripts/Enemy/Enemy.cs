@@ -165,19 +165,21 @@ public class Enemy : Monster
         hit = GetRaycastType();
         //hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
+        isRayHit = false;
         foreach (RaycastHit2D _hit in hit)
         {
             if (_hit.collider != null)
             {
-                isRayHit = _hit;
                 HitRay = _hit;
                 //Debug.Log("hit name :" + _hit.collider.gameObject.name);
-                if (_hit.collider.gameObject.CompareTag("Wall")|| _hit.collider.gameObject.CompareTag("Cliff"))
+                if (_hit.collider.gameObject.CompareTag("Wall") || _hit.collider.gameObject.CompareTag("Cliff"))
                 {
+                    isRayHit = true;
                     break;
                 }
                 if (_hit.collider.gameObject.CompareTag("Player"))
                 {
+                    isRayHit = true;
                     inAtkDetectionRange = true;
                     break;
                 }
@@ -252,9 +254,9 @@ public class Enemy : Monster
             //RayCast
             if (isRayHit)
             {
-                Debug.DrawRay(startingPosition, direction * HitRay.distance, Color.red);
+                //Debug.DrawRay(startingPosition, direction * (HitRay.distance-0.3f), Color.red);
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);
+                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);  //0.3f는 임시로 콜라이더 radius
             }
             else
             {

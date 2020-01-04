@@ -20,7 +20,7 @@ public class Monster : Character
 
     protected override void Awake()
     {
-        objectAnimator = gameObject.GetComponent<Animator>();
+        objectAnimator = gameObject.GetComponentInParent<Animator>();
         damagePopup = new DamagePopup();
         flashWhite = GetComponent<FlashWhite>();
         StartOnCor = Start_On();

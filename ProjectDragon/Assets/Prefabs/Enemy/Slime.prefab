@@ -274,7 +274,7 @@ MonoBehaviour:
   nuckBack: 0
   maxHp: 15
   atkSpeed: 2
-  atkRange: 0.95
+  atkRange: 0.68
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
@@ -306,6 +306,7 @@ MonoBehaviour:
   cooltime: 3
   attackCount: 2
   normalEnemyState: 0
+  previousAttackPos: {x: 0, y: 0, z: 0}
 --- !u!58 &1484212885571557093
 CircleCollider2D:
   m_ObjectHideFlags: 0
