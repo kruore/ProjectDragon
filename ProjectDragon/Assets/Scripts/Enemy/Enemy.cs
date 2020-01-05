@@ -17,7 +17,7 @@ public class Enemy : Monster
     protected Collider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
-    protected bool isNuckback=true;                          //넉백할수있는지
+    public bool isNuckback=true;                          //넉백할수있는지
     private bool isFix = false;
     protected bool IsFix                              //고정 
     {

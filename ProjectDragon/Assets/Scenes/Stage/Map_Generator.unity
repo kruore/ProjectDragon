@@ -359,11 +359,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: mWidth
-      value: 1886
+      value: 1882
       objectReference: {fileID: 0}
     - target: {fileID: 797653116, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: aspectRatio
-      value: 4.191111
+      value: 4.1822224
       objectReference: {fileID: 0}
     - target: {fileID: 1099074029, guid: d9ca20a145676494480da6d75f8116c2, type: 3}
       propertyPath: onClick.Array.size
@@ -595,6 +595,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_Name
+      value: 'Doldori '
+      objectReference: {fileID: 0}
+    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927243, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -650,16 +660,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
-        type: 3}
-      propertyPath: m_Name
-      value: 'Doldori '
-      objectReference: {fileID: 0}
-    - target: {fileID: 8629793387476927251, guid: 0c146b825778dd341a6155d93e4c95eb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8629793387476927242, guid: 0c146b825778dd341a6155d93e4c95eb,
         type: 3}
       propertyPath: m_Sprite
@@ -675,6 +675,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1700538828}
     m_Modifications:
+    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_Name
+      value: Rimmotal
+      objectReference: {fileID: 0}
+    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4208062297477242329, guid: 7ce63458e9fe70e499413c11f01e8b7e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -739,16 +749,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.y
       value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_Name
-      value: Rimmotal
-      objectReference: {fileID: 0}
-    - target: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ce63458e9fe70e499413c11f01e8b7e, type: 3}
@@ -1247,6 +1247,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BattleManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370934434592048141, guid: 55db38af1a210f24687ede17f227cfda,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5370934434592048131, guid: 55db38af1a210f24687ede17f227cfda,
         type: 3}

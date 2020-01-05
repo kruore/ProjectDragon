@@ -96,7 +96,7 @@ public class MapCreator : MonoBehaviour
         for (int i = 0; i < map_Prefabs_Count; i++)
         {
             string name = "Map/Map_" + _mapType;
-            name += "_" + (i + 1).ToString();
+            name += "_" + 2;
             map_Prefabs[i] = Resources.Load(name) as GameObject;
         }
     }

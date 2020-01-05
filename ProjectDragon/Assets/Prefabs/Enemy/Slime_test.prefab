@@ -5003,7 +5003,7 @@ MonoBehaviour:
   nuckBack: 0
   maxHp: 15
   atkSpeed: 2
-  atkRange: 0.5
+  atkRange: 1
   myPos: {x: 0, y: 0, z: 0}
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
@@ -5026,6 +5026,7 @@ MonoBehaviour:
     m_Bits: 0
   collisionPlayer: 0
   invincible: 0
+  isNuckback: 1
   skillCooltime: 0
   skillDamage: 0
   m_bDebugMode: 1
