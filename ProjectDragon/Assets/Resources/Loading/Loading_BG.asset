@@ -15,6 +15,19 @@ MonoBehaviour:
   material: {fileID: 2100000, guid: 1c594a7039063e945b8dbe56429d9212, type: 2}
   mSprites:
   - name: bg1
+    x: 1921
+    y: 968
+    width: 1920
+    height: 1080
+    borderLeft: 0
+    borderRight: 0
+    borderTop: 0
+    borderBottom: 0
+    paddingLeft: 0
+    paddingRight: 0
+    paddingTop: 0
+    paddingBottom: 0
+  - name: bg2
     x: 0
     y: 968
     width: 1920
