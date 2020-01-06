@@ -60,7 +60,7 @@ public class Doldori : FSM_NormalEnemy
 
         while (isAttacking)
         {
-            rb2d.AddForce(attackDirection * 0.2f, ForceMode2D.Impulse);
+            rb2d.AddForce(attackDirection * 0.4f, ForceMode2D.Impulse);
             yield return null;
         }
     }

@@ -48,6 +48,7 @@ public class Rimmotal : Enemy
 
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
+        isIdle = false;
         REState = RimmotalEnemyState.Walk;
 
         //공격감지 체크
@@ -80,7 +81,7 @@ public class Rimmotal : Enemy
     IEnumerator Idle()
     {
         Debug.Log("Idle");
-
+        isIdle = true;
         yield return new WaitForSeconds(1.0f);
         if (inAtkDetectionRange)
         {
@@ -90,6 +91,7 @@ public class Rimmotal : Enemy
         {
             REState = RimmotalEnemyState.Walk;
         }
+        isIdle = false;
 
     }
 
@@ -186,6 +188,7 @@ public class Rimmotal : Enemy
         float cliptime1 = objectAnimator.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSeconds(cliptime1 / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
         IsFix = false;
+        isAttacking = false;
         REState = RimmotalEnemyState.Idle;
 
     }

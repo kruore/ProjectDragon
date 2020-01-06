@@ -77,12 +77,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 63d16bbede8ab5a40aaf193fb16b2518, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b731377b396b35c4cbcbf66b7677a6a2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 4, y: 4}
+  m_Size: {x: 0.8, y: 0.8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -197,8 +197,11 @@ MonoBehaviour:
   myRotat: {x: 0, y: 0, z: 0}
   current_angle: 0
   other: {fileID: 0}
+  isAttacking: 0
   isWalk: 0
   isDead: 0
+  isHit: 0
+  isSkillActive: 0
   current_Anim_Frame: 0
   enemy_angle: 0
   myAttackType: 0
@@ -206,19 +209,20 @@ MonoBehaviour:
   distanceOfPlayer: 0
   angleOfPlayer: 0
   moveDistance: 0
+  isIdle: 1
   m_viewTargetMask:
     serializedVersion: 2
     m_Bits: 0
   collisionPlayer: 0
   invincible: 0
-  readyTime: 3
-  cooltime: 6
-  knockPower: 1.5
+  isNuckback: 1
   skillCooltime: 0
   skillDamage: 0
   m_bDebugMode: 1
   inAtkDetectionRange: 0
   originOffset: 0
+  readyTime: 3
+  cooltime: 6
   attackCount: 0
   normalEnemyState: 0
 --- !u!70 &4504309658898349765
@@ -270,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8629793387520205278
 Transform:
   m_ObjectHideFlags: 0
