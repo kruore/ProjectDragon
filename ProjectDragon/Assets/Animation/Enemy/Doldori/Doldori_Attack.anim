@@ -27,8 +27,10 @@ AnimationClip:
       value: {fileID: 21300000, guid: 222414754cbae3c498c4e846cb60c9e3, type: 3}
     - time: 0.25
       value: {fileID: 21300000, guid: 222414754cbae3c498c4e846cb60c9e3, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 193722f82f6da64419f14c685bce36d2, type: 3}
     attribute: m_Sprite
-    path: 
+    path: 'Doldori '
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -39,7 +41,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 502176403
       attribute: 0
       script: {fileID: 0}
       typeID: 212
@@ -50,12 +52,13 @@ AnimationClip:
     - {fileID: 21300000, guid: 8885f333b33cb4241b0e62874dc7e4f4, type: 3}
     - {fileID: 21300000, guid: 222414754cbae3c498c4e846cb60c9e3, type: 3}
     - {fileID: 21300000, guid: 222414754cbae3c498c4e846cb60c9e3, type: 3}
+    - {fileID: 21300000, guid: 193722f82f6da64419f14c685bce36d2, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.26666668
+    m_StopTime: 0.35000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0

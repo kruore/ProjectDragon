@@ -361,7 +361,7 @@ public class Enemy : Monster
     //Dust Particle
     protected void DustParticleCheck()
     {
-        if (!isDead)
+        if (!isDead && childDustParticle != null)
         {
             DustParticle_Actuation = isHit || isWalk ? true : false;
             childDustParticle.SetActive(DustParticle_Actuation);

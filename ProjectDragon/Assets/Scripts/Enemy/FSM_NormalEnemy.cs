@@ -271,7 +271,7 @@ public class FSM_NormalEnemy : Enemy
         yield return new WaitForSeconds(2.0f);
 
         //Fade Out
-        StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
+        //StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
 
         Destroy(gameObject, 5.0f);
 

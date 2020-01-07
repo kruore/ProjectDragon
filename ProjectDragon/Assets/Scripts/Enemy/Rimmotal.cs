@@ -35,6 +35,10 @@ public class Rimmotal : Enemy
         //CapsuleCas
         return Physics2D.CapsuleCastAll(startingPosition, capsuleCol.size, CapsuleDirection2D.Vertical, 0, direction, AtkRange - originOffset/*- (maxSizeAxis*0.5f)*/, m_viewTargetMask);
     }
+    public void Update()
+    {
+        DustParticleCheck();
+    }
 
 
     protected override void Start()

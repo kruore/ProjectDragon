@@ -19,7 +19,7 @@ public class Doldori : FSM_NormalEnemy
         capsuleCol = GetComponent<CapsuleCollider2D>();
         col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall" , "Cliff"); // 근거리는 Cliff 추가
-        childDustParticle = transform.Find("DustParticle").gameObject;
+        //childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
     protected override RaycastHit2D[] GetRaycastType()
@@ -34,8 +34,7 @@ public class Doldori : FSM_NormalEnemy
     }
     void Update()
     {
-        DustParticleCheck();
-
+       
     }
 
     void Attack_On()

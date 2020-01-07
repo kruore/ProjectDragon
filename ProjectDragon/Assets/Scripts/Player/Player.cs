@@ -284,7 +284,7 @@ public class Player : Character
         playerSex = SEX.Female;
         PlayerPrefDataTrascation();
         MoveSpeed = 3.0f;
-        ATKChanger(0);
+        ATKChanger(3);
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idel;
         AtkRangeChanger(6);

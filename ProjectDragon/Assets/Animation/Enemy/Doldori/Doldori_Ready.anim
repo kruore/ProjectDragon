@@ -46,7 +46,7 @@ AnimationClip:
     - time: 1.3333334
       value: {fileID: 21300000, guid: 4b35262ff5ee937459101f0de48273ba, type: 3}
     attribute: m_Sprite
-    path: 
+    path: 'Doldori '
     classID: 212
     script: {fileID: 0}
   m_SampleRate: 60
@@ -57,7 +57,7 @@ AnimationClip:
   m_ClipBindingConstant:
     genericBindings:
     - serializedVersion: 2
-      path: 0
+      path: 502176403
       attribute: 0
       script: {fileID: 0}
       typeID: 212
