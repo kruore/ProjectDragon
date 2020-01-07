@@ -57,11 +57,6 @@ public class Box : MapObject
 
     void DropItem()
     {
-        float rand = Random.Range(0.0f, 99.9f);
-
-        if(itemDropPercentage > rand)
-        {
-            //아이템 생성
-        }
+        GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>().DropItem(transform.position);
     }
 }

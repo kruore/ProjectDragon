@@ -41,6 +41,8 @@ public class RoomManager : MonoBehaviour
 
     public GameObject player;
 
+    public GameObject Mana_Large;
+
     private void Awake()
     {
         player_PosX = 0;
@@ -52,6 +54,12 @@ public class RoomManager : MonoBehaviour
         screenTransitions = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<ScreenTransitions>();
         player = GameObject.FindGameObjectWithTag("Player");
         player.GetComponent<BoxCollider2D>().enabled = false;
+        ResourceLoad();
+    }
+
+    private void ResourceLoad()
+    {
+        Mana_Large = Resources.Load("Object/Mana_Large") as GameObject;
     }
 
     private void Start()
@@ -218,5 +226,35 @@ public class RoomManager : MonoBehaviour
     {
         if (!miniMap.button.onClick[0].methodName.Equals("Maximalize")) miniMap.Minimalize();
         miniMap.button.GetComponent<BoxCollider>().enabled = true;
+    }
+
+    public void DropItem(Vector3 _pos)
+    {
+        //아이템 랜덤 확률 같은 판단 들어가야함
+        PlayerLocationInMap().items.Add(Instantiate(Mana_Large, _pos, Quaternion.identity, PlayerLocationInMap().transform));
+    }
+
+    public IEnumerator GatheringItems(List<GameObject> gameObjects, float _playTime)
+    {
+        Vector3 pos = new Vector3();
+        float time = 0.0f;
+        while(time <= _playTime)
+        {
+            if (gameObjects.Count.Equals(0)) break;
+
+            time += Time.deltaTime;
+            for (int i = 0; i < gameObjects.Count; i++)
+            {
+                pos = Vector3.Lerp(gameObjects[i].transform.position, player.transform.position, time * (1.0f / _playTime));
+                gameObjects[i].transform.position = pos;
+                if((player.transform.position - gameObjects[i].transform.position).magnitude <= 0.2f)
+                {
+                    Destroy(gameObjects[i]);
+                    gameObjects.RemoveAt(i);
+                }
+            }
+
+            yield return null;
+        }
     }
 }

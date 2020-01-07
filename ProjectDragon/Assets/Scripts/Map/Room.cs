@@ -44,10 +44,13 @@ public class Room : MonoBehaviour
     public GameObject portal; //포탈 오브젝트
     public List<GameObject> Enemies = new List<GameObject>();
     public List<GameObject> monsters = new List<GameObject>(); //방의 몬스터를 관리하기 위한 리스트
+    public List<GameObject> items = new List<GameObject>();
 
     public RoomManager roomManager;
 
     public Player playerSet;
+
+    private IEnumerator gathering;
 
     public GameObject MiniMapPos //미니맵 상에서의 방 오브젝트
     {
@@ -63,8 +66,17 @@ public class Room : MonoBehaviour
     {
         //데이터 초기화
         InitRoom();
+        gathering = Gathering(2.0f);
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(gathering);
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(gathering);
+    }
     void Update()
     {
         //룸의 상태 관리
@@ -235,6 +247,19 @@ public class Room : MonoBehaviour
         //아이템 획득 - 미구현 상태, 드랍 구현 필요
         //CollectAll_Items();
 
+    }
+
+    private IEnumerator Gathering(float _gatherTime)
+    {
+        while (true)
+        {
+            if (roomState.Equals(RoomState.Clear) && !items.Count.Equals(0))
+            {
+                StartCoroutine(roomManager.GatheringItems(items, _gatherTime));
+                yield return new WaitForSeconds(0.3f);
+            }
+            yield return null;
+        }
     }
 
     /// <summary>

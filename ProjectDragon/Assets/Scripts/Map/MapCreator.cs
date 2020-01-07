@@ -265,7 +265,7 @@ public class MapCreator : MonoBehaviour
         }
         if (x - 1 >= 0)
         {
-            if (rooms[x - 1, y] != null)
+            if (rooms[x - 1, y] != null) 
             {
                 temp.Add(rooms[x - 1, y].depth);
             }
