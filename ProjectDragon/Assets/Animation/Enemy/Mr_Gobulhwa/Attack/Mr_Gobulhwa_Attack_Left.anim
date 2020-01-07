@@ -37,6 +37,25 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 9574ff579c8e1f9429f81d6a54e575b5, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: e9df3fa1f60e4bc4bba7e4aeb0bc25f8, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 03ed8f03c601ad945b159d7bf491cfa3, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 197dd4f85ee8ef54caabe40881f34569, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: e289bb8bc1a51694aaab4d6c6b09f1bc, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: e91775cd7c1a6174b8925c9479e8c1bc, type: 3}
+    - time: 1.1666666
+      value: {fileID: 21300000, guid: d0fa59fed5b5f34459c82f8fb1fa16c3, type: 3}
+    attribute: m_Sprite
+    path: Mr_Gobulhwa
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -51,7 +70,21 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1851483340
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 9574ff579c8e1f9429f81d6a54e575b5, type: 3}
+    - {fileID: 21300000, guid: e9df3fa1f60e4bc4bba7e4aeb0bc25f8, type: 3}
+    - {fileID: 21300000, guid: 03ed8f03c601ad945b159d7bf491cfa3, type: 3}
+    - {fileID: 21300000, guid: 197dd4f85ee8ef54caabe40881f34569, type: 3}
+    - {fileID: 21300000, guid: e289bb8bc1a51694aaab4d6c6b09f1bc, type: 3}
+    - {fileID: 21300000, guid: e91775cd7c1a6174b8925c9479e8c1bc, type: 3}
+    - {fileID: 21300000, guid: d0fa59fed5b5f34459c82f8fb1fa16c3, type: 3}
     - {fileID: 21300000, guid: 9574ff579c8e1f9429f81d6a54e575b5, type: 3}
     - {fileID: 21300000, guid: e9df3fa1f60e4bc4bba7e4aeb0bc25f8, type: 3}
     - {fileID: 21300000, guid: 03ed8f03c601ad945b159d7bf491cfa3, type: 3}
@@ -85,9 +118,10 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.6666667
-    functionName: Attack_On
+    functionName: Mr_Gobulhwa_AttackOn
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 581777204744015367, guid: b28443e03dfbb064a911d73419a8089e,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

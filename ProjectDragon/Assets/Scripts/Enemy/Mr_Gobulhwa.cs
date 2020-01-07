@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-18////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked Mr_Gobulhwa
+//
+//  AUTHOR: Yang SeEun
+// CREATED: 
+// UPDATED: 2019-12-18
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,8 +12,12 @@ using UnityEngine;
 
 public class Mr_Gobulhwa : FSM_NormalEnemy
 {
-    public RuntimeAnimatorController projectileAnimator;
+
     CircleCollider2D circleCol;
+
+    //object
+    Projectile projectile;
+    public RuntimeAnimatorController projectileAnimator;
 
     protected override void Awake()
     {
@@ -29,24 +36,22 @@ public class Mr_Gobulhwa : FSM_NormalEnemy
         return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
     }
 
-    Projectile projectile;
     private void Update()
     {
         DustParticleCheck();
     }
 
     /// <summary>
-    /// 탄환 공격 (애니메이션 프레임에 넣기)
+    /// 탄환 생성 (애니메이션 프레임에 넣기)
     /// </summary>
-    ///  // In this case you choose event based on the clip weight
-    public void Attack_On(AnimationEvent evt)
+    ///  In this case you choose event based on the clip weight
+    public void Attack_On()
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
-        {
-            projectile.Create(Angle - 30, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
-            projectile.Create(Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
-            projectile.Create(Angle + 30, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
-        }
+
+        projectile.Create(Angle - 30, 3.0f, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle, 3.0f, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle + 30, 3.0f, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
+
     }
    
 }

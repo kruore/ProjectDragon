@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2020-01-04////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked FSM_NormalEnemy
+//
+//  AUTHOR: Yang SeEun
+// CREATED:
+// UPDATED: 2020-01-04
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -46,12 +49,7 @@ public class FSM_NormalEnemy : Enemy
         yield return null;
     }
 
-    public override void Dead()
-    {
-        base.Dead();
-        StartCoroutine(EnemyDead());
-    }
-
+  
 
 
 
@@ -260,23 +258,7 @@ public class FSM_NormalEnemy : Enemy
     #endregion
 
 
-    protected virtual IEnumerator EnemyDead()
-    {
-        //Dead Animation parameters
-        objectAnimator.SetTrigger("Dead");
-
-        col.enabled = false;
-
-        //애니메이션 시간때문에..대략
-        yield return new WaitForSeconds(2.0f);
-
-        //Fade Out
-        //StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
-
-        Destroy(gameObject, 5.0f);
-
-        yield return null;
-    }
+   
 
 
     

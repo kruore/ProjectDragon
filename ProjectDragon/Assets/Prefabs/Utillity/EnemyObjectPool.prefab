@@ -58,3 +58,8 @@ MonoBehaviour:
     prefab: {fileID: 0}
     poolCount: 5
     poolList: []
+  - poolItemName: TargetPointObj
+    prefab: {fileID: 1796311146230742155, guid: 77018714c8b2a4f42865ab8113161337,
+      type: 3}
+    poolCount: 5
+    poolList: []

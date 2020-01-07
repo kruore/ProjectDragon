@@ -70,17 +70,18 @@ public class Targetpoint : MonoBehaviour
     {
         ObjectPool.Instance.PushToPool(poolItemName, gameObject, transform);
     }
-    public Targetpoint Create(float _speed, int _damage,string poolItemName, Vector3 position, Transform parent = null)
+    public Targetpoint Create(float _speed, int _damage, RuntimeAnimatorController _Animator, string poolItemName, Vector3 position, Transform parent = null)
     {
 
         GameObject projectileObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
         targetpointobj = projectileObject.transform.GetComponent<Targetpoint>();
         targetpointobj.transform.position = position;
+        GetComponent<Animator>().runtimeAnimatorController = _Animator;
         targetpointobj.gameObject.SetActive(true);
         targetpointobj.GetComponent<Animator>().Play("ProjecTileReady");
         return targetpointobj;
 
-        ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
+        //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
 }

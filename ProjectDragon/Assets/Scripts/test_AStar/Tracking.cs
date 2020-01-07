@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked Tracking the player.
+//
+//  AUTHOR: Yang SeEun
+// CREATED:
+// UPDATED: 2019-12-16
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -83,22 +86,6 @@ public class Tracking : MonoBehaviour
         yield return null;
     }
 
-    
 
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    if(collision.gameObject.CompareTag("Object"))
-    //    {
-    //        RescanPath(collision);
-    //    }
-    //}
-    //IsObject = false; 를 언제 할것인가가 문제로다!
-    //private void OnTriggerExit2D(Collider2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Object"))
-    //    {
-    //        pathFinding.grid.NodeFromWorldPosition(collision.transform.position).IsObject = false;
-    //    }
-    //}
 
 }

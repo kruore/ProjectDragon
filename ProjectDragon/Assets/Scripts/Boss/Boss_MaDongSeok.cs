@@ -192,7 +192,7 @@ public class Boss_MaDongSeok : Monster
     IEnumerator State2(Vector3 projectileposition)
     {
 
-        targetpoint.Create(projectilespeed, projectiledamage, "TargetPointObj", projectileposition);
+        //targetpoint.Create(projectilespeed, projectiledamage, "TargetPointObj", projectileposition);
         yield return new WaitForSeconds(projectiletime);
 
     }

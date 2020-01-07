@@ -12,6 +12,7 @@ public class Doldori : FSM_NormalEnemy
 {
     CapsuleCollider2D capsuleCol;
     Vector3 attackDirection;
+    IEnumerator AttackEndCor = null;
 
     protected override void Awake()
     {
@@ -37,7 +38,7 @@ public class Doldori : FSM_NormalEnemy
        
     }
 
-    void Attack_On()
+    public void Attack_On()
     {
         if (!isDead)
         {
@@ -87,7 +88,6 @@ public class Doldori : FSM_NormalEnemy
 
 
 
-    IEnumerator AttackEndCor=null;
     //벽과 플레이어 부딪히면 그로기 상태
     protected override void OnCollisionStay2D(Collision2D collision)
     {
@@ -112,9 +112,9 @@ public class Doldori : FSM_NormalEnemy
             }
         }
     }
+    //부모함수 부르지않기 위해서 (지우면안됨)
     protected override void OnCollisionExit2D(Collision2D collision)
     {
-        //부모함수 부르지않기 위해서
     } 
     protected override void OnTriggerStay2D(Collider2D collision)
     {

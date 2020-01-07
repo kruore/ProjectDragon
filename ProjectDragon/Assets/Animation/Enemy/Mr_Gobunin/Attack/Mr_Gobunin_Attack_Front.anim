@@ -37,6 +37,25 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 9b660171f30f8e7449ff5aae515136bf, type: 3}
+    - time: 0.16666667
+      value: {fileID: 21300000, guid: 54682b0502a4c91429fc2aa61d4c2094, type: 3}
+    - time: 0.33333334
+      value: {fileID: 21300000, guid: 6593bb3f9acf7f545b4df8c32da7d5b4, type: 3}
+    - time: 0.5
+      value: {fileID: 21300000, guid: 9ef4cd7e1ff331449b1ccdfd3017f9a7, type: 3}
+    - time: 0.6666667
+      value: {fileID: 21300000, guid: 84b69fd22e71cf7478eb32ab80ef235f, type: 3}
+    - time: 1
+      value: {fileID: 21300000, guid: 54642ea03099e694daa82e56e9777815, type: 3}
+    - time: 1.1666666
+      value: {fileID: 21300000, guid: 97ca3c0940bae924597089276cd8c84a, type: 3}
+    attribute: m_Sprite
+    path: Mr_Gobunin
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -51,7 +70,21 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1107039807
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 9b660171f30f8e7449ff5aae515136bf, type: 3}
+    - {fileID: 21300000, guid: 54682b0502a4c91429fc2aa61d4c2094, type: 3}
+    - {fileID: 21300000, guid: 6593bb3f9acf7f545b4df8c32da7d5b4, type: 3}
+    - {fileID: 21300000, guid: 9ef4cd7e1ff331449b1ccdfd3017f9a7, type: 3}
+    - {fileID: 21300000, guid: 84b69fd22e71cf7478eb32ab80ef235f, type: 3}
+    - {fileID: 21300000, guid: 54642ea03099e694daa82e56e9777815, type: 3}
+    - {fileID: 21300000, guid: 97ca3c0940bae924597089276cd8c84a, type: 3}
     - {fileID: 21300000, guid: 9b660171f30f8e7449ff5aae515136bf, type: 3}
     - {fileID: 21300000, guid: 54682b0502a4c91429fc2aa61d4c2094, type: 3}
     - {fileID: 21300000, guid: 6593bb3f9acf7f545b4df8c32da7d5b4, type: 3}
@@ -85,9 +118,10 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.6666667
-    functionName: Attack_On
+    functionName: Mr_Gobunin_AttackOn
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 3736805459333672842, guid: d7ef2294d4c04c34c8e50dca7c81b3b9,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

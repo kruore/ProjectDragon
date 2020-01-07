@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2020-01-04////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked Enemy
+//
+//  AUTHOR: Yang SeEun
+// CREATED: 
+// UPDATED: 2020-01-04
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -80,6 +83,7 @@ public class Enemy : Monster
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall");
 
         //col = GetComponent<BoxCollider2D>();
+        objectAnimator = gameObject.GetComponentInParent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         other = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -105,7 +109,11 @@ public class Enemy : Monster
         }
     }
 
-    //개체의 상태가 바뀔때마다 실행
+    /// <summary>
+    ///개체의 상태가 바뀔때마다 실행
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="newState"></param>
     protected override void SetState<T>(T newState)
     {
         StartCoroutine(newState.ToString());
@@ -116,6 +124,27 @@ public class Enemy : Monster
     {
         //Grid 생성
         GetComponent<Tracking>().pathFinding.Create(col, transform.GetComponentInParent<t_Grid>());
+        yield return null;
+    }
+
+    public override void Dead()
+    {
+        base.Dead();
+        StartCoroutine(EnemyDead());
+    }
+
+    protected virtual IEnumerator EnemyDead()
+    {
+        //Dead Animation parameters
+        objectAnimator.SetTrigger("Dead");
+
+        col.enabled = false;
+
+        //Fade Out
+        //StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
+
+        Destroy(gameObject, 5.0f);
+
         yield return null;
     }
 
@@ -248,6 +277,9 @@ public class Enemy : Monster
     {
         if (m_bDebugMode)
         {
+            directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
+            startingPosition = transform.position + directionOriginOffset;
+
             //범위
             Gizmos.DrawWireSphere(transform.position, AtkRange);
 

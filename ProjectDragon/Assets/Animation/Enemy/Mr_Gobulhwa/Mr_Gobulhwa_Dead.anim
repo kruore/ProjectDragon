@@ -33,6 +33,21 @@ AnimationClip:
     path: 
     classID: 212
     script: {fileID: 0}
+  - curve:
+    - time: 0
+      value: {fileID: 21300000, guid: 64bc6f3189c80ca42a1f99825fc66403, type: 3}
+    - time: 0.18333334
+      value: {fileID: 21300000, guid: 3422fb8f83f5c204ea4e2c7565c3436a, type: 3}
+    - time: 0.36666667
+      value: {fileID: 21300000, guid: 9c04bab961cb31b49bad2a348f197ffd, type: 3}
+    - time: 0.56666666
+      value: {fileID: 21300000, guid: 4536793c066b95a468d13e7a4a3775c8, type: 3}
+    - time: 0.75
+      value: {fileID: 21300000, guid: 68c9a69b1208fb8429f11076bf4c0ebf, type: 3}
+    attribute: m_Sprite
+    path: Mr_Gobulhwa
+    classID: 212
+    script: {fileID: 0}
   m_SampleRate: 60
   m_WrapMode: 0
   m_Bounds:
@@ -47,7 +62,19 @@ AnimationClip:
       typeID: 212
       customType: 23
       isPPtrCurve: 1
+    - serializedVersion: 2
+      path: 1851483340
+      attribute: 0
+      script: {fileID: 0}
+      typeID: 212
+      customType: 23
+      isPPtrCurve: 1
     pptrCurveMapping:
+    - {fileID: 21300000, guid: 64bc6f3189c80ca42a1f99825fc66403, type: 3}
+    - {fileID: 21300000, guid: 3422fb8f83f5c204ea4e2c7565c3436a, type: 3}
+    - {fileID: 21300000, guid: 9c04bab961cb31b49bad2a348f197ffd, type: 3}
+    - {fileID: 21300000, guid: 4536793c066b95a468d13e7a4a3775c8, type: 3}
+    - {fileID: 21300000, guid: 68c9a69b1208fb8429f11076bf4c0ebf, type: 3}
     - {fileID: 21300000, guid: 64bc6f3189c80ca42a1f99825fc66403, type: 3}
     - {fileID: 21300000, guid: 3422fb8f83f5c204ea4e2c7565c3436a, type: 3}
     - {fileID: 21300000, guid: 9c04bab961cb31b49bad2a348f197ffd, type: 3}

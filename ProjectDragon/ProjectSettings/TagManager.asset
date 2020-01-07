@@ -56,3 +56,6 @@ TagManager:
   - name: Thorn
     uniqueID: 4055476019
     locked: 0
+  - name: Enemy
+    uniqueID: 3243945749
+    locked: 0

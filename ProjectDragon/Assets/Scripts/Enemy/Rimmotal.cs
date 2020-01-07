@@ -1,4 +1,13 @@
-﻿using System.Collections;
+﻿// ==============================================================
+// Cracked Rimmotal
+//
+//  AUTHOR: Yang SeEun
+// CREATED: 2019-12-20
+// UPDATED: 2020-01-08
+// ==============================================================
+
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,6 +17,14 @@ public class Rimmotal : Enemy
     [Header("[Enemy State]")]
     [SerializeField] protected RimmotalEnemyState rimmotalEnemyState;
     CapsuleCollider2D capsuleCol;
+
+    //object
+    Projectile projectile;
+    Targetpoint targetpoint;
+    public RuntimeAnimatorController LeafAnimator;
+    public RuntimeAnimatorController ThornAnimator;
+    bool _thorn_attacking = true;
+
 
     public RimmotalEnemyState REState
     {
@@ -26,7 +43,10 @@ public class Rimmotal : Enemy
         col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
-        thornTargeting = new ThornTargeting();
+
+        //thornTargeting = new ThornTargeting();
+        projectile = new Projectile();
+        targetpoint = new Targetpoint();
     }
     protected override RaycastHit2D[] GetRaycastType()
     {
@@ -60,31 +80,30 @@ public class Rimmotal : Enemy
         yield return null;
     }
 
-    public override void Dead()
-    {
-        base.Dead();
-    }
 
 
 
     /********************************************************************/
-
-    void Attack1_On()
+    /// <summary>
+    /// 나뭇잎 생성 (애니메이션 프레임에 넣기)
+    /// </summary>
+    public void Attack1_On()
     {
-        //Player hit
-        other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 0, false);
+        
+        projectile.Create(Angle-20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle-10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle-5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle+5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle+10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(Angle+20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+       
     }
 
 
-    void Attack2_On()
-    {
-        //Player hit
-        other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE, 1, true);
-    }
 
     IEnumerator Idle()
-    {
-        Debug.Log("Idle");
+    { 
         isIdle = true;
         yield return new WaitForSeconds(1.0f);
         if (inAtkDetectionRange)
@@ -101,7 +120,6 @@ public class Rimmotal : Enemy
 
     IEnumerator Walk()
     {
-        Debug.Log("Walk");
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
         while (REState == RimmotalEnemyState.Walk && !isDead)
@@ -144,8 +162,6 @@ public class Rimmotal : Enemy
   
     IEnumerator Attack1()
     {
-        Debug.Log("Attack1");
-
         //Attack Animation parameters
         objectAnimator.SetBool("Attack1", true);
 
@@ -166,8 +182,6 @@ public class Rimmotal : Enemy
 
     IEnumerator Attack2()
     {
-        Debug.Log("Attack2");
-
         //Attack Animation parameters
         objectAnimator.SetBool("Attack2", true);
         IsFix = true;
@@ -197,29 +211,26 @@ public class Rimmotal : Enemy
 
     }
 
-    ThornTargeting thornTargeting;
-    bool _thorn_attacking = true;
-
     /// <summary>
-    /// 가시공격
+    /// 가시생성
     /// </summary>
     IEnumerator ThornAttack()
     {
-        Debug.Log("Thorn Create Ready");
         _thorn_attacking = true;
 
         while (_thorn_attacking)
         {
             if (inAtkDetectionRange)
             {
-                thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
+                //targetpoint.Create( 0.0f, ATTACKDAMAGE, ThornAnimator, "TargetPointObj", transform.position,transform);
+                //thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
                 yield return new WaitForSeconds(2.0f);
             }
             yield return null;
         }
     }
     /// <summary>
-    /// 공격2 쿨타임 검사
+    /// 가시공격(공격2) 쿨타임 검사
     /// </summary>
     /// <returns></returns>
     IEnumerator CoolTimeCheck()

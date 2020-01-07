@@ -39,88 +39,43 @@ public class Slime : FSM_NormalEnemy
 
 
     // In this case you choose event based on the clip weight
-    public void Attack_On(AnimationEvent evt)
+    /// <summary>
+    /// 공격 (애니메이션 프레임에 넣기)
+    /// </summary>
+    public void Attack_On()
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
-        {
-            rb2d.velocity = Vector2.zero;
-            isNuckback = true;
 
-            if (inAtkDetectionRange && !isDead)
-            {
-                //Player hit
-               other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
-            }
-        }
-    }
-    public Vector3 previousAttackPos;
-    // In this case you choose event based on the clip weight
-    public void AttackEndFrame(AnimationEvent evt)
-    {
-        if (evt.animatorClipInfo.weight > 0.5f)
+        isNuckback = true;
+
+        if (inAtkDetectionRange && !isDead)
         {
-            //transform.position = previousAttackPos;
+            //Player hit
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
+
     }
+
+   
 
     protected override IEnumerator Attack()
     {
-        previousAttackPos = transform.position;
-        Debug.Log("previousAttackPos    " +  previousAttackPos.ToString());
-        //StartCoroutine(RushAttack());
         isNuckback = false;
 
         StartCoroutine(base.Attack());
         yield return null;
     }
-    IEnumerator RushAttack()
-    {
-        Debug.Log("Slime RushAttack");
-        rb2d.AddForce(direction * 3.0f, ForceMode2D.Impulse);
-        yield return null;
 
-    }
 
     //임시
     protected override IEnumerator EnemyDead()
     {
-        Color fadeColor = spriteRenderer.color;
-        fadeColor.a = 0.0f;
-
-        //Dead Animation parameters
-        objectAnimator.SetTrigger("Dead");
-
-        col.enabled = false;
         DeadParticle();
-
-        //애니메이션 시간때문에..대략
-        yield return new WaitForSeconds(2.0f);
-
-        spriteRenderer.color = fadeColor;  
-
-        Destroy(gameObject, 5.0f);
-
+        StartCoroutine(base.EnemyDead());
         yield return null;
     }
 
 
-    //Vector3 PosBeforeAttack;
-    //IEnumerator RushAttack()
-    //{
-    //    PosBeforeAttack = transform.position;
-    //    rb2d.AddForce(direction * 1.0f, ForceMode2D.Impulse);
-    //    yield return new WaitForSeconds(0.3f);
-
-    //    rb2d.velocity = Vector2.zero;
-
-    //    yield return null;
-
-    //}
-
-    //void AttackEndFrame()
-    //{
-    //    transform.position = PosBeforeAttack;
-    //}
+   
     void DeadParticle()
     {
         childDeadParticle.SetActive(true);
