@@ -90,7 +90,7 @@ public class JoyPad : MonoBehaviour
     }
     public void OnPress(bool pressed)
     {
-        if (pressed == false)
+        if (pressed == false&&!player.isSkillActive)
         {
             player.CurrentState = State.Idel;
             StartCoroutine("fadeJoyStick");
@@ -238,11 +238,11 @@ public class JoyPad : MonoBehaviour
             }
             if (player.CurrentState != State.Attack)
             {
-                if (angle > 0)
+                if (angle > 0&&!player.isSkillActive)
                 {
                     player.CurrentState = State.Walk;
                 }
-                else if (angle == 0)
+                else if (angle == 0&&!player.isSkillActive)
                 {
                     player.CurrentState = State.Idel;
                 }
@@ -254,7 +254,7 @@ public class JoyPad : MonoBehaviour
                 // This prevents the position from snapping from zero to the deadZone radius.
                 position = position / radius * Mathf.InverseLerp(radius, deadZone, 1);
             }
-            if (player.current_angle > 0 && !player.AngleisAttack)
+            if (player.current_angle > 0 && !player.AngleisAttack &&!player.isSkillActive)
             {
                 player.CurrentState = State.Walk;
                 angle = GetAngle(target2.transform.position, target.transform.position);

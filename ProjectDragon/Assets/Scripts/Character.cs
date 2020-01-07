@@ -52,7 +52,7 @@ public class Character : MonoBehaviour
     protected bool isWalk;
     [HideInInspector] public bool isDead;
     protected bool isHit;
-    protected bool isSkillActive;
+    public bool isSkillActive;
 
 /// <summary>
 /// 데미지 팝업 변수

@@ -210,8 +210,23 @@ public class AnimatorControll : MonoBehaviour
     }
     void AngleStringCast(string name)
     {
+        if(!Anim_Master.isSkillActive)
+        {
         playeranim.Play(name);
+        playeranim_Arm.GetComponent<SpriteRenderer>().enabled = true;
+        playeranim_Weapon.GetComponent<SpriteRenderer>().enabled = true;
         playeranim_Arm.Play(name + "_Arm");
         playeranim_Weapon.Play(name + "_Weapon");
+        }
+        if(Anim_Master.isSkillActive)
+        {
+            playeranim_Arm.GetComponent<SpriteRenderer>().enabled = false;
+            playeranim_Weapon.GetComponent<SpriteRenderer>().enabled = false;
+            playeranim.Play(name);
+        }
+    }
+    public void AnimationStop()
+    {
+        Anim_Master.playerSkill.PlayerStop();
     }
 }

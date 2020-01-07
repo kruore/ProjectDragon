@@ -9,8 +9,10 @@ using UnityEngine;
 public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
-       [SerializeField]
+    [SerializeField]
     protected State myState;
+
+    public PlayerSkill playerSkill;
 
     //flash white material damaged of player
     public FlashWhite damaged_flash;
@@ -45,6 +47,7 @@ public class Player : Character
     //코루틴 제어 함수
     public bool isActive;
     // 플레이어 캐릭터 스테이터스
+    // public bool isSkillActive;
 
     // 테스팅용
     public bool AngleisAttack;
@@ -183,7 +186,6 @@ public class Player : Character
             if (value > 0)
             {
                 mp = value;
-                MPBar.MP_slot_Counter();
                 //mp = Mathf.Clamp(value, 0, maxMp);
             }
             else
@@ -228,24 +230,24 @@ public class Player : Character
                             TempEnemy = EnemyArray[a];
                         }
                     }
-                    if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) <= this.GetComponent<Player>().AtkRange)
+                    if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) <= this.GetComponent<Player>().AtkRange&&!isSkillActive)
                     {
                         if (TempEnemy.GetComponent<Character>().HP > 0)
                         {
-                            if (attackType == AttackType.LongRange && joyPad.Pressed == false)
+                            if (attackType == AttackType.LongRange && joyPad.Pressed == false&&!isSkillActive)
                             {
                                 moveSpeed = 0;
                                 AngleisAttack = true;
                                 this.CurrentState = State.Attack;
                                 this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
-                            else if(attackType == AttackType.LongRange && joyPad.Pressed == true)
+                            else if(attackType == AttackType.LongRange && joyPad.Pressed == true&&!isSkillActive)
                             {
 
                                  moveSpeed = temp_Movespeed;
                                  AngleisAttack = false;
                             }
-                            if (attackType == AttackType.ShortRange)
+                            if (attackType == AttackType.ShortRange&&!isSkillActive)
                             {
                                 AngleisAttack = true;
                                 this.CurrentState = State.Attack;
@@ -253,10 +255,10 @@ public class Player : Character
                             }
                         }
                     }
-                    if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) > this.GetComponent<Player>().AtkRange)
+                    if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) > this.GetComponent<Player>().AtkRange&&!isSkillActive)
                     {
                         AngleisAttack = false;
-                        if (AngleisAttack == false)
+                        if (AngleisAttack == false&&!isSkillActive)
                         {
                             if (attackType == AttackType.LongRange)
                             {
@@ -266,7 +268,7 @@ public class Player : Character
                             {
                                 this.CurrentState = State.Walk;
                             }
-                            if (joyPad.Pressed == false)
+                            if (joyPad.Pressed == false&&!isSkillActive)
                             {
                                 this.CurrentState = State.Idel;
                             }
@@ -333,7 +335,15 @@ public class Player : Character
     // Update is called once per frame
     void FixedUpdate()
     {
-        current_angle = joyPad.angle;
+          if (isSkillActive)
+        {
+            float A = current_angle;
+            current_angle = A;
+            CurrentState = State.Skill;
+        }
+        else{
+             current_angle = joyPad.angle;
+        }
         //CheckAngleLabel.text = current_angle.ToString();
         myPos = gameObject.transform.position;
         joystickPos = joypadinput.GetComponent<JoyPad>().position;
@@ -342,22 +352,24 @@ public class Player : Character
         v = joystickPos.y;
 
         //Make Right direction by Set Animatoion bool setting
-        if (StopPlayer.Equals(false))
+        if (!StopPlayer.Equals(true))
         {
             rigidbody2d.velocity = new Vector2(10.0f * Time.deltaTime * h * horizontalSpeed * moveSpeed, 10.0f * Time.deltaTime * v * verticalSpeed * moveSpeed);
             ////transform.Translate(Vector2.right * Time.deltaTime * h * horizontalSpeed * moveSpeed, Space.World);
 
             //transform.Translate(Vector2.up * Time.deltaTime * v * verticalSpeed * moveSpeed, Space.World);
         }
-        else if (StopPlayer.Equals(true))
+        if (StopPlayer.Equals(true))
         {
+            rigidbody2d.velocity = new Vector2(0f,0f);
             StopTime += Time.deltaTime;
             if (StopTime >= StopMaxTime)
             {
-                StopPlayer = false;
+             //   StopPlayer = false;
                 StopTime = 0;
             }
         }
+      
     }
     public static float GetAngle(Vector3 Start, Vector3 End)
     {
@@ -463,6 +475,7 @@ public class Player : Character
     public void initalize_Player_Link()
     {
         damaged_flash = gameObject.GetComponent<FlashWhite>();
+        playerSkill = GameObject.Find("UI Root/Skillbutton").GetComponent<PlayerSkill>();
         joyPad = FindObjectOfType<JoyPad>();
         rigidbody2d = GetComponent<Rigidbody2D>();
         playerAnimationStateChanger = GetComponent<Animator>();
