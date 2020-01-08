@@ -11,30 +11,46 @@ using UnityEngine;
 
 public class Monster : Character
 {
+
     protected Animator objectAnimator;
     //Effect
     protected FlashWhite flashWhite;
-
+    protected DamagePopup damagePopup;
+    IEnumerator StartOnCor;
 
     protected override void Awake()
     {
-        objectAnimator = gameObject.GetComponent<Animator>();
+        //////////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////////수정해야함!!/////////////////////////////
+        //Animator 따로부르기
+        //objectAnimator = gameObject.GetComponentInParent<Animator>();
+        damagePopup = new DamagePopup();
         flashWhite = GetComponent<FlashWhite>();
+        StartOnCor = Start_On();
 
         base.Awake();
 
      //   Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
     }
-    public override int HPChanged(int ATK)
+    public override int HPChanged(int ATK, bool isCritical, int NukBack, bool isInvaid)
     {
         if (!isDead)
         {
             //데미지 띄우기
-            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, other.GetComponent<Player>().isCriticalHit,false, transform);
-            return base.HPChanged(ATK);
-            //return HP-ATK;
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false, transform);
+            return base.HPChanged(ATK, isCritical, NukBack, isInvaid);
         }
         return 0;
+    }
+
+    public virtual IEnumerator Start_On()
+    {
+        yield return null;
+    }
+
+    public void StartOn()
+    {
+        StartCoroutine(StartOnCor);
     }
 
 

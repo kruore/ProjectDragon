@@ -11,13 +11,16 @@ using UnityEngine;
 public class Doldori : FSM_NormalEnemy
 {
     CapsuleCollider2D capsuleCol;
+    Vector3 attackDirection;
+    IEnumerator AttackEndCor = null;
+
     protected override void Awake()
     {
         base.Awake();
         capsuleCol = GetComponent<CapsuleCollider2D>();
         col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall" , "Cliff"); // 근거리는 Cliff 추가
-        childDustParticle = transform.Find("DustParticle").gameObject;
+        //childDustParticle = transform.Find("DustParticle").gameObject;
     }
 
     protected override RaycastHit2D[] GetRaycastType()
@@ -32,16 +35,23 @@ public class Doldori : FSM_NormalEnemy
     }
     void Update()
     {
-        DustParticleCheck();
-
+       
     }
 
-    Vector3 attackDirection;
+    public void Attack_On()
+    {
+        if (!isDead)
+        {
+            //Player hit
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0,false);
+        }
+    }
+
     protected override IEnumerator Attack()
     {
         AttackStart();
         invincible = true;                             //무적
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1.5f);         //대기
 
         //Attacking
         isAttacking = true;
@@ -50,17 +60,8 @@ public class Doldori : FSM_NormalEnemy
 
         while (isAttacking)
         {
-            rb2d.AddForce(attackDirection * 0.2f, ForceMode2D.Impulse);
+            rb2d.AddForce(attackDirection * 0.4f, ForceMode2D.Impulse);
             yield return null;
-        }
-    }
-
-    protected override void Attack_On()
-    {
-        if (!isDead)
-        {
-            //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
         }
     }
 
@@ -87,7 +88,6 @@ public class Doldori : FSM_NormalEnemy
 
 
 
-    IEnumerator AttackEndCor=null;
     //벽과 플레이어 부딪히면 그로기 상태
     protected override void OnCollisionStay2D(Collision2D collision)
     {
@@ -112,9 +112,9 @@ public class Doldori : FSM_NormalEnemy
             }
         }
     }
+    //부모함수 부르지않기 위해서 (지우면안됨)
     protected override void OnCollisionExit2D(Collision2D collision)
     {
-        //부모함수 부르지않기 위해서
     } 
     protected override void OnTriggerStay2D(Collider2D collision)
     {

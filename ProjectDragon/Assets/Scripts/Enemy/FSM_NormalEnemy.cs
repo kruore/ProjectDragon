@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-13////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked FSM_NormalEnemy
+//
+//  AUTHOR: Yang SeEun
+// CREATED:
+// UPDATED: 2020-01-04
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -11,9 +14,13 @@ public enum NormalEnemyState { Idle, Walk, Attack, Wait}
 public class FSM_NormalEnemy : Enemy
 {
 
-    [Header(" ")]
-    protected bool isAttackActive;
+    [Header("[NormalEnemy Attribute]")]
+    public float readyTime;          //Idle->Walk time
+    public float cooltime;          //Idle ->Attack time
     public int attackCount;
+    protected float Current_readyTime = 0;
+    protected float Current_cooltime = 0;
+    protected bool isAttackActive;
 
     [Header("[Enemy State]")]
     [SerializeField] protected NormalEnemyState normalEnemyState;
@@ -23,22 +30,10 @@ public class FSM_NormalEnemy : Enemy
         set
         {
             normalEnemyState = value;
-            //SetEnemyState(normalEnemyState);
             SetState(normalEnemyState);
 
         }
     }
-
-
-
-    //protected override void SetState(State newState)
-    //{
-    //    if (newState == State.Dead)
-    //    {
-    //        StartCoroutine(Dead());
-    //    }
-    //}
-
 
     public override IEnumerator Start_On()
     {
@@ -46,20 +41,22 @@ public class FSM_NormalEnemy : Enemy
         
         //1초후 추적
         yield return new WaitForSeconds(1.0f);
+        isIdle = false;
         NEState = NormalEnemyState.Walk;
 
         //공격감지 체크
         StartCoroutine(AttackRangeCheck());
-
-
         yield return null;
     }
+
+  
 
 
 
 
     protected virtual IEnumerator Idle()
     {
+        isIdle = true;
         StartCoroutine(CalcCooltime());
         yield return null;
     }
@@ -88,6 +85,7 @@ public class FSM_NormalEnemy : Enemy
                     if (!inAtkDetectionRange)
                     {
                         isAttackActive = false;
+                        isIdle = false;
                         NEState = NormalEnemyState.Walk;   //Idle->Walk
                         yield break;
                     }
@@ -99,10 +97,11 @@ public class FSM_NormalEnemy : Enemy
             }
             else                                                 //cooltime 후
             {
-                if (NEState == NormalEnemyState.Idle)     //Idle->Attack
+                if (NEState == NormalEnemyState.Idle)    
                 {
                     isAttackActive = true;
-                    NEState = NormalEnemyState.Attack;
+                    isIdle = false;
+                    NEState = NormalEnemyState.Attack;          //Idle->Attack
                     yield break;
                 }
             }
@@ -110,12 +109,10 @@ public class FSM_NormalEnemy : Enemy
         }
     }
 
-    IEnumerator PushStopCor;
     protected virtual IEnumerator Walk()
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Walk", true);
-        //GetComponent<Tracking>().pathFinding.Create(col.size.x, col.size.y, transform.GetComponentInParent<t_Grid>());
 
         float currentWalkTime = 0;
         float walkTime = Random.Range(2.0f, 6.0f);
@@ -132,6 +129,7 @@ public class FSM_NormalEnemy : Enemy
             {
                 isWalk = false;
                 NEState = NormalEnemyState.Attack;
+                objectAnimator.SetBool("Walk", false);
                 yield break;
             }
             if (rb2d.velocity != Vector2.zero)
@@ -149,7 +147,9 @@ public class FSM_NormalEnemy : Enemy
                     if (walkTime < currentWalkTime)
                     {
                         //Wait
+                        isWalk = false;
                         NEState = NormalEnemyState.Wait;
+                        objectAnimator.SetBool("Walk", false);
                         yield break;
                     }
                     //AStar
@@ -163,22 +163,16 @@ public class FSM_NormalEnemy : Enemy
             yield return null;
         }
     }
-    IEnumerator PushStop() //밀리는 것을 방지
-    {
-        yield return new WaitForSeconds(1.0f);
-        rb2d.velocity = Vector2.zero;
-    }
-
+   
     protected IEnumerator Wait()
     {
         //Walk Animation parameters
         objectAnimator.SetBool("Wait", true);
-        objectAnimator.SetBool("Walk", false);
 
         float waitTime = Random.Range(1.0f, 2.0f);
         float current_waitTime = 0;
 
-        isWalk = false;
+        isIdle = true;
         //rb2d.velocity = Vector2.zero;
         while (NEState == NormalEnemyState.Wait && !isDead)
         {
@@ -190,32 +184,22 @@ public class FSM_NormalEnemy : Enemy
             //공격감지범위에 들어오면 Attack
             if (inAtkDetectionRange)
             {
+                isIdle = false;
                 NEState = NormalEnemyState.Attack;           //Wait -> Attack
+                objectAnimator.SetBool("Wait", false);
                 yield break;
             }
             current_waitTime += Time.deltaTime;
             if (waitTime < current_waitTime)
             {
-                objectAnimator.SetBool("Wait", false);
+                isIdle = false;
                 NEState = NormalEnemyState.Walk;             //Wait -> Walk
+                objectAnimator.SetBool("Wait", false);
                 yield break;
             }
             rb2d.velocity = Vector2.zero;
             yield return null;
         }
-    }
-
-    protected void AttackStart()
-    {
-        //Attack Animation parameters
-        objectAnimator.SetBool("Attack", true);
-        objectAnimator.SetBool("Walk", false);
-        objectAnimator.SetBool("Wait", false);
-        objectAnimator.SetBool("isAttackActive", isAttackActive);
-
-        //Cooltime Initialize
-        Current_readyTime = 0;
-        Current_cooltime = 0;
     }
 
     protected virtual IEnumerator Attack()
@@ -228,20 +212,37 @@ public class FSM_NormalEnemy : Enemy
         StartCoroutine(AttackEnd());
     }
 
-    
-    //Attack 애니메이션 n번 돌리고 -> Idle로
-    #region 애니메이션 관리
+    protected void AttackStart()
+    {
+        //Attack Animation parameters
+        objectAnimator.SetBool("Attack", true);
+        objectAnimator.SetBool("isAttackActive", isAttackActive);
+
+        //Cooltime Initialize
+        Current_readyTime = 0;
+        Current_cooltime = 0;
+    }
+
+    //애니메이션 n번 돌리고 -> Idle로
+    #region Attack 공격 횟수 관리
     protected virtual IEnumerator AttackEnd()
     {
         int count = 0;
-        while (isAttacking)
+        while (isAttacking&&!isDead)
         {
             AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
+
+            if (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            {
+                yield return null;
+                continue;
+            }
             //Debug.Log(clipInfo[0].clip.name);
 
             float cliptime = clipInfo[0].clip.length;
-            yield return new WaitForSeconds(cliptime);
+            yield return new WaitForSeconds(cliptime / objectAnimator.GetCurrentAnimatorStateInfo(0).speed);
 
+            count++;
             if (attackCount == count)
             {
                 isAttacking = false;
@@ -250,39 +251,16 @@ public class FSM_NormalEnemy : Enemy
                 NEState = NormalEnemyState.Idle;
                 break;
             }
-            count++;
 
             yield return null;
         }
     }
     #endregion
 
-    public override void Dead()
-    {
-        base.Dead();
-        StartCoroutine(EnemyDead());
-    }
-    protected virtual IEnumerator EnemyDead()
-    {
-        //Dead Animation parameters
-        objectAnimator.SetTrigger("Dead");
 
-        col.enabled = false;
-
-        //애니메이션 시간때문에..대략
-        yield return new WaitForSeconds(2.0f);
-
-        //Fade Out
-        StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
-
-        Destroy(gameObject, 5.0f);
-
-        yield return null;
-    }
+   
 
 
-    protected virtual void Attack_On() {}
-
-
+    
 
 }

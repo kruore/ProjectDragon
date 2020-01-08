@@ -1,7 +1,10 @@
-﻿/////////////////////////////////////////////////
-/////////////MADE BY Yang SeEun/////////////////
-/////////////////2019-12-16////////////////////
-//////////////////////////////////////////////
+﻿// ==============================================================
+// Cracked Enemy
+//
+//  AUTHOR: Yang SeEun
+// CREATED: 
+// UPDATED: 2020-01-04
+// ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
@@ -9,22 +12,37 @@ using UnityEngine;
 
 public class Enemy : Monster
 {
+    [SerializeField]
+    protected bool isIdle = true;
     protected Rigidbody2D rb2d;
     protected SpriteRenderer spriteRenderer;
     [SerializeField] protected LayerMask m_viewTargetMask; // 인식 가능한 타켓의 마스크
     protected Collider2D col;
     [SerializeField] protected bool collisionPlayer = false;  // 플레이어와 충돌하였는지
     [SerializeField] protected bool invincible = false;       //무적상태인지
+    public bool isNuckback=true;                          //넉백할수있는지
+    private bool isFix = false;
+    protected bool IsFix                              //고정 
+    {
+        get { return isFix; }
+        set
+        {
+            isFix = value;
+            rb2d.constraints =
+                isFix ? rb2d.constraints = RigidbodyConstraints2D.FreezeAll : rb2d.constraints = RigidbodyConstraints2D.FreezeRotation;
+        }
+    } 
+    
 
+
+
+    protected float knockPower = 0.2f;
+    protected const float knockTime = 0.3f;
 
     [Header("[Enemy Attribute]")]
-    //public string name;
-    [SerializeField] protected float readyTime;          //Idle->Walk time
-    [SerializeField] protected float cooltime;          //Idle ->Attack time
-    protected float Current_readyTime = 0;
-    protected float Current_cooltime = 0;
-    [SerializeField] protected float knockPower = 0.2f;
-    protected float knockTime = 0.3f;
+    protected int knock_Resist;
+    protected int dropMana_Min;
+    protected int dropMana_Max;
 
 
     [Header("[Rare Enemy Attribute]")]
@@ -65,6 +83,7 @@ public class Enemy : Monster
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall");
 
         //col = GetComponent<BoxCollider2D>();
+        objectAnimator = gameObject.GetComponentInParent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         other = GameObject.FindGameObjectWithTag("Player").transform;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -80,35 +99,51 @@ public class Enemy : Monster
         direction = (other.transform.position - gameObject.transform.position).normalized;
 
         //플레이어를 바라보는 방향에 대한 각도체크
-        if(isAttacking)
+        if(isAttacking || isIdle)
         {
             Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(other.transform.position, transform.position);
         }
         else if(isWalk)
         {
-            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(transform.position, GetComponent<Tracking>().currentWaypoint);
+            Angle = BattleManager.GetSideOfEnemyAndPlayerAngle(GetComponent<Tracking>().currentWaypoint, transform.position);
         }
     }
 
-    //개체의 상태가 바뀔때마다 실행
+    /// <summary>
+    ///개체의 상태가 바뀔때마다 실행
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="newState"></param>
     protected override void SetState<T>(T newState)
     {
         StartCoroutine(newState.ToString());
     }
 
-    //protected void SetEnemyState<T>(T _state)
-    //{
-    //    StartCoroutine(_state.ToString());
-    //}
 
-    RoomManager RoomManager;
-    public virtual IEnumerator Start_On()
+    public override IEnumerator Start_On()
     {
-        
         //Grid 생성
         GetComponent<Tracking>().pathFinding.Create(col, transform.GetComponentInParent<t_Grid>());
+        yield return null;
+    }
 
-         RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
+    public override void Dead()
+    {
+        base.Dead();
+        StartCoroutine(EnemyDead());
+    }
+
+    protected virtual IEnumerator EnemyDead()
+    {
+        //Dead Animation parameters
+        objectAnimator.SetTrigger("Dead");
+
+        col.enabled = false;
+
+        //Fade Out
+        //StartCoroutine(fadeOut.FadeOut_Cor(spriteRenderer));
+
+        Destroy(gameObject, 5.0f);
 
         yield return null;
     }
@@ -159,19 +194,21 @@ public class Enemy : Monster
         hit = GetRaycastType();
         //hit = Physics2D.RaycastAll(startingPosition, direction, AtkRange - originOffset, m_viewTargetMask);
 
+        isRayHit = false;
         foreach (RaycastHit2D _hit in hit)
         {
             if (_hit.collider != null)
             {
-                isRayHit = _hit;
                 HitRay = _hit;
                 //Debug.Log("hit name :" + _hit.collider.gameObject.name);
-                if (_hit.collider.gameObject.CompareTag("Wall")|| _hit.collider.gameObject.CompareTag("Cliff"))
+                if (_hit.collider.gameObject.CompareTag("Wall") || _hit.collider.gameObject.CompareTag("Cliff"))
                 {
+                    isRayHit = true;
                     break;
                 }
                 if (_hit.collider.gameObject.CompareTag("Player"))
                 {
+                    isRayHit = true;
                     inAtkDetectionRange = true;
                     break;
                 }
@@ -182,20 +219,20 @@ public class Enemy : Monster
     }
 
     #region Hit
-    public override int HPChanged(int ATK)
+    public override int HPChanged(int ATK, bool isCritical, int NukBack, bool isInvaid)
     {
         //살아 있을때 + 무적이 아닐때
         if (!isDead && !invincible)
         {
-            Hit();
-            return base.HPChanged(ATK);
+            Hit(NukBack, isCritical);
+            return base.HPChanged(ATK,isCritical, NukBack, isInvaid);
         }
 
         return 0;
     }
 
     IEnumerator KnockBackCor;
-    protected void Hit()
+    protected void Hit(int NukBack, bool isCritical)
     {
         isHit = true;
         isWalk = false;
@@ -205,37 +242,32 @@ public class Enemy : Monster
         StopCoroutine(FlashWhiteCor);
         StartCoroutine(FlashWhiteCor);
 
-        //넉백
-        KnockBackCor = KnockBack();
-        StopCoroutine(KnockBackCor);
-        StartCoroutine(KnockBackCor);
+        if (!IsFix|| isNuckback)
+        {
+            //넉백수치조정
+            if (isCritical)
+            {
+                knockPower = NukBack;    //기본 1.0f;
+            }
+            else   //움찔
+            {
+                knockPower = 0.2f;
+            }
 
+            KnockBackCor = KnockBack();
+            StopCoroutine(KnockBackCor);
+            StartCoroutine(KnockBackCor);
+        }
     }
     IEnumerator KnockBack()
     {
-        /////////////////////////////나중에
-        //움찔
-        knockPower = 0.2f;
-        ////넉백수치
-        ///if(넉백될거면)
-        //knockPower = 넉백수치;     기본 1.0f;
-
         rb2d.AddForce(-direction * knockPower, ForceMode2D.Impulse);
         yield return new WaitForSeconds(knockTime);
 
         rb2d.velocity = Vector2.zero;
         isHit = false;
-        yield return null;
     }
 
-    //방향넉백
-    public IEnumerator DirectionKnockBack(Vector3 _direction, float _knockTime,float _knockPower)
-    {
-        rb2d.AddForce(-_direction * _knockPower, ForceMode2D.Impulse);
-        yield return new WaitForSeconds(_knockTime);
-
-        rb2d.velocity = Vector2.zero;
-    }
     #endregion
 
 
@@ -243,23 +275,28 @@ public class Enemy : Monster
     //Draw!!!! 테스트용
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         if (m_bDebugMode)
         {
+            directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
+            startingPosition = transform.position + directionOriginOffset;
+
             //범위
             Gizmos.DrawWireSphere(transform.position, AtkRange);
 
             //RayCast
             if (isRayHit)
             {
-                Debug.DrawRay(startingPosition, direction * HitRay.distance, Color.red);
+                //Debug.DrawRay(startingPosition, direction * (HitRay.distance-0.3f), Color.red);
                 Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);
+                Gizmos.DrawWireSphere(new Vector3(startingPosition.x, startingPosition.y,1) + direction * HitRay.distance, 0.3f);  //0.3f는 임시로 콜라이더 radius
             }
             else
             {
                 Debug.DrawRay(startingPosition, direction * (AtkRange - originOffset), Color.red);
             }
         }
+#endif
     }
     //+ Vector2.Dot(directionOriginOffset, direction)
 
@@ -268,16 +305,18 @@ public class Enemy : Monster
     protected virtual void OnCollisionStay2D(Collision2D collision)
     {
         //Player에게 다가가는 무리들에 대한 이동조정.. (walk)
+
         if (collision.gameObject.CompareTag("Player") ||
              (collision.gameObject.CompareTag("Enemy") && (collision.gameObject.GetComponent<Enemy>().collisionPlayer)))
         {
             collisionPlayer = true;
-            if ( collisionPlayer)
+            if (collisionPlayer)
             {
                 rb2d.isKinematic = true;
                 rb2d.velocity = Vector2.zero;
-            } 
+            }
         }
+
     }
     protected virtual void OnCollisionExit2D(Collision2D collision)
     {
@@ -303,7 +342,7 @@ public class Enemy : Monster
     }
     protected virtual void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall")||collision.gameObject.CompareTag("Cliff"))
         {
             //충돌할때 walk이면 콜라이더끄기
             if (isWalk)
@@ -332,7 +371,7 @@ public class Enemy : Monster
     }
     protected virtual void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall"))
+        if (collision.gameObject.CompareTag("Object") || collision.gameObject.CompareTag("Wall") || collision.gameObject.CompareTag("Cliff"))
         {
             Physics2D.IgnoreCollision(collision, col, false);
         }
@@ -341,14 +380,24 @@ public class Enemy : Monster
             Physics2D.IgnoreCollision(collision, col,false);
         }
     }
+    protected IEnumerator PushStopCor;
+    /// <summary>
+    /// 밀리는 것을 방지
+    /// </summary>
+    /// <returns></returns>
+    protected IEnumerator PushStop() 
+    {
+        yield return new WaitForSeconds(1.0f);
+        rb2d.velocity = Vector2.zero;
+    }
 
-  
+
     //Dust Particle
     protected void DustParticleCheck()
     {
-        if (!isDead)
+        if (!isDead && childDustParticle != null)
         {
-            DustParticle_Actuation = isHit || isWalk ? true : false;
+            DustParticle_Actuation = /*isHit ||*/ isWalk ? true : false;
             childDustParticle.SetActive(DustParticle_Actuation);
         }
         else

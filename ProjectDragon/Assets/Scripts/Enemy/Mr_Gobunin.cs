@@ -32,11 +32,16 @@ public class Mr_Gobunin : FSM_NormalEnemy
     {
         DustParticleCheck();
     }
-
-    //애니메이션 프레임에 넣기 (탄환 공격)
-    protected override void Attack_On()
+    /// <summary>
+    /// 탄환 공격 (애니메이션 프레임에 넣기)
+    /// </summary>
+    public void Attack_On()
     {
-        projectile.Create(Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position, transform);
+        Vector2 offset = new Vector2(0.0f, 0.0f);
+        float radius = 0.06f;
+
+        projectile.Create(offset, radius, Angle, 3, ATTACKDAMAGE, projectileAnimator, "ProjectileObj", false, transform.position);
     }
+    
 }
 

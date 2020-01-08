@@ -54,3 +54,7 @@ MonoBehaviour:
       type: 3}
     poolCount: 10
     poolList: []
+  - poolItemName: ThornPoint
+    prefab: {fileID: 0}
+    poolCount: 5
+    poolList: []

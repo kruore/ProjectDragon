@@ -15,6 +15,7 @@ TagManager:
   - Wall
   - Object
   - Skill
+  - Cliff
   layers:
   - Default
   - TransparentFX
@@ -51,4 +52,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Enemy
+    uniqueID: 1672498235
     locked: 0

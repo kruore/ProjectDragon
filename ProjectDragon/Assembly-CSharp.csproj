@@ -210,12 +210,14 @@
      <Compile Include="Assets\Scripts\DataBase\DataTransaction.cs" />
      <Compile Include="Assets\Scripts\DataBase\MonoSingleton.cs" />
      <Compile Include="Assets\Scripts\Enemy\Doldori.cs" />
+     <Compile Include="Assets\Scripts\Enemy\EnemiesAttackOnManager.cs" />
      <Compile Include="Assets\Scripts\Enemy\Enemy.cs" />
      <Compile Include="Assets\Scripts\Enemy\FSM_NormalEnemy.cs" />
      <Compile Include="Assets\Scripts\Enemy\Monster.cs" />
      <Compile Include="Assets\Scripts\Enemy\Mr_Gobulhwa.cs" />
      <Compile Include="Assets\Scripts\Enemy\Mr_Gobunin.cs" />
      <Compile Include="Assets\Scripts\Enemy\RareEnemy.cs" />
+     <Compile Include="Assets\Scripts\Enemy\Rimmotal.cs" />
      <Compile Include="Assets\Scripts\Enemy\Slime.cs" />
      <Compile Include="Assets\Scripts\Enemy\SpaceClied.cs" />
      <Compile Include="Assets\Scripts\Interface.cs" />
@@ -271,6 +273,7 @@
      <Compile Include="Assets\Scripts\Utillity\Projectile.cs" />
      <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
      <Compile Include="Assets\Scripts\Utillity\Targetpoint.cs" />
+     <Compile Include="Assets\Scripts\Utillity\ThornPoint.cs" />
      <Compile Include="Assets\test.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />

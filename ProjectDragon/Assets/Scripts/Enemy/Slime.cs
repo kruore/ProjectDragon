@@ -12,18 +12,19 @@ public class Slime : FSM_NormalEnemy
     CircleCollider2D circleCol;
     protected override void Awake()
     {
+
         base.Awake();
         circleCol = GetComponent<CircleCollider2D>();
         col = circleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
         childDustParticle = transform.Find("DustParticle").gameObject;
-        childDeadParticle = transform.Find("DeadParticle").gameObject;
+        childDeadParticle = transform.Find("SlimeDead_Particle").gameObject;
     }
 
     protected override RaycastHit2D[] GetRaycastType()
     {
         //CircleCast
-        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset, m_viewTargetMask);
+        return Physics2D.CircleCastAll(startingPosition, circleCol.radius, direction, AtkRange - originOffset- circleCol.radius, m_viewTargetMask);
     }
 
     protected override void Start()
@@ -36,49 +37,49 @@ public class Slime : FSM_NormalEnemy
         DustParticleCheck();
     }
 
-    //애니메이션 프레임에 넣기
-    protected override void Attack_On()
+
+    // In this case you choose event based on the clip weight
+    /// <summary>
+    /// 공격 (애니메이션 프레임에 넣기)
+    /// </summary>
+    public void Attack_On()
     {
-        if (inAtkDetectionRange&&!isDead)
+
+        isNuckback = true;
+
+        if (inAtkDetectionRange && !isDead)
         {
-            // if(isAttack)
-            // Player hit
-            // {
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE);
-            // isAttack = false;
-            // }
-            // else
-            // {
-            //    isAttack = true;
-            // }
+            //Player hit
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0,false);
         }
+
     }
+
+   
+
+    protected override IEnumerator Attack()
+    {
+        isNuckback = false;
+
+        StartCoroutine(base.Attack());
+        yield return null;
+    }
+
 
     //임시
     protected override IEnumerator EnemyDead()
     {
-        Color fadeColor = spriteRenderer.color;
-        fadeColor.a = 0.0f;
-
-        //Dead Animation parameters
-        objectAnimator.SetTrigger("Dead");
-
-        col.enabled = false;
-
-        //애니메이션 시간때문에..대략
-        yield return new WaitForSeconds(2.0f);
-
         DeadParticle();
-        spriteRenderer.color = fadeColor;  
-
-        Destroy(gameObject, 5.0f);
-
+        StartCoroutine(base.EnemyDead());
         yield return null;
     }
 
+
+   
     void DeadParticle()
     {
         childDeadParticle.SetActive(true);
+        childDeadParticle.GetComponent<ParticleSystem>().Play();
     }
 
 }
