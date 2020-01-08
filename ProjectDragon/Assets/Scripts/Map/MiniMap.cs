@@ -47,7 +47,7 @@ public class MiniMap : MonoBehaviour
     {
         int x = RoomManager.player_PosX;
         int y = RoomManager.player_PosY;
-        roomRoot.localPosition = new Vector3(-x * 32.0f, -y * 32.0f, 0.0f);
+        roomRoot.localPosition = new Vector3(-x * 60.0f, -y * 60.0f, 0.0f);
 
         //이동한 방이 클리어되지 않았다면 미니맵을 끈다.
         if (!RoomManager.Map_Data[x + RoomManager.gridSizeX_Cen, y + RoomManager.gridSizeY_Cen].GetComponent<Room>().roomState.Equals(RoomState.Clear))
@@ -90,7 +90,7 @@ public class MiniMap : MonoBehaviour
             int y = (int)temp_room.gridPos.y;
 
             //미니맵 위치 세팅
-            room[i].transform.localPosition = new Vector3(x * 32.0f, y * 32.0f, 0.0f);
+            room[i].transform.localPosition = new Vector3(x * 60.0f, y * 60.0f, 0.0f);
             //방이 일반 방이 아니면 포탈 이미지 세팅
             if (!temp_room.roomType.Equals(RoomType.Normal))
             {
@@ -131,13 +131,15 @@ public class MiniMap : MonoBehaviour
     {
         //panel의 위치와 크기 조절
         panel.transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
-        panel.baseClipRegion = new Vector4(0.0f, 0.0f, 600.0f, 600.0f);
+        panel.baseClipRegion = new Vector4(0.0f, 0.0f, 725.0f, 725.0f);
+        panel.clipOffset = new Vector2(0.0f, 12.0f);
 
         //미니맵 확대
-        GetComponent<UISprite>().SetDimensions(600, 600);
-        button.GetComponent<UISprite>().SetDimensions(600, 600);
-        transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(60, 60);
+        GetComponent<UISprite>().SetDimensions(1000, 1000);
+        button.GetComponent<UISprite>().SetDimensions(800, 800);
+        transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(120, 120);
         roomRoot.localScale = new Vector3(2.0f, 2.0f, 1.0f);
+        roomRoot.localPosition *= 2.0f;
 
         button.onClick.RemoveAt(0);
         StartCoroutine(AddButton(mini));
@@ -147,14 +149,16 @@ public class MiniMap : MonoBehaviour
     public void Minimalize()
     {
         //panel의 위치와 크기 조절
-        panel.transform.localPosition = new Vector3(-700.0f, 350.0f, 0.0f);
-        panel.baseClipRegion = new Vector4(0.0f, 0.0f, 150.0f, 150.0f);
+        panel.transform.localPosition = new Vector3(-750.0f, 350.0f, 0.0f);
+        panel.baseClipRegion = new Vector4(0.0f, 0.0f, 255.0f, 255.0f);
+        panel.clipOffset = new Vector2(0.0f, 4.0f);
 
         //미니맵 축소
-        GetComponent<UISprite>().SetDimensions(150, 150);
-        button.GetComponent<UISprite>().SetDimensions(150, 150);
-        transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(30, 30);
+        GetComponent<UISprite>().SetDimensions(350, 350);
+        button.GetComponent<UISprite>().SetDimensions(300, 300);
+        transform.Find("PlayerPos").GetComponent<UISprite>().SetDimensions(60, 60);
         roomRoot.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+        roomRoot.localPosition /= 2.0f;
 
         button.onClick.RemoveAt(0);
         StartCoroutine(AddButton(maxi));

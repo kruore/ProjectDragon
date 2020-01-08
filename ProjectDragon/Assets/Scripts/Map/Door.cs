@@ -86,6 +86,7 @@ public class Door : MonoBehaviour
                 collision.gameObject.transform.SetPositionAndRotation(new Vector3(aspect_MoveRangeX, aspect_MoveRangeY, 0.0f), Quaternion.identity);
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 RoomManager.SetPlayerPos(playerPosX, playerPosY);
+                RoomManager.MiniMapMinimalize();
             }
         }
     }

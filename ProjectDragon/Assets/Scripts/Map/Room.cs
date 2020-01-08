@@ -324,11 +324,9 @@ public class Room : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-
         if (!roomType.Equals(RoomType.Normal) && !roomType.Equals(RoomType.Boss))
         {
             portal = transform.GetComponentInChildren<Portal>().gameObject;
-            portal.SetActive(false);
         }
         else portal = null;
     }
@@ -347,11 +345,9 @@ public class Room : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
-
-        if (!roomType.Equals(RoomType.Normal))
+        if (!roomType.Equals(RoomType.Normal) && !roomType.Equals(RoomType.Boss))
         {
             portal = transform.GetComponentInChildren<Portal>().gameObject;
-            portal.SetActive(false);
         }
         else portal = null;
     }
