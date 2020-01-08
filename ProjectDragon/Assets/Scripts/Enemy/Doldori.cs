@@ -14,6 +14,7 @@ public class Doldori : FSM_NormalEnemy
     Vector3 attackDirection;
     IEnumerator AttackEndCor = null;
 
+[SerializeField] float attackSpeed=0.2f;
     protected override void Awake()
     {
         base.Awake();
@@ -43,7 +44,7 @@ public class Doldori : FSM_NormalEnemy
         if (!isDead)
         {
             //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0,false);
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0);
         }
     }
 
@@ -60,7 +61,7 @@ public class Doldori : FSM_NormalEnemy
 
         while (isAttacking)
         {
-            rb2d.AddForce(attackDirection * 0.4f, ForceMode2D.Impulse);
+            rb2d.AddForce(attackDirection * attackSpeed, ForceMode2D.Impulse);
             yield return null;
         }
     }
@@ -101,12 +102,16 @@ public class Doldori : FSM_NormalEnemy
                 {
                     Attack_On();
                 }
-                /////////////////////////////////////////////////////나중에 추가
-                //Obejct 종류에 따른 상태변화 (박스-> 돌진 / 나무밑둥 ->그로기 상태)
-                //else if(collision.gameObject.CompareTag("Object")&&collision.gameObject.GetComponent<Box>().hp)
-                //{
 
-                // }
+                if(collision.gameObject.GetComponent<MapObject>() !=null)
+                {
+                    collision.gameObject.GetComponent<MapObject>().HpChanged(50);
+                    if(collision.gameObject == gameObject.GetComponent<Box>())
+                    {
+                        return;
+                    }
+                }
+                
                 AttackEndCor = AttackEnd();
                 StartCoroutine(AttackEnd());
             }

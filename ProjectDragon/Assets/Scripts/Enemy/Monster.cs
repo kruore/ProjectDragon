@@ -12,19 +12,16 @@ using UnityEngine;
 public class Monster : Character
 {
 
+  [SerializeField] protected bool invincible = false;       //무적상태인지
+
     protected Animator objectAnimator;
     //Effect
     protected FlashWhite flashWhite;
-    protected DamagePopup damagePopup;
     IEnumerator StartOnCor;
 
     protected override void Awake()
     {
-        //////////////////////////////////////////////////////////////////////////////
-        ////////////////////////////////////수정해야함!!/////////////////////////////
-        //Animator 따로부르기
-        //objectAnimator = gameObject.GetComponentInParent<Animator>();
-        damagePopup = new DamagePopup();
+
         flashWhite = GetComponent<FlashWhite>();
         StartOnCor = Start_On();
 
@@ -32,13 +29,13 @@ public class Monster : Character
 
      //   Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
     }
-    public override int HPChanged(int ATK, bool isCritical, int NukBack, bool isInvaid)
+    public override int HPChanged(int ATK, bool isCritical, int NukBack)
     {
         if (!isDead)
         {
             //데미지 띄우기
-            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, false, transform);
-            return base.HPChanged(ATK, isCritical, NukBack, isInvaid);
+            damagePopup.Create(transform.position + new Vector3(0.0f, 0.5f, 0.0f), ATK, isCritical, invincible);
+            return base.HPChanged(ATK, isCritical, NukBack);
         }
         return 0;
     }

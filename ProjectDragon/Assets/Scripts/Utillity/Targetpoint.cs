@@ -36,7 +36,7 @@ public class Targetpoint : MonoBehaviour
         Debug.Log(player);
         if (!(player == null))
         {
-            player.GetComponent<Player>().HPChanged(AttackPoint);
+            player.GetComponent<Player>().HPChanged(AttackPoint,false,0);
         }
         GameObject Stone = Instantiate(Resources.Load<GameObject>("Object/Stone"));
         Stone.transform.position = gameObject.transform.position;
@@ -72,7 +72,7 @@ public class Targetpoint : MonoBehaviour
         {
             if (player != null)
             {
-                player.GetComponent<Character>().HPChanged(25);
+                player.GetComponent<Character>().HPChanged(25,false,0);
             }
         }
     }

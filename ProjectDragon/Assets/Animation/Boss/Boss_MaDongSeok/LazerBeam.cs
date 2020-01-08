@@ -35,7 +35,7 @@ public class LazerBeam : MonoBehaviour
                     Debug.Log(hit[i].transform.gameObject.name);
                     linerenderer.SetPosition(0, transform.position);
                     linerenderer.SetPosition(1, hit[i].point);
-                    hit[i].transform.GetComponent<Character>().HPChanged(damage);
+                    hit[i].transform.GetComponent<Character>().HPChanged(damage,false,0);
                 }
                 else if (hit[i].transform.CompareTag(stoptag[j]))
                 {

@@ -18,15 +18,15 @@ public class EnemiesAttackOnManager : MonoBehaviour
 
     public void Slime_AttackOn(AnimationEvent evt)
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
+        if (evt.animatorClipInfo.weight > 0.5f && GetComponentInChildren<Slime>()!= null)
         {
             GetComponentInChildren<Slime>().Attack_On();
         }
     }
 
-    public void Mr_Gobulhwa_AttackOn(AnimationEvent evt)
+    public void Mr_Gobulhwa_AttackOn(AnimationEvent evt )
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
+        if (evt.animatorClipInfo.weight > 0.5f && GetComponentInChildren<Mr_Gobulhwa>()!= null)
         {
             GetComponentInChildren<Mr_Gobulhwa>().Attack_On();
         }
@@ -34,7 +34,7 @@ public class EnemiesAttackOnManager : MonoBehaviour
 
     public void Mr_Gobunin_AttackOn(AnimationEvent evt)
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
+        if (evt.animatorClipInfo.weight > 0.5f && GetComponentInChildren<Mr_Gobunin>()!= null)
         {
             GetComponentInChildren<Mr_Gobunin>().Attack_On();
         }
@@ -42,7 +42,7 @@ public class EnemiesAttackOnManager : MonoBehaviour
 
     public void Rimmotal_AttackOn1(AnimationEvent evt)
     {
-        if (evt.animatorClipInfo.weight > 0.5f)
+        if (evt.animatorClipInfo.weight > 0.5f && GetComponentInChildren<Rimmotal>()!= null)
         {
             GetComponentInChildren<Rimmotal>().Attack1_On();
         }

@@ -50,7 +50,7 @@ public class Slime : FSM_NormalEnemy
         if (inAtkDetectionRange && !isDead)
         {
             //Player hit
-            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0,false);
+            other.gameObject.GetComponent<Character>().HPChanged(ATTACKDAMAGE,false,0);
         }
 
     }

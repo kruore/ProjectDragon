@@ -26,14 +26,14 @@ public class DamagePopup : MonoBehaviour
 
     void Initialize()
     {
-        moveYSpeed = 3.0f;
-        disappearSpeed = 7.0f;
-        disappearTimer = 0.3f;
+        moveYSpeed = moveYSpeed == 0 ? 1.0f : moveYSpeed;
+        disappearSpeed = disappearSpeed == 0 ? 10.0f : disappearSpeed;
+        disappearTimer =disappearTimer == 0 ? 1.0f : disappearTimer;
         textColor.a = 1.0f;
         textMesh.color = Color.white ;
     }
 
-    public DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit,bool isInvaid, Transform parent = null)
+    public DamagePopup Create(Vector3 position, int damageAmount, bool isCriticalHit,bool isMiss, Transform parent = null)
     {
         //damageObject.transform.position = position;
         //damagePopupTransform = Instantiate(GameAssets.i.pfDamagePopup, position, Quaternion.identity);
@@ -48,7 +48,7 @@ public class DamagePopup : MonoBehaviour
         damagePopup = damageObject.transform.GetComponent<DamagePopup>();
         damagePopup.Initialize();
         damagePopup.transform.position = position;
-        damagePopup.Setup(damageAmount,isCriticalHit,isInvaid);
+        damagePopup.Setup(damageAmount,isCriticalHit,isMiss);
         //damagePopup.Setup(damageAmount,isCriticalHit);
         damageObject.SetActive(true);
 
@@ -60,53 +60,62 @@ public class DamagePopup : MonoBehaviour
         textMesh = transform.GetComponent<TextMeshPro>();
         Origin_fontSize = textMesh.fontSize;
     }
-    public void Setup(int damageAmount, bool isCriticalHit, bool isInvaid)
+    public void Setup(int damageAmount, bool isCriticalHit, bool isMiss)
     {
         textMesh.fontSize =Origin_fontSize;
-        textMesh.SetText(damageAmount.ToString());
-        if (!isCriticalHit && !isInvaid)
+        
+        if(isMiss)
         {
-            //Normal Hit
-            VertexGradient V = new VertexGradient();
-            V = textMesh.colorGradient;
-            V.topLeft =new Color32(255,191,126,255);
-            V.topRight = new Color32(255,191,126,255);
-            V.bottomRight =new Color32(255,72,0,255);
-            V.bottomLeft = new Color32(255,72,0,255);
-            textMesh.colorGradient = V;
-            //invaid Hit
-            textMesh.outlineColor =Color.black;
-            textMesh.fontSize = Origin_fontSize;
-            textColor =Color.white;
+            textMesh.SetText("miss");
+
+                //회피
+                VertexGradient V= new VertexGradient();
+                V= textMesh.colorGradient;
+                V.topLeft = Color.white;
+                V.topRight = Color.white;
+                V.bottomRight =new Color32(130,130,130,255);
+                V.bottomLeft = new Color32(130,130,130,255);
+                textMesh.colorGradient = V;
+                //invaid Hit
+                textMesh.outlineColor = Color.black;
+                textMesh.fontSize +=1;
+                textColor = Color.white;
         }
-        else if(isInvaid)
+        else
         {
-            VertexGradient V= new VertexGradient();
-            V= textMesh.colorGradient;
-            V.topLeft = Color.white;
-            V.topRight = Color.white;
-            V.bottomRight =new Color32(130,130,130,255);
-            V.bottomLeft = new Color32(130,130,130,255);
-            textMesh.colorGradient = V;
-            //invaid Hit
-            textMesh.outlineColor = Color.black;
-            textMesh.fontSize +=3;
-            textColor = Color.white;
-        }
-        else if(isCriticalHit)
-        {
-            //Ciritical Hit
-            VertexGradient V= new VertexGradient();
-            V= textMesh.colorGradient;
-            V.topRight = new Color32(255,201,217,255);
-            V.topLeft = new Color32(255,201,217,255);
-            V.bottomLeft = new Color32(255,0,104,255);
-            V.bottomRight = new Color32(255,0,104,255);
-            textMesh.colorGradient = V;
-            //invaid Hit
-            textMesh.outlineColor = Color.black;
-            textMesh.fontSize +=3;
-            textColor = Color.white;
+            textMesh.SetText(damageAmount.ToString());
+
+            if(isCriticalHit)
+            {
+                //크리티컬
+                 //Ciritical Hit
+               VertexGradient V= new VertexGradient();
+                V= textMesh.colorGradient;
+                V.topRight = new Color32(255,201,217,255);
+                V.topLeft = new Color32(255,201,217,255);
+                V.bottomLeft = new Color32(255,0,104,255);
+                V.bottomRight = new Color32(255,0,104,255);
+                textMesh.colorGradient = V;
+                //invaid Hit
+                textMesh.outlineColor = Color.black;
+                textMesh.fontSize +=3;
+                textColor = Color.white;
+            }
+            else
+            {
+                    //Normal Hit
+                VertexGradient V = new VertexGradient();
+                V = textMesh.colorGradient;
+                V.topLeft =new Color32(255,191,126,255);
+                V.topRight = new Color32(255,191,126,255);
+                V.bottomRight =new Color32(255,72,0,255);
+                V.bottomLeft = new Color32(255,72,0,255);
+                textMesh.colorGradient = V;
+                //invaid Hit
+                textMesh.outlineColor =Color.black;
+                textMesh.fontSize = Origin_fontSize;
+                textColor =Color.white;
+            }
         }
         textMesh.color = textColor;
     }

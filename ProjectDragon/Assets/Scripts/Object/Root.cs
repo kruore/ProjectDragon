@@ -4,14 +4,14 @@
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2020-01-02
 // ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Root : MonoBehaviour
+public class Root : MapObject
 {
     public enum Size
     {
@@ -24,17 +24,19 @@ public class Root : MonoBehaviour
         Phase2,
         Destroy
     }
-    public float hp = 100;
     public Size rootSize = Size.Small;
     public State rootState = State.Phase1;
     public Sprite crackedRoot;
 
     private bool isSpriteChange = false;
-    private float halfHP;
+    private int halfHP;
 
-    private void Awake()
+    protected override void Awake()
     {
-        halfHP = hp / 2.0f;
+        base.Awake();
+        objName = "Root";
+        hp = 100;
+        halfHP = hp / 2;
         if (crackedRoot == null)
         {
             ResourceLoad();
@@ -63,7 +65,7 @@ public class Root : MonoBehaviour
 
         if (obj.CompareTag("Skill"))
         {
-            hp -= 50.0f;
+            hp -= 50;
 
             if (hp <= halfHP && rootState.Equals(State.Phase1))
             {
@@ -72,7 +74,7 @@ public class Root : MonoBehaviour
             else if (hp <= 0.0f && rootState.Equals(State.Phase2))
             {
                 rootState = State.Destroy;
-                StartCoroutine(Effect());
+                StartCoroutine(vfx);
             }
         }
     }
@@ -83,15 +85,5 @@ public class Root : MonoBehaviour
         GetComponent<SpriteRenderer>().sprite = crackedRoot;
         isSpriteChange = true;
         rootState = State.Phase2;
-    }
-
-    //계단 열리는 연출
-    IEnumerator Effect()
-    {
-        GetComponent<SpriteRenderer>().enabled = false;
-        GetComponent<PolygonCollider2D>().enabled = false;
-
-        yield return new WaitForSeconds(1.0f);
-        Destroy(gameObject);
     }
 }

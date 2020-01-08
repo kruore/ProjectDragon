@@ -3,9 +3,12 @@
 // Map Creater
 // Create all map data and object
 //
+// 2019-12-27: BossMap create method
+// 2019-12-31: modify DoorSetting method
+//
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2019-12-31
 // ==============================================================
 
 using System.Collections;
@@ -32,6 +35,9 @@ public class room
 
 public class MapCreator : MonoBehaviour
 {
+    //load
+    public string mapType = string.Empty;
+    public bool isBossMap;
     //map grid data
     public GameObject[,] map_Data;
     //prefabs data
@@ -54,8 +60,40 @@ public class MapCreator : MonoBehaviour
 
     private void Awake()
     {
-        ResourceLoadMap("Forest"); // 임시로 숲이라고 함
+        SettingCreateRegion();
+        ResourceLoadMap(); // 임시로 숲이라고 함
         Init();
+    }
+
+    //수정 필요함
+    private void SettingCreateRegion()
+    {
+        int curStage = GameManager.Inst.CurrentStage;
+        curStage = 1;
+#if UNITY_EDITOR
+        Debug.Log(curStage % 4);
+        Debug.Log(curStage / 4);
+#endif
+        if(curStage % 4 == 0)
+        {
+            //보스 맵
+            isBossMap = true;
+        }
+        else
+        {
+            //일반 맵
+            isBossMap = false;
+        }
+
+        if(0 < curStage && curStage <= 4)
+        {
+            //숲
+            mapType = "Forest";
+        }
+        else if(4 < curStage && curStage <= 8)
+        {
+            //스테이지 추가시 추가
+        }
     }
 
     /// <summary>
@@ -79,33 +117,63 @@ public class MapCreator : MonoBehaviour
     /// Load All Map Prefabs
     /// </summary>
     /// <param name="_mapType"> Type is region type :: 지역명</param>
-    void ResourceLoadMap(string _mapType)
+    void ResourceLoadMap()
     {
-        map_Base = Resources.Load("Map/Map_" + _mapType + "_Base") as GameObject;
-        map_Stair = Resources.Load("Map/Map_" + _mapType + "_Stair") as GameObject;
-        map_Market = Resources.Load("Map/Map_" + _mapType + "_Market") as GameObject;
+        if (!mapType.Equals(string.Empty))
+        {
+            if (isBossMap) ResourceLoadBossMap();
+            else ResourceLoadNormalMap();
+        }
+        else
+        {
+#if UNITY_EDITOR
+            Debug.Log("Load Failed MapData");
+#endif
+        }
+    }
+
+    private void ResourceLoadNormalMap()
+    {
+        map_Base = Resources.Load("Map/" + mapType + "/Base") as GameObject;
+        map_Stair = Resources.Load("Map/" + mapType + "/Stair") as GameObject;
+        map_Market = Resources.Load("Map/" + mapType + "/Market") as GameObject;
         map_Hiddens = new GameObject[map_Hiddens_Count];
         map_Prefabs = new GameObject[map_Prefabs_Count];
 
         for (int i = 0; i < map_Hiddens_Count; i++)
         {
-            string name = "Map/Map_" + _mapType + "_Hidden";
+            string name = "Map/" + mapType + "/Hidden";
             name += (i + 1).ToString();
             map_Hiddens[i] = Resources.Load(name) as GameObject;
         }
         for (int i = 0; i < map_Prefabs_Count; i++)
         {
-            string name = "Map/Map_" + _mapType;
-            name += "_" + (i + 1).ToString();
+            string name = "Map/" + mapType + "/Normal";
+            name += (i + 1).ToString();
             map_Prefabs[i] = Resources.Load(name) as GameObject;
         }
     }
 
+    private void ResourceLoadBossMap()
+    {
+        map_Base = Resources.Load("Map/" + mapType + "/Boss/Base") as GameObject;
+        map_Stair = Resources.Load("Map/" + mapType + "/Boss/Boss") as GameObject;
+    }
+
     void Start()
     {
-        CreateRooms(); //lays out the actual map
-        SetRoomDoors(); //assigns the doors where rooms would connect
-        DrawMap(); //instantiates objects to make up a map
+        if (isBossMap)
+        {
+            CreateBossMap();
+            SetRoomDoors();
+            DrawBossMap();
+        }
+        else
+        {
+            CreateNormalMap(); //lays out the actual map
+            SetRoomDoors(); //assigns the doors where rooms would connect
+            DrawMap(); //instantiates objects to make up a map
+        }
     }
 
     /// <summary>
@@ -129,7 +197,15 @@ public class MapCreator : MonoBehaviour
         return temp;
     }
 
-    void CreateRooms()
+    private void CreateBossMap()
+    {
+        int depth = 0;
+        rooms = new room[gridSizeX, gridSizeY];
+        rooms[gridSizeX_Cen, gridSizeY_Cen] = new room(Vector2.zero, RoomType.Begin, depth);
+        rooms[gridSizeX_Cen, gridSizeY_Cen + 1] = new room(Vector2.up, RoomType.Boss, depth);
+    }
+    
+    private void CreateNormalMap()
     {
         int depth = 0;
         //setup
@@ -189,7 +265,7 @@ public class MapCreator : MonoBehaviour
         }
         if (x - 1 >= 0)
         {
-            if (rooms[x - 1, y] != null)
+            if (rooms[x - 1, y] != null) 
             {
                 temp.Add(rooms[x - 1, y].depth);
             }
@@ -330,6 +406,45 @@ public class MapCreator : MonoBehaviour
         return ret;
     }
 
+    private void DrawBossMap()
+    {
+        GameObject Map_Root = new GameObject("Map_Root", typeof(RoomManager));
+        Map_Root.tag = "RoomManager";
+        RoomManager Manager = Map_Root.GetComponent<RoomManager>();
+        Map_Root.transform.SetPositionAndRotation(new Vector3(0.0f, 0.0f, 0.0f), Quaternion.identity);
+        Manager.SetGridData(gridSizeX_Cen, gridSizeY_Cen, gridSizeX, gridSizeY);
+
+        foreach(room room in rooms)
+        {
+            if(room == null)
+            {
+                continue;
+            }
+
+            Vector2 drawPos = room.gridPos;
+            drawPos.x *= 25f;//aspect ratio of map sprite
+            drawPos.y *= 15f;
+            int x = (int)room.gridPos.x;
+            int y = (int)room.gridPos.y;
+
+            if (room.type.Equals(RoomType.Begin)) map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Base, drawPos, Quaternion.identity, Map_Root.transform);
+            else map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Stair, drawPos, Quaternion.identity, Map_Root.transform);
+
+            Room roomManager = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
+
+            //방마다 데이터 저장
+            bool[] door_dir = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop };
+            roomManager.SetData(room.gridPos, room.type, Manager, room.depth, door_dir); //Room Data Set
+
+            //방의 문 설정
+            DoorSetting(roomManager);
+        }
+
+        Manager.Map_Data = map_Data;
+        Manager.SetPlayerPos(0, 0);
+    }
+    
+
     void DrawMap()
     {
         //전체 맵 최상위 생성
@@ -358,11 +473,8 @@ public class MapCreator : MonoBehaviour
                 int rand = Random.Range(0, map_Prefabs_Count);
                 map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen] = Instantiate(map_Prefabs[rand], drawPos, Quaternion.identity, Map_Root.transform);
             }
-            map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
+            Room roomManager = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen].AddComponent<Room>();
 
-            GameObject map = map_Data[x + gridSizeX_Cen, y + gridSizeY_Cen];
-
-            Room roomManager = map.GetComponent<Room>(); //Room
             //방마다 데이터 저장
             bool[] door_dir = { room.doorBot, room.doorLeft, room.doorRight, room.doorTop };
             roomManager.SetData(room.gridPos, room.type, Manager, room.depth, door_dir); //Room Data Set
@@ -628,33 +740,29 @@ public class MapCreator : MonoBehaviour
         if (!_room.doorTop) Destroy(North);
         else
         {
-            _room.door_All[i] = North;
-            North.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.North;
-            North.SetActive(false);
+            _room.door_All[i] = North.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.North;
             i++;
         }
         if (!_room.doorBot) Destroy(South);
         else
         {
-            _room.door_All[i] = South;
-            South.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.South;
-            South.SetActive(false);
+            _room.door_All[i] = South.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.South;
             i++;
         }
         if (!_room.doorLeft) Destroy(West);
         else
         {
-            _room.door_All[i] = West;
-            West.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.West;
-            West.SetActive(false);
+            _room.door_All[i] = West.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.West;
             i++;
         }
         if (!_room.doorRight) Destroy(East);
         else
         {
-            _room.door_All[i] = East;
-            East.transform.Find("Door").gameObject.AddComponent<Door>().Name = DoorName.East;
-            East.SetActive(false);
+            _room.door_All[i] = East.transform.Find("Door").gameObject;
+            _room.door_All[i].AddComponent<Door>().Name = DoorName.East;
             i++;
         }
     }

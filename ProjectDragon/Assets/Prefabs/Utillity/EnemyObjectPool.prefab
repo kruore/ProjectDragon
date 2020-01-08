@@ -52,9 +52,15 @@ MonoBehaviour:
   - poolItemName: ProjectileObj
     prefab: {fileID: 2767004985795059362, guid: 47e41df5c60f2d4449e77675780a3a8d,
       type: 3}
-    poolCount: 10
+    poolCount: 30
     poolList: []
   - poolItemName: ThornPoint
-    prefab: {fileID: 0}
+    prefab: {fileID: 8003796463881998535, guid: 9da14135e6bd65540a10b4a01e636add,
+      type: 3}
     poolCount: 5
+    poolList: []
+  - poolItemName: TargetPointObj
+    prefab: {fileID: 1796311146230742155, guid: 77018714c8b2a4f42865ab8113161337,
+      type: 3}
+    poolCount: 20
     poolList: []

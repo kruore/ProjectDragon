@@ -4,21 +4,27 @@
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-16
+// UPDATED: 2020-01-02
 // ==============================================================
 
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bush : MonoBehaviour
+public class Bush : MapObject
 {
+
+    protected override void Awake()
+    {
+        base.Awake();
+        objName = "Bush";
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.CompareTag("Skill"))
         {
-            Destroy(gameObject);
+            StartCoroutine(vfx);
         }
     }
 
@@ -28,7 +34,7 @@ public class Bush : MonoBehaviour
         if (obj.CompareTag("Enemy") || obj.CompareTag("Player"))
         {
             //데미지 주기
-            //obj.GetComponent<Charactor>().HpChanged(1);
+            //obj.GetComponent<Character>().HPChanged(1, 1, true);
         }
     }
 }

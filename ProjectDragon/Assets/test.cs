@@ -16,12 +16,12 @@ public class test : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.A))
         {
-            boss.GetComponent<Character>().HPChanged(7);
+            boss.GetComponent<Character>().HPChanged(7,false,0);
         }
 
         if(Input.GetKeyDown(KeyCode.S))
         {
-            player.GetComponent<Character>().HPChanged(7);
+            player.GetComponent<Character>().HPChanged(7,false,0);
         }
     }
 }

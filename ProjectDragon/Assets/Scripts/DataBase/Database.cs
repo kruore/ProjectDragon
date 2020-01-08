@@ -2,8 +2,10 @@
 // ==============================================================
 // Structure of Database
 // 
+// 2019-12-26: Change Database Struct
+//
 //  AUTHOR: Kim Dong Ha
-// UPDATED: 2019-12-16
+// UPDATED: 2019-12-26
 // ==============================================================
 
 
@@ -14,9 +16,14 @@ using UnityEngine;
 public enum RARITY
 {
     노말,
-    레어,
     유니크,
     레전드
+}
+
+public enum Monster_Rarity
+{
+    Normal,
+    Rare
 }
 
 public enum CLASS
@@ -27,11 +34,12 @@ public enum CLASS
     갑옷
 }
 
-public enum Monster_Rarity
+public enum SKILLTYPE
 {
-    Common,
-    Named,
-    Boss
+    즉발형,
+    범위지정형,
+    충전형,
+    신체강화형
 }
 
 public enum SEX
@@ -64,35 +72,40 @@ public class Database : MonoSingleton<Database>
         public readonly int num;
         public readonly string name;
         public readonly RARITY rarity;
+        public readonly string rarity_Text;
         public readonly CLASS Class;
-        public readonly float damage;
-        public readonly int attack_Count; // 공격 횟수
-        public readonly float attack_Range; // 사정 거리
-        public readonly float attack_Speed; // 공속
-        public readonly float nuckback; // 공속
+        public readonly int atk_Min;
+        public readonly int atk_Max;
+        public readonly float atk_Range; // 사정 거리
+        public readonly float atk_Speed; // 공속
+        public readonly float nuckback_Power; // 공속
+        public readonly float nuckback_Percentage; // 공속
         public readonly int item_Value;
         public readonly string description;
         public readonly string imageName; //이미지 이름
         public readonly int skill_Index; // 
         public readonly string optionTableName;
 
-        public Weapon(int _num, string _name, RARITY _rarity, CLASS _Class, float _damage, int _attack_Count, float _attack_Range,
-                        float _attack_Speed, float _nuckback, int _item_Value, string _description, string _imageName, int _skill_Index, string _optionTableName)
+
+        public Weapon(int num, string name, RARITY rarity, string rarity_Text, CLASS _class, int atk_Min, int atk_Max, float atk_Range, float atk_Speed, 
+                        float nuckback_Power, float nuckback_Percentage, int item_Value, string description, string imageName, int skill_Index, string optionTableName)
         {
-            num = _num;
-            name = _name;
-            rarity = _rarity;
-            Class = _Class;
-            damage = _damage;
-            attack_Count = _attack_Count;
-            attack_Range = _attack_Range;
-            attack_Speed = _attack_Speed;
-            nuckback = _nuckback;
-            item_Value = _item_Value;
-            description = _description;
-            imageName = _imageName;
-            skill_Index = _skill_Index;
-            optionTableName = _optionTableName;
+            this.num = num;
+            this.name = name;
+            this.rarity = rarity;
+            this.rarity_Text = rarity_Text;
+            this.Class = _class;
+            this.atk_Min = atk_Min;
+            this.atk_Max = atk_Max;
+            this.atk_Range = atk_Range;
+            this.atk_Speed = atk_Speed;
+            this.nuckback_Power = nuckback_Power;
+            this.nuckback_Percentage = nuckback_Percentage;
+            this.item_Value = item_Value;
+            this.description = description;
+            this.imageName = imageName;
+            this.skill_Index = skill_Index;
+            this.optionTableName = optionTableName;
         }
     }
 
@@ -102,24 +115,26 @@ public class Database : MonoSingleton<Database>
         public readonly int num;
         public readonly string name;
         public readonly RARITY rarity;
+        public readonly string rarity_Text;
         public readonly CLASS Class;
-        public readonly float hp;
+        public readonly int hp;
         public readonly int item_Value;
         public readonly string description;
         public readonly string imageName;
         public readonly string optionTableName;
 
-        public Armor(int _num, string _name, RARITY _rarity, CLASS _Class, float _hp, int _item_Value, string _description, string _imageName, string _optionTableName)
+        public Armor(int num, string name, RARITY rarity, string rarity_Text, CLASS _class, int hp, int item_Value, string description, string imageName, string optionTableName)
         {
-            num = _num;
-            name = _name;
-            rarity = _rarity;
-            Class = _Class;
-            hp = _hp;
-            item_Value = _item_Value;
-            description = _description;
-            imageName = _imageName;
-            optionTableName = _optionTableName;
+            this.num = num;
+            this.name = name;
+            this.rarity = rarity;
+            this.rarity_Text = rarity_Text;
+            this.Class = _class;
+            this.hp = hp;
+            this.item_Value = item_Value;
+            this.description = description;
+            this.imageName = imageName;
+            this.optionTableName = optionTableName;
         }
     }
 
@@ -128,28 +143,30 @@ public class Database : MonoSingleton<Database>
     {
         public readonly int num;
         public readonly string name;
-        public readonly float mpCost;
-        public readonly int attack_Count; //공격횟수
-        public readonly float active_Time; // 실행 속도
+        public readonly SKILLTYPE skillType;
+        public readonly int atk; //데미지
+        public readonly int mpCost;
         public readonly float coolTime; // 쿨타임
-        //attack_Type에 따라 사거리는 어쩌죠?
-        public readonly float attack_Range; //사정거리
-        public readonly float attack_Power; //데미지
+        public readonly float skill_Range; //사정거리
+        public readonly float skill_Duration; // 실행 속도
+        public readonly int parameter; //공격횟수
         public readonly string description;
         public readonly string imageName;
 
-        public Skill(int _num, string _name, float _mpCost, int _attack_Count, float _active_Time, float _coolTime, float _attack_Range, float _attack_Power, string _description, string _imageName)
+        public Skill(int num, string name, SKILLTYPE skillType, int atk, int mpCost, float coolTime, float skill_Range, float skill_Duration, 
+                    int parameter, string description, string imageName)
         {
-            num = _num;
-            name = _name;
-            mpCost = _mpCost;
-            attack_Count = _attack_Count;
-            active_Time = _active_Time;
-            coolTime = _coolTime;
-            attack_Range = _attack_Range;
-            attack_Power = _attack_Power;
-            description = _description;
-            imageName = _imageName;
+            this.num = num;
+            this.name = name;
+            this.skillType = skillType;
+            this.atk = atk;
+            this.mpCost = mpCost;
+            this.coolTime = coolTime;
+            this.skill_Range = skill_Range;
+            this.skill_Duration = skill_Duration;
+            this.parameter = parameter;
+            this.description = description;
+            this.imageName = imageName;
         }
     }
 
@@ -160,17 +177,21 @@ public class Database : MonoSingleton<Database>
         public readonly string name;
         public EMBLEM_STATUS status;
         public readonly string description;
+        public readonly int parameter1;
+        public readonly int parameter2;
         public readonly string imageName;
         public readonly string methodName;
 
-        public Emblem(int _num, string _name, EMBLEM_STATUS _status, string _description, string _imageName, string _methodName)
+        public Emblem(int num, string name, EMBLEM_STATUS status, string description, int parameter1, int parameter2, string imageName, string methodName)
         {
-            num = _num;
-            name = _name;
-            status = _status;
-            description = _description;
-            imageName = _imageName;
-            methodName = _methodName;
+            this.num = num;
+            this.name = name;
+            this.status = status;
+            this.description = description;
+            this.parameter1 = parameter1;
+            this.parameter2 = parameter2;
+            this.imageName = imageName;
+            this.methodName = methodName;
         }
 
         public Emblem(Database.Emblem src)
@@ -182,33 +203,98 @@ public class Database : MonoSingleton<Database>
             imageName = src.imageName;
             methodName = src.methodName;
         }
+
     }
 
     [System.Serializable]
-    public class Monster
+    public class Normal_Monster
     {
         public readonly int num;
         public readonly string name;
         public readonly Monster_Rarity monster_Rarity;
-        public readonly float damage;
-        public readonly float hp;
-        public readonly float attack_Range;
+        public readonly int hp;
         public readonly float move_Speed; // 이동 속도
+        public readonly int atk;
+        public readonly float atk_Speed;
+        public readonly float atk_Range;
+        public readonly int ready_Time;
+        public readonly int coolTime;
+        public readonly int knock_Resist;
+        public readonly int atk_Count;
+        public readonly int drop_Mana_Min;
+        public readonly int drop_Mana_Max;
         public readonly string description;
         public readonly string imageName;
 
-        public Monster(int _num, string _name, Monster_Rarity _monster_Rarity, float _damage, float _hp,
-                         float _attack_Range, float _move_Speed,  string _description, string _imageName)
+        public Normal_Monster(int num, string name, Monster_Rarity monster_Rarity, int hp, float move_Speed, int atk, float atk_Speed, 
+                                float atk_Range, int ready_Time, int coolTime, int knock_Resist, int atk_Count, int drop_Mana_Min, 
+                                int drop_Mana_Max, string description, string imageName)
         {
-            num = _num;
-            name = _name;
-            monster_Rarity = _monster_Rarity;
-            damage = _damage;
-            hp = _hp;
-            attack_Range = _attack_Range;
-            move_Speed = _move_Speed;
-            description = _description;
-            imageName = _imageName;
+            this.num = num;
+            this.name = name;
+            this.monster_Rarity = monster_Rarity;
+            this.hp = hp;
+            this.move_Speed = move_Speed;
+            this.atk = atk;
+            this.atk_Speed = atk_Speed;
+            this.atk_Range = atk_Range;
+            this.ready_Time = ready_Time;
+            this.coolTime = coolTime;
+            this.knock_Resist = knock_Resist;
+            this.atk_Count = atk_Count;
+            this.drop_Mana_Min = drop_Mana_Min;
+            this.drop_Mana_Max = drop_Mana_Max;
+            this.description = description;
+            this.imageName = imageName;
+        }
+    }
+
+    [System.Serializable]
+    public class Rare_Monster
+    {
+        public readonly int num;
+        public readonly string name;
+        public readonly Monster_Rarity monster_Rarity;
+        public readonly int hp;
+        public readonly float move_Speed; // 이동 속도
+        public readonly int atk;
+        public readonly float atk_Speed;
+        public readonly float atk_Range;
+        public readonly float ready_Time;
+        public readonly int coolTime;
+        public readonly int knock_Resist;
+        public readonly int atk_Count1;
+        public readonly int atk_Count2;
+        public readonly int skill_Cooltime;
+        public readonly int skill_Damage;
+        public readonly int drop_Mana_Min;
+        public readonly int drop_Mana_Max;
+        public readonly string description;
+        public readonly string imageName;
+
+        public Rare_Monster(int num, string name, Monster_Rarity monster_Rarity, int hp, float move_Speed, int atk, float atk_Speed, float atk_Range, 
+                            float ready_Time, int coolTime, int knock_Resist, int atk_Count1, int atk_Count2, int skill_Cooltime, int skill_Damage, 
+                            int drop_Mana_Min, int drop_Mana_Max, string description, string imageName)
+        {
+            this.num = num;
+            this.name = name;
+            this.monster_Rarity = monster_Rarity;
+            this.hp = hp;
+            this.move_Speed = move_Speed;
+            this.atk = atk;
+            this.atk_Speed = atk_Speed;
+            this.atk_Range = atk_Range;
+            this.ready_Time = ready_Time;
+            this.coolTime = coolTime;
+            this.knock_Resist = knock_Resist;
+            this.atk_Count1 = atk_Count1;
+            this.atk_Count2 = atk_Count2;
+            this.skill_Cooltime = skill_Cooltime;
+            this.skill_Damage = skill_Damage;
+            this.drop_Mana_Min = drop_Mana_Min;
+            this.drop_Mana_Max = drop_Mana_Max;
+            this.description = description;
+            this.imageName = imageName;
         }
     }
 
@@ -216,16 +302,18 @@ public class Database : MonoSingleton<Database>
     public class OptionTable
     {
         public readonly int num;
-        public readonly float parameter;
+        public readonly int parameter;
         public readonly string description;
+        public readonly float percentage;
         public readonly string methodName;
 
-        public OptionTable(int _num, float _parameter, string _description, string _methodName)
+        public OptionTable(int num, int parameter, string description, float percentage, string methodName)
         {
-            num = _num;
-            parameter = _parameter;
-            description = _description;
-            methodName = _methodName;
+            this.num = num;
+            this.parameter = parameter;
+            this.description = description;
+            this.percentage = percentage;
+            this.methodName = methodName;
         }
     }
 
@@ -266,7 +354,7 @@ public class Database : MonoSingleton<Database>
             itemValue = weapon.item_Value;
             imageName = weapon.imageName;
             skill_Index = weapon.skill_Index;
-            option_Index = 0;
+            option_Index = -1;
         }
 
         public Inventory(Database.Armor armor)
@@ -279,27 +367,41 @@ public class Database : MonoSingleton<Database>
             itemValue = armor.item_Value;
             imageName = armor.imageName;
             skill_Index = -1;
-            option_Index = 0;
+            option_Index = -1;
         }
     }
 
+    #endregion
+
+
     //플레이 데이터 집합소
+    #region Data_Variable
+
     [System.Serializable]
     public class PlayData
     {
         public List<Inventory> inventory = new List<Inventory>();
         public List<Emblem> emblem = new List<Emblem>();
-        public float currentHp;
-        public readonly float baseHp = 20.0f;
-        public float hp;
-        public float damage;
-        public float moveSpeed;
-        public float attackSpeed;
-        public float attackRange;
-        public float nuckBack;
-        public int currentStage;
+        public readonly int baseHp = 30;
         public int mp; //money power, 돈의 힘
         public SEX sex;
+        public float moveSpeed;
+
+        //방어구 관련
+        public int maxHp;
+        public int currentHp;
+
+        //무기 관련
+        public int atk_Min;
+        public int atk_Max;
+        public float atk_Range;
+        public float atk_Speed;
+        public float nuckBack_Power;
+        public float nuckBack_Percentage;
+
+        //스테이지 관련 변수
+        public int finalStage = 4;
+        public int currentStage; 
 
         //장비 강화 패시브에 의해 변경되는 값들
         public bool resist_Fire;
@@ -310,25 +412,19 @@ public class Database : MonoSingleton<Database>
         public bool attackType_Water;
         public bool attackType_Poison;
         public bool attackType_Electric;
-
         public float damage_Reduction;
 
         //장착중인 장비 데이터 따로 추가
         public int equiWeapon_InventoryNum;
         public int equiArmor_InventoryNum;
-
     }
-
-    #endregion
-
-    //변수 모음
-    #region Data_Variable
 
     //Tables - Just Read
 
     public List<Weapon> weapons = new List<Weapon>();
     public List<Armor> armors = new List<Armor>();
-    public List<Monster> monsters = new List<Monster>();
+    public List<Normal_Monster> normal_Monsters = new List<Normal_Monster>();
+    public List<Rare_Monster> rare_Monsters = new List<Rare_Monster>();
     public List<Skill> skill = new List<Skill>();
 
     //Player Game Data Instace

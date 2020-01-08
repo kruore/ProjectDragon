@@ -113,10 +113,10 @@ public class Player : Character
     public int mp= 100;
     public int maxMp = 100;
 
-    public override int HPChanged(int ATK)
+    public override int HPChanged(int ATK, bool isCritical, int NukBack)
     {
         int original_HP = HP;
-        // DataTransaction.Inst.CurrentHp = HP;
+        // GameManager.Inst.CurrentHp = HP;
         float currentATK=ATK;
         if(ATK>0)
         {
@@ -149,7 +149,7 @@ public class Player : Character
             Debug.Log("Damage:   " + currentATK);
             original_HP = HP;
         }
-        base.HPChanged((int)currentATK);
+        base.HPChanged((int)currentATK,isCritical,NukBack);
         HPBar.Player_HP_Changed(HP,maxHp);
         Debug.Log((float)HP / (float)maxHp);
         return HP;
@@ -157,19 +157,19 @@ public class Player : Character
     //MP 임시 사용
     public override int HP
     {
-        get { return (int)DataTransaction.Inst.CurrentHp; }
+        get { return (int)GameManager.Inst.CurrentHp; }
         set
         {
             if (value > 0)
             {
-                DataTransaction.Inst.CurrentHp = value;
-                hp = (int)DataTransaction.Inst.CurrentHp;
-                DataTransaction.Inst.CurrentHp = Mathf.Clamp(value, 0, maxHp);
+                GameManager.Inst.CurrentHp = value;
+                hp = (int)GameManager.Inst.CurrentHp;
+                GameManager.Inst.CurrentHp = Mathf.Clamp(value, 0, maxHp);
             }
             else if (!isDead)
             {
                 hp = -1;
-                DataTransaction.Inst.CurrentHp = maxHp;
+                GameManager.Inst.CurrentHp = maxHp;
                 isDead = true;
                 CurrentState = State.Dead;
                 Debug.Log("죽었습니다.");
@@ -289,16 +289,16 @@ public class Player : Character
         CurrentState = State.Idel;
         AngleisAttack = false;
     }
-    void PlayerPrefData(ref float Damage1)
+    void PlayerPrefData(ref int Damage1)
     {
-        ATTACKDAMAGE = (int)Damage1;
-        maxHp = (int)DataTransaction.Inst.MaxHp;
+        ATTACKDAMAGE = Damage1;
+        maxHp = (int)GameManager.Inst.MaxHp;
         //damage = (int)Damage1;
-        //hp = ref (int)DataTransaction.Inst.CurrentHp;
+        //hp = ref (int)GameManager.Inst.CurrentHp;
     }
     void PlayerPrefDataTrascation()
     {
-        //hp = ref (int)DataTransaction.Inst.CurrentHp;
+        //hp = ref (int)GameManager.Inst.CurrentHp;
     }
     // Start is called before the first frame update
     protected override void Awake()
@@ -313,14 +313,14 @@ public class Player : Character
         playerSex = SEX.Female;
         initializePlayerConverter();
         MoveSpeed = 3.0f;
-        ATKChanger(0);
+        ATKChanger(10);
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idel;
         AtkRangeChanger(6);
         mp= 300;
         base.Awake();
      //  Database.Inst.playData.hp = 100.0f;
-     //   DataTransaction.Inst.SavePlayerData();
+     //   GameManager.Inst.SavePlayerData();
     }
     protected override void Start()
     {
@@ -466,8 +466,8 @@ public class Player : Character
 
     public void initializePlayerConverter()
     {
-        PlayerPrefData(ref Database.Inst.playData.damage);
-        HP= (int)DataTransaction.Inst.CurrentHp;
+        PlayerPrefData(ref Database.Inst.playData.atk_Min);
+        HP= (int)GameManager.Inst.CurrentHp;
         critical = 50f;
         invaid = 30f;
     }

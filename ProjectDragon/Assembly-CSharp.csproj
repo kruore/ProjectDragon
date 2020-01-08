@@ -209,7 +209,6 @@
      <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\DataBase\Database.cs" />
-     <Compile Include="Assets\Scripts\DataBase\DataTransaction.cs" />
      <Compile Include="Assets\Scripts\DataBase\MonoSingleton.cs" />
      <Compile Include="Assets\Scripts\Enemy\Doldori.cs" />
      <Compile Include="Assets\Scripts\Enemy\EnemiesAttackOnManager.cs" />
@@ -274,6 +273,7 @@
      <Compile Include="Assets\Scripts\Utillity\ObjectPool.cs" />
      <Compile Include="Assets\Scripts\Utillity\PooledObject.cs" />
      <Compile Include="Assets\Scripts\Utillity\Projectile.cs" />
+     <Compile Include="Assets\Scripts\Utillity\ScreenTransitions.cs" />
      <Compile Include="Assets\Scripts\Utillity\Sight2D.cs" />
      <Compile Include="Assets\Scripts\Utillity\Targetpoint.cs" />
      <Compile Include="Assets\Scripts\Utillity\ThornPoint.cs" />
@@ -312,6 +312,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\VertexZoom.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
      <Compile Include="Assets\UIpack_Sample\Lightingparticle\HPParticle.cs" />
+     <Compile Include="Assets\ZBlue Cartoon UI\Demo_Assets\scripts\GUI_Demo.cs" />
      <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
      <None Include="Assets\UIpack_Sample\license.txt" />
@@ -336,6 +337,7 @@
      <None Include="Assets\Resources\Effect\Materials\PaintWhite.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Text 3.shader" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 2.shader" />
+     <None Include="Assets\Resources\Effect\Materials\ScreenTransitions.shader" />
      <None Include="Assets\TextMesh Pro\Examples &amp; Extras\Fonts\Oswald-Bold - OFL.txt" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Packed 1.shader" />

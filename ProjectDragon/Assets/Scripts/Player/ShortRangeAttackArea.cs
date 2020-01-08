@@ -147,7 +147,7 @@ public class ShortRangeAttackArea : MonoBehaviour
                         if (My_Angle.isAttack)
                         //Player hit
                         {
-                            hitedTarget.GetComponent<Character>().HPChanged(Take_Current_Damage());
+                            hitedTarget.GetComponent<Character>().HPChanged(Take_Current_Damage(),My_Angle.isCriticalHit,0);
                             My_Angle.isAttack = false;
                         }
                         else

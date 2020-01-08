@@ -50,7 +50,7 @@ public class Boss_MaDongSeok : Monster
     }
     private void BossInit()
     {
-        Bossroom = GameObject.Find("BossMadongSeok/보스방");
+        Bossroom = gameObject.transform.parent.transform.Find("보스방").gameObject;
         manastone = new GameObject[4];
         for (int i = 0; i < 4; i++)
         {
@@ -64,7 +64,7 @@ public class Boss_MaDongSeok : Monster
         armright = gameObject.transform.Find("MaDongSeokArms/MaDongSeokRightArm").gameObject;
         armLeft = gameObject.transform.Find("MaDongSeokArms/MaDongSeokLeftArm").gameObject;
         arms = gameObject.transform.Find("MaDongSeokArms").gameObject;
-        objectPool = GameObject.Find("MaDongSeokObjectPool").gameObject;
+        objectPool = GameObject.Find("EnemyObjectPool").gameObject;
         MCamera = GameObject.Find("Camera").GetComponent<Camera>();
         player = GameObject.FindGameObjectWithTag("Player");
         razer = gameObject.transform.Find("RazerBeam").gameObject;
@@ -135,7 +135,7 @@ public class Boss_MaDongSeok : Monster
     /// <param name="ATK">보스가 공격당함을 기본 상정</param>
     /// <returns></returns>
 
-    public override int HPChanged(int ATK, bool isCritical, int NukBack, bool isInvaid)
+    public override int HPChanged(int ATK, bool isCritical, int NukBack)
     {
         //damagePopup.Create(transform.position, ATK, false, transform);
         //if (HP < 50 && currentstate.Equals(BossState.Phase1))
@@ -151,7 +151,7 @@ public class Boss_MaDongSeok : Monster
             StartCoroutine(flash);
             Debug.Log("flash");
         }
-        return base.HPChanged(ATK, isCritical, NukBack,false);
+        return base.HPChanged(ATK, isCritical, NukBack);
     }
 
     /// <summary>
@@ -413,7 +413,7 @@ public class Boss_MaDongSeok : Monster
         Debug.Log(Physics2D.OverlapBox(hitDownplace[placenum].transform.position, boxcollidersize, 0, playerlayer));
         if (Physics2D.OverlapBox(hitDownplace[placenum].transform.position, boxcollidersize, 0, playerlayer))
         {
-            player.GetComponent<Character>().HPChanged(damage);
+            player.GetComponent<Character>().HPChanged(damage,false,0);
         }
         armright.transform.GetChild(0).gameObject.SetActive(true);
         hitDownplace[placenum].SetActive(false);
@@ -457,7 +457,7 @@ public class Boss_MaDongSeok : Monster
         Debug.Log(hitDownplace[placenum].transform.localScale.x);
         if (Physics2D.OverlapBox(hitDownplace[placenum].transform.position, boxcollidersize, 0, playerlayer))
         {
-            player.GetComponent<Character>().HPChanged(damage);
+            player.GetComponent<Character>().HPChanged(damage,false,0);
         }
         Debug.Log(Physics2D.OverlapBox(hitDownplace[placenum].transform.position, boxcollidersize, 0, playerlayer)); 
         armLeft.transform.position = hitDownplace[placenum].transform.position;
@@ -509,6 +509,7 @@ public class Boss_MaDongSeok : Monster
         }
         yield return new WaitForSeconds(1.0f);
     }
+    
     IEnumerator COPhase2Timecheck()
     {
         for (int i = 0; i < 4; i++)
@@ -522,9 +523,19 @@ public class Boss_MaDongSeok : Monster
         StartCoroutine(Bossphasechange);
         Debug.Log("COPhase2Timecheck");
     }
+    private void Update() {
+        Vector3 bossroomvector;
+        bossroomvector=Bossroom.transform.Find("배경임시작업").transform.position;
+        Debug.DrawLine(bossroomvector+new Vector3(-10,3),bossroomvector+new Vector3(10,3));   
+        Debug.DrawLine(bossroomvector+new Vector3(10,3),bossroomvector+new Vector3(10,-3));   
+        Debug.DrawLine(bossroomvector+new Vector3(10,-3),bossroomvector+new Vector3(-10,-3));   
+        Debug.DrawLine(bossroomvector+new Vector3(-10,-3),bossroomvector+new Vector3(-10,3));    
+    }
     IEnumerator RockSumon()
     {
-        objectAnimator.Play("BossSlimePattern");
+        //objectAnimator.Play("BossSlimePattern");
+        Vector3 bossroomvector;
+        bossroomvector=Bossroom.transform.Find("배경임시작업").transform.position;
         yield return new WaitForSeconds(3.0f);
         int random = Random.Range(0, 5);
         for (int i = 0; i < 5; i++)
@@ -536,9 +547,9 @@ public class Boss_MaDongSeok : Monster
             {
                 ishit = false;
                 Random.InitState((int)System.DateTime.Now.Ticks);
-
+                    
                 //targetposition = new Vector3(Random.Range(viewportposition0.x, viewportposition1.x) * 0.1f, Random.Range(viewportposition0.y, viewportposition1.y) * 0.1f);
-                targetposition = new Vector3(Random.Range(-1000, +1000) * 0.01f, Random.Range(-300, +300) * 0.01f);
+                targetposition = bossroomvector+new Vector3(Random.Range(-1000, +1000)*0.01f, (Random.Range(-300, +300) * 0.01f));
                 hits = Physics2D.RaycastAll(targetposition, transform.forward);
                 foreach (RaycastHit2D hit in hits)
                 {

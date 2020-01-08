@@ -20,16 +20,31 @@ public class Door : MonoBehaviour
 {
     public DoorName Name;
     private RoomManager RoomManager;
+    private Animator animator;
+    private bool isOpened = false;
 
     private void Awake()
     {
         RoomManager = GameObject.FindGameObjectWithTag("RoomManager").GetComponent<RoomManager>();
+        animator = GetComponent<Animator>();
+    }
+
+    private void OnEnable()
+    {
+        animator.SetBool("isClear", isOpened);
+    }
+
+    public void OpenDoor()
+    {
+        isOpened = true;
+        animator.SetBool("isClear", isOpened);
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player"))
         {
+            StartCoroutine(RoomManager.Fade());
             //이동 구현
             int playerPosX = RoomManager.player_PosX;
             int playerPosY = RoomManager.player_PosY;
@@ -71,6 +86,7 @@ public class Door : MonoBehaviour
                 collision.gameObject.transform.SetPositionAndRotation(new Vector3(aspect_MoveRangeX, aspect_MoveRangeY, 0.0f), Quaternion.identity);
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                 RoomManager.SetPlayerPos(playerPosX, playerPosY);
+                RoomManager.MiniMapMinimalize();
             }
         }
     }

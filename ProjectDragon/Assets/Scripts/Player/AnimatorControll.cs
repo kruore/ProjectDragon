@@ -220,13 +220,19 @@ public class AnimatorControll : MonoBehaviour
         }
         if(Anim_Master.isSkillActive)
         {
-            playeranim_Arm.GetComponent<SpriteRenderer>().enabled = false;
-            playeranim_Weapon.GetComponent<SpriteRenderer>().enabled = false;
-            playeranim.Play(name);
+            StartCoroutine(animation_Skill(name));
         }
     }
     public void AnimationStop()
     {
         Anim_Master.playerSkill.PlayerStop();
+    }
+    IEnumerator animation_Skill(string name)
+    {
+
+        playeranim.Play(name);
+        yield return null;
+        playeranim_Arm.GetComponent<SpriteRenderer>().enabled = false;
+        playeranim_Weapon.GetComponent<SpriteRenderer>().enabled = false;
     }
 }

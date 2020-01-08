@@ -10,7 +10,7 @@ public class HPParticle : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             int maxHP = collision.GetComponent<Character>().maxHp;
-            collision.GetComponent<Character>().HPChanged(-(maxHP - collision.GetComponent<Character>().HP));
+            collision.GetComponent<Character>().HPChanged(-(maxHP - collision.GetComponent<Character>().HP),false,0);
             gameObject.SetActive(false);
         }
     }

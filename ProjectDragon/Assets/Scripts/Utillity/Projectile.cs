@@ -122,6 +122,7 @@ public class Projectile : MonoBehaviour
         rb2d.velocity = new Vector2(Mathf.Cos((m_angle - 90) / 360 * 2 * Mathf.PI) * speed, Mathf.Sin((m_angle - 90) / 360 * 2 * Mathf.PI) * speed);
 
     }
+    /*
     /// <summary>
     /// 발사체가 벽에 부딛혔을때 동작할것
     /// </summary>
@@ -134,6 +135,7 @@ public class Projectile : MonoBehaviour
             StartCoroutine(Reset);
         }
     }
+    */
     /// <summary>
     /// 발사체가 플레이어 에게 부딛혔을때 동작할 것
     /// </summary>
@@ -142,7 +144,7 @@ public class Projectile : MonoBehaviour
     {
         if (collision.tag.Equals("Player"))
         {
-            collision.GetComponent<Player>().HPChanged(damage);
+            collision.GetComponent<Player>().HPChanged(damage,false,0);
             if (Reset != null)
             {
                 StartCoroutine(Reset);
@@ -150,7 +152,7 @@ public class Projectile : MonoBehaviour
 
             }
         }
-        if (collision.tag.Equals("Wall"))
+        if (collision.tag.Equals("Wall") && Reset!=null)
         {
             StartCoroutine(Reset);
             Reset = null;

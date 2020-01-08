@@ -45,7 +45,7 @@ public class BossBoxDamage : MonoBehaviour
         Debug.Log(player);
         if (!(player==null))
         {
-            player.GetComponent<Player>().HPChanged(AttackPoint);
+            player.GetComponent<Player>().HPChanged(AttackPoint,false,0);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

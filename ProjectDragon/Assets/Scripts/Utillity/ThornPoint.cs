@@ -33,7 +33,7 @@ public class ThornPoint : MonoBehaviour
     {
         if ((player != null))
         {
-            player.GetComponent<Player>().HPChanged(attackDamage);
+            player.GetComponent<Player>().HPChanged(attackDamage,false,0);
         }
     }
     /// <summary>
