@@ -148,9 +148,10 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.6166667
-    functionName: Slime_AttackOn
+    functionName: Rimmotal_AttackOn1
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 7140570876156358880, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+      type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

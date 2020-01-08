@@ -260,10 +260,10 @@ public class t_Grid : MonoBehaviour
     #region NodeDraw
     void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         RoomManager RoomManager = GameObject.FindWithTag("RoomManager").GetComponent<RoomManager>();
         Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, gridWorldSize.y, 1));
 
-#if UNITY_EDITOR
 
         if (gridNode != null && displayGridGizmos)
         {

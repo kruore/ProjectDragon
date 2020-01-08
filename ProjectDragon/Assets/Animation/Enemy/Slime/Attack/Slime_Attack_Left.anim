@@ -329,7 +329,7 @@ AnimationClip:
   - time: 0.3
     functionName: Slime_AttackOn
     data: 
-    objectReferenceParameter: {fileID: 2954448563601634526, guid: b7ae067acff73b945a41221c4c3d497b,
+    objectReferenceParameter: {fileID: 1948673296124083838, guid: b7ae067acff73b945a41221c4c3d497b,
       type: 3}
     floatParameter: 0
     intParameter: 0

@@ -150,7 +150,7 @@ AnimationClip:
   - time: 0.6166667
     functionName: Rimmotal_AttackOn1
     data: 
-    objectReferenceParameter: {fileID: 322487263717296319, guid: 7ce63458e9fe70e499413c11f01e8b7e,
+    objectReferenceParameter: {fileID: 7140570876156358880, guid: 7ce63458e9fe70e499413c11f01e8b7e,
       type: 3}
     floatParameter: 0
     intParameter: 0

@@ -275,6 +275,7 @@ public class Enemy : Monster
     //Draw!!!! 테스트용
     private void OnDrawGizmos()
     {
+#if UNITY_EDITOR
         if (m_bDebugMode)
         {
             directionOriginOffset = originOffset * new Vector3(direction.x, direction.y, transform.position.z);
@@ -295,6 +296,7 @@ public class Enemy : Monster
                 Debug.DrawRay(startingPosition, direction * (AtkRange - originOffset), Color.red);
             }
         }
+#endif
     }
     //+ Vector2.Dot(directionOriginOffset, direction)
 

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8534250966649361830}
   - component: {fileID: 5554231282705058774}
   m_Layer: 0
-  m_Name: Mr_GobuninEmpty
+  m_Name: Enemy_Mr_Gobunin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ Animator:
   m_GameObject: {fileID: 3551125610347233888}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 22100000, guid: b98acd81c24149a4d8a382b85100e485, type: 2}
+  m_Controller: {fileID: 22100000, guid: 6da3ed66f5787894a933dcaed4ab1499, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
