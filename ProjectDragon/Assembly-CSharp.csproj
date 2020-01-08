@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Animation\Boss\Boss_MaDongSeok\LazerBeam.cs" />
      <Compile Include="Assets\BossRoom.cs" />
      <Compile Include="Assets\ConsolePro\ConsoleProDebug.cs" />
      <Compile Include="Assets\ConsolePro\Remote\ConsoleProRemoteServer.cs" />
@@ -78,6 +79,7 @@
      <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SequencedChannel.cs" />
      <Compile Include="Assets\ConsolePro\Remote\LiteNetLib\SimpleChannel.cs" />
      <Compile Include="Assets\HPGauge.cs" />
+     <Compile Include="Assets\MadongSeokStone.cs" />
      <Compile Include="Assets\monsterAi.cs" />
      <Compile Include="Assets\MPGauge.cs" />
      <Compile Include="Assets\NGUI\Scripts\Interaction\EnvelopContent.cs" />
@@ -222,6 +224,7 @@
      <Compile Include="Assets\Scripts\Enemy\SpaceClied.cs" />
      <Compile Include="Assets\Scripts\Interface.cs" />
      <Compile Include="Assets\Scripts\Lobby\SetActiveObject.cs" />
+     <Compile Include="Assets\Scripts\Lobby\SkinSpriteDepth.cs" />
      <Compile Include="Assets\Scripts\Manager\BattleManager.cs" />
      <Compile Include="Assets\Scripts\Manager\ButtonManager.cs" />
      <Compile Include="Assets\Scripts\Manager\GameManager.cs" />

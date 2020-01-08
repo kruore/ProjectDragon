@@ -126,7 +126,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1241198108051631525}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 282, y: -68.6, z: 0}
+  m_LocalPosition: {x: 282, y: -68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4934973148090094601}
@@ -150,21 +150,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    relative: 1
+    absolute: 2916
   rightAnchor:
     target: {fileID: 0}
     relative: 1
-    absolute: 0
+    absolute: 3266
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
-    absolute: 0
+    absolute: 125
   topAnchor:
     target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
+    relative: 0.5
+    absolute: -55
+  updateAnchors: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 350
@@ -798,7 +798,7 @@ MonoBehaviour:
   equipIcon: {fileID: 1189467774765440839}
   itemIcon: {fileID: 5349860391110999054}
   rarity: {fileID: 5759330451029859386}
-  activeIcon: {fileID: 404657569624222741}
+  activeIcon: {fileID: 1279272499431130995}
   Itemname: {fileID: 1359243378152292261}
   Itemvalue: {fileID: 717032369830320786}
   cell:
@@ -813,6 +813,7 @@ MonoBehaviour:
     m_Class: 0
     m_imageName: 
     m_skill_index: 0
+  change: 0
 --- !u!114 &5658547998378716138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,8 +1099,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 0e02d0387184c7940bd02246880415f5, type: 2}
-  mSpriteName: test
+  mAtlas: {fileID: 11400000, guid: 9128852880599c1408aacfe031870c24, type: 2}
+  mSpriteName: Rust_Wea_Nor
   mFixedAspect: 0
   mFillCenter: 1
 --- !u!1 &7090116957490199395
@@ -1127,7 +1128,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7090116957490199395}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 57.200012, y: -68.6, z: 0}
+  m_LocalPosition: {x: 57, y: -68, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8443878213684642971}
@@ -1148,21 +1149,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftAnchor:
     target: {fileID: 0}
-    relative: 0
-    absolute: 0
+    relative: 1
+    absolute: 2816
   rightAnchor:
     target: {fileID: 0}
     relative: 1
-    absolute: 0
+    absolute: 2916
   bottomAnchor:
     target: {fileID: 0}
     relative: 0
-    absolute: 0
+    absolute: 125
   topAnchor:
     target: {fileID: 0}
-    relative: 1
-    absolute: 0
-  updateAnchors: 1
+    relative: 0.5
+    absolute: -55
+  updateAnchors: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
   mWidth: 100

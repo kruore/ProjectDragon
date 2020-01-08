@@ -5,111 +5,64 @@ using UnityEngine.EventSystems;
 public class Equipmentcell : UIReuseScrollViewCell
 {
     public UISprite equipIcon, itemIcon;
-    public UISprite rarity,activeIcon;
+    public UISprite rarity, activeIcon;
     public UILabel Itemname, Itemvalue;
     public EuipmentcellData cell;
-    public IEnumerator timeco;
-    float time,myYposition;
+    public bool change = false;
     GameObject click;
     private void Start()
     {
         UIEventListener.Get(gameObject).onPress += Buttonpress;
-        timeco = TimeRange();
     }
     public override void UpdateData(IReuseCellData _CellData)
     {
         EuipmentcellData item = _CellData as EuipmentcellData;
-        cell = item;
-        if(time < Time.time + 2)
-        {
-
-        }
-        //rarity.spriteName = string.Format("레어도_{0}", item.rarity.ToString());
-       // gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-       // gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-       if(cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum)|| cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
-        {
-            equipIcon.gameObject.SetActive(true);
-        }
-       else
-        {
-            equipIcon.gameObject.SetActive(false);
-        }
-        bool check = true;
-        if (LobbyManager.inst.Selecteditem.Count > 0)
-        {
-            foreach (int Select in LobbyManager.inst.Selecteditem)
-            {
-                if (Select.Equals(cell.inventoryNum))
-                {
-                    gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.gray;
-                    gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.gray;
-                    check = false;
-                    Debug.Log(Select);
-                    break;
-                }
-            }
-            if (check)
-            {
-                //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-                //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-            }
-        }
-        else
-        {
-            //gameObject.transform.Find("EquipBGI").GetComponent<UISprite>().color = Color.white;
-            //gameObject.transform.Find("ItemInfoBGI").GetComponent<UISprite>().color = Color.white;
-        }
-       
-        Itemname.text = item.name;
-        itemIcon.spriteName = item.name;
-        if (!item.Class.Equals(CLASS.갑옷))
-        {
-            Itemvalue.text = "공격력:" + item.stat.ToString();
-            //Attackpercent.text = "공격력:" + Database.Inst.skill[item.skill_index].attack_Power.ToString() + "%";
-            //Activemana.text = "소모마나량:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            //Activecooltime.text = "쿨타임:" + Database.Inst.skill[item.skill_index].coolDown.ToString();
-            //Activetarget.text = "대상:" + Database.Inst.skill[item.skill_index].attack_Type;
-            //Activerange.text = "범위:" + Database.Inst.skill[item.skill_index].attack_Range.ToString();
-            //Attackpercent.gameObject.SetActive(true);
-            //Activemana.gameObject.SetActive(true);
-            //Activecooltime.gameObject.SetActive(true);
-            //Activetarget.gameObject.SetActive(true);
-            //Activerange.gameObject.SetActive(true);
-        }
-        else if (item.Class.Equals(CLASS.갑옷))
-        {
-            Itemvalue.text = "체력:\t" + item.stat.ToString();
-            //Attackpercent.gameObject.SetActive(false);
-            //Activemana.gameObject.SetActive(false);
-            //Activecooltime.gameObject.SetActive(false);
-            //Activetarget.gameObject.SetActive(false);
-            //Activerange.gameObject.SetActive(false);
-        }
-
         if (item == null)
-
             return;
-    }
-    private void ChangeEquippanel()
-    {
-        //LobbyManager.inst.Inventoryback.transform.Find("ChangeEquip").gameObject.SetActive(true);
-        LobbyManager.inst.BGID.SetActive(true);
-    }
-    private void CurrentEquippanel()
-    {
-        //LobbyManager.inst.Inventoryback.transform.Find("CurrentEquip").gameObject.SetActive(true);
-        LobbyManager.inst.BGI.SetActive(true);
+        cell = item;
+        if (LobbyManager.inst.itemclassselect.Equals(cell.Class) || LobbyManager.inst.itemclassselect.Equals(ItemState.기본))
+        {
+            if (cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum) || cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
+            {
+                equipIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                equipIcon.gameObject.SetActive(false);
+            }
+            bool check = true;
+            if (LobbyManager.inst.selectData.Equals(cell.inventoryNum))
+            {
+                gameObject.transform.Find("StatBGI").GetComponent<UISprite>().spriteName = "List_On";
+            }
+            else
+            {
+                gameObject.transform.Find("StatBGI").GetComponent<UISprite>().spriteName = "List_Off";
+            }
+            Itemname.text = cell.name;
+            itemIcon.spriteName = cell.imageName;
+            if (!item.Class.Equals(CLASS.갑옷))
+            {
+                Itemvalue.text = "공격력:" + cell.stat.ToString();
+                activeIcon.gameObject.SetActive(true);
+            }
+            else
+            {
+                Itemvalue.text = "체력:\t" + cell.stat.ToString();
+                activeIcon.gameObject.SetActive(false);
+            }
+        }
+
     }
     public void ButtonActive()
     {
         Debug.Log("cellclick");
-        
+
         bool check = true;
         switch (LobbyManager.inst.lobbystate)
         {
             case LobbyState.Nomal:
-                
+
                 break;
             #region delete
             //    GameObject Equipanel;
@@ -273,13 +226,10 @@ public class Equipmentcell : UIReuseScrollViewCell
     public void ChangeEquip(GameObject panel, Database.Inventory data, float stat)
     {
         EquipWeaponIcon(panel.transform.Find("EquipBGI").gameObject, data);
-        //panel.transform.Find("EquipBGI").Find("EquipIcon").GetComponent<UISprite>().spriteName = data.imageName;
-        //panel.transform.Find("EquipBGI").Find("EnchantLevel").GetComponent<UISprite>().spriteName = string.Format("강화수치_{0}", data.upgrade_Level.ToString());
-        //panel.transform.Find("EquipBGI").Find("Rarity").GetComponent<UISprite>().spriteName = string.Format("레어도_{0}", data.rarity.ToString());
         panel.transform.Find("EquipItemname").GetComponent<UILabel>().text = data.name;
         panel.transform.Find("EquipItem").Find("EquipItemrare").GetComponent<UILabel>().text = data.rarity.ToString();
         panel.transform.Find("EquipItemclass").GetComponent<UILabel>().text = string.Format("종류: {0}", data.Class.ToString());
-        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}",Database.Inst.weapons[data.DB_Num].damage);
+        panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", Database.Inst.weapons[data.DB_Num].damage);
         if (!data.Class.Equals(CLASS.갑옷))
         {
             panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("공격력: {0}", Database.Inst.weapons[data.DB_Num].damage);
@@ -291,11 +241,11 @@ public class Equipmentcell : UIReuseScrollViewCell
             ActiveSkill.transform.Find("ActiveRange").GetComponent<UILabel>().text = string.Format("범위: {0}", Database.Inst.skill[data.skill_Index].attack_Range);
             ActiveSkill.transform.Find("Activemana").GetComponent<UILabel>().text = string.Format("마나: {0}", Database.Inst.skill[data.skill_Index].active_Time);
             ActiveSkill.transform.Find("Activecooltime").GetComponent<UILabel>().text = string.Format("쿨타임: {0}", Database.Inst.skill[data.skill_Index].coolTime);
-            ActiveSkill.transform.Find("ActiveBGI").Find("ActiveIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[data.skill_Index].name;
+            ActiveSkill.transform.Find("ActiveBGI").Find("ActiveIcon").GetComponent<UISprite>().spriteName = Database.Inst.skill[data.skill_Index].imageName;
         }
         else
         {
-            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("체력: {0}",Database.Inst.armors[data.DB_Num].hp);
+            panel.transform.Find("AttackDamage").GetComponent<UILabel>().text = string.Format("체력: {0}", Database.Inst.armors[data.DB_Num].hp);
             GameObject ActiveSkill;
             ActiveSkill = panel.transform.Find("ActiveSkill").gameObject;
             ActiveSkill.SetActive(false);
@@ -348,92 +298,39 @@ public class Equipmentcell : UIReuseScrollViewCell
     }
     public void Buttonpress(GameObject sender, bool state)
     {
-        if(sender.Equals(gameObject)&&state)
+       
+        if (sender.Equals(gameObject) && !state)
         {
-            if(time!=0)
+            if (LobbyManager.inst.selectData.Equals(cell.inventoryNum))
             {
-                if(time<2)
+                if(cell.Class.Equals(CLASS.갑옷))
                 {
-                    
-                }
-            }
-            
-            myYposition = transform.position.y;
-        }
-        if (sender.Equals(gameObject) && state)
-        {
-            Debug.Log("start");
-            StartCoroutine(timeco);
-            myYposition = transform.position.y;
-        }
-        else if (sender.Equals(gameObject) && !state)
-        {
-            if ((time) >=2.0f && (Mathf.Abs(myYposition - gameObject.transform.position.y) < 0.05) && LobbyManager.inst.lobbystate.Equals(LobbyState.Nomal))
-            {
-                Debug.Log(Mathf.Abs(myYposition - gameObject.transform.position.y));
-                if (!cell.m_Class.Equals(CLASS.갑옷))
-                {
-                    Database.Inst.playData.equiWeapon_InventoryNum = cell.inventoryNum;
-                    LobbyManager.inst.SetWeapon();
-                    Debug.Log(cell.m_Class);
-                    DataTransaction.Inst.SavePlayerData();
+                    Database.Inst.playData.equiArmor_InventoryNum = cell.inventoryNum;
+                    LobbyManager.inst.SetArmor();
                 }
                 else
                 {
-                    Database.Inst.playData.equiArmor_InventoryNum = cell.inventoryNum;
-                    
-                    Debug.Log(cell.m_Class);
-                    LobbyManager.inst.SetArmor();
-                    DataTransaction.Inst.SavePlayerData();
+                    Database.Inst.playData.equiWeapon_InventoryNum = cell.inventoryNum;
+                    LobbyManager.inst.SetWeapon();
                 }
-                //LobbyManager.inst.Inventoryback.transform.Find("Lock").gameObject.SetActive(true);
-                //LobbyManager.inst.BGID.SetActive(true);
-                //GameManager.Inst.Scenestack.Push("Lock");
-                //LobbyManager.inst.lobbystate = LobbyState.Lock;
-            }
-            ChangeReset();
-        }
-    }
-    public IEnumerator TimeRange()
-    {
-        
-        time = 0;
-        myYposition = transform.position.y;
-        click = Instantiate<GameObject>(Resources.Load<GameObject>("UI/ClickAnim"));
-        click.transform.SetParent(GameObject.Find("UI Root/EquipPanel/Inventoryback/ItemWindow/ScrollView/ViewRect").transform);
-        click.GetComponent<UISprite>().fillAmount = time;
-        Vector3 wp = UICamera.currentCamera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, -1));
-        click.transform.position = wp;
-        click.transform.localScale = Vector3.one;
-        while ((Mathf.Abs(myYposition - gameObject.transform.position.y) < 0.05))
-        {
-            if (time < 2)
-            {
-                time += Time.deltaTime;
-                click.GetComponent<UISprite>().fillAmount = time*0.5f;
+                gameObject.transform.Find("StatBGI").GetComponent<UISprite>().spriteName = "List_Off";
+                LobbyManager.inst.selectData = -1;
+                LobbyManager.inst.SetplayerStat();
+                //DataTransaction.Inst.SavePlayerData();
             }
             else
             {
-                time = 2;
-                click.GetComponent<UISprite>().fillAmount = time*0.5f;
+                if (cell.inventoryNum.Equals(Database.Inst.playData.equiArmor_InventoryNum)||cell.inventoryNum.Equals(Database.Inst.playData.equiWeapon_InventoryNum))
+                {
+                    
+                }
+                else
+                {
+                    LobbyManager.inst.selectData = cell.inventoryNum;
+                    gameObject.transform.Find("StatBGI").GetComponent<UISprite>().spriteName = "List_On";
+                    LobbyManager.inst.UpdateAllScrollview();
+                }
             }
-            yield return null;
         }
-        ChangeReset();
-    }
-    public void ChangeReset()
-    {
-        StopCoroutine(timeco);
-        timeco = TimeRange();
-        Destroy(click);
-        click = null;
-    }
-    public void Activefalse()
-    {
-        UIButton.current.gameObject.SetActive(false);
-    }
-    public void Activetrue()
-    {
-        UIButton.current.transform.Find("ActiveStat").gameObject.SetActive(true);
     }
 }

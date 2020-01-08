@@ -11,6 +11,7 @@ public class Targetpoint : MonoBehaviour
     Boss_MaDongSeok boss;
     [SerializeField]
     GameObject player;
+    bool week;
     public int AttackPoint;
     public ParticleSystem[] explosion;
     // Start is called before the first frame update
@@ -31,11 +32,21 @@ public class Targetpoint : MonoBehaviour
     }
     public void ProjecTileEnd()
     {
+
         Debug.Log(player);
         if (!(player == null))
         {
             player.GetComponent<Player>().HPChanged(AttackPoint);
         }
+        GameObject Stone = Instantiate(Resources.Load<GameObject>("Object/Stone"));
+        Stone.transform.position = gameObject.transform.position;
+        if (!week)
+        {
+            Debug.Log(week + "sprite");
+            Stone.GetComponent<MadongSeokStone>().weekstone = week;
+            Stone.GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Object/멀쩡한돌박힘");
+        }
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -59,7 +70,7 @@ public class Targetpoint : MonoBehaviour
         }
         else
         {
-           if(player!=null)
+            if (player != null)
             {
                 player.GetComponent<Character>().HPChanged(25);
             }
@@ -70,17 +81,21 @@ public class Targetpoint : MonoBehaviour
     {
         ObjectPool.Instance.PushToPool(poolItemName, gameObject, transform);
     }
-    public Targetpoint Create(float _speed, int _damage,string poolItemName, Vector3 position, Transform parent = null)
+    public Targetpoint Create(float _speed, int _damage, string poolItemName, Vector3 position, bool _week, Transform parent = null)
     {
 
         GameObject projectileObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
         targetpointobj = projectileObject.transform.GetComponent<Targetpoint>();
+
         targetpointobj.transform.position = position;
         targetpointobj.gameObject.SetActive(true);
+        targetpointobj.week = _week;
         targetpointobj.GetComponent<Animator>().Play("ProjecTileReady");
+        if (week)
+        {
+            targetpointobj.transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = Resources.Load<Sprite>("Object/멀쩡한돌");
+        }
         return targetpointobj;
-
-        ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
 }
