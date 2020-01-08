@@ -35,8 +35,11 @@ public class GameManager : MonoSingleton<GameManager>
     private Database database;
     public IDbCommand DEB_dbcmd;
 
+    //사운드 매니저
+    SoundManager soundManager;
     private void Awake()
     {
+        soundManager = SoundManager.Inst;
         ScreensizeReadjust();
         StartCoroutine(DataPhasing());
         database = Database.Inst;

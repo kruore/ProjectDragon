@@ -314,6 +314,7 @@
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\WarpTextExample.cs" />
      <Compile Include="Assets\UIpack_Sample\Lightingparticle\HPParticle.cs" />
      <Compile Include="Assets\ZBlue Cartoon UI\Demo_Assets\scripts\GUI_Demo.cs" />
+     <None Include="Assets\Fantasy Harp Album - 010118\Notes.txt" />
      <None Include="Assets\NGUI\ReadMe - 2018.3.0.txt" />
      <None Include="Assets\NGUI\Resources\Shaders\Unlit - Transparent Masked 1.shader" />
      <None Include="Assets\UIpack_Sample\license.txt" />
