@@ -7,8 +7,7 @@ public class Targetpoint : MonoBehaviour
     public string poolItemName = "TargetPointObj";
     public float projecTileReady, projecTileStart, projecTileEnd;
     Targetpoint targetpointobj;
-    [SerializeField]
-    Boss_MaDongSeok boss;
+
     [SerializeField]
     GameObject player;
     public int AttackPoint;
@@ -19,7 +18,6 @@ public class Targetpoint : MonoBehaviour
         GetComponent<Animator>().SetFloat("ReadyTime", projecTileReady);
         GetComponent<Animator>().SetFloat("StartTime", projecTileStart);
         GetComponent<Animator>().SetFloat("EndTime", projecTileEnd);
-        boss = GameObject.Find("BossCore").GetComponent<Boss_MaDongSeok>();
         explosion = GetComponentsInChildren<ParticleSystem>();
     }
     void Explosion()
@@ -51,20 +49,7 @@ public class Targetpoint : MonoBehaviour
             player = null;
         }
     }
-    public void ExplosionTarget()
-    {
-        if (boss.currentstate.Equals(BossState.Phase1))
-        {
-            boss.TargeExplosion(gameObject.transform.position);
-        }
-        else
-        {
-           if(player!=null)
-            {
-                player.GetComponent<Character>().HPChanged(25,2,false);
-            }
-        }
-    }
+   
 
     public void ResetProjectile()
     {

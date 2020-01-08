@@ -20,7 +20,7 @@ public class Rimmotal : Enemy
 
     //object
     Projectile projectile;
-    Targetpoint targetpoint;
+    ThornPoint thornPoint;
     public RuntimeAnimatorController LeafAnimator;
     public RuntimeAnimatorController ThornAnimator;
     bool _thorn_attacking = true;
@@ -39,6 +39,8 @@ public class Rimmotal : Enemy
     protected override void Awake()
     {
         base.Awake();
+        
+
         capsuleCol = GetComponent<CapsuleCollider2D>();
         col = capsuleCol;
         m_viewTargetMask = LayerMask.GetMask("Player", "Wall", "Cliff"); // 근거리는 Cliff 추가
@@ -46,7 +48,7 @@ public class Rimmotal : Enemy
 
         //thornTargeting = new ThornTargeting();
         projectile = new Projectile();
-        targetpoint = new Targetpoint();
+        thornPoint = new ThornPoint();
     }
     protected override RaycastHit2D[] GetRaycastType()
     {
@@ -81,23 +83,23 @@ public class Rimmotal : Enemy
     }
 
 
-
-
     /********************************************************************/
     /// <summary>
     /// 나뭇잎 생성 (애니메이션 프레임에 넣기)
     /// </summary>
     public void Attack1_On()
     {
-        
-        projectile.Create(Angle-20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle-10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle-5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle+5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle+10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(Angle+20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
-       
+        Vector2 offset = new Vector2(-0.01f, -0.1f);
+        float radius = 0.1f;
+
+        projectile.Create(offset, radius, Angle - 20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle - 10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle - 5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle + 5.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle + 10.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(offset, radius, Angle + 20.0f, 5.0f, ATTACKDAMAGE, LeafAnimator, "ProjectileObj", false, transform.position);
+
     }
 
 
@@ -222,7 +224,7 @@ public class Rimmotal : Enemy
         {
             if (inAtkDetectionRange)
             {
-                //targetpoint.Create( 0.0f, ATTACKDAMAGE, ThornAnimator, "TargetPointObj", transform.position,transform);
+                thornPoint.Create(ATTACKDAMAGE, ThornAnimator, "ThornPoint", other.position - new Vector3(0.0f,0.5f,0.0f));
                 //thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
                 yield return new WaitForSeconds(2.0f);
             }

@@ -72,6 +72,20 @@ public class Projectile : MonoBehaviour
         //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
+
+
+    public Projectile Create(Vector2 _offset,float _colRadius,float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
+    {
+        GameObject projectileObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
+        projectile = projectileObject.transform.GetComponent<Projectile>();
+        projectile.GetComponent<CircleCollider2D>().offset = _offset;
+        projectile.GetComponent<CircleCollider2D>().radius = _colRadius;
+        projectile.gameObject.SetActive(true);
+        projectile.ProjectileInit(_angle, _speed, _damage, _projectileAnimator, _isplayskill, position);
+        return projectile;
+
+    }
+
     /// <summary>
     /// 투사체 초기화
     /// </summary>
