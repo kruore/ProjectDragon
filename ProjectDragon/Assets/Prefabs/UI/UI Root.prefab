@@ -2756,6 +2756,7 @@ MonoBehaviour:
   My_Label: {fileID: 0}
   My_Player: {fileID: 0}
   skill: {fileID: 3326763283149168875, guid: 9b5e7b61a63edcf41938e2ae3b00f326, type: 3}
+  projectileAnimator: {fileID: 0}
 --- !u!1001 &5577248987283909180
 PrefabInstance:
   m_ObjectHideFlags: 0

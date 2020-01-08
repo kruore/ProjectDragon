@@ -10,7 +10,7 @@ using UnityEngine;
 public class FlashWhite : MonoBehaviour
 {
     [SerializeField] float delay = 0.1f;
-    Material originalMaterial;
+    public Material originalMaterial;
     public Material effectMaterial;
     SpriteRenderer render;
 

@@ -19,13 +19,14 @@ public class Monster : Character
     protected FlashWhite flashWhite;
     IEnumerator StartOnCor;
 
+
     protected override void Awake()
     {
-
+        base.Awake();
         flashWhite = GetComponent<FlashWhite>();
         StartOnCor = Start_On();
 
-        base.Awake();
+        projectileTargetList.Add("Player");
 
      //   Physics.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Player"), true);
     }

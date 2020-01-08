@@ -92,13 +92,13 @@ public class Rimmotal : Enemy
         Vector2 offset = new Vector2(-0.01f, -0.1f);
         float radius = 0.1f;
 
-        projectile.Create(offset, radius, Angle - 20.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle - 10.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle - 5.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle + 5.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle + 10.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
-        projectile.Create(offset, radius, Angle + 20.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle - 20.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle - 10.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle - 5.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle + 5.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle + 10.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
+        projectile.Create(projectileTargetList, offset, radius, Angle + 20.0f, 5.0f, 2, LeafAnimator, "ProjectileObj", false, transform.position);
 
     }
 

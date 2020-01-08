@@ -21,6 +21,11 @@ public class PlayerSkill : MonoBehaviour
     IEnumerator co;
     IEnumerator sk;
 
+
+//Projectile
+    Projectile projectile;
+    public RuntimeAnimatorController projectileAnimator;
+
     private void Awake()
     {
         My_button = gameObject.GetComponent<UISprite>();
@@ -33,6 +38,7 @@ public class PlayerSkill : MonoBehaviour
         My_Player.StopMaxTime = 1f;
         co = CoolTime(3);
         sk = SkillDamaged();
+        projectile= new Projectile();
         //skill = GameObject.Find("TestSkill").GetComponent<Skill>();
     }
     IEnumerator CoolTime(float cool)
@@ -67,6 +73,15 @@ public class PlayerSkill : MonoBehaviour
         if(My_Player.mp/10>0)
         {
             My_Player.MPChanged(5);
+
+float _swordAttackangle = My_Player.AngleisAttack ? My_Player.enemy_angle:My_Player.current_angle;
+
+            //Create Projectile 
+             Vector2 offset = new Vector2(0.0f,0.0f);
+             float radius = 0.1f;
+             projectile.Create(My_Player.projectileTargetList,offset, radius, _swordAttackangle, 3.0f, 10, projectileAnimator, "ProjectileObj", true, My_Player.transform.position);
+
+
             co = CoolTime(3);
             sk = SkillDamaged();
             StartCoroutine(sk);

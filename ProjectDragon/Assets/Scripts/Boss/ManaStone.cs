@@ -8,39 +8,52 @@ public class ManaStone : Monster
     // Start is called before the first frame update
     public void ManaStoneSumon()
     {
+        gameObject.SetActive(true);
         boss.transform.parent.GetComponent<Room>().AddMonster(gameObject);
-        //Room.addMonster(gameObject.transform.Find("ManaStone").gameObject);
         gameObject.transform.parent.GetComponent<Animator>().Play("ManaStoneIdle");
-        maxHp=30;
-        HP=30;
+        maxHp = 30;
+        gameObject.GetComponent<SpriteRenderer>().material = GetComponentInChildren<FlashWhite>().originalMaterial;
+        HP = 30;
+        isDead = false;
     }
     public override void Dead()
     {
-        gameObject.SetActive(false);
+        base.Dead();
         bool active = false;
-        if (boss.currentstate.Equals(BossState.Phase2))
+        gameObject.transform.parent.GetComponent<Animator>().Play("ManaStonePieces");
+        gameObject.SetActive(false);
+        if (HP < 0)
         {
-            for (int i = 0; i < 4; i++)
+            if (boss.currentstate.Equals(BossState.Phase2))
             {
-                if (gameObject.transform.parent.parent.transform.Find(string.Format("ManaStonePlace{0}", i + 1)).Find("ManaStone").gameObject.activeSelf)
+                for (int i = 0; i < 4; i++)
                 {
-                    active = true;
+                    Debug.Log(gameObject.transform.parent.parent.transform.Find(string.Format("ManaStonePlace{0}", i + 1)).Find("ManaStone").gameObject.activeSelf);
+                    if (gameObject.transform.parent.parent.transform.Find(string.Format("ManaStonePlace{0}", i + 1)).Find("ManaStone").gameObject.activeSelf)
+                    {
+                        active = true;
+                    }
+                }
+                if (!active)
+                {
+                    boss.HPChanged(34, false, 0);
+                    boss.Phase2TimeCheckDestory();
                 }
             }
-            if (!active)
-            {
-                boss.HPChanged(25, false, 0);
-            }
-            base.Dead();
         }
+
     }
     public override int HPChanged(int ATK, bool isCritical, int NukBack)
     {
+        IEnumerator flash = GetComponentInChildren<FlashWhite>().Flash();
         if (ATK > 0 && HP > 0)
         {
-            IEnumerator flash = GetComponentInChildren<FlashWhite>().Flash();
             StartCoroutine(flash);
-            Debug.Log("flash");
+        }
+        if (HP - ATK < 0)
+        {
+            StopCoroutine(flash);
+            gameObject.GetComponent<SpriteRenderer>().material = GetComponentInChildren<FlashWhite>().originalMaterial;
         }
         return base.HPChanged(ATK, isCritical, NukBack);
     }

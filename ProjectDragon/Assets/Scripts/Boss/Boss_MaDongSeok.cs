@@ -24,7 +24,8 @@ public class Boss_MaDongSeok : Monster
     IEnumerator bossphase;
     Camera MCamera;
     public ParticleSystem[] explosion;
-    IEnumerator Bossphasechange, PhaseState,Phase2Timecheck;
+    IEnumerator Bossphasechange, PhaseState;
+    public IEnumerator Phase2Timecheck;
     public RuntimeAnimatorController projectileanim;
     public GameObject EndSprite;
     public GameObject player,razer;
@@ -38,6 +39,8 @@ public class Boss_MaDongSeok : Monster
     public float handdowntime;
     public float handwaittime;
     ParticleSystem roar;
+
+
     //플레이어진입,warning,boss phase1,탄떨어지기,탄 낙하위치 지정하기,내려찍기, 내려찍는 낙하위치 지정하기
     // Start is called before the first frame update
     protected override void Awake()
@@ -50,6 +53,7 @@ public class Boss_MaDongSeok : Monster
     }
     private void BossInit()
     {
+        EndSprite=GameObject.Find("UI Root").transform.Find("Panel").gameObject;
         objectAnimator= GetComponent<Animator>();
         Bossroom = gameObject.transform.parent.transform.Find("보스방").gameObject;
         manastone = new GameObject[4];
@@ -120,9 +124,9 @@ public class Boss_MaDongSeok : Monster
         objectAnimator.Play("MaDongSeokDead");
         StopCoroutine(PhaseState);
         StopCoroutine(Bossphasechange);
-        EndSprite.SetActive(true);
         Explosion();
         base.Dead();
+        EndSprite.SetActive(true);
     }
     /// <summary>
     /// 보스시작시 해야할것
@@ -283,7 +287,9 @@ public class Boss_MaDongSeok : Monster
             }
             if (PhaseState != null)
             {
+                ArmsDamageset();
                 yield return StartCoroutine(PhaseState);
+
             }
             else
             {
@@ -348,6 +354,7 @@ public class Boss_MaDongSeok : Monster
     }
     IEnumerator HitDown()
     {
+        
         int count = 0;
         IEnumerator HandHitDown = null;
         int random = Random.Range(0, 6);
@@ -375,6 +382,7 @@ public class Boss_MaDongSeok : Monster
             }
             count++;
             Debug.Log("Phase2" + count);
+            ArmsDamagesetfalse();
             yield return StartCoroutine(HandHitDown);
         }
         Debug.Log("HitDown");
@@ -382,7 +390,6 @@ public class Boss_MaDongSeok : Monster
     }
     IEnumerator RightHandHitDown(int placenum)
     {
-        
         Debug.Log("Righthand");
         float time = 0;
         Vector3 hitposition = hitDownplace[placenum].transform.position;
@@ -427,7 +434,6 @@ public class Boss_MaDongSeok : Monster
     }
     IEnumerator LeftHandHitDown(int placenum)
     {
-        
         Debug.Log("Lefthand");
         float time = 0;
         Vector3 hitposition = hitDownplace[placenum].transform.position;
@@ -472,6 +478,7 @@ public class Boss_MaDongSeok : Monster
     }
     IEnumerator ManaStoneSumon()
     {
+        ArmsDamagesetfalse();
         float time = 0;
         for(int i=0;i<4;i++)
         {
@@ -484,11 +491,13 @@ public class Boss_MaDongSeok : Monster
         StartCoroutine(Phase2Timecheck);
         while (time < 0.5)
         {
+            
             armright.transform.localPosition = Vector3.Lerp(armright.transform.localPosition, new Vector3(-5, 0, 0), time * 2);
             armLeft.transform.localPosition = Vector3.Lerp(armLeft.transform.localPosition, new Vector3(5, 0, 0), time * 2);
             time += Time.deltaTime;
             yield return null;
         }
+        ArmsDamageset();
         yield return null;
     }
     IEnumerator ManaShoot1()
@@ -497,9 +506,10 @@ public class Boss_MaDongSeok : Monster
         {
             float angle = GetAngle(player.transform.position, transform.position);
             Vector3 bossmouth = gameObject.transform.position;
+            //파란 발사체 크기
+            float radius = 0.3f;
             //해당 벡터 위치는 보스 입
-            Projectile projectileset=projectile.Create(angle, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, bossmouth);
-            projectileset.gameObject.GetComponent<CircleCollider2D>().radius = 1;
+            projectile.Create(projectileTargetList,Vector2.zero,radius,angle, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, bossmouth);
             yield return new WaitForSeconds(0.25f);
         }
         Debug.Log("ManaShoot1");
@@ -513,8 +523,8 @@ public class Boss_MaDongSeok : Monster
             float angle = 80 - (j * 20);
             Vector3 bossmouth = gameObject.transform.position;
             //해당 벡터 위치는 보스 입
-            Projectile projectileset= projectile.Create(angle, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, bossmouth);
-            projectileset.gameObject.GetComponent<CircleCollider2D>().radius = 1;
+            projectile.Create(projectileTargetList,Vector2.zero,0.3f,angle, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, bossmouth);
+
         }
         yield return new WaitForSeconds(1.0f);
     }
@@ -524,7 +534,7 @@ public class Boss_MaDongSeok : Monster
         {
             gameObject.transform.parent.transform.Find(string.Format("보스방/ManaStonePlace{0}/ManaStone", i + 1)).gameObject.SetActive(false);
         }
-        yield return new WaitForSeconds(15.0f);
+        yield return new WaitForSeconds(20.0f);
         StopCoroutine(PhaseState);
         currentstate++;
         count = 0;
@@ -592,13 +602,23 @@ public class Boss_MaDongSeok : Monster
         float time = 0;
         while(time<1.0f)
         {
+            for(int i=0;i<4;i++)
+            {
+                hitDownplace[i].SetActive(true);
+            }
             armright.transform.position=Vector3.Lerp(armposition, hitDownplace[0].transform.position,time);
             time += Time.deltaTime;
             yield return null;
         }
         time = 0;
+        int j=0;
         while(time<1.5f)
         {
+            if(armright.transform.position.x>=hitDownplace[j].transform.position.x)
+            {
+                hitDownplace[j].SetActive(false);
+                j++;
+            }
             armright.transform.position = Vector3.Lerp(hitDownplace[0].transform.position, hitDownplace[4].transform.position, Mathf.Pow(time, 6) / Mathf.Pow(1.5f, 6));
             time += Time.deltaTime;
             yield return null;
@@ -621,13 +641,23 @@ public class Boss_MaDongSeok : Monster
         float time = 0;
         while (time < 1)
         {
+            for(int i=1;i<5;i++)
+            {
+                hitDownplace[i].SetActive(true);
+            }
             armLeft.transform.position = Vector3.Lerp(armposition, hitDownplace[5].transform.position, time);
             time += Time.deltaTime;
             yield return null;
         }
         time = 0;
+        int j=5;
         while (time < 1.5f)
         {
+            if(hitDownplace[j].transform.position.x<=armLeft.transform.position.x)
+            {
+                hitDownplace[j].SetActive(false);
+                j--;
+            }
             armLeft.transform.position = Vector3.Lerp(hitDownplace[5].transform.position, hitDownplace[1].transform.position,Mathf.Pow(time,6) / Mathf.Pow(1.5f,6));
             time += Time.deltaTime;
             yield return null;
@@ -656,7 +686,7 @@ public class Boss_MaDongSeok : Monster
 
         for (int i = 0; i < 5; i++)
         {
-            projectile.Create(i * 72, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, _targetpoint);
+            projectile.Create(projectileTargetList,Vector2.zero,0.3f,i * 72, projectilespeed, projectiledamage, projectileanim, "ProjectileObj", true, _targetpoint);
         }
 
     }
@@ -670,6 +700,24 @@ public class Boss_MaDongSeok : Monster
     {
         Vector3 v = End - Start;
         return Quaternion.FromToRotation(Vector3.up, End - Start).eulerAngles.z;
+    }
+    public void Phase2TimeCheckDestory()
+    {
+        StopCoroutine(Phase2Timecheck);
+        Phase2Timecheck=COPhase2Timecheck();
+        currentstate=BossState.Phase4;
+        Debug.Log(currentstate);
+        StartCoroutine(PhaseState);
+    }
+    public void ArmsDamageset()
+    {
+        armLeft.GetComponent<armDemagecheck>().DamageActivate(damage);
+        armright.GetComponent<armDemagecheck>().DamageActivate(damage);
+    }
+    public void ArmsDamagesetfalse()
+    {
+        armLeft.GetComponent<armDemagecheck>().bdamageactivate=false;
+        armright.GetComponent<armDemagecheck>().bdamageactivate=false;
     }
     /// <summary>
     /// 1번상태

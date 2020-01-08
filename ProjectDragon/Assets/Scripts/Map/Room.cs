@@ -69,6 +69,10 @@ public class Room : MonoBehaviour
         gathering = Gathering(2.0f);
     }
 
+    private void Start() {
+        //gathering = Gathering(2.0f);    
+    }
+
     private void OnEnable()
     {
         StartCoroutine(gathering);
@@ -161,7 +165,7 @@ public class Room : MonoBehaviour
         {
             monsters.AddRange(_monsters);
             Enemies.AddRange(_monsters);
-            //몬스터와 플레이어 계산 다시 해야 하나?
+            //몬스터와 플레이어 계산 다시 해야 하나? 
         }
         StartCoroutine(playerSet.CalculateDistanceWithPlayer());
     }
@@ -190,6 +194,7 @@ public class Room : MonoBehaviour
         {
             Enemies.Add(_monster);
             monsters.Add(_monster);
+            StartCoroutine(playerSet.CalculateDistanceWithPlayer());
         }
     }
 

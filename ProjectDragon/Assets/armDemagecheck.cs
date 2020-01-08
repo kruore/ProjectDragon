@@ -5,11 +5,17 @@ using UnityEngine;
 public class armDemagecheck : MonoBehaviour
 {
     Player player;
+    public bool bdamageactivate=false;
+    int ATK;
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(bdamageactivate)
+        {
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<Player>();
+            collision.GetComponent<Player>().HPChanged(ATK,false,0);
+            bdamageactivate=false;
+        }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
@@ -21,9 +27,19 @@ public class armDemagecheck : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if(bdamageactivate)
+        {
         if (collision.CompareTag("Player"))
         {
-            player = collision.GetComponent<Player>();
+            collision.GetComponent<Player>().HPChanged(ATK,false,0);
+            bdamageactivate=false;
         }
+        }
+    }
+    public bool DamageActivate(int _ATK)
+    {
+        ATK=_ATK;
+        bdamageactivate=true;
+        return false;
     }
 }

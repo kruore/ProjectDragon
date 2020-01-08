@@ -15,11 +15,18 @@ public class Skill : MonoBehaviour
     public Rigidbody2D rb2d;
     SpriteRenderer sprd;
 
+
+
     float attackDamage;
 
     public Vector3 myAngle = new Vector3(0, 0, -90);
     public Vector3 nowPos;
     public float PlayerAngle;
+
+    private void Awake() 
+    {
+       
+    }
 
     public void Start()
     {
@@ -67,6 +74,9 @@ public class Skill : MonoBehaviour
         StopCoroutine("Object_LifeTime");
         Destroy(this.gameObject);
     }
+
+
+    
 
 
 }

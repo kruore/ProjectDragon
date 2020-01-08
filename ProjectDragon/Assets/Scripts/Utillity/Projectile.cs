@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
     }
     public float angle, speed, lifetime, generationtime, targetpointrangex, targetpointrangey;
 
+    public List<string> tagsString;
     Rigidbody2D rb2d;
     Animator anim;
     Projectile projectile;
@@ -60,6 +61,8 @@ public class Projectile : MonoBehaviour
     /// <param name="position">발사체 생성위치</param>
     /// <param name="parent">발사체의 부모</param>
     /// <returns></returns>
+    /// /*
+    /*
     public Projectile Create(float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
     {
 
@@ -72,15 +75,17 @@ public class Projectile : MonoBehaviour
         //ObjectPool.Instance.PushToPool("ProjectileObj", projectileObject);
 
     }
+*/
 
-
-    public Projectile Create(Vector2 _offset,float _colRadius,float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
+    public Projectile Create(List<string> _tagsString ,Vector2 _offset,float _colRadius,float _angle, float _speed, int _damage, RuntimeAnimatorController _projectileAnimator, string poolItemName, bool _isplayskill, Vector3 position, Transform parent = null)
     {
         GameObject projectileObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
         projectile = projectileObject.transform.GetComponent<Projectile>();
+        projectile.gameObject.SetActive(true);
         projectile.GetComponent<CircleCollider2D>().offset = _offset;
         projectile.GetComponent<CircleCollider2D>().radius = _colRadius;
-        projectile.gameObject.SetActive(true);
+
+        projectile.tagsString = _tagsString;
         projectile.ProjectileInit(_angle, _speed, _damage, _projectileAnimator, _isplayskill, position);
         return projectile;
 
@@ -142,16 +147,22 @@ public class Projectile : MonoBehaviour
     /// <param name="collision"></param>
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals("Player"))
-        {
-            collision.GetComponent<Player>().HPChanged(damage,false,0);
-            if (Reset != null)
-            {
-                StartCoroutine(Reset);
-                Reset = null;
 
+        foreach (string s in tagsString)
+        {
+            Debug.Log(s + "              :" + collision.gameObject.tag);
+            if (collision.gameObject.CompareTag(s))
+            {
+                collision.GetComponent<Player>().HPChanged(damage, false, 0);
+                if (Reset != null)
+                {
+                    StartCoroutine(Reset);
+                    Reset = null;
+
+                }
             }
         }
+       
         if (collision.tag.Equals("Wall") && Reset!=null)
         {
             StartCoroutine(Reset);

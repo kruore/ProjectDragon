@@ -50,7 +50,7 @@ public class Character : MonoBehaviour
     protected bool isAttacking;
     [SerializeField]
     protected bool isWalk;
-    [HideInInspector] public bool isDead;
+    public bool isDead;
     protected bool isHit;
     public bool isSkillActive;
 
@@ -58,8 +58,12 @@ public class Character : MonoBehaviour
 /// 데미지 팝업 변수
 /// </summary>
     protected DamagePopup damagePopup;
+
+    public List<string> projectileTargetList;
+
     protected virtual void Awake()
     {
+        projectileTargetList = new List<string>();
         damagePopup = new DamagePopup();
     }
     protected virtual void Start()

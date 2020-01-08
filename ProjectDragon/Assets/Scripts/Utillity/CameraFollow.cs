@@ -117,6 +117,7 @@ public class CameraFollow : MonoBehaviour
         float timer = 0;
         while (timer <= _duration)
         {
+
             float xRand = Random.RandomRange(-_amount,_amount);
             float yRand = Random.RandomRange(-_amount, _amount);
             transform.localPosition = new Vector3(origin_Pos.x+xRand, origin_Pos.y+yRand, origin_Pos.z);

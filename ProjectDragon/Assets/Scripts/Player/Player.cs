@@ -113,6 +113,8 @@ public class Player : Character
     public int mp= 100;
     public int maxMp = 100;
 
+
+
     public override int HPChanged(int ATK, bool isCritical, int NukBack)
     {
         int original_HP = HP;
@@ -199,7 +201,6 @@ public class Player : Character
             }
         }
     }
-
     public override void Dead()
     {
         base.Dead();
@@ -225,6 +226,7 @@ public class Player : Character
                     for (int a = 0; a < EnemyArray.Count; a++)
                     {
                         TempEnemy = EnemyArray[0];
+                       
                         EnemyArray[a].GetComponent<Monster>().distanceOfPlayer = DistanceCheck(this.GetComponent<Transform>(), EnemyArray[a].GetComponent<Transform>());
                     }
                     for (int a = 0; a < EnemyArray.Count; a++)
@@ -308,6 +310,7 @@ public class Player : Character
     // Start is called before the first frame update
     protected override void Awake()
     {
+        base.Awake();
         //근거리일때
         attackType = AttackType.ShortRange;
         //원거리일때
@@ -323,7 +326,8 @@ public class Player : Character
         CurrentState = State.Idel;
         AtkRangeChanger(6);
         mp= 300;
-        base.Awake();
+
+        projectileTargetList.Add("Enemy");
      //  Database.Inst.playData.hp = 100.0f;
      //   GameManager.Inst.SavePlayerData();
     }
@@ -462,6 +466,8 @@ public class Player : Character
             }
         }
     }
+
+    
     public void CameraShake()
     {
         P_Camera_Shake = Player_camera.Shake(1, 1.0f);

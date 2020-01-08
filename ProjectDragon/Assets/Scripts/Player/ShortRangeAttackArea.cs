@@ -35,7 +35,7 @@ public class ShortRangeAttackArea : MonoBehaviour
     {
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
         My_Angle = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-        m_viewObstacleMask = LayerMask.NameToLayer("Wall");
+        m_viewObstacleMask = LayerMask.GetMask("Wall");
         //battlemanager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
     private void Start()
@@ -85,7 +85,7 @@ public class ShortRangeAttackArea : MonoBehaviour
             Debug.DrawRay(originPos, lookDir * m_viewRadius, Color.green);
             Debug.DrawRay(originPos, horizontalRightDir * m_viewRadius, Color.cyan);
 
-            //FindViewTargets();
+           // FindViewTargets();
         }
     }
     public int Take_Current_Damage()
@@ -110,7 +110,6 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     public Collider2D[] FindViewTargets()
     {
-        
         hitedTargetContainer.Clear();
 
         Vector2 originPos = transform.position;
@@ -118,6 +117,7 @@ public class ShortRangeAttackArea : MonoBehaviour
 
         foreach (Collider2D hitedTarget in hitedTargets)
         {
+            
             Vector2 targetPos = hitedTarget.transform.position;
             Vector2 dir = (targetPos - originPos).normalized;
             Vector2 lookDir = AngleToDirZ(m_viewRotateZ);
@@ -133,14 +133,13 @@ public class ShortRangeAttackArea : MonoBehaviour
                 RaycastHit2D rayHitedTarget = Physics2D.Raycast(originPos, dir, m_viewRadius, m_viewObstacleMask);
                 if (rayHitedTarget)
                 {
+                    Debug.Log(rayHitedTarget.transform.gameObject.name);
                     if (m_bDebugMode)
                         Debug.DrawLine(originPos, rayHitedTarget.point, Color.yellow);
                 }
                 else
                 {
                     hitedTargetContainer.Add(hitedTarget);
-                        Debug.Log("hitedTarget : " + hitedTarget.ToString());
-
                     if (m_bDebugMode)
                         Debug.DrawLine(originPos, targetPos, Color.red);
                     if (hitedTarget.CompareTag("Enemy") || hitedTarget.isActiveAndEnabled == true)
