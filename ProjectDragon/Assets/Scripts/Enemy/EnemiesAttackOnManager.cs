@@ -14,6 +14,7 @@ using UnityEngine;
 public class EnemiesAttackOnManager : MonoBehaviour
 {
 
+
     //Add Animation Event Function 
 
     public void Slime_AttackOn(AnimationEvent evt)

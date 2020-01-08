@@ -139,6 +139,7 @@ public class ShortRangeAttackArea : MonoBehaviour
                 else
                 {
                     hitedTargetContainer.Add(hitedTarget);
+                        Debug.Log("hitedTarget : " + hitedTarget.ToString());
 
                     if (m_bDebugMode)
                         Debug.DrawLine(originPos, targetPos, Color.red);

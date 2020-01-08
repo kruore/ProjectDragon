@@ -90,11 +90,13 @@ public class Room : MonoBehaviour
         Monster[] temp_monsters = transform.GetComponentsInChildren<Monster>();
         foreach (Monster obj in temp_monsters)
         {
+
             monsters.Add(obj.gameObject);
             if (obj.GetComponent<Enemy>() != null)
             {
                 Enemies.Add(obj.gameObject);
             }
+            
         }
     }
 
@@ -127,7 +129,7 @@ public class Room : MonoBehaviour
             else
             {
                 temp_monsters.Add(obj);
-                if (obj.GetComponent<Enemy>() != null)
+                if (obj.CompareTag("Enemy"))
                 {
                     temp_enemies.Add(obj);
                 }
@@ -158,9 +160,10 @@ public class Room : MonoBehaviour
         if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
         {
             monsters.AddRange(_monsters);
-
+            Enemies.AddRange(_monsters);
             //몬스터와 플레이어 계산 다시 해야 하나?
         }
+        StartCoroutine(playerSet.CalculateDistanceWithPlayer());
     }
     #endregion
     /// <summary>
@@ -185,8 +188,8 @@ public class Room : MonoBehaviour
     {
         if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
         {
-            monsters.Add(_monster);
             Enemies.Add(_monster);
+            monsters.Add(_monster);
         }
     }
 

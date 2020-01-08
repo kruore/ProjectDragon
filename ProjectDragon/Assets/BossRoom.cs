@@ -14,7 +14,7 @@ public class BossRoom : MonoBehaviour
             if (roomnumber.Equals(0))
             {
                 collision.transform.position = new Vector3(0, -2f, 0);
-                Boss.GetComponent<Boss_MaDongSeok>().StartBoss(); 
+                Boss.GetComponent<Boss_MaDongSeok>().StartBoss();
             }
             else if (roomnumber.Equals(1))
             {

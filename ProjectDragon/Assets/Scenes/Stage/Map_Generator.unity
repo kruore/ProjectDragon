@@ -1012,6 +1012,7 @@ GameObject:
   - component: {fileID: 470327747}
   - component: {fileID: 470327746}
   - component: {fileID: 470327749}
+  - component: {fileID: 470327750}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1100,6 +1101,32 @@ MonoBehaviour:
   origin_Pos: {x: 0, y: 0, z: 0}
   isShake: 0
   following: 1
+--- !u!61 &470327750
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 470327745}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 14.2, y: 8}
+  m_EdgeRadius: 0
 --- !u!1 &532548155 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 804878521254199921, guid: d9ca20a145676494480da6d75f8116c2,
@@ -1470,6 +1497,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844523810338635260, guid: 41560e8add85e3e47840185a0b6fffbb,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844523809845417482, guid: 41560e8add85e3e47840185a0b6fffbb,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2844523810656275787, guid: 41560e8add85e3e47840185a0b6fffbb,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41560e8add85e3e47840185a0b6fffbb, type: 3}

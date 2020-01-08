@@ -236,6 +236,7 @@ public class Player : Character
                     }
                     if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) <= this.GetComponent<Player>().AtkRange&&!isSkillActive)
                     {
+          
                         if (TempEnemy.GetComponent<Character>().HP > 0)
                         {
                             if (attackType == AttackType.LongRange && joyPad.Pressed == false&&!isSkillActive)

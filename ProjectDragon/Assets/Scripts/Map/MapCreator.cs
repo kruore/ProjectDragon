@@ -68,8 +68,9 @@ public class MapCreator : MonoBehaviour
     //수정 필요함
     private void SettingCreateRegion()
     {
+        //GameManager.Inst.CurrentStage = 3;
         int curStage = GameManager.Inst.CurrentStage;
-        curStage = 1;
+        curStage = 4;
 #if UNITY_EDITOR
         Debug.Log(curStage % 4);
         Debug.Log(curStage / 4);

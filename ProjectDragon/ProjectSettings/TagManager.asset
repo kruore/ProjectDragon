@@ -19,6 +19,11 @@ TagManager:
   - Portal
   - Stone
   - ScreenTransitions
+  - wall
+  - east
+  - south
+  - west
+  - north
   layers:
   - Default
   - TransparentFX
@@ -55,6 +60,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particle
+    uniqueID: 4010669881
     locked: 0
   - name: Enemy
     uniqueID: 1672498235

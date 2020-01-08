@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Animation\Boss\Boss_MaDongSeok\LazerBeam.cs" />
+     <Compile Include="Assets\armDemagecheck.cs" />
      <Compile Include="Assets\BossRoom.cs" />
      <Compile Include="Assets\ConsolePro\ConsoleProDebug.cs" />
      <Compile Include="Assets\ConsolePro\Remote\ConsoleProRemoteServer.cs" />
@@ -207,6 +208,7 @@
      <Compile Include="Assets\Scripts\A_Star\Tile.cs" />
      <Compile Include="Assets\Scripts\A_Star\Unit.cs" />
      <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
+     <Compile Include="Assets\Scripts\Boss\ManaStone.cs" />
      <Compile Include="Assets\Scripts\Character.cs" />
      <Compile Include="Assets\Scripts\DataBase\Database.cs" />
      <Compile Include="Assets\Scripts\DataBase\MonoSingleton.cs" />
