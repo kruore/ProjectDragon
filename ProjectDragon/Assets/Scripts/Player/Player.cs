@@ -131,6 +131,10 @@ public class Player : Character
                 isInvaid = false;
             }
         }
+        else
+        {
+            isInvaid = false;
+        }
         Debug.Log((int)currentATK+"내 체력은 :"+HP);
         //hpBar.fillAmount = (float)HP-currentATK / (float)maxHp;
         if(original_HP>=HP)

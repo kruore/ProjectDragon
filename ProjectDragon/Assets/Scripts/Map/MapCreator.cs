@@ -717,13 +717,17 @@ public class MapCreator : MonoBehaviour
     {
         Transform baseDW = _parent.transform.Find("DoorWall");
         GameObject obj = Instantiate(Resources.Load("Object/" + _direction) as GameObject, baseDW);
+        Door temp = obj.transform.Find("Door").GetComponent<Door>();
+        temp.GetComponent<Animator>().enabled = false;
+        obj.transform.Find("Crack").GetComponent<Crack>().SetRoom(_parent, obj.transform.Find("Door").GetComponent<Door>());
+        
         for(int i = 0; i < 4; i++)
         {
             if (_parent.door_All[i] != null) continue;
 
-            _parent.door_All[i] = obj;
+            _parent.door_All[i] = temp.gameObject;
             _parent.door_All[i].name = _direction;
-            obj.transform.Find("Crack").GetComponent<Crack>().SetRoom(_parent, obj.transform.Find("Door").GetComponent<Door>());
+
             break;
         }
     }

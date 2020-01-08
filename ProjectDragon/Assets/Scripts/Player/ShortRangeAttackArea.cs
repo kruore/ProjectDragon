@@ -175,7 +175,6 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     public void RongAttack_normal()
     {
-        Time.timeScale=0.2f;
         Transform B = this.gameObject.transform;
         pref_Rot = new Vector3(0, 0, 0);
         GameObject A = Instantiate(attack_Pref);

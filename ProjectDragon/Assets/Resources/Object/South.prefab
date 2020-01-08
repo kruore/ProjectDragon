@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2940219128579942720}
   - component: {fileID: 2940219128579942721}
   - component: {fileID: 8555449825863759991}
+  - component: {fileID: 8389689581880880092}
   m_Layer: 0
   m_Name: Door
   m_TagString: Wall
@@ -120,6 +121,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 1
+--- !u!95 &8389689581880880092
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2940219128579942727}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 93be245d54c51b1478c7b080e3c1551f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2940219129382963492
 GameObject:
   m_ObjectHideFlags: 0

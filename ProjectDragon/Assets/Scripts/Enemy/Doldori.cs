@@ -98,20 +98,19 @@ public class Doldori : FSM_NormalEnemy
             if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall")
                 || collision.gameObject.CompareTag("Cliff")|| collision.gameObject.CompareTag("Object"))
             {
-                if (collision.gameObject.CompareTag("Player"))
-                {
-                    Attack_On();
-                }
-
                 if(collision.gameObject.GetComponent<MapObject>() !=null)
                 {
                     collision.gameObject.GetComponent<MapObject>().HpChanged(50);
-                    if(collision.gameObject == gameObject.GetComponent<Box>())
+                    if( collision.gameObject.GetComponent<Box>() != null)
                     {
                         return;
                     }
                 }
-                
+                if (collision.gameObject.CompareTag("Player"))
+                {
+                    Attack_On();
+                }
+  
                 AttackEndCor = AttackEnd();
                 StartCoroutine(AttackEnd());
             }
