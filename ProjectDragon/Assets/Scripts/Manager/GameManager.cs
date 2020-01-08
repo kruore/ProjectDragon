@@ -43,6 +43,7 @@ public class GameManager : MonoSingleton<GameManager>
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
         database.playData.atk_Min = 10;
+        database.playData.currentStage = 2;
     }
 
     private void OnApplicationPause(bool pause)

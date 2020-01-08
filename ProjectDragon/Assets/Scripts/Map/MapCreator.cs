@@ -70,7 +70,7 @@ public class MapCreator : MonoBehaviour
     {
         //GameManager.Inst.CurrentStage = 3;
         int curStage = GameManager.Inst.CurrentStage;
-        curStage = 4;
+        
 #if UNITY_EDITOR
         Debug.Log(curStage % 4);
         Debug.Log(curStage / 4);

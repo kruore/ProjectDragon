@@ -42,6 +42,7 @@ public class Loading : MonoBehaviour
     {
         sceneName = "Map_Generator";
         GameManager.Inst.CurrentStage++;
+
         changedRegion = (GameManager.Inst.CurrentStage % 4 == 1) ? true : false;
 
         Init();
@@ -74,12 +75,14 @@ public class Loading : MonoBehaviour
         }
         else
         {
-            //regionObj.SetActive(false);
+            regionObj.SetActive(false);
         }
     }
 
     void Start()
     {
+        StartCoroutine(screenTransitions.Fade(0.5f, false));
+
         if (changedRegion)
         {
             StartCoroutine(RegionRepresentation());
