@@ -59,7 +59,7 @@ public class CameraFollow : MonoBehaviour
                 if (isdoor)
                 {
                     transform.localPosition = Vector3.Lerp(transform.localPosition, new Vector3(posX, posY, transform.localPosition.z), lerpSpeed);
-                    Debug.Log("Lerp");
+
                 }
                 else transform.localPosition = new Vector3(posX, posY, transform.localPosition.z);
 

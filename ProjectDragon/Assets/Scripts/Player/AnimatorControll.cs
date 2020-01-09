@@ -87,15 +87,7 @@ public class AnimatorControll : MonoBehaviour
     //public AnimationClip animationClip;
     public void LateUpdate()
     {
-        if (Anim_Master.AngleisAttack == false)
-        {
-            temp_name = clearAnimator_name;
-            my_state = Anim_Master.CurrentState;
-            anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
-            ClearAnimator_Name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+ "_" + my_state + "_" + anglepos.ToString();
-            //AngleStringCast(clearAnimator_name);
-        }
-        else if (Anim_Master.AngleisAttack == true)
+        if (Anim_Master.AngleisAttack == true||Anim_Master.isSkillActive)
         {
             temp_name = clearAnimator_name;
             my_state = Anim_Master.CurrentState;
@@ -103,6 +95,14 @@ public class AnimatorControll : MonoBehaviour
             AttackName = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+"_" + my_state + "_" + anglepos.ToString();
             ClearAnimator_Name = AttackName;
            // AngleStringCast(AttackName);
+        }
+        else if (Anim_Master.AngleisAttack == false)
+        {
+            temp_name = clearAnimator_name;
+            my_state = Anim_Master.CurrentState;
+            anglepos = Anim_Master.Current_AngleCaseString(Anim_Master.current_angle);
+            ClearAnimator_Name = "Female_DefaultCloth_"+Anim_Master.attackType.ToString()+ "_" + my_state + "_" + anglepos.ToString();
+            //AngleStringCast(clearAnimator_name);
         }
 
     }

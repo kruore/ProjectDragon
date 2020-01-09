@@ -282,6 +282,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102283962753583312
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Female_DefaultCloth_LongRange_Skill_Back
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 33cd5519ab6807943adef48c97d5fd31, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1102326595672218408
 AnimatorState:
   serializedVersion: 5
@@ -490,6 +516,32 @@ AnimatorState:
   m_MirrorParameter: 
   m_CycleOffsetParameter: 
   m_TimeParameter: 
+--- !u!1102 &1102581117817501262
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Female_DefaultCloth_LongRange_Skill_Left
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 6086eb8ef80e80c4591306015693f544, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
 --- !u!1102 &1102581374145517528
 AnimatorState:
   serializedVersion: 5
@@ -537,6 +589,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 58f882f2f55d57b4e9f1a92f1cce0cde, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &1102671198983903488
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Female_DefaultCloth_LongRange_Skill_Front
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: 3784f2ac711257e4e9620a2760abc77f, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -641,6 +719,32 @@ AnimatorState:
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
   m_Motion: {fileID: 7400000, guid: 888ac712f63d3684c83749897d2b2626, type: 2}
+  m_Tag: 
+  m_SpeedParameter: 
+  m_MirrorParameter: 
+  m_CycleOffsetParameter: 
+  m_TimeParameter: 
+--- !u!1102 &1102753838242429354
+AnimatorState:
+  serializedVersion: 5
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Female_DefaultCloth_LongRange_Skill_Right
+  m_Speed: 1
+  m_CycleOffset: 0
+  m_Transitions: []
+  m_StateMachineBehaviours: []
+  m_Position: {x: 50, y: 50, z: 0}
+  m_IKOnFeet: 0
+  m_WriteDefaultValues: 1
+  m_Mirror: 0
+  m_SpeedParameterActive: 0
+  m_MirrorParameterActive: 0
+  m_CycleOffsetParameterActive: 0
+  m_TimeParameterActive: 0
+  m_Motion: {fileID: 7400000, guid: f561ef4b4bff0a0418859575a397606d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -866,16 +970,16 @@ AnimatorStateMachine:
     m_Position: {x: 264, y: -144, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102397689808968770}
-    m_Position: {x: 299, y: -79, z: 0}
+    m_Position: {x: 636, y: -180, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102966614100955146}
-    m_Position: {x: 334, y: -14, z: 0}
+    m_Position: {x: 600, y: -84, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102259655991485764}
-    m_Position: {x: 369, y: 51, z: 0}
+    m_Position: {x: 852, y: -24, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102537550534176780}
-    m_Position: {x: 404, y: 116, z: 0}
+    m_Position: {x: 816, y: 36, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102717301280934344}
     m_Position: {x: 540, y: 288, z: 0}
@@ -908,7 +1012,7 @@ AnimatorStateMachine:
     m_Position: {x: 568, y: 844, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102378126817231806}
-    m_Position: {x: 603, y: 909, z: 0}
+    m_Position: {x: 600, y: 912, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102256431071661674}
     m_Position: {x: 638, y: 974, z: 0}
@@ -923,13 +1027,25 @@ AnimatorStateMachine:
     m_Position: {x: 743, y: 1169, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102581374145517528}
-    m_Position: {x: 778, y: 1234, z: 0}
+    m_Position: {x: 780, y: 1236, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102189828693911104}
     m_Position: {x: 813, y: 1299, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102064109811411736}
     m_Position: {x: 848, y: 1364, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102671198983903488}
+    m_Position: {x: 888, y: 1428, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102283962753583312}
+    m_Position: {x: 924, y: 1500, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102581117817501262}
+    m_Position: {x: 948, y: 1572, z: 0}
+  - serializedVersion: 1
+    m_State: {fileID: 1102753838242429354}
+    m_Position: {x: 984, y: 1632, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

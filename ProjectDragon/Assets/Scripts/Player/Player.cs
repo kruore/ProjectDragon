@@ -9,6 +9,10 @@ using UnityEngine;
 public enum IsWear { None, DefaultCloth, AnimalCloth, Suit, DefultName, DefaltName2 }
 public class Player : Character
 {
+    //평타 및 스킬
+    
+    public RuntimeAnimatorController[] projectileAnimator;
+
     [SerializeField]
     protected State myState;
 
@@ -223,6 +227,7 @@ public class Player : Character
             {
                 if (EnemyArray.Count > 0)
                 {
+
                     for (int a = 0; a < EnemyArray.Count; a++)
                     {
                         TempEnemy = EnemyArray[0];
@@ -236,9 +241,10 @@ public class Player : Character
                             TempEnemy = EnemyArray[a];
                         }
                     }
+                    this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
+                         
                     if (DistanceCheck(this.GetComponent<Transform>(), TempEnemy.GetComponent<Transform>()) <= this.GetComponent<Player>().AtkRange&&!isSkillActive)
                     {
-          
                         if (TempEnemy.GetComponent<Character>().HP > 0)
                         {
                             if (attackType == AttackType.LongRange && joyPad.Pressed == false&&!isSkillActive)
@@ -246,7 +252,6 @@ public class Player : Character
                                 moveSpeed = 0;
                                 AngleisAttack = true;
                                 this.CurrentState = State.Attack;
-                                this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
                             else if(attackType == AttackType.LongRange && joyPad.Pressed == true&&!isSkillActive)
                             {
@@ -258,7 +263,6 @@ public class Player : Character
                             {
                                 AngleisAttack = true;
                                 this.CurrentState = State.Attack;
-                                this.enemy_angle = GetAngle(TempEnemy.transform.position, this.transform.position);
                             }
                         }
                     }

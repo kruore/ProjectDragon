@@ -150,10 +150,9 @@ public class Projectile : MonoBehaviour
 
         foreach (string s in tagsString)
         {
-            Debug.Log(s + "              :" + collision.gameObject.tag);
             if (collision.gameObject.CompareTag(s))
             {
-                collision.GetComponent<Player>().HPChanged(damage, false, 0);
+                collision.GetComponent<Character>().HPChanged(damage, false, 0);
                 if (Reset != null)
                 {
                     StartCoroutine(Reset);

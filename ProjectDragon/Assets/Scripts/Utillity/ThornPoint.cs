@@ -18,7 +18,8 @@ public class ThornPoint : MonoBehaviour
     int attackDamage = 0;
 
     [SerializeField]
-    GameObject player;
+    GameObject targetObject;
+    public List<string> tagsString;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,17 +28,17 @@ public class ThornPoint : MonoBehaviour
         GetComponent<Animator>().SetFloat("EndTime", projecTileEnd);
     }
     /// <summary>
-    /// 애니메이션 이벤트 함수
+    /// 애니메이션 이벤트 함수 (데미지 주는 프레임에)
     /// </summary>
     public void AttackOn()
     {
-        if ((player != null))
+        if ((targetObject != null))
         {
-            player.GetComponent<Player>().HPChanged(attackDamage,false,0);
+            targetObject.GetComponent<Character>().HPChanged(attackDamage,false,0);
         }
     }
     /// <summary>
-    /// 애니메이션 이벤트 함수
+    /// 애니메이션 이벤트 함수 넣기 (EndAnimation 마지막 프레임에)
     /// </summary>
     public void ResetProjectile()
     {
@@ -46,28 +47,37 @@ public class ThornPoint : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag.Equals("Player"))
+        foreach(string s in tagsString)
         {
-            player = collision.gameObject;
+             if (collision.gameObject.CompareTag(s))
+            {
+                targetObject = collision.gameObject;
+            }
         }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.tag.Equals("Player"))
+         foreach(string s in tagsString)
         {
-            player = null;
+             if (collision.gameObject.CompareTag(s))
+            {
+                targetObject = null;
+            }
         }
     }
 
     
 
-    public ThornPoint Create(int _damage, RuntimeAnimatorController _Animator, string poolItemName, Vector3 position, Transform parent = null)
+    public ThornPoint Create(List<string> tagsStringList , Vector2 colOffset, float colRadius, int _damage, RuntimeAnimatorController _Animator, string poolItemName, Vector3 position, Transform parent = null)
     {
 
         GameObject projectileObject = ObjectPool.Instance.PopFromPool(poolItemName, parent);
         thornPoint = projectileObject.transform.GetComponent<ThornPoint>();
         thornPoint.attackDamage = _damage;
         thornPoint.transform.position = position;
+        thornPoint.tagsString=tagsStringList;
+        thornPoint.GetComponent<CircleCollider2D>().offset = colOffset;
+        thornPoint.GetComponent<CircleCollider2D>().radius = colRadius;
         thornPoint.GetComponent<Animator>().runtimeAnimatorController = _Animator;
         thornPoint.gameObject.SetActive(true);
         thornPoint.GetComponent<Animator>().Play("ProjecTileReady");

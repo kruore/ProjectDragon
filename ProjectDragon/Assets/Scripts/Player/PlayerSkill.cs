@@ -24,7 +24,8 @@ public class PlayerSkill : MonoBehaviour
 
 //Projectile
     Projectile projectile;
-    public RuntimeAnimatorController projectileAnimator;
+    ThornPoint pointProjectile;
+    // public RuntimeAnimatorController[] projectileAnimator;
 
     private void Awake()
     {
@@ -39,6 +40,7 @@ public class PlayerSkill : MonoBehaviour
         co = CoolTime(3);
         sk = SkillDamaged();
         projectile= new Projectile();
+        pointProjectile = new ThornPoint();
         //skill = GameObject.Find("TestSkill").GetComponent<Skill>();
     }
     IEnumerator CoolTime(float cool)
@@ -70,23 +72,35 @@ public class PlayerSkill : MonoBehaviour
     }
     public void OnClick()
     {
-        if(My_Player.mp/10>0)
+        if (My_Player.mp / 10 > 0)
         {
+            My_Player.isSkillActive = true;
+            float _swordAttackangle = My_Player.enemy_angle;
+            if(My_Player.EnemyArray.Count ==0)
+            {
+               _swordAttackangle =My_Player.current_angle;
+            }
             My_Player.MPChanged(5);
 
-float _swordAttackangle = My_Player.AngleisAttack ? My_Player.enemy_angle:My_Player.current_angle;
-
-            //Create Projectile 
-             Vector2 offset = new Vector2(0.0f,0.0f);
-             float radius = 0.1f;
-             projectile.Create(My_Player.projectileTargetList,offset, radius, _swordAttackangle, 3.0f, 10, projectileAnimator, "ProjectileObj", true, My_Player.transform.position);
-
-
+            
+            if(My_Player.attackType==AttackType.ShortRange)
+            {
+                 //Create Projectile 
+                 Vector2 offset = new Vector2(0.0f, 0.0f);
+                  float radius = 0.2f;
+                  projectile.Create(My_Player.projectileTargetList, offset, radius, _swordAttackangle, 3.0f, 17, My_Player.projectileAnimator[0], "ProjectileObj", true, My_Player.transform.position);
+            }
+            else if (My_Player.attackType == AttackType.LongRange)
+            {
+                 Vector2 offset = new Vector2(0.0f, 0.5f);
+                pointProjectile .Create(My_Player.projectileTargetList,offset,0.7f,17,My_Player.projectileAnimator[1],"ThornPoint",My_Player.TempEnemy.transform.position);
+                //Create Projectile 
+                //projectile.Create(My_Player.projectileTargetList, offset, radius, _swordAttackangle, 3.0f, 10, My_Player.projectileAnimator[1], "ProjectileObj", true, My_Player.transform.position);
+            }
             co = CoolTime(3);
             sk = SkillDamaged();
             StartCoroutine(sk);
-            My_Player.isSkillActive = true;
-           // Invoke("PlayerStop",0.5f);
+            // Invoke("PlayerStop",0.5f);
         }
         else
         {

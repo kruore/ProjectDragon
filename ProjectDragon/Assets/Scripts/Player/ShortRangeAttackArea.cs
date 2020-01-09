@@ -25,6 +25,7 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     private float m_horizontalViewHalfAngle = 0f; // 시야각의 절반 값
 
+    private Projectile projectile;
 
 
     [Header("LongRangeAttack")]
@@ -33,6 +34,7 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     private void Awake()
     {
+        projectile = new Projectile();
         m_horizontalViewHalfAngle = m_horizontalViewAngle * 0.5f;
         My_Angle = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         m_viewObstacleMask = LayerMask.GetMask("Wall");
@@ -175,11 +177,17 @@ public class ShortRangeAttackArea : MonoBehaviour
 
     public void RongAttack_normal()
     {
-        Transform B = this.gameObject.transform;
-        pref_Rot = new Vector3(0, 0, 0);
-        GameObject A = Instantiate(attack_Pref);
-        A.transform.parent = B;
-        A.transform.localPosition = pref_Rot;
+        float _swordAttackangle = My_Angle.enemy_angle;
+            if(My_Angle.EnemyArray.Count ==0)
+            {
+               _swordAttackangle =My_Angle.current_angle;
+            }
+        Vector2 offset = new Vector2(0.0f, 0.0f);
+        float radius = 0.5f;
+
+        //수정 예정  projectileTargetList를 데이터베이스에서 이넘으로 받아서 실행할것
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        projectile.Create(My_Angle.projectileTargetList, offset, radius, _swordAttackangle, 3.0f, 10,  My_Angle.projectileAnimator[2], "ProjectileObj", false, My_Angle.transform.position);
     }
     public void AttackCoolDown()
     {

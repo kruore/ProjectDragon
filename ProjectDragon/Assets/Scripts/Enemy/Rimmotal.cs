@@ -224,7 +224,7 @@ public class Rimmotal : Enemy
         {
             if (inAtkDetectionRange)
             {
-                thornPoint.Create(ATTACKDAMAGE, ThornAnimator, "ThornPoint", other.position - new Vector3(0.0f,0.5f,0.0f));
+                thornPoint.Create(projectileTargetList,Vector2.zero,0.35f,ATTACKDAMAGE, ThornAnimator, "ThornPoint", other.position - new Vector3(0.0f,0.5f,0.0f));
                 //thornTargeting.Create(skillDamage, "ThornTargeting", other.position);
                 yield return new WaitForSeconds(2.0f);
             }
