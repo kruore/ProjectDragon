@@ -57,7 +57,7 @@ public class Equipmentcell : UIReuseScrollViewCell
     public void ButtonActive()
     {
         Debug.Log("cellclick");
-
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         bool check = true;
         switch (LobbyManager.inst.lobbystate)
         {

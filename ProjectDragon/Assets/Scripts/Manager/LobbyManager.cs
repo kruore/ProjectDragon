@@ -59,6 +59,7 @@ public class LobbyManager : MonoBehaviour
     {
         GameManager.Inst.name.ToString();
         GameManager.Inst.gameObject.ToString();
+        SoundManager.Inst.Ds_BGMPlayerDB(2);
         LobbyObjectSet();
         LobbyStateInit();
         selectData = -1;
@@ -160,6 +161,10 @@ public class LobbyManager : MonoBehaviour
         EquipStatPanel = equipanel.transform.Find(string.Format("StatBGI")).gameObject;
         FontChangeAll();
     }
+    public void ButtonSound1()
+    {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
+    }
     public void FontChange(UILabel _label,Font _font)
     {
 
@@ -209,13 +214,13 @@ public class LobbyManager : MonoBehaviour
         playerStat.transform.Find("HPCountBG/Label").GetComponent<UILabel>().text = string.Format("{0}/{1}", GameManager.Inst.CurrentHp, GameManager.Inst.MaxHp);
         playerStat.transform.Find("Mana/ManaCountBG/ManaCountLabel").GetComponent<UILabel>().text = Database.Inst.playData.mp.ToString();
 
-        SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
+        //SoundManager.Inst.Ds_BgmPlayer(LobbyBGM);
         itemclassselect = ItemState.기본;
         ItemRarityselect = ItemRarity.기본;
         Selecteditem = new List<int>();
         if (isnight)
         {
-            SoundManager.Inst.Ds_BgmPlayer(fire);
+            //SoundManager.Inst.Ds_BgmPlayer(fire);
             fireobject.SetActive(true);
         }
         else

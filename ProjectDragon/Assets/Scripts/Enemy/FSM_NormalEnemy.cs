@@ -230,13 +230,12 @@ public class FSM_NormalEnemy : Enemy
         int count = 0;
         while (isAttacking&&!isDead)
         {
-            AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
-
             if (!objectAnimator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
             {
                 yield return null;
                 continue;
             }
+            AnimatorClipInfo[] clipInfo = objectAnimator.GetCurrentAnimatorClipInfo(0);
             //Debug.Log(clipInfo[0].clip.name);
 
             float cliptime = clipInfo[0].clip.length;

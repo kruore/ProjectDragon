@@ -10,6 +10,7 @@ public class SoundManager : MonoSingleton<SoundManager>
     public AudioSource Ds_musicSource;//배경음악
     public Slider Ds_soundslider;//옵션.사운드조절바
     public float Ds_volumeRange = 0.5f;//현재사운드 크기
+    int bgmnum=-1;
     public List<AudioClip> Clips=new List<AudioClip>();
     /// <summary>
     /// 초기의 배경음과 이펙스재생을 할 오디오 소스 생성
@@ -31,6 +32,24 @@ public class SoundManager : MonoSingleton<SoundManager>
         Ds_musicSource.clip = _clip;
         Ds_musicSource.Play();
         Ds_musicSource.volume = Ds_volumeRange;
+    }
+    public void Ds_BGMPlayerDB(int _index)
+    {
+        
+        AudioClip BGM=Resources.Load<AudioClip>(GameManager.Inst.LoadSoundQue(_index,true));
+        if(!bgmnum.Equals(_index))
+        {
+            bgmnum=_index;
+        Debug.Log(GameManager.Inst.LoadSoundQue(_index,true));
+        Ds_BgmPlayer(BGM);
+        }
+    }
+    public void Ds_EffectPlayerDB(int _index)
+    {
+        Debug.Log(GameManager.Inst.LoadSoundQue(_index,false));
+        AudioClip Effect=Resources.Load<AudioClip>(GameManager.Inst.LoadSoundQue(_index,false));
+        Debug.Log(Effect.name);
+        Ds_PlaySingle(Effect);
     }
     /// <summary>
     /// 하나의 효과음재생 SoundManager.Inst.PlaySingle(Audio ***);

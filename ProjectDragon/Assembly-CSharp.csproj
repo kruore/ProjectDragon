@@ -53,6 +53,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Animation\Boss\Armhook.cs" />
      <Compile Include="Assets\Animation\Boss\Boss_MaDongSeok\LazerBeam.cs" />
      <Compile Include="Assets\armDemagecheck.cs" />
      <Compile Include="Assets\BossRoom.cs" />

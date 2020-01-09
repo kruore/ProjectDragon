@@ -75,6 +75,22 @@ public class Room : MonoBehaviour
 
     private void OnEnable()
     {
+        switch(roomType)
+        {
+            case RoomType.Hidden:
+            SoundManager.Inst.Ds_BGMPlayerDB(6);
+            break;
+            case RoomType.NPC:
+            SoundManager.Inst.Ds_BGMPlayerDB(5);
+            break;
+            case RoomType.Boss:
+            SoundManager.Inst.Ds_BGMPlayerDB(7);
+            break;
+            default:
+            SoundManager.Inst.Ds_BGMPlayerDB(4);
+            break;
+        }
+
         StartCoroutine(gathering);
     }
     private void OnDisable()

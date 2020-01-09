@@ -486,7 +486,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 49817549}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 12, y: 283, z: 0}
+  m_LocalPosition: {x: 12, y: 282, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 486840907}
@@ -534,7 +534,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 5.7710843
+  aspectRatio: 7.6987953
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -765,7 +765,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 70958787}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -5, z: 0}
+  m_LocalPosition: {x: -0, y: -6, z: 0}
   m_LocalScale: {x: 1.0018017, y: 1.0018017, z: 1.0018017}
   m_Children: []
   m_Father: {fileID: 254092024}
@@ -1019,7 +1019,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3040
+  startingRenderQueue: 3036
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -1095,7 +1095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98025065}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 265, y: -283, z: 0}
+  m_LocalPosition: {x: 265, y: -284, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1939133218}
@@ -1302,7 +1302,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117757685}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 263, y: -347, z: 0}
+  m_LocalPosition: {x: 263, y: -348, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2043644516}
@@ -3102,7 +3102,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 242597388}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -144, y: 105, z: 0}
+  m_LocalPosition: {x: -144, y: 104, z: 0}
   m_LocalScale: {x: 0.9990001, y: 0.9990001, z: 0.9990001}
   m_Children: []
   m_Father: {fileID: 114285396}
@@ -4259,7 +4259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 293610228}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 384, y: -193, z: 0}
+  m_LocalPosition: {x: 384, y: -194, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 1156720625}
@@ -4774,7 +4774,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 323824970}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -121, y: -200, z: 0}
+  m_LocalPosition: {x: -121, y: -201, z: 0}
   m_LocalScale: {x: 1.0008001, y: 1.0008001, z: 1.0008001}
   m_Children:
   - {fileID: 763124515}
@@ -5392,8 +5392,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f1e3ccda61f1f804db52108bd4bc37dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 100
-  mana: 100
 --- !u!1 &415503452
 GameObject:
   m_ObjectHideFlags: 0
@@ -5419,7 +5417,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 415503452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -2, z: 0}
+  m_LocalPosition: {x: -0, y: -3, z: 0}
   m_LocalScale: {x: 0.999, y: 0.999, z: 0.999}
   m_Children:
   - {fileID: 1482599896}
@@ -5466,7 +5464,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.7630854
+  aspectRatio: 1.322314
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -5943,20 +5941,37 @@ MonoBehaviour:
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
---- !u!65 &486840910
-BoxCollider:
+  onClick:
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
+    mParameters: []
+    oneShot: 0
+--- !u!61 &486840910
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 486840906}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 101, y: 101, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 101, y: 101}
+  m_EdgeRadius: 0
 --- !u!1 &493257195
 GameObject:
   m_ObjectHideFlags: 0
@@ -6304,7 +6319,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 527387895}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: -1, z: 0}
+  m_LocalPosition: {x: 1, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1881613297}
@@ -6606,8 +6621,8 @@ GameObject:
   m_Component:
   - component: {fileID: 555049102}
   - component: {fileID: 555049103}
-  - component: {fileID: 555049105}
   - component: {fileID: 555049104}
+  - component: {fileID: 555049105}
   m_Layer: 8
   m_Name: "\uC5E0\uBE14\uB7FC"
   m_TagString: Untagged
@@ -6705,26 +6720,43 @@ MonoBehaviour:
   duration: 0.2
   dragHighlight: 0
   hoverSprite: 
-  pressedSprite: "\uC2A4\uD0AC_\uD074\uB9AD"
+  pressedSprite: 
   disabledSprite: 
   hoverSprite2D: {fileID: 0}
   pressedSprite2D: {fileID: 0}
   disabledSprite2D: {fileID: 0}
   pixelSnap: 0
-  onClick: []
---- !u!65 &555049105
-BoxCollider:
+  onClick:
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
+    mParameters: []
+    oneShot: 0
+--- !u!61 &555049105
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555049101}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 100, y: 100, z: 0}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 100, y: 100}
+  m_EdgeRadius: 0
 --- !u!1 &562850588
 GameObject:
   m_ObjectHideFlags: 0
@@ -7423,7 +7455,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 682978561}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 205, y: -31, z: 0}
+  m_LocalPosition: {x: 205, y: -32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 248303951}
@@ -9644,7 +9676,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 985756741}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12, y: 3, z: 0}
+  m_LocalPosition: {x: -12, y: 4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1634025739}
@@ -10227,7 +10259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1001649375}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 583, y: 323, z: 0}
+  m_LocalPosition: {x: 583, y: 322, z: 0}
   m_LocalScale: {x: 0.9990001, y: 0.9990001, z: 0.9990001}
   m_Children: []
   m_Father: {fileID: 114285396}
@@ -10261,6 +10293,10 @@ MonoBehaviour:
   onClick:
   - mTarget: {fileID: 823988750}
     mMethodName: TouchBackButton
+    mParameters: []
+    oneShot: 0
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
     mParameters: []
     oneShot: 0
 --- !u!61 &1001649378
@@ -10373,7 +10409,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1002866468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 263, y: -194, z: 0}
+  m_LocalPosition: {x: 263, y: -195, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1460543443}
@@ -11460,7 +11496,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1156720624}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: -1, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 293610229}
@@ -12989,6 +13025,10 @@ MonoBehaviour:
     mMethodName: NomalState
     mParameters: []
     oneShot: 0
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
+    mParameters: []
+    oneShot: 0
 --- !u!61 &1311149541
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13468,7 +13508,7 @@ MonoBehaviour:
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 0.78571427
+  aspectRatio: 3.642857
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -13827,7 +13867,7 @@ MonoBehaviour:
   mClipTexture: {fileID: 2800000, guid: 11b54d7977e031f4d8a373bfc28c13a8, type: 3}
   mAlpha: 1
   mClipping: 1
-  mClipRange: {x: -118.58432, y: 4.0273743, z: 792.50214, w: 749.99994}
+  mClipRange: {x: -118.97362, y: 3.2666473, z: 792.41833, w: 749.9999}
   mClipSoftness: {x: 4, y: 4}
   mDepth: 1
   mSortingOrder: 0
@@ -14382,7 +14422,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3040
+  startingRenderQueue: 3036
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -14568,7 +14608,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1513078694}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -6, y: 3, z: 0}
+  m_LocalPosition: {x: -6, y: 2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1425387340}
@@ -14605,14 +14645,14 @@ MonoBehaviour:
   updateAnchors: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
   mPivot: 4
-  mWidth: 800
+  mWidth: 799
   mHeight: 750
   mDepth: 2
   mMat: {fileID: 0}
   autoResizeBoxCollider: 0
   hideIfOffScreen: 0
   keepAspectRatio: 0
-  aspectRatio: 1.0666667
+  aspectRatio: 1.0653334
   mType: 0
   mFillDirection: 4
   mFillAmount: 1
@@ -14809,7 +14849,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3040
+  startingRenderQueue: 3036
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -14839,7 +14879,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1524415689
 Transform:
   m_ObjectHideFlags: 0
@@ -14848,7 +14888,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1524415688}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -121, y: -43, z: 1}
+  m_LocalPosition: {x: -121, y: -44, z: 1}
   m_LocalScale: {x: 1.0007999, y: 1.0007999, z: 1.0007999}
   m_Children:
   - {fileID: 1339564396}
@@ -15114,7 +15154,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526577720}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -605, y: 169, z: 0}
+  m_LocalPosition: {x: -605, y: 168, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2132822391}
@@ -15281,6 +15321,10 @@ MonoBehaviour:
   onClick:
   - mTarget: {fileID: 823988750}
     mMethodName: StatpanelSetup
+    mParameters: []
+    oneShot: 0
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
     mParameters: []
     oneShot: 0
 --- !u!114 &1526577726
@@ -15727,6 +15771,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1584682697}
   - component: {fileID: 1584682698}
+  - component: {fileID: 1584682700}
+  - component: {fileID: 1584682699}
   m_Layer: 8
   m_Name: "\uB3C4\uAC10"
   m_TagString: Untagged
@@ -15784,7 +15830,7 @@ MonoBehaviour:
   mHeight: 100
   mDepth: 3
   mMat: {fileID: 0}
-  autoResizeBoxCollider: 0
+  autoResizeBoxCollider: 1
   hideIfOffScreen: 0
   keepAspectRatio: 0
   aspectRatio: 1
@@ -15805,6 +15851,62 @@ MonoBehaviour:
   mSpriteName: "\uB85C\uBE44UI \uB3C4\uAC10"
   mFixedAspect: 0
   mFillCenter: 1
+--- !u!114 &1584682699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584682696}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdca5042b1d12a4890ec1bd4f04290d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenTarget: {fileID: 1584682696}
+  hover: {r: 0.88235295, g: 0.78431374, b: 0.5882353, a: 1}
+  pressed: {r: 0.7176471, g: 0.6392157, b: 0.48235294, a: 1}
+  disabledColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  duration: 0.2
+  dragHighlight: 0
+  hoverSprite: 
+  pressedSprite: 
+  disabledSprite: 
+  hoverSprite2D: {fileID: 0}
+  pressedSprite2D: {fileID: 0}
+  disabledSprite2D: {fileID: 0}
+  pixelSnap: 0
+  onClick:
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
+    mParameters: []
+    oneShot: 0
+--- !u!61 &1584682700
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1584682696}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 100, y: 100}
+  m_EdgeRadius: 0
 --- !u!1 &1595748847
 GameObject:
   m_ObjectHideFlags: 0
@@ -16140,7 +16242,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1617714387}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1, z: 0}
+  m_LocalPosition: {x: -0, y: -0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1782623143}
@@ -16205,7 +16307,7 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
-  mTexture: {fileID: 2800000, guid: 1825b92491329484a9dded00740be8da, type: 3}
+  mTexture: {fileID: 2800000, guid: bbe4ae5e81070234899bc2bdd2670935, type: 3}
   mShader: {fileID: 4800000, guid: e75727d9555d9d14ca51d91908c681bc, type: 3}
   mBorder: {x: 0, y: 0, z: 0, w: 0}
   mFixedAspect: 0
@@ -18013,20 +18115,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   leftAnchor:
-    target: {fileID: 1617714388}
-    relative: 0.5
+    target: {fileID: 0}
+    relative: 0
     absolute: -361
   rightAnchor:
-    target: {fileID: 1617714388}
-    relative: 0.5
+    target: {fileID: 0}
+    relative: 1
     absolute: 361
   bottomAnchor:
-    target: {fileID: 1617714388}
-    relative: 0.5
+    target: {fileID: 0}
+    relative: 0
     absolute: -640
   topAnchor:
-    target: {fileID: 1617714388}
-    relative: 0.5
+    target: {fileID: 0}
+    relative: 1
     absolute: 641
   updateAnchors: 0
   mColor: {r: 1, g: 1, b: 1, a: 1}
@@ -18052,8 +18154,8 @@ MonoBehaviour:
   rightType: 1
   bottomType: 1
   topType: 1
-  mAtlas: {fileID: 11400000, guid: 9128852880599c1408aacfe031870c24, type: 2}
-  mSpriteName: sword 2
+  mAtlas: {fileID: 11400000, guid: 4da27c1ae7a3f8d43b10f33e71a97eef, type: 2}
+  mSpriteName: "\uC624\uB798\uB41C \uC9C0\uD321\uC774"
   mFixedAspect: 0
   mFillCenter: 1
 --- !u!1 &1791707606
@@ -19397,6 +19499,10 @@ MonoBehaviour:
   onClick:
   - mTarget: {fileID: 823988750}
     mMethodName: GotoBattle
+    mParameters: []
+    oneShot: 0
+  - mTarget: {fileID: 823988750}
+    mMethodName: ButtonSound1
     mParameters: []
     oneShot: 0
 --- !u!61 &1939133221

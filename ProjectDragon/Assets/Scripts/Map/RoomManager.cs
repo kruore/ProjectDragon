@@ -64,6 +64,7 @@ public class RoomManager : MonoBehaviour
 
     private void Start()
     {
+        SoundManager.Inst.Ds_BGMPlayerDB(4);
         StartCoroutine(PlayStart());
     }
 

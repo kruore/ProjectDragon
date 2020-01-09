@@ -24,6 +24,7 @@ public class ManaStone : Monster
         gameObject.SetActive(false);
         if (HP < 0)
         {
+            boss.HPChanged(34, false, 0);
             if (boss.currentstate.Equals(BossState.Phase2))
             {
                 for (int i = 0; i < 4; i++)
@@ -36,7 +37,6 @@ public class ManaStone : Monster
                 }
                 if (!active)
                 {
-                    boss.HPChanged(34, false, 0);
                     boss.Phase2TimeCheckDestory();
                 }
             }
@@ -56,5 +56,9 @@ public class ManaStone : Monster
             gameObject.GetComponent<SpriteRenderer>().material = GetComponentInChildren<FlashWhite>().originalMaterial;
         }
         return base.HPChanged(ATK, isCritical, NukBack);
+    }
+    public void ISDEADTRUE()
+    {
+        isDead=true;
     }
 }

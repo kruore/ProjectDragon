@@ -32,7 +32,7 @@ public class Targetpoint : MonoBehaviour
     }
     public void ProjecTileEnd()
     {
-
+        SoundManager.Inst.Ds_EffectPlayerDB(16);
         Debug.Log(player);
         if (!(player == null))
         {

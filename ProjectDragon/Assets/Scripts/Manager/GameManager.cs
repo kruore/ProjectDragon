@@ -4,10 +4,11 @@
 // Connect between Database and other Classes.
 //
 // 2019-12-26: Change Name DataTransaction to GameManager and Load & Save Method
+// 2020-01-09: Add Sound Table Load Method
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-26
+// UPDATED: 2020-01-09
 // ==============================================================
 
 using System.Collections;
@@ -35,18 +36,14 @@ public class GameManager : MonoSingleton<GameManager>
     private Database database;
     public IDbCommand DEB_dbcmd;
 
-    //사운드 매니저
-    SoundManager soundManager;
     private void Awake()
     {
-        soundManager = SoundManager.Inst;
         ScreensizeReadjust();
         StartCoroutine(DataPhasing());
         database = Database.Inst;
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
-        database.playData.atk_Min = 10;
-        database.playData.currentStage = 2;
+        //database.playData.currentStage=;
     }
 
     private void OnApplicationPause(bool pause)
@@ -342,6 +339,52 @@ public class GameManager : MonoSingleton<GameManager>
 #endif
         }
     }
+
+    /// <summary>
+    /// Get Sound Data Path In Sound Table
+    /// </summary>
+    /// <param name="_num">Table Index</param>
+    /// <param name="isBG">is BackGround Music?</param>
+    /// <returns></returns>
+    public string LoadSoundQue(int _num, bool isBG)
+    {
+        if(_num < 1)
+        {
+            Debug.LogError("LoadSoundQue Method :: Out of Range SoundTable Index!");
+            return string.Empty;
+        }
+
+        //경로 및 쿼리 지정
+        string path = string.Empty;
+        string sqlQuery = string.Empty;
+        if (isBG)
+        {
+            path += "Sound/BGM/";
+            sqlQuery = "SELECT * FROM BGSoundTable WHERE Num = ";
+        }
+        else
+        {
+            path += "Sound/SFX/";
+            sqlQuery = "SELECT * FROM SFXSoundTable WHERE Num = ";
+        }
+        sqlQuery += _num;
+
+        //데이터 read
+        DEB_dbcmd.CommandText = sqlQuery;
+        IDataReader reader = DEB_dbcmd.ExecuteReader();
+
+        reader.Read();
+
+        path += reader.GetString(1);
+
+        //reader close
+        reader.Close();
+        reader = null;
+
+        return path;
+    }
+
+
     #endregion
 
 
@@ -645,13 +688,13 @@ public class GameManager : MonoSingleton<GameManager>
     {
         //ResetInventory();
         //ResetEmblem();
-        database.playData.equiWeapon_InventoryNum = -1;
-        database.playData.equiArmor_InventoryNum = -1;
+        database.playData.equiWeapon_InventoryNum = 0;
+        database.playData.equiArmor_InventoryNum = 1;
 
         database.playData.maxHp = BaseHp;
         database.playData.currentHp = BaseHp;
         database.playData.moveSpeed = 1.0f;
-        database.playData.currentStage = 0;
+        database.playData.currentStage = 2;
         database.playData.mp = 1000;
         database.playData.sex = SEX.Female;
 
@@ -661,7 +704,7 @@ public class GameManager : MonoSingleton<GameManager>
         database.playData.atk_Speed = 0.0f;
         database.playData.nuckBack_Percentage = 0.0f;
         database.playData.nuckBack_Power = 0.0f;
-        //InitializePlayerStat();
+        InitializePlayerStat();
 
         database.playData.resist_Fire = false;
         database.playData.resist_Water = false;
@@ -709,10 +752,14 @@ public class GameManager : MonoSingleton<GameManager>
     /// <summary>
     /// give Basic weapon and armor
     /// </summary>
-    public void GivePlayerBasicItem()
+    public void GivePlayerBasicItem(CLASS _class)
     {
-        database.playData.inventory.Add(new Database.Inventory(database.weapons[0]));
+        int weapon = 0;
+        //if(!_class.Equals(CLASS.검)) weapon = 1;
+
+        database.playData.inventory.Add(new Database.Inventory(database.weapons[weapon]));
         database.playData.inventory.Add(new Database.Inventory(database.armors[0]));
+        InitialPlayData();
     }
     #endregion
 

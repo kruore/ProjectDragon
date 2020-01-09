@@ -162,6 +162,7 @@ public class Player : Character
         base.HPChanged((int)currentATK,isCritical,NukBack);
         HPBar.Player_HP_Changed(HP,maxHp);
         Debug.Log((float)HP / (float)maxHp);
+        SoundManager.Inst.Ds_EffectPlayerDB(4);
         return HP;
     }
     //MP 임시 사용
@@ -325,10 +326,10 @@ public class Player : Character
         playerSex = SEX.Female;
         initializePlayerConverter();
         MoveSpeed = 3.0f;
-        ATKChanger(10);
+        ATKChanger(3);
         ATKSpeedChanger(1.0f);
         CurrentState = State.Idel;
-        AtkRangeChanger(6);
+        AtkRangeChanger(3.5f);
         mp= 300;
 
         projectileTargetList.Add("Enemy");

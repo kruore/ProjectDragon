@@ -71,7 +71,7 @@ public class PlayerSkill : MonoBehaviour
         My_skill_ring.enabled = false;
     }
     public void OnClick()
-    {
+    { SoundManager.Inst.Ds_EffectPlayerDB(12);
         if (My_Player.mp / 10 > 0)
         {
             My_Player.isSkillActive = true;

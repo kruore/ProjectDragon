@@ -106,7 +106,9 @@ public class TitleManager : MonoBehaviour
         Cartoon();
         loginBG = GameObject.Find("LogInScene").GetComponent<TweenAlpha>();
     }
-
+    private void Start() {
+        SoundManager.Inst.Ds_BGMPlayerDB(1);
+    }
     private void Cartoon()
     {
         cartoon = GameObject.Find("CartoonBG").GetComponent<TweenAlpha>();
@@ -124,10 +126,12 @@ public class TitleManager : MonoBehaviour
     {
         nextCutButton.SetActive(false);
         StartCoroutine(translate(cutCount));
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         cutCount++;
     }
     public void Button_LogIn()
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         //구글 로그인 넣는 곳
         loginBG.enabled = true;
     }
@@ -138,25 +142,30 @@ public class TitleManager : MonoBehaviour
     }
     public void Button_Girl()
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         sex = SEX.Female;
         Event_CharactorSelectFade();
     }
     public void Button_Sword()
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         Item_Class = CLASS.검;
         Event_WeaponSelectFade();
     }
     public void Button_Wand()
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         Item_Class = CLASS.지팡이;
         Event_WeaponSelectFade();
     }
     public void Event_CharactorSelectFade()
     {
+        Database.Inst.playData.sex = sex;
         GameObject.Find("CharactorSelectScene").GetComponent<TweenAlpha>().enabled = true;
     }
     public void Event_WeaponSelectFade()
     {
+        GameManager.Inst.GivePlayerBasicItem(Item_Class);
         GameObject.Find("WeaponSelectScene").GetComponent<TweenAlpha>().enabled = true;
     }
     public void Event_Destroy(GameObject _gameObject)
