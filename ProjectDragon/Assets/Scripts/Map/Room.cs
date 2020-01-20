@@ -180,7 +180,14 @@ public class Room : MonoBehaviour
             }
         }
     }
-
+    public void AddMonster(GameObject _monster)
+    {
+        if (!monsters.Count.Equals(0) && roomState.Equals(RoomState.Activate))
+        {
+            monsters.Add(_monster);
+            Enemies.Add(_monster);
+        }
+    }
     //플레이어가 현재 방에 있는게 맞다면 배틀 시작
     void CheckPlayerPos()
     {

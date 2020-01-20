@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
 {
     public DoorName Name;
     private RoomManager RoomManager;
-    private Animator animator;
+    public Animator animator;
     private bool isOpened = false;
 
     private void Awake()

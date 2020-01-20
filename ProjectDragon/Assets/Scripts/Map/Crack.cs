@@ -23,6 +23,7 @@ public class Crack : MonoBehaviour
         if (room.roomState.Equals(RoomState.Clear) && collision.gameObject.CompareTag("Player"))
         {
             door.GetComponent<SpriteRenderer>().sprite = sprite;
+            door.animator.enabled = true;
             Destroy(gameObject, 0.2f);
         }
     }

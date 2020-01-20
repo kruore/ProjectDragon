@@ -401,7 +401,7 @@ public class Database : MonoSingleton<Database>
 
         //스테이지 관련 변수
         public int finalStage = 4;
-        public int currentStage; 
+        public int currentStage = 3; 
 
         //장비 강화 패시브에 의해 변경되는 값들
         public bool resist_Fire;

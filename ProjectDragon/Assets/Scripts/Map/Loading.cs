@@ -42,6 +42,7 @@ public class Loading : MonoBehaviour
     {
         sceneName = "Map_Generator";
         GameManager.Inst.CurrentStage++;
+        Debug.Log(GameManager.Inst.CurrentStage++);
         changedRegion = (GameManager.Inst.CurrentStage % 4 == 1) ? true : false;
 
         Init();
@@ -74,16 +75,18 @@ public class Loading : MonoBehaviour
         }
         else
         {
-            //regionObj.SetActive(false);
+            regionObj.SetActive(false);
         }
     }
 
     void Start()
     {
+        screenTransitions.Fade(1.0f, false);
         if (changedRegion)
         {
             StartCoroutine(RegionRepresentation());
         }
+
         StartCoroutine(LoadSceneAsync());
     }
 
@@ -100,7 +103,7 @@ public class Loading : MonoBehaviour
         player.to = points[2];
         player.PlayForward();
         yield return new WaitForSeconds(1.0f);
-        regionObj.GetComponent<TweenAlpha>().enabled = true;
+        Button_NextScene();
     }
 
     //AsyncLoad

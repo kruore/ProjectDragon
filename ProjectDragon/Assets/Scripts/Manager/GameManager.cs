@@ -4,10 +4,11 @@
 // Connect between Database and other Classes.
 //
 // 2019-12-26: Change Name DataTransaction to GameManager and Load & Save Method
+// 2020-01-09: Add Sound Table Load Method
 //
 //  AUTHOR: Kim Dong Ha
 // CREATED:
-// UPDATED: 2019-12-26
+// UPDATED: 2020-01-09
 // ==============================================================
 
 using System.Collections;
@@ -42,6 +43,8 @@ public class GameManager : MonoSingleton<GameManager>
         database = Database.Inst;
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
+
+        Debug.Log(LoadSoundQue(10, true));
     }
 
     private void OnApplicationPause(bool pause)
@@ -337,6 +340,52 @@ public class GameManager : MonoSingleton<GameManager>
 #endif
         }
     }
+
+    /// <summary>
+    /// Get Sound Data Path In Sound Table
+    /// </summary>
+    /// <param name="_num">Table Index</param>
+    /// <param name="isBG">is BackGround Music?</param>
+    /// <returns></returns>
+    public string LoadSoundQue(int _num, bool isBG)
+    {
+        if(_num < 1)
+        {
+            Debug.LogError("LoadSoundQue Method :: Out of Range SoundTable Index!");
+            return string.Empty;
+        }
+
+        //경로 및 쿼리 지정
+        string path = string.Empty;
+        string sqlQuery = string.Empty;
+        if (isBG)
+        {
+            path += "Sound/BGM/";
+            sqlQuery = "SELECT * FROM BGSoundTable WHERE Num = ";
+        }
+        else
+        {
+            path += "Sound/SFX/";
+            sqlQuery = "SELECT * FROM SFXSoundTable WHERE Num = ";
+        }
+        sqlQuery += _num;
+
+        //데이터 read
+        DEB_dbcmd.CommandText = sqlQuery;
+        IDataReader reader = DEB_dbcmd.ExecuteReader();
+
+        reader.Read();
+
+        path += reader.GetString(1);
+
+        //reader close
+        reader.Close();
+        reader = null;
+
+        return path;
+    }
+
+
     #endregion
 
 
