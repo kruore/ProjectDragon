@@ -43,6 +43,7 @@ public class GUITestScrollView : MonoBehaviour
             if (!cell.Class.Equals(CLASS.갑옷))
             {
                 cell.stat = Database.Inst.weapons[cell.DB_Num].atk_Min;
+                cell.optionnum = Database.Inst.playData.inventory[cell.DB_Num].option_Index;
             }
             else
             {
@@ -68,6 +69,10 @@ public class GUITestScrollView : MonoBehaviour
                 cell.name = inventories[i].name;
                 cell.inventoryNum = inventories[i].num;
                 cell.rarity = inventories[i].rarity;
+                if (!cell.Class.Equals(CLASS.갑옷))
+                {
+                    cell.discription = Database.Inst.weapons[inventories[i].DB_Num].description;
+                }
                 //cell.isLock = inventories[i].isLock;
                 if (!cell.Class.Equals(CLASS.갑옷))
                 {

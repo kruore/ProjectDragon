@@ -16,6 +16,7 @@ public class Equipmentcell : UIReuseScrollViewCell
     }
     public override void UpdateData(IReuseCellData _CellData)
     {
+        Debug.Log("cell");
         EuipmentcellData item = _CellData as EuipmentcellData;
         if (item == null)
             return;
@@ -62,7 +63,19 @@ public class Equipmentcell : UIReuseScrollViewCell
         switch (LobbyManager.inst.lobbystate)
         {
             case LobbyState.Nomal:
-
+                if(!cell.Class.Equals(CLASS.갑옷))
+                {
+                    LobbyManager.inst.BGI.SetActive(true);
+                    GameObject itembgi = LobbyManager.inst.BGI.transform.Find("ItemBGI").gameObject;
+                    itembgi.transform.Find("name").gameObject.GetComponent<UILabel>().text= Database.Inst.weapons[cell.DB_Num].name.ToString();
+                    itembgi.transform.Find("discription").gameObject.GetComponent<UILabel>().text="";
+                    itembgi.transform.Find("rare").gameObject.GetComponent<UILabel>().text= Database.Inst.weapons[cell.DB_Num].rarity.ToString();
+                    itembgi.transform.Find("mindamagenum").gameObject.GetComponent<UILabel>().text=Database.Inst.weapons[cell.DB_Num].atk_Min.ToString();
+                    itembgi.transform.Find("maxdamagenum").gameObject.GetComponent<UILabel>().text= Database.Inst.weapons[cell.DB_Num].atk_Max.ToString();
+                    itembgi.transform.Find("attackspeednum").gameObject.GetComponent<UILabel>().text= Database.Inst.weapons[cell.DB_Num].atk_Speed.ToString();
+                    itembgi.transform.Find("knockbacknum").gameObject.GetComponent<UILabel>().text= Database.Inst.weapons[cell.DB_Num].nuckback_Percentage.ToString();
+                    itembgi.transform.Find("optiondiscription").gameObject.GetComponent<UILabel>().text="";
+                }
                 break;
             #region delete
             //    GameObject Equipanel;
@@ -222,6 +235,19 @@ public class Equipmentcell : UIReuseScrollViewCell
             default:
                 break;
         }
+    }
+    public void SkillActive()
+    {
+        LobbyManager.inst.BGI.SetActive(true);
+        GameObject itembgi = LobbyManager.inst.BGI.transform.Find("ItemBGI").gameObject;
+        itembgi.transform.Find("name").gameObject.GetComponent<UILabel>().text = cell.name;
+        itembgi.transform.Find("discription").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("rare").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("mindamagenum").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("maxdamagenum").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("attackspeednum").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("knockbacknum").gameObject.GetComponent<UILabel>().text = "";
+        itembgi.transform.Find("optiondiscription").gameObject.GetComponent<UILabel>().text = "";
     }
     public void ChangeEquip(GameObject panel, Database.Inventory data, float stat)
     {

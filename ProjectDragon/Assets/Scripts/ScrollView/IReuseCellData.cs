@@ -51,5 +51,10 @@ public interface IReuseCellData
         get;
         set;
     }
+    string discription
+    {
+        get;
+        set;
+    }
 
 }
