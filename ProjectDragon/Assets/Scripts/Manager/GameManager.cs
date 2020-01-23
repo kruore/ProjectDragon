@@ -35,17 +35,15 @@ public class GameManager : MonoSingleton<GameManager>
     //데이터베이스 관련
     private Database database;
     public IDbCommand DEB_dbcmd;
-    //public UILabel debuglabel;
+
     private void Awake()
     {
-        //debuglabel = GameObject.Find("Debug").GetComponent<UILabel>();
-        //debuglabel.text = "";
         ScreensizeReadjust();
+
         StartCoroutine(DataPhasing());
         database = Database.Inst;
         DataBaseConnecting();
         StartCoroutine(LoadAllTableData());
-        //database.playData.currentStage=;
     }
 
     private void OnApplicationPause(bool pause)
@@ -107,26 +105,20 @@ public class GameManager : MonoSingleton<GameManager>
 
     #region Database Connecting
 
-    //현재 파일 중에 DB파일이 없다면 생성
+    //현재 파일 중에 DB파일이 없다면 복사 생성
     IEnumerator DataPhasing()
     {
         string conn;
         if (Application.platform.Equals(RuntimePlatform.Android))
         {
-            //debuglabel.text += "android";
             conn = Application.persistentDataPath + "/DS_Database.sqlite";
-            //debuglabel.text += !File.Exists(conn);
             if (!File.Exists(conn))
             {
-                //debuglabel.text += "FilePhasing";
                 UnityWebRequest unityWebRequest = UnityWebRequest.Get("jar:file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
-                //debuglabel.text += "Uri";
                 unityWebRequest.downloadedBytes.ToString();
-                //debuglabel.text += unityWebRequest.downloadedBytes.ToString();
                 yield return unityWebRequest.SendWebRequest().isDone;
-                //while (!unityWebRequest.SendWebRequest().isDone) { }
                 File.WriteAllBytes(conn, unityWebRequest.downloadHandler.data);
-                //debuglabel.text += "Complete";
+
                 //조금 있으면 사라질 코드 형식입니다.
                 //WWW loadDB = new WWW("jar: file://" + Application.dataPath + "!/assets/" + "DS_Database.sqlite");
                 //loadDB.bytesDownloaded.ToString();
@@ -144,7 +136,6 @@ public class GameManager : MonoSingleton<GameManager>
         if (Application.platform == RuntimePlatform.Android)
         {
             conn = "URI=file:" + Application.persistentDataPath + "/DS_Database.sqlite";
-            
         }
         else
         {
@@ -152,30 +143,23 @@ public class GameManager : MonoSingleton<GameManager>
         }
         IDbConnection dbconn;
         dbconn = (IDbConnection)new SqliteConnection(conn);
-        //debuglabel.text += dbconn.State.ToString();
         dbconn.Open();
-        //debuglabel.text += dbconn.State.ToString();
         DEB_dbcmd = dbconn.CreateCommand();
     }
 
     #endregion
 
+    #region Load&Save
+
     //모든 테이블의 정보를 로드 합니다.
     IEnumerator LoadAllTableData()
     {
-        //debuglabel.text += "!1";
         Load_Weapon_Table();
-        //debuglabel.text += "!2";
         Load_Armor_Table();
-        //debuglabel.text += "!3";
         Load_ActiveSkill_Table();
-        //debuglabel.text += "!4";
         Load_Normal_Monster_Table();
-        //debuglabel.text += "!5";
         Load_Rare_Monster_Table();
-        //debuglabel.text += "!6";
         LoadPlayerData();
-        //debuglabel.text += "!7";
 
         yield return null;
         StopCoroutine(LoadAllTableData());
@@ -196,16 +180,16 @@ public class GameManager : MonoSingleton<GameManager>
     {
         //플레이어 테이블 데이터 저장
         Save_Inventory_Table();
-
         //플레이어 기본 데이터 저장
         Save_PlayerPrefs_Data();
-
         //플레이어의 패시브를 저장
         Save_Emblem_PlayData();
 #if UNITY_EDITOR
         Debug.Log("Save Player Data Complete");
 #endif
     }
+
+    #endregion
 
     public void ResetPlayerData()
     {
@@ -326,11 +310,32 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
-    //public void ParticlePlay(string _path, Vector2 _pos)
-    //{
-    //    GameObject particle = Resources.Load(_path) as GameObject;
-    //    Instantiate(particle, _pos, Quaternion.identity);
-    //}
+    public int CheckingPlayData()
+    {
+        Database.PlayData playData = database.playData;
+        int playState = -1;
+        if(playData.nickName.Equals(string.Empty))
+        {
+            playState = 0;
+        }
+        else if(playData.sex.Equals(SEX.None))
+        {
+            playState = 1;
+        }
+        else
+        {
+            playState = 2;
+        }
+
+        return playState;
+    }
+
+    /// <summary>
+    /// Create the particles you want in the specified location.
+    /// </summary>
+    /// <param name="_path"></param>
+    /// <param name="_pos"></param>
+    /// <returns></returns>
     public IEnumerator ParticlePlay(string _path, Vector2 _pos)
     {
         GameObject particle = Resources.Load(_path) as GameObject;
@@ -385,14 +390,15 @@ public class GameManager : MonoSingleton<GameManager>
             path += "Sound/SFX/";
             sqlQuery = "SELECT * FROM SFXSoundTable WHERE Num = ";
         }
+        //쿼리 완성
         sqlQuery += _num;
 
         //데이터 read
         DEB_dbcmd.CommandText = sqlQuery;
         IDataReader reader = DEB_dbcmd.ExecuteReader();
-
         reader.Read();
 
+        //경로 완성
         path += reader.GetString(1);
 
         //reader close
@@ -706,33 +712,36 @@ public class GameManager : MonoSingleton<GameManager>
     {
         //ResetInventory();
         //ResetEmblem();
-        database.playData.equiWeapon_InventoryNum = 0;
-        database.playData.equiArmor_InventoryNum = 1;
+        Database.PlayData playData = database.playData;
 
-        database.playData.maxHp = BaseHp;
-        database.playData.currentHp = BaseHp;
-        database.playData.moveSpeed = 1.0f;
-        database.playData.currentStage = 2;
-        database.playData.mp = 1000;
-        database.playData.sex = SEX.Female;
+        playData.nickName = string.Empty;
+        playData.equiWeapon_InventoryNum = 0;
+        playData.equiArmor_InventoryNum = 1;
 
-        database.playData.atk_Max = 0;
-        database.playData.atk_Min = 0;
-        database.playData.atk_Range = 0.0f;
-        database.playData.atk_Speed = 0.0f;
-        database.playData.nuckBack_Percentage = 0.0f;
-        database.playData.nuckBack_Power = 0.0f;
+        playData.maxHp = BaseHp;
+        playData.currentHp = BaseHp;
+        playData.moveSpeed = 1.0f;
+        playData.currentStage = 2;
+        playData.mp = 1000;
+        playData.sex = SEX.None;
+
+        playData.atk_Max = 0;
+        playData.atk_Min = 0;
+        playData.atk_Range = 0.0f;
+        playData.atk_Speed = 0.0f;
+        playData.nuckBack_Percentage = 0.0f;
+        playData.nuckBack_Power = 0.0f;
         //InitializePlayerStat();
 
-        database.playData.resist_Fire = false;
-        database.playData.resist_Water = false;
-        database.playData.resist_Poison = false;
-        database.playData.resist_Electric = false;
-        database.playData.attackType_Fire = false;
-        database.playData.attackType_Water = false;
-        database.playData.attackType_Poison = false;
-        database.playData.attackType_Electric = false;
-        database.playData.damage_Reduction = 0.0f;
+        playData.resist_Fire = false;
+        playData.resist_Water = false;
+        playData.resist_Poison = false;
+        playData.resist_Electric = false;
+        playData.attackType_Fire = false;
+        playData.attackType_Water = false;
+        playData.attackType_Poison = false;
+        playData.attackType_Electric = false;
+        playData.damage_Reduction = 0.0f;
     }
 
     //아이템에 의한 능력치 조정
@@ -792,28 +801,18 @@ public class GameManager : MonoSingleton<GameManager>
         {
             InitialPlayData();
 
-            database.playData.currentHp = PlayerPrefs.GetInt("currentHp");
-            database.playData.mp = PlayerPrefs.GetInt("mp");
-            database.playData.sex = (SEX)PlayerPrefs.GetInt("sex");
-            database.playData.moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
-            database.playData.currentStage = PlayerPrefs.GetInt("currentStage");
-            database.playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
-            database.playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
+            Database.PlayData playData = database.playData;
+
+            playData.nickName = PlayerPrefs.GetString("nickName");
+            playData.currentHp = PlayerPrefs.GetInt("currentHp");
+            playData.mp = PlayerPrefs.GetInt("mp");
+            playData.sex = (SEX)PlayerPrefs.GetInt("sex");
+            playData.moveSpeed = PlayerPrefs.GetFloat("moveSpeed");
+            playData.currentStage = PlayerPrefs.GetInt("currentStage");
+            playData.equiWeapon_InventoryNum = PlayerPrefs.GetInt("equiWeapon_InventoryNum");
+            playData.equiArmor_InventoryNum = PlayerPrefs.GetInt("equiArmor_InventoryNum");
 
             InitializePlayerStat();
-            //database.playData.maxHp = PlayerPrefs.GetFloat("hp");
-            //database.playData.damage = PlayerPrefs.GetFloat("damage");
-            //database.playData.attackSpeed = PlayerPrefs.GetFloat("attackSpeed");
-            //database.playData.attackRange = PlayerPrefs.GetFloat("attackRange");
-            // database.playData.nuckBack = PlayerPrefs.GetFloat("nuckBack");
-            //database.playData.resist_Fire = PlayerPrefs.GetInt("resist_Fire").Equals(1) ? true : false;
-            //database.playData.resist_Water = PlayerPrefs.GetInt("resist_Water").Equals(1) ? true : false;
-            //database.playData.resist_Poison = PlayerPrefs.GetInt("resist_Poison").Equals(1) ? true : false;
-            //database.playData.resist_Electric = PlayerPrefs.GetInt("resist_Electric").Equals(1) ? true : false;
-            //database.playData.attackType_Fire = PlayerPrefs.GetInt("attackType_Fire").Equals(1) ? true : false;
-            //database.playData.attackType_Water = PlayerPrefs.GetInt("attackType_Water").Equals(1) ? true : false;
-            //database.playData.attackType_Poison = PlayerPrefs.GetInt("attackType_Poison").Equals(1) ? true : false;
-            //database.playData.attackType_Electric = PlayerPrefs.GetInt("attackType_Electric").Equals(1) ? true : false;
         }
         else
         {
@@ -879,6 +878,7 @@ public class GameManager : MonoSingleton<GameManager>
         Database.PlayData playData = database.playData;
 
         PlayerPrefs.SetInt("save", 1);
+        PlayerPrefs.SetString("nickName", playData.nickName);
         PlayerPrefs.SetInt("currentHp", playData.currentHp);
         PlayerPrefs.SetInt("mp", playData.mp);
         PlayerPrefs.SetInt("sex", (int)playData.sex);
@@ -886,19 +886,7 @@ public class GameManager : MonoSingleton<GameManager>
         PlayerPrefs.SetInt("currentStage", playData.currentStage);
         PlayerPrefs.SetInt("equiWeapon_InventoryNum", playData.equiWeapon_InventoryNum);
         PlayerPrefs.SetInt("equiArmor_InventoryNum", playData.equiArmor_InventoryNum);
-        //PlayerPrefs.SetFloat("maxHp", playData.maxHp);
-        //PlayerPrefs.SetFloat("damage", playData.damage);
-        //PlayerPrefs.SetFloat("attackSpeed", playData.attackSpeed);
-        //PlayerPrefs.SetFloat("attackRange", playData.attackRange);
-        //PlayerPrefs.SetFloat("nuckBack", playData.nuckBack);
-        //PlayerPrefs.SetInt("resist_Fire", playData.resist_Fire ? 1 : 0);
-        //PlayerPrefs.SetInt("resist_Water", playData.resist_Water ? 1 : 0);
-        //PlayerPrefs.SetInt("resist_Poison", playData.resist_Poison ? 1 : 0);
-        //PlayerPrefs.SetInt("resist_Electric", playData.resist_Electric ? 1 : 0);
-        //PlayerPrefs.SetInt("attackType_Fire", playData.attackType_Fire ? 1 : 0);
-        //PlayerPrefs.SetInt("attackType_Water", playData.attackType_Water ? 1 : 0);
-        //PlayerPrefs.SetInt("attackType_Poison", playData.attackType_Poison ? 1 : 0);
-        //PlayerPrefs.SetInt("attackType_Electric", playData.attackType_Electric ? 1 : 0);
+
         PlayerPrefs.Save();
     }
 
