@@ -15,21 +15,38 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    //Database
+    [Header("[Database]")]
     public string nickName;
     public SEX sex;
     public CLASS Item_Class;
 
-    //ScreenTransition
-    public Camera camera;
+    [Header("[ScreenTransition]")]
+    public Camera _camera;
 
+    [Header("[Scenes]")]
     public GameObject mainScene; //메인 화면
     public GameObject nickNameScene; //닉네임 화면
+    public GameObject SelectScene;
 
-    //게임 로고 연출
+    [Header("[GameLogo]")]
     public GameObject gameLogo;
     public UITexture gameLogo_Effect;
     public GameObject gameLogo_Label;
+
+    [Header("[SelectScene]")]
+    string animSex, animWeapon;
+    public GameObject[] selectButton = new GameObject[4]; //0-male, 1-female, 2-sword, 3-wand
+    public GameObject animWindow;
+    public GameObject nextbutton;
+    public Animator playerBody;
+    public Animator playerArm;
+    public Animator playerWeapon;
+    public Texture2D button_Activate;
+    public Texture2D button_DeActivate;
+    public Texture2D animWindow_Activate;
+    public Texture2D animWindow_DeActivate;
+    public Texture2D nextButton_Activate;
+    public Texture2D nextButton_DeActivate;
 
     private void Awake()
     {
@@ -41,7 +58,7 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     private void Initialized()
     {
-        camera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
+        _camera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
         
         #region GameLogo
         mainScene = transform.Find("MainScene").Find("BGImage").gameObject;
@@ -60,6 +77,23 @@ public class TitleManager : MonoBehaviour
         nickNameScene.SetActive(false);
         nickNameScene.transform.Find("NickNameSettingImage").Find("Failed").gameObject.SetActive(false);
         #endregion
+
+        #region SelectScene
+        SelectScene = transform.Find("SelectScene").Find("BGImage").gameObject;
+        animWindow = SelectScene.transform.Find("CharacterAnim").gameObject;
+        nextbutton = SelectScene.transform.Find("NextButton").gameObject;
+        playerBody = animWindow.transform.Find("PlayerAnim").GetComponent<Animator>();
+        playerArm = playerBody.transform.Find("Arm").GetComponent<Animator>();
+        playerWeapon = playerBody.transform.Find("Weapon").GetComponent<Animator>();
+        selectButton[0] = SelectScene.transform.Find("SelectionSex").Find("Male").gameObject;
+        selectButton[1] = SelectScene.transform.Find("SelectionSex").Find("Female").gameObject;
+        selectButton[2] = SelectScene.transform.Find("SelectionWeapon").Find("Sword").gameObject;
+        selectButton[3] = SelectScene.transform.Find("SelectionWeapon").Find("Wand").gameObject;
+
+        playerBody.gameObject.SetActive(false);
+        SelectScene.SetActive(false);
+        nextbutton.GetComponent<BoxCollider>().enabled = false;
+        #endregion
     }
 
     private void Start()
@@ -69,6 +103,12 @@ public class TitleManager : MonoBehaviour
     }
 
     #region Title Main
+    private void Init_Logo()
+    {
+        mainScene.GetComponent<BoxCollider>().enabled = false;
+        gameLogo.SetActive(false);
+        gameLogo_Label.SetActive(false);
+    }
     /// <summary>
     /// Presentation GameLogo
     /// </summary>
@@ -97,7 +137,7 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         mainScene.GetComponent<BoxCollider>().enabled = true;
     }
-
+    //로그인 버튼 - 게임 데이터를 확인하여 어디부터 시작할지 정함
     public void Button_LogIn()
     {
 #if UNITY_EDITOR
@@ -106,7 +146,7 @@ public class TitleManager : MonoBehaviour
 #endif
         gameLogo_Label.SetActive(false);
         SoundManager.Inst.Ds_EffectPlayerDB(1);
-        StartCoroutine(camera.GetComponent<ScreenTransitions>().Fade(2.0f, true));
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(2.0f, true));
 
         switch (GameManager.Inst.CheckingPlayData())
         {
@@ -115,8 +155,10 @@ public class TitleManager : MonoBehaviour
                 StartCoroutine(FirstPlay());
                 break;
             case 1: //플레이중인 데이터가 없을 시
+                StartCoroutine(CharacterSelect());
                 break;
             case 2: //플레이중인 데이터가 있을 시
+                StartCoroutine(GotoLobby());
                 break;
             default:
 #if UNITY_EDITOR
@@ -125,17 +167,35 @@ public class TitleManager : MonoBehaviour
                 break;
         }
     }
+    //게임 처음할때
     private IEnumerator FirstPlay()
     {
         yield return new WaitForSeconds(2.0f);
         mainScene.SetActive(false);
-        StartCoroutine(camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
         nickNameScene.SetActive(true);
+    }
+    //처음은 아닌데 게임 플레이 데이터가 없을때
+    private IEnumerator CharacterSelect()
+    {
+        yield return new WaitForSeconds(2.0f);
+        mainScene.SetActive(false);
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
+        SelectScene.SetActive(true);
+    }
+    //게임 플레이 데이터가 있을때
+    private IEnumerator GotoLobby()
+    {
+        yield return new WaitForSeconds(2.0f);
+        mainScene.SetActive(false);
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
+        SceneManager.LoadScene("Lobby");
     }
     #endregion
 
     #region NickName
 
+    //닉네임 설정후 엔터 눌르면 데이터 확정
     public void NickNameInputSubmit()
     {
 #if UNITY_EDITOR
@@ -144,9 +204,11 @@ public class TitleManager : MonoBehaviour
         UIInput input = nickNameScene.transform.Find("NickNameSettingImage").Find("Input").GetComponent<UIInput>();
         nickName = input.label.text;
     }
-
+    //닉네임이 올바른지 확인
     public void Button_NickNameConfirm()
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
+        NickNameInputSubmit();
 #if UNITY_EDITOR
         Debug.Log("NickName Confirm");
 #endif
@@ -164,163 +226,150 @@ public class TitleManager : MonoBehaviour
                 Debug.Log("NickName Failed");
 #endif
                 nickNameScene.transform.Find("NickNameSettingImage").Find("Failed").gameObject.SetActive(true);
+                //효과음 - 경고음 재생
                 return;
             }
         }
 
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(2.0f, true));
         StartCoroutine(NickNameSucceed());
 #if UNITY_EDITOR
+        Debug.Log(temp);
         Debug.Log("NickName Succeed");
 #endif
     }
+
     private IEnumerator NickNameSucceed()
     {
-        yield return null;
+        yield return new WaitForSeconds(2.0f);
+        nickNameScene.SetActive(false);
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
+        SelectScene.SetActive(true);
     }
-
     public void Button_Close(GameObject gameObject)
     {
+        SoundManager.Inst.Ds_EffectPlayerDB(1);
         gameObject.SetActive(false);
     }
 
     #endregion
+
     #region Character & Weapon Select
-    public void Button_Boy()
+
+    public void Button_Select(GameObject gameObject)
     {
-        sex = SEX.Male;
-        Event_CharactorSelectFade();
-    }
-    public void Button_Girl()
-    {
+        //효과음 재생
         SoundManager.Inst.Ds_EffectPlayerDB(1);
-        sex = SEX.Female;
-        Event_CharactorSelectFade();
-    }
-    public void Button_Sword()
-    {
-        SoundManager.Inst.Ds_EffectPlayerDB(1);
-        Item_Class = CLASS.검;
-        Event_WeaponSelectFade();
-    }
-    public void Button_Wand()
-    {
-        SoundManager.Inst.Ds_EffectPlayerDB(1);
-        Item_Class = CLASS.지팡이;
-        Event_WeaponSelectFade();
-    }
-    #endregion
-
-    public void Event_CharactorSelectFade()
-    {
-        Database.Inst.playData.sex = sex;
-        GameObject.Find("CharactorSelectScene").GetComponent<TweenAlpha>().enabled = true;
-    }
-
-    public void Event_WeaponSelectFade()
-    {
-        GameManager.Inst.GivePlayerBasicItem(Item_Class);
-        GameObject.Find("WeaponSelectScene").GetComponent<TweenAlpha>().enabled = true;
-    }
-
-    public void Event_Destroy(GameObject _gameObject)
-    {
-        Destroy(_gameObject);
-    }
-
-    public void Event_NextScene()
-    {
-        SceneManager.LoadScene("Lobby");
-    }
-
-    //private IEnumerator translate(int _cutCount)
-    //{
-    //    switch (_cutCount)
-    //    {
-    //        case 0:
-    //            uiCamera.rect = new Rect(0.15f, 0.0f, 0.7f, 1.0f);
-    //            StartCoroutine(CameraScaling(1.0f, 0.5f));
-    //            tweenTransform.to = points[0];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 1:
-    //            tweenTransform.to = points[1];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 2:
-    //            tweenTransform.to = points[2];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 3:
-    //            uiCamera.rect = new Rect(0.2f, 0.0f, 0.6f, 1.0f);
-    //            StartCoroutine(CameraScaling(1.0f, 0.6f));
-    //            tweenTransform.to = points[3];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 4:
-    //            tweenTransform.to = points[4];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 5:
-    //            tweenTransform.to = points[5];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 6:
-    //            uiCamera.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-    //            StartCoroutine(CameraScaling(1.0f, 1.0f));
-    //            tweenTransform.to = points[6];
-    //            tweenTransform.PlayForward();
-    //            break;
-    //        case 7:
-    //            cartoon.enabled = true;
-    //            break;
-    //    }
-    //    yield return new WaitForSeconds(1.2f);
-
-    //    if (_cutCount != 7) nextCutButton.SetActive(true);
-    //}
-
-    //private IEnumerator CartoonTransition()
-    //{
-    //    yield return new WaitForSeconds(1.0f);
-    //    uiCamera.rect = new Rect(0.15f, 0.0f, 0.7f, 1.0f);
-    //    StartCoroutine(CameraScaling(1.0f, 0.5f));
-    //    tweenTransform.to = points[0];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    tweenTransform.to = points[1];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    tweenTransform.to = points[2];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    uiCamera.rect = new Rect(0.2f, 0.0f, 0.6f, 1.0f);
-    //    StartCoroutine(CameraScaling(1.0f, 0.6f));
-    //    tweenTransform.to = points[3];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    tweenTransform.to = points[4];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    tweenTransform.to = points[5];
-    //    tweenTransform.PlayForward();
-    //    yield return new WaitForSeconds(2.0f);
-    //    uiCamera.rect = new Rect(0.0f, 0.0f, 1.0f, 1.0f);
-    //    StartCoroutine(CameraScaling(1.0f, 1.0f));
-    //    tweenTransform.to = points[6];
-    //    tweenTransform.PlayForward();
-    //    cartoon.enabled = true;
-    //}
-
-    private IEnumerator CameraScaling(float _transitionTime, float _size)
-    {
-        float time = 0.0f;
-        float size = 0.0f;
-        while (time <= _transitionTime)
+        string anim = string.Empty;
+        //버튼에 따른 데이터 세팅
+        switch (gameObject.name)
         {
-            time += Time.deltaTime;
-            size = Mathf.Lerp(camera.orthographicSize, _size, time * (1.0f / _transitionTime));
-            camera.orthographicSize = size;
-            yield return new WaitForFixedUpdate();
+            case "Male":
+                sex = SEX.Male;
+                Item_Class = CLASS.검;
+                animSex = "Male";
+                animWeapon = "ShortRange";
+                break;
+            case "Female":
+                sex = SEX.Female;
+                Item_Class = CLASS.검;
+                animSex = "Female";
+                animWeapon = "ShortRange";
+                break;
+            case "Sword":
+                Item_Class = CLASS.검;
+                animWeapon = "ShortRange";
+                break;
+            case "Wand":
+                Item_Class = CLASS.지팡이;
+                animWeapon = "LongRange";
+                break;
+        }
+        anim += animSex + "_DefaultCloth_" + animWeapon + "_Idel_Front";
+
+        if(!sex.Equals(SEX.None))
+        {
+            //애니메이션 업데이트
+            animWindow.GetComponent<UITexture>().mainTexture = animWindow_Activate;
+            if(sex.Equals(SEX.Female))
+            {
+                playerBody.Play(anim);
+                playerArm.Play(anim + "_Arm");
+                playerWeapon.Play(anim + "_Weapon");
+                playerBody.gameObject.SetActive(true);
+            }
+            else if(sex.Equals(SEX.Male))
+            {
+                playerBody.gameObject.SetActive(false);
+            }
+            //다음 버튼 활성화
+            nextbutton.GetComponent<UITexture>().mainTexture = nextButton_Activate;
+            nextbutton.GetComponent<BoxCollider>().enabled = true;
+        }
+        //버튼 텍스쳐 초기화
+        foreach (GameObject obj in selectButton)
+        {
+            obj.GetComponent<UITexture>().mainTexture = button_DeActivate;
+        }
+
+        //성별 버튼 선택
+        if (sex.Equals(SEX.Male))
+        {
+            selectButton[0].GetComponent<UITexture>().mainTexture = button_Activate;
+        }
+        else if(sex.Equals(SEX.Female))
+        {
+            selectButton[1].GetComponent<UITexture>().mainTexture = button_Activate;
+        }
+        //무기 버튼 선택
+        if(Item_Class.Equals(CLASS.검))
+        {
+            selectButton[2].GetComponent<UITexture>().mainTexture = button_Activate;
+        }
+        else if(Item_Class.Equals(CLASS.지팡이))
+        {
+            selectButton[3].GetComponent<UITexture>().mainTexture = button_Activate;
         }
     }
+    //selectscene 초기화
+    private void Init_SelectScene()
+    {
+        sex = SEX.None;
+        Item_Class = CLASS.갑옷;
+        foreach (GameObject obj in selectButton)
+        {
+            obj.GetComponent<UITexture>().mainTexture = button_DeActivate;
+        }
+        animWindow.GetComponent<UITexture>().mainTexture = animWindow_DeActivate;
+        nextbutton.GetComponent<UITexture>().mainTexture = nextButton_DeActivate;
+        nextbutton.GetComponent<BoxCollider>().enabled = true;
+        playerBody.gameObject.SetActive(false);
+    }
+    //select scene의 뒤로가기 버튼
+    public void Button_Back()
+    {
+        SelectScene.SetActive(false);
+        //로고 이벤트 초기화
+        Init_Logo();
+        mainScene.SetActive(true);
+        //로고 이벤트 재생
+        StartCoroutine(Presentation_Logo());
+        //선택된 데이터 초기화
+        Init_SelectScene();
+    }
+
+    #endregion
+
+    //private IEnumerator CameraScaling(float _transitionTime, float _size)
+    //{
+    //    float time = 0.0f;
+    //    float size = 0.0f;
+    //    while (time <= _transitionTime)
+    //    {
+    //        time += Time.deltaTime;
+    //        size = Mathf.Lerp(_camera.orthographicSize, _size, time * (1.0f / _transitionTime));
+    //        _camera.orthographicSize = size;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //}
 }
