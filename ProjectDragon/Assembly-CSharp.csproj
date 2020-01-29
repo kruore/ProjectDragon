@@ -212,6 +212,8 @@
     <Compile Include="Assets\Scripts\A_Star\Tracking.cs" />
     <Compile Include="Assets\Scripts\Boss\Boss_MaDongSeok.cs" />
     <Compile Include="Assets\Scripts\Boss\ManaStone.cs" />
+    <Compile Include="Assets\Scripts\Cartoon\CartoonController.cs" />
+    <Compile Include="Assets\Scripts\Cartoon\CartoonData.cs" />
     <Compile Include="Assets\Scripts\Character.cs" />
     <Compile Include="Assets\Scripts\DataBase\Database.cs" />
     <Compile Include="Assets\Scripts\Enemy\Doldori.cs" />
