@@ -26,7 +26,7 @@ public class TitleManager : MonoBehaviour
     [Header("[Scenes]")]
     public GameObject mainScene; //메인 화면
     public GameObject nickNameScene; //닉네임 화면
-    public GameObject SelectScene;
+    public GameObject selectScene;
 
     [Header("[GameLogo]")]
     public GameObject gameLogo;
@@ -48,6 +48,9 @@ public class TitleManager : MonoBehaviour
     public Texture2D nextButton_Activate;
     public Texture2D nextButton_DeActivate;
 
+    [Header("[Cartoon]")]
+    public CartoonController cartoonController;
+
     private void Awake()
     {
         Initialized();
@@ -59,7 +62,9 @@ public class TitleManager : MonoBehaviour
     private void Initialized()
     {
         _camera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
-        
+        cartoonController = transform.Find("Cartoon").GetComponent<CartoonController>();
+        cartoonController.gameObject.SetActive(false);
+        cartoonController.cartoonName = "CartoonCuts";
         #region GameLogo
         mainScene = transform.Find("MainScene").Find("BGImage").gameObject;
         gameLogo = mainScene.transform.Find("GameLogoPanel").gameObject;
@@ -79,21 +84,22 @@ public class TitleManager : MonoBehaviour
         #endregion
 
         #region SelectScene
-        SelectScene = transform.Find("SelectScene").Find("BGImage").gameObject;
-        animWindow = SelectScene.transform.Find("CharacterAnim").gameObject;
-        nextbutton = SelectScene.transform.Find("NextButton").gameObject;
+        selectScene = transform.Find("SelectScene").Find("BGImage").gameObject;
+        animWindow = selectScene.transform.Find("CharacterAnim").gameObject;
+        nextbutton = selectScene.transform.Find("NextButton").gameObject;
         playerBody = animWindow.transform.Find("PlayerAnim").GetComponent<Animator>();
         playerArm = playerBody.transform.Find("Arm").GetComponent<Animator>();
         playerWeapon = playerBody.transform.Find("Weapon").GetComponent<Animator>();
-        selectButton[0] = SelectScene.transform.Find("SelectionSex").Find("Male").gameObject;
-        selectButton[1] = SelectScene.transform.Find("SelectionSex").Find("Female").gameObject;
-        selectButton[2] = SelectScene.transform.Find("SelectionWeapon").Find("Sword").gameObject;
-        selectButton[3] = SelectScene.transform.Find("SelectionWeapon").Find("Wand").gameObject;
+        selectButton[0] = selectScene.transform.Find("SelectionSex").Find("Male").gameObject;
+        selectButton[1] = selectScene.transform.Find("SelectionSex").Find("Female").gameObject;
+        selectButton[2] = selectScene.transform.Find("SelectionWeapon").Find("Sword").gameObject;
+        selectButton[3] = selectScene.transform.Find("SelectionWeapon").Find("Wand").gameObject;
 
         playerBody.gameObject.SetActive(false);
-        SelectScene.SetActive(false);
+        selectScene.SetActive(false);
         nextbutton.GetComponent<BoxCollider>().enabled = false;
         #endregion
+
     }
 
     private void Start()
@@ -181,7 +187,7 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         mainScene.SetActive(false);
         StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
-        SelectScene.SetActive(true);
+        selectScene.SetActive(true);
     }
     //게임 플레이 데이터가 있을때
     private IEnumerator GotoLobby()
@@ -244,7 +250,7 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         nickNameScene.SetActive(false);
         StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
-        SelectScene.SetActive(true);
+        selectScene.SetActive(true);
     }
     public void Button_Close(GameObject gameObject)
     {
@@ -348,7 +354,7 @@ public class TitleManager : MonoBehaviour
     //select scene의 뒤로가기 버튼
     public void Button_Back()
     {
-        SelectScene.SetActive(false);
+        selectScene.SetActive(false);
         //로고 이벤트 초기화
         Init_Logo();
         mainScene.SetActive(true);
@@ -358,6 +364,37 @@ public class TitleManager : MonoBehaviour
         Init_SelectScene();
     }
 
+    public void Button_Confirm()
+    {
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(2.0f, true));
+        StartCoroutine(SelectConfirm());
+    }
+
+    private IEnumerator SelectConfirm()
+    {
+        yield return new WaitForSeconds(2.0f);
+        SavePlayerData();
+        selectScene.SetActive(false);
+#if UNITY_EDITOR
+        Debug.Log(sex.ToString());
+#endif
+        //cartoonController.cartoonName += "_" + sex.ToString();
+        cartoonController.gameObject.SetActive(true);
+        StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
+
+        while (!cartoonController.isCartoonEnd)
+        {
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.0f);
+        SceneManager.LoadScene("Lobby");
+    }
+
+    private void SavePlayerData()
+    {
+
+    }
     #endregion
 
     //private IEnumerator CameraScaling(float _transitionTime, float _size)

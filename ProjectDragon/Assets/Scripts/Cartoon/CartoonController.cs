@@ -15,7 +15,7 @@ using UnityEngine;
 
 public class CartoonController : MonoBehaviour
 {
-    public string cartoonName;
+    public string cartoonName = string.Empty;
     public bool isCartoonEnd = false;
     public float cameraTranslateTime = 1.0f;
     public int cutCount;
@@ -24,19 +24,16 @@ public class CartoonController : MonoBehaviour
     public Camera uiCamera;
     public GameObject nextButton;
     public GameObject prevButton;
+    public GameObject skipButton;
     public GameObject[] cuts;
 
+    public bool isTranslateCamera = false;
     public int currentCut = 0;
-    public float screenX;
-
-    private void Awake()
-    {
-        
-    }
+    public float screenX, screenY;
 
     public void CartoonLoad()
     {
-        if(cartoonName == null)
+        if(cartoonName.Equals(string.Empty))
         {
 #if UNITY_EDITOR
             Debug.Log("cartoonName is null");
@@ -46,40 +43,90 @@ public class CartoonController : MonoBehaviour
         }
 
         GameObject cuts = Instantiate(Resources.Load("Cartoon/" + cartoonName), gameObject.transform) as GameObject;
-#if UNITY_EDITOR
-        Debug.Log(cuts.name);
-#endif      
+        cartoonData = cuts.GetComponent<CartoonData>();
     }
-    private void Start()
+
+    private void OnEnable()
     {
-        uiCamera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
-        cuts = new GameObject[6];
-        for (int i = 0; i < cutCount; i++)
+        if (gameObject.GetComponentsInChildren<Transform>().Length - 1 == 3)
         {
-            cuts[i] = gameObject.transform.Find("Cut" + (i + 1)).gameObject;
+            CartoonLoad();
+            if (gameObject.activeSelf.Equals(false)) return;
         }
 
+        uiCamera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
+        cuts = cartoonData.cuts;
+        cutCount = cartoonData.cutCount;
+
         screenX = GetComponent<UIWidget>().localSize.x;
+        screenY = GetComponent<UIWidget>().localSize.y;
+#if UNITY_EDITOR
+        Debug.Log(screenX);
+        Debug.Log(screenY);
+#endif  
         //nextButton.GetComponent<UITexture>().SetAnchor(uiCamera.transform);
         //prevButton.GetComponent<UITexture>().SetAnchor(uiCamera.transform);
         nextButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
         prevButton.transform.localPosition = cuts[currentCut].transform.localPosition - new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
+        skipButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 150.0f, screenY / 2 - 90.0f, 0.0f);
         prevButton.SetActive(false);
         uiCamera.transform.position = cuts[currentCut].transform.position;
     }
+
+    private void OnDisable()
+    {
+        if (cartoonData != null) Destroy(cartoonData.gameObject);
+    }
+
+    //    private void Start()
+    //    {
+    //        if (gameObject.GetComponentsInChildren<Transform>().Length - 1 == 3)
+    //        {
+    //            CartoonLoad();
+    //            if (gameObject.activeSelf.Equals(false)) return;
+    //        }
+
+    //        uiCamera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
+    //        cuts = cartoonData.cuts;
+    //        cutCount = cartoonData.cutCount;
+    //        //for (int i = 0; i < cutCount; i++)
+    //        //{
+    //        //    cuts[i] = gameObject.transform.Find("Cut" + (i + 1)).gameObject;
+    //        //}
+
+    //        screenX = GetComponent<UIWidget>().localSize.x;
+    //        screenY = GetComponent<UIWidget>().localSize.y;
+    //#if UNITY_EDITOR
+    //        Debug.Log(screenX);
+    //        Debug.Log(screenY);
+    //#endif  
+    //        //nextButton.GetComponent<UITexture>().SetAnchor(uiCamera.transform);
+    //        //prevButton.GetComponent<UITexture>().SetAnchor(uiCamera.transform);
+    //        nextButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
+    //        prevButton.transform.localPosition = cuts[currentCut].transform.localPosition - new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
+    //        skipButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 150.0f, screenY / 2 - 90.0f, 0.0f);
+    //        prevButton.SetActive(false);
+    //        uiCamera.transform.position = cuts[currentCut].transform.position;
+    //    }
 
     public void ResizeButtonPostion()
     {
         nextButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
         prevButton.transform.localPosition = cuts[currentCut].transform.localPosition - new Vector3(screenX / 2 - 100.0f, 0.0f, 0.0f);
+        skipButton.transform.localPosition = cuts[currentCut].transform.localPosition + new Vector3(screenX / 2 - 150.0f, screenY / 2 - 90.0f, 0.0f);
     }
 
     public void Button_NextCut()
     {
+        if (isTranslateCamera)
+        {
+            return;
+        }
+
         currentCut++;
         if(cutCount <= currentCut)
         {
-            currentCut = cutCount;
+            currentCut = cutCount - 1;
             StartCoroutine(CartoonEnding());
         }
         else
@@ -87,10 +134,16 @@ public class CartoonController : MonoBehaviour
             StartCoroutine(TranslateCamera());
         }
 
-        if(0 != currentCut)
+        ResizeButtonPostion();
+
+        if (0 != currentCut)
         {
             prevButton.SetActive(true);
         }
+    }
+    public void Button_Skip()
+    {
+        StartCoroutine(CartoonEnding());
     }
     private IEnumerator CartoonEnding()
     {
@@ -102,20 +155,25 @@ public class CartoonController : MonoBehaviour
 
     public void Button_PreCut()
     {
+        if(isTranslateCamera)
+        {
+            return;
+        }
+
         currentCut--;
         if (0 >= currentCut)
         {
             currentCut = 0;
             prevButton.SetActive(false);
         }
-        else
-        {
-            StartCoroutine(TranslateCamera());
-        }
+
+        StartCoroutine(TranslateCamera());
+        ResizeButtonPostion();
     }
 
     private IEnumerator TranslateCamera()
     {
+        isTranslateCamera = true;
         float time = 0.0f;
         Vector3 pos;
         while (time <= cameraTranslateTime)
@@ -125,6 +183,7 @@ public class CartoonController : MonoBehaviour
             uiCamera.transform.position = pos;
             yield return null;
         }
+        isTranslateCamera = false;
     }
 
     private IEnumerator CameraScaling(float _size)

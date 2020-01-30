@@ -226,7 +226,6 @@ public class GameManager : MonoSingleton<GameManager>
 
     #region 편의성 함수 모음
 
-
     //배틀 - 스테이지 끝나고 맵상의 모든 아이템을 인벤토리에 세팅하기 위한 함수 입니다.
     public void EndGame_Get_Item(List<Database.Weapon> _weapon_List, List<Database.Armor> _armor_List, int _mp = 0)
     {
@@ -310,6 +309,10 @@ public class GameManager : MonoSingleton<GameManager>
         }
     }
 
+    /// <summary>
+    /// Check the Play data and return the status.
+    /// </summary>
+    /// <returns></returns>
     public int CheckingPlayData()
     {
         Database.PlayData playData = database.playData;
@@ -775,9 +778,9 @@ public class GameManager : MonoSingleton<GameManager>
             }
         }
     }
-
+    
     /// <summary>
-    /// give Basic weapon and armor
+    /// give Basic weapon and armor - 임시
     /// </summary>
     public void GivePlayerBasicItem(CLASS _class)
     {

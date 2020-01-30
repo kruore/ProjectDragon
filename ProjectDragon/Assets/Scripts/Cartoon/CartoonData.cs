@@ -9,9 +9,12 @@ public class CartoonData : MonoBehaviour
 
     private void Awake()
     {
-        if(cutCount.Equals(0))
+        if (cutCount.Equals(0))
         {
-            cutCount = gameObject.GetComponentsInChildren<UITexture>().Length;
+            cutCount = gameObject.GetComponentsInChildren<UISprite>().Length;
+#if UNITY_EDITOR
+            Debug.Log(cutCount);
+#endif    
         }
         cuts = new GameObject[cutCount];
 
