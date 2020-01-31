@@ -3,9 +3,11 @@
 // TitleManager
 // All presentation and Load db, login, data checking manager
 // 
+// 2020-01-31: TitleManager Complete
+//
 //  AUTHOR: Kim Dong Ha
 // CREATED: 2020-01-22
-// UPDATED:
+// UPDATED: 2020-01-31
 //===============================================================
 
 using System.Collections;
@@ -64,7 +66,7 @@ public class TitleManager : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
         cartoonController = transform.Find("Cartoon").GetComponent<CartoonController>();
         cartoonController.gameObject.SetActive(false);
-        cartoonController.cartoonName = "CartoonCuts";
+        cartoonController.cartoonName = "Boss1_Clear";
         #region GameLogo
         mainScene = transform.Find("MainScene").Find("BGImage").gameObject;
         gameLogo = mainScene.transform.Find("GameLogoPanel").gameObject;
@@ -125,6 +127,7 @@ public class TitleManager : MonoBehaviour
         yield return new WaitForSeconds(2.0f);
         //GameLogo On
         gameLogo.SetActive(true);
+        SoundManager.Inst.Ds_EffectPlayerDB(7);
         yield return new WaitForSeconds(0.3f);
 
         float playTime = 1.0f;
@@ -210,6 +213,11 @@ public class TitleManager : MonoBehaviour
         UIInput input = nickNameScene.transform.Find("NickNameSettingImage").Find("Input").GetComponent<UIInput>();
         nickName = input.label.text;
     }
+    public void NickNameInputChange()
+    {
+        UIInput input = nickNameScene.transform.Find("NickNameSettingImage").Find("Input").GetComponent<UIInput>();
+        Debug.Log(input.label.text.Length);
+    }
     //닉네임이 올바른지 확인
     public void Button_NickNameConfirm()
     {
@@ -220,12 +228,22 @@ public class TitleManager : MonoBehaviour
 #endif
         string temp = string.Empty;
 
+        if(nickName.Length < 2)
+        {
+#if UNITY_EDITOR
+            Debug.Log("NickName Failed");
+#endif
+            nickNameScene.transform.Find("NickNameSettingImage").Find("Failed").gameObject.SetActive(true);
+            //효과음 - 경고음 재생
+            return;
+        }
+
         foreach(char c in nickName)
         {
             if ('a' <= c && c <= 'z') temp += c;
             else if ('A' <= c && c <= 'Z') temp += c;
             else if ('0' <= c && c <= '9') temp += c;
-            else if (0xAC00 <= c && c <= 0xD7AF) temp += c;
+            else if (0xAC00 <= c && c <= 0xD7A3) temp += c;
             else
             {
 #if UNITY_EDITOR
@@ -393,7 +411,9 @@ public class TitleManager : MonoBehaviour
 
     private void SavePlayerData()
     {
-
+        GameManager.Inst.Sex = sex;
+        GameManager.Inst.PlayData.nickName = nickName;
+        GameManager.Inst.GivePlayerBasicItem(Item_Class);
     }
     #endregion
 

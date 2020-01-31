@@ -169,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 230359682}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 100, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 428549298}
@@ -200,11 +200,11 @@ MonoBehaviour:
   bottomAnchor:
     target: {fileID: 2089925835}
     relative: 0
-    absolute: 0
+    absolute: 100
   topAnchor:
     target: {fileID: 2089925835}
     relative: 1
-    absolute: 0
+    absolute: 100
   updateAnchors: 0
   showInPanelTool: 1
   generateNormals: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3019
+  startingRenderQueue: 3020
   mClipTexture: {fileID: 2800000, guid: 8250cf46cc6b3934ab8407a29596e5e3, type: 3}
   mAlpha: 1
   mClipping: 1
@@ -716,6 +716,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cartoon
       objectReference: {fileID: 0}
+    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
+        type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 1869928596}
+    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
+        type: 3}
+      propertyPath: prevButton
+      value: 
+      objectReference: {fileID: 677720368}
+    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
+        type: 3}
+      propertyPath: skipButton
+      value: 
+      objectReference: {fileID: 833860830875934073}
+    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
+        type: 3}
+      propertyPath: cartoonName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5169367792885928524, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -805,26 +825,6 @@ PrefabInstance:
         type: 3}
       propertyPath: topAnchor.relative
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
-        type: 3}
-      propertyPath: nextButton
-      value: 
-      objectReference: {fileID: 1869928596}
-    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
-        type: 3}
-      propertyPath: prevButton
-      value: 
-      objectReference: {fileID: 677720368}
-    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
-        type: 3}
-      propertyPath: skipButton
-      value: 
-      objectReference: {fileID: 833860830875934073}
-    - target: {fileID: 1904574608827380403, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee,
-        type: 3}
-      propertyPath: cartoonName
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 584101285, guid: aac0d4ca2c41a2a43b7b3ca1719a09ee, type: 3}
       propertyPath: onClick.Array.size
@@ -1485,7 +1485,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3021
+  startingRenderQueue: 3022
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3
@@ -2347,7 +2347,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3023
+  startingRenderQueue: 3024
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 0
@@ -3598,7 +3598,11 @@ MonoBehaviour:
     mMethodName: NickNameInputSubmit
     mParameters: []
     oneShot: 0
-  onChange: []
+  onChange:
+  - mTarget: {fileID: 1744732923}
+    mMethodName: NickNameInputChange
+    mParameters: []
+    oneShot: 0
   mValue: 
 --- !u!65 &1818616460
 BoxCollider:
@@ -3784,7 +3788,7 @@ MonoBehaviour:
   anchorOffset: 0
   softBorderPadding: 1
   renderQueue: 0
-  startingRenderQueue: 3022
+  startingRenderQueue: 3023
   mClipTexture: {fileID: 0}
   mAlpha: 1
   mClipping: 3

@@ -1,4 +1,15 @@
-﻿using System.Collections;
+﻿
+// ==============================================================
+// Cartoon Cut Scenes Data
+// 
+// 2020-01-28: Implement Cut Scenes Structure
+//
+//  AUTHOR: Kim Dong Ha
+// CREATED: 2020-01-27
+// UPDATED: 2020-01-28
+// ==============================================================
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 

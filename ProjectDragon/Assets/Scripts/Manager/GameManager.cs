@@ -785,7 +785,7 @@ public class GameManager : MonoSingleton<GameManager>
     public void GivePlayerBasicItem(CLASS _class)
     {
         int weapon = 0;
-        //if(!_class.Equals(CLASS.검)) weapon = 1;
+        if(!_class.Equals(CLASS.검)) weapon = 1;
 
         database.playData.inventory.Add(new Database.Inventory(database.weapons[weapon]));
         database.playData.inventory.Add(new Database.Inventory(database.armors[0]));
