@@ -66,7 +66,7 @@ public class TitleManager : MonoBehaviour
         _camera = GameObject.FindGameObjectWithTag("ScreenTransitions").GetComponent<Camera>();
         cartoonController = transform.Find("Cartoon").GetComponent<CartoonController>();
         cartoonController.gameObject.SetActive(false);
-        cartoonController.cartoonName = "Boss1_Clear";
+        cartoonController.cartoonName = "Start";
         #region GameLogo
         mainScene = transform.Find("MainScene").Find("BGImage").gameObject;
         gameLogo = mainScene.transform.Find("GameLogoPanel").gameObject;
@@ -396,7 +396,6 @@ public class TitleManager : MonoBehaviour
 #if UNITY_EDITOR
         Debug.Log(sex.ToString());
 #endif
-        //cartoonController.cartoonName += "_" + sex.ToString();
         cartoonController.gameObject.SetActive(true);
         StartCoroutine(_camera.GetComponent<ScreenTransitions>().Fade(1.0f, false));
 
@@ -415,18 +414,6 @@ public class TitleManager : MonoBehaviour
         GameManager.Inst.PlayData.nickName = nickName;
         GameManager.Inst.GivePlayerBasicItem(Item_Class);
     }
-    #endregion
 
-    //private IEnumerator CameraScaling(float _transitionTime, float _size)
-    //{
-    //    float time = 0.0f;
-    //    float size = 0.0f;
-    //    while (time <= _transitionTime)
-    //    {
-    //        time += Time.deltaTime;
-    //        size = Mathf.Lerp(_camera.orthographicSize, _size, time * (1.0f / _transitionTime));
-    //        _camera.orthographicSize = size;
-    //        yield return new WaitForFixedUpdate();
-    //    }
-    //}
+    #endregion
 }
